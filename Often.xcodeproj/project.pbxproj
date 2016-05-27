@@ -850,6 +850,9 @@
 		BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861551CDA9AEC005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF99550C1CF653D50054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
+		BF9955101CF8EDB00054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */; };
+		BF9955131CF8EF600054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
+		BF9955141CF8EF730054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
 		BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971421CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971431CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
@@ -2459,6 +2462,7 @@
 				810EA6401C8579F1005A6C6D /* font_icons8.ttf in Resources */,
 				810EA6411C8579F1005A6C6D /* OpenSans-ExtraBold.ttf in Resources */,
 				810EA6421C8579F1005A6C6D /* OpenSans-Regular.ttf in Resources */,
+				BF9955101CF8EDB00054E770 /* GoogleService-Info.plist in Resources */,
 				3B25C6E31C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				810EA6431C8579F1005A6C6D /* OpenSans-SemiboldItalic.ttf in Resources */,
 			);
@@ -2515,6 +2519,7 @@
 				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3B25C6E11C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
+				BF9955131CF8EF600054E770 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2542,6 +2547,7 @@
 				81DA3F651C24BE85006822D3 /* font_icons8.ttf in Resources */,
 				81DA3F661C24BE85006822D3 /* OpenSans-Semibold.ttf in Resources */,
 				81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				BF9955141CF8EF730054E770 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
