@@ -31,7 +31,11 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.view.backgroundColor =  UIColor(fromHexString: "#E9E9E9")
 
         dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
+            
+        #if !(KEYBOARD_DEBUG)
+            FIRApp.configure()
             FIRDatabase.database().persistenceEnabled = true
+        #endif
             delay(0.5) {
             #if !(KEYBOARD_DEBUG)
                 Fabric.sharedSDK().debug = true

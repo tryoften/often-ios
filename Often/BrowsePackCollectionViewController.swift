@@ -40,8 +40,18 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             self?.collectionView?.reloadData()
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
+        
         view.addSubview(reachabilityView)
         startMonitoring()
+    }
+    
+    func didClickPackLink(notification: NSNotification) {
+        if let id = notification.userInfo!["packid"] as? String {
+            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+            navigationController?.navigationBar.hidden = false
+            navigationController?.pushViewController(packVC, animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -71,6 +81,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
 
     deinit {
         packServiceListener = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
