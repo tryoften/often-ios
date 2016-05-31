@@ -38,7 +38,6 @@ class AppSettingsViewController: UIViewController,
     ]
     
     var aboutSettings = [
-        "FAQ",
         "Terms of Use & Privacy Policy"
     ]
     
@@ -168,8 +167,16 @@ class AppSettingsViewController: UIViewController,
                     let walkthroughViewController = InstallationWalkthroughViewContoller(viewModel: loginViewModel, inAppSetting: true)
 
                     presentViewController(walkthroughViewController, animated: true, completion: nil)
-                case 1: break
-                case 2: launchEmail(self)
+                case 1:
+                    if let url = NSURL(string: "https://itunes.apple.com/us/app/apple-store/id1053313047?mt=8") {
+                        UIApplication.sharedApplication().openURL(url)
+                    }
+
+                case 2:
+                    if let url = NSURL(string: "https://twitter.com/tryoften") {
+                        pushNewAboutViewController(url, title: "support".uppercaseString)
+                    }
+
                 default: break
                 }
 
@@ -177,11 +184,8 @@ class AppSettingsViewController: UIViewController,
                 var link, title: String?
                 switch indexPath.row {
                 case 0:
-                    link = "http://www.tryoften.com/faq.html"
-                    title = aboutSettings[0]
-                case 1:
                     link = "http://www.tryoften.com/privacypolicy.html"
-                    title = aboutSettings[1]
+                    title = aboutSettings[0] 
                 default: break
                 }
 
