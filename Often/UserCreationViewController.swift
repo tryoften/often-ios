@@ -30,16 +30,16 @@ class UserCreationViewController: UIViewController, LoginViewModelDelegate {
             return
         }
 
-        view.endEditing(true)
-
-        let accountStore = ACAccountStore()
-        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
 
         if button.type != .Twitter {
             showHud()
         }
 
-        if let accounts = accountStore.accountsWithAccountType(accountType) where accounts.count > 0 {
+        let accountStore = ACAccountStore()
+
+        if let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter),
+            let accounts = accountStore.accountsWithAccountType(accountType) where accounts.count > 0 {
             if button.type == .Twitter {
                 showHud()
             }
