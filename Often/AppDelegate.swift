@@ -13,6 +13,7 @@ import TwitterKit
 import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
+import FirebaseDynamicLinks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.sharedSDK().debug = true
         Twitter.sharedInstance().startWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         Fabric.with([Crashlytics(), Twitter.sharedInstance()])
+        FIROptions.defaultOptions().deepLinkURLScheme = "com.tryoften.often.master"
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -76,8 +78,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        print(url)
         if url.absoluteString.hasPrefix("fb") {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
+        }
+        
+        if url.absoluteString.containsString("pack/") {
+            guard let id = url.lastPathComponent else {
+                return false
+            }
+            
+            print(id)
+            NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : id])
         }
 
         return false
@@ -128,4 +140,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    @available(iOS 8.0, *)
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        let handled = FIRDynamicLinks.dynamicLinks()?.handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
+            // ...
+        }
+        
+        return handled!
+    }
 }
