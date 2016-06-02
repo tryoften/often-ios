@@ -116,6 +116,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     func togglePack() {
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance)
         packsVC.delegate = self
+        packsVC.textProcessor = textProcessor
         presentViewControllerWithCustomTransitionAnimator(packsVC, direction: .Left, duration: 0.2)
     }
 
@@ -248,6 +249,5 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
         hideLoadingView()
     }
-
 
 }
