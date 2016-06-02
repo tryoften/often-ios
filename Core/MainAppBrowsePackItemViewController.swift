@@ -17,8 +17,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         filterButton = UIButton()
+        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
-
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
             self?.collectionView?.setContentOffset(CGPointZero, animated: true)
@@ -89,7 +89,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         setupImageManager()
         showHud()
         loadPackData()
-
+        
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
     
@@ -132,9 +132,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-
+        
+        let topRightButton = ShareBarButton()
+        topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        
+        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
+        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
+        positionedButtonView.addSubview(topRightButton)
+        
+        let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
+        navigationItem.rightBarButtonItem = topRightBarButton
+        
         updateFilterBar(true)
-
     }
     
     func primaryButtonTapped(sender: UIButton) {
@@ -150,6 +159,19 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                 PacksService.defaultInstance.addPack(pack)
                 button.packState = .Added
             }
+        }
+    }
+    
+    func topRightButtonTapped(sender: UIButton) {
+        if let title = packViewModel.pack?.name {
+            let copyText = "Check out this \(title) keyboard I found on Often!"
+            let shareObjects = [copyText]
+            
+            let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+            
+            activityVC.popoverPresentationController?.sourceView = sender
+            presentViewController(activityVC, animated: true, completion: nil)
         }
     }
     
