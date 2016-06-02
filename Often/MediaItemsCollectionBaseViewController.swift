@@ -159,7 +159,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let imageURL = pack.smallImageURL {
             cell.imageView.nk_setImageWith(imageURL)
         }
-
+        
+        cell.style = .MainApp
         cell.titleLabel.text = pack.name
         cell.itemCount = pack.items_count
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)

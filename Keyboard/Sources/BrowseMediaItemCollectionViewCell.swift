@@ -19,6 +19,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var contentEdgeInsets: UIEdgeInsets
     var addedBadgeView: UIImageView
     var highlightColorBorder: UIView
+    var shareButton: UIButton
 
     var itemCount: Int? {
         didSet {
@@ -28,13 +29,18 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
                                       text: "\(itemCount!) Quotes & Gifs".uppercaseString)
         }
     }
+    
+    var style: BrowseMediaItemCollectionViewCellStyle = .MainApp {
+        didSet {
+            setupCellStyle()
+        }
+    }
 
     override init(frame: CGRect) {
         placeholderImageView = UIImageView()
         placeholderImageView.backgroundColor = VeryLightGray
         placeholderImageView.contentMode = .Center
         placeholderImageView.translatesAutoresizingMaskIntoConstraints = false
-
 
         addedBadgeView = UIImageView(image: StyleKit.imageOfCheckicon(color: TealColor, scale: 0.4))
         addedBadgeView.backgroundColor = WhiteColor
@@ -44,6 +50,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addedBadgeView.layer.shadowOpacity = 0.2
         addedBadgeView.layer.shadowColor = MediumLightGrey.CGColor
         addedBadgeView.layer.shadowOffset = CGSizeMake(0, 1)
+        
+        shareButton = UIButton()
+        shareButton.translatesAutoresizingMaskIntoConstraints = false
+        shareButton.backgroundColor = ClearColor
+        shareButton.setImage(StyleKit.imageOfShareCanvas(scale: 1, color: WhiteColor), forState: .Normal)
 
         var layer = CAShapeLayer()
         layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
@@ -81,16 +92,16 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         contentEdgeInsets = UIEdgeInsets(top: 15, left: 14, bottom: 10, right: 14)
 
         super.init(frame: frame)
-
-        backgroundColor = UIColor.whiteColor()
+        
         addSubview(placeholderImageView)
-
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(addedBadgeView)
         addSubview(highlightColorBorder)
+        addSubview(shareButton)
 
+        backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 2.0
         self.layer.shadowColor = UIColor.blackColor().CGColor
         self.layer.shadowOpacity = 0.14
@@ -98,6 +109,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = 1
 
         selected = false
+        style = .MainApp
         setupLayout()
 
         let width: CGFloat = self.frame.size.width
@@ -141,6 +153,11 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             addedBadgeView.al_height == addedBadgeView.al_width,
             addedBadgeView.al_right == al_right - 12,
             addedBadgeView.al_top == al_top + 96,
+            
+            shareButton.al_width == 30,
+            shareButton.al_height == shareButton.al_width,
+            shareButton.al_top == al_top + 5,
+            shareButton.al_right == al_right - 5,
 
             placeholderImageView.al_width == imageView.al_width,
             placeholderImageView.al_height == imageView.al_height,
@@ -161,6 +178,17 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             subtitleLabel.al_width == titleLabel.al_width
         ])
     }
+    
+    func setupCellStyle() {
+        switch style {
+        case .Keyboard:
+            addedBadgeView.hidden = true
+            shareButton.hidden = false
+        case .MainApp:
+            addedBadgeView.hidden = false
+            shareButton.hidden = true
+        }
+    }
 
     class func drawImageMask(frame frame: CGRect = CGRectMake(0, 0, ArtistCollectionViewCellWidth, ArtistCollectionViewCellWidth)) -> UIBezierPath {
         //// path Drawing
@@ -178,5 +206,10 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         
         return path
     }
-}
 
+    enum BrowseMediaItemCollectionViewCellStyle {
+        case Keyboard
+        case MainApp
+    }
+    
+}
