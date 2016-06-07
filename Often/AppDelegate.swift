@@ -11,6 +11,9 @@ import Fabric
 import Crashlytics
 import TwitterKit
 import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
+import FirebaseDynamicLinks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,7 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.rootViewController = mainController
             window.makeKeyAndVisible()
         }
-        
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotificaiton),
+                                                         name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+
         return true
     }
     
@@ -61,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         installation.channels = ["global"]
         installation.saveInBackground()
     }
+    
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
          PFPush.handlePush(userInfo)
@@ -94,6 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
+        FIRMessaging.messaging().disconnect()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -102,18 +110,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(application: UIApplication) {
         FBSDKAppEvents.activateApp()
+        connectToFcm()
     }
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
+                     fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+
+    }
+
+    func tokenRefreshNotificaiton(notification: NSNotification) {
+        let refreshedToken = FIRInstanceID.instanceID().token()
+
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
+    }
+
+    func connectToFcm() {
+        FIRMessaging.messaging().connectWithCompletion { (error) in
+            if (error != nil) {
+                print("Unable to connect with FCM. \(error)")
+            } else {
+                print("Connected to FCM.")
+            }
+        }
+    }
+
+
     @available(iOS 8.0, *)
     func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
         let handled = FIRDynamicLinks.dynamicLinks()?.handleUniversalLink(userActivity.webpageURL!) { (dynamiclink, error) in
             // ...
         }
-        
         
         return handled!
     }

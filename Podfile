@@ -14,12 +14,13 @@ def base_deps
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
+  pod 'Firebase/Messaging'
 end
 
 target 'Often' do
   base_deps
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
-  pod 'Facebook-iOS-SDK' 
+  pod 'Facebook-iOS-SDK'
 end
 
 target 'Keyboard' do
