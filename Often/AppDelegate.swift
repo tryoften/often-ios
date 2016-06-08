@@ -31,6 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Flurry.startSession(FlurryClientKey)
+        application.applicationIconBadgeNumber = 0
+
+        if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
+            UIApplication.sharedApplication().openURL(URL)
+        }
 
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
