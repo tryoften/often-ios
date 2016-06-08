@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PushNotificationAlertViewController: AlertViewViewController {
+class PushNotificationAlertViewController: AlertViewController {
 
     override init(alertView: AlertView.Type = PushNotifcationAlertView.self) {
         super.init(alertView: alertView)
