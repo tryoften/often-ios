@@ -1,5 +1,5 @@
 //
-//  AlertViewViewController.swift
+//  AlertViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 6/2/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AlertViewViewController: UIViewController {
+class AlertViewController: UIViewController {
     var backgroundTintView: UIView
     var alertView: AlertView
 
@@ -83,7 +83,7 @@ class AlertViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        alertView.actionButton.addTarget(self, action: #selector(AlertViewViewController.dismissView), forControlEvents: .TouchUpInside)
+        alertView.actionButton.addTarget(self, action: #selector(AlertViewController.dismissView), forControlEvents: .TouchUpInside)
     }
 
     func dismissView() {
