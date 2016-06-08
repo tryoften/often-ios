@@ -24,6 +24,8 @@ class SessionManagerFlags {
         static var keyboardSearchBarToolTips = "searchBarTool"
         static var keyboardInstallWalkthrough = "keyboardInstallWalkthrough"
         static var userNotificationSettings = "userNotificationSettings"
+        static var userHasSeenPushNotificationView = "userHasSeenPushNotificationView"
+        static var pushNotificationShownCount = "pushNotificationShownCount"
         static var lastPack = "pack"
         static var lastCategory = "category"
         static var lastFilterType = "filter"
@@ -86,6 +88,26 @@ class SessionManagerFlags {
         
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.messageSentCount)
+        }
+    }
+
+    var userHasSeenPushNotificationView: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.userHasSeenPushNotificationView)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userHasSeenPushNotificationView)
+        }
+    }
+
+    var pushNotificationShownCount: Int {
+        get {
+            return userDefaults.integerForKey(SessionManagerPropertyKey.pushNotificationShownCount)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.pushNotificationShownCount)
         }
     }
 
@@ -179,10 +201,20 @@ class SessionManagerFlags {
     func clearSessionFlags() {
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userID)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userEmail)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.messageSentCount)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.openSession)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.keyboardOpen)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.anonymousUser)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.keyboardGeneralToolTips)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.keyboardInstallWalkthrough)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userNotificationSettings)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userHasSeenPushNotificationView)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.pushNotificationShownCount)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastPack)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastCategory)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastFilterType)
+
         userDefaults.synchronize()
     }
     
