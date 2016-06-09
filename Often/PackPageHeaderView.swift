@@ -27,11 +27,11 @@ class PackPageHeaderView: MediaItemPageHeaderView {
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         super.init(frame: frame)
 
         subtitleLabel.numberOfLines = 2
-
+        
         addSubview(primaryButton)
         addSubview(tabContainerView)
     }

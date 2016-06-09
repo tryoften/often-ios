@@ -159,7 +159,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if let imageURL = pack.smallImageURL {
             cell.imageView.nk_setImageWith(imageURL)
         }
-
+        
+        cell.style = .MainApp
         cell.titleLabel.text = pack.name
         cell.itemCount = pack.items_count
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
@@ -339,8 +340,24 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         #if !(KEYBOARD)
-            DropDownErrorMessage().setMessage("Copied GIF!".uppercaseString,
-                subtitle: result.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+                Nuke.taskWith(url) {
+                    if let image = $0.image as? AnimatedImage, let data = image.data {
+                        UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                        let shareObjects = [image]
+                        
+                        let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+                        
+                        activityVC.popoverPresentationController?.sourceView = self.view
+                        self.presentViewController(activityVC, animated: true, completion: nil)
+                    }
+                    }.resume()
+                
+            } else {
+                UIPasteboard.generalPasteboard().string = result.getInsertableText()
+            }
+            
         #endif
         }
     }
