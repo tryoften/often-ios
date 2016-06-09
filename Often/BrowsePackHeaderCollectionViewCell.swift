@@ -13,6 +13,15 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
     var artistImage: UIImageView
     var confirmView: UIImageView
     var shadowLayer: CAShapeLayer
+
+    private var artistImageLeftAndRightMargin: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 20
+        }
+        
+        return 0
+    }
+
     
     override init(frame: CGRect) {
         placeholderImage = UIImageView()
@@ -89,13 +98,13 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         addConstraints([
             placeholderImage.al_centerX == al_centerX,
             placeholderImage.al_centerY == al_centerY,
-            placeholderImage.al_width == al_width,
-            placeholderImage.al_height == al_height,
+            placeholderImage.al_width == al_width - artistImageLeftAndRightMargin,
+            placeholderImage.al_height == al_height - artistImageLeftAndRightMargin ,
             
             artistImage.al_centerX == al_centerX,
             artistImage.al_centerY == al_centerY,
-            artistImage.al_width == al_width,
-            artistImage.al_height == al_height,
+            artistImage.al_width == al_width - artistImageLeftAndRightMargin,
+            artistImage.al_height == al_height - artistImageLeftAndRightMargin,
             
             confirmView.al_centerX == al_centerX,
             confirmView.al_centerY == al_centerY,
