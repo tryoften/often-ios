@@ -167,8 +167,15 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
 
     func promptUserToRegisterPushNotifications() {
-        UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
-        UIApplication.sharedApplication().registerForRemoteNotifications()
+        if let user = SessionManager.defaultManager.currentUser {
+            if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
+                let AlertVC = PushNotificationAlertViewController()
+                AlertVC.transitioningDelegate = self
+                AlertVC.modalPresentationStyle = .Custom
+                presentViewController(AlertVC, animated: true, completion: nil)
+
+            }
+        }
     }
 
     // Empty States button actions

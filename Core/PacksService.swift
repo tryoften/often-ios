@@ -117,7 +117,7 @@ class PacksService: PackItemViewModel {
         FIRMessaging.messaging().subscribeToTopic("/topics/\(pack.id)")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.addUniqueObject(pack.id, forKey: "channels")
+        currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
         currentInstallation.saveInBackground()
     }
 
@@ -127,7 +127,7 @@ class PacksService: PackItemViewModel {
         FIRMessaging.messaging().unsubscribeFromTopic("/topics/\(pack.id)")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.removeObject(pack.id, forKey: "channels")
+        currentInstallation.removeObject("p\(pack.id)", forKey: "channels")
         currentInstallation.saveInBackground()
     }
 

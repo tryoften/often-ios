@@ -23,6 +23,7 @@ class User: NSObject {
     var favoritesPackId: String = ""
     var recentsPackId: String = ""
     var shareCount: Int = 0
+    var pushNotificationStatus: Bool = false
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -88,6 +89,11 @@ class User: NSObject {
 
         if let shareCount = keyedValues["shareCount"] as? Int {
             self.shareCount = shareCount
+        }
+
+        if let pushNotificationStatus = keyedValues["pushNotificationStatus"] as? Bool {
+            self.pushNotificationStatus = pushNotificationStatus
+            SessionManagerFlags.defaultManagerFlags.userNotificationSettings = pushNotificationStatus
         }
 
         setupCrashlytics()
