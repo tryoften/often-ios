@@ -33,10 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Flurry.startSession(FlurryClientKey)
         application.applicationIconBadgeNumber = 0
 
-        if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
-            UIApplication.sharedApplication().openURL(URL)
-        }
-
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 
@@ -62,6 +58,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.tokenRefreshNotificaiton),
                                                          name: kFIRInstanceIDTokenRefreshNotification, object: nil)
+
+        if let URL = launchOptions?[UIApplicationLaunchOptionsURLKey] as? NSURL {
+            delay(1) {
+                UIApplication.sharedApplication().openURL(URL)
+            }
+        }
 
         return true
     }
