@@ -16,9 +16,9 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
 
     private var artistImageLeftAndRightMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
-            return 20
+            return 35
         }
-        
+
         return 0
     }
 
