@@ -8,6 +8,9 @@
 
 import Foundation
 import Firebase
+import FirebaseMessaging
+import FirebaseInstanceID
+
 
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
@@ -110,10 +113,22 @@ class PacksService: PackItemViewModel {
 
     func addPack(pack: PackMediaItem) {
         sendTask("add", result: pack)
+
+        FIRMessaging.messaging().subscribeToTopic("/topics/\(pack.id)")
+
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
+        currentInstallation.saveInBackground()
     }
 
     func removePack(pack: PackMediaItem) {
         sendTask("remove", result: pack)
+
+        FIRMessaging.messaging().unsubscribeFromTopic("/topics/\(pack.id)")
+
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.removeObject("p\(pack.id)", forKey: "channels")
+        currentInstallation.saveInBackground()
     }
 
     func checkPack(result: MediaItem) -> Bool {

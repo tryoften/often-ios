@@ -8,10 +8,8 @@
 
 import UIKit
 
-class RootViewController: UITabBarController {
+class RootViewController: UITabBarController, UIViewControllerTransitioningDelegate {
     let sessionManager = SessionManager.defaultManager
-    var visualEffectView: UIView
-    var alertView: AlertView
 
     private var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -28,14 +26,7 @@ class RootViewController: UITabBarController {
     }
     
     init() {
-        visualEffectView = UIView(frame: UIScreen.mainScreen().bounds)
-        visualEffectView.backgroundColor = BlackColor
-        visualEffectView.alpha = 0.74
 
-        alertView = AlertView()
-        alertView.translatesAutoresizingMaskIntoConstraints = false
-        alertView.layer.cornerRadius = 5.0
-        
         super.init(nibName: nil, bundle: nil)
         
         styleTabBar()
@@ -49,7 +40,7 @@ class RootViewController: UITabBarController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         delay(0.3) {
-            self.showMajorKeyAlert()
+            self.showAlert()
         }
     }
     
@@ -57,33 +48,17 @@ class RootViewController: UITabBarController {
         return UIStatusBarAnimation.Fade
     }
 
-    func showMajorKeyAlert() {
+    func showAlert() {
         if SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
             PKHUD.sharedHUD.hide(animated: true)
-            
-            alertView.actionButton.addTarget(self, action: #selector(RootViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+            let AlertVC = AlertViewController()
 
-            view.addSubview(visualEffectView)
-            view.addSubview(alertView)
-            view.addConstraints([
-                alertView.al_centerX == view.al_centerX,
-                alertView.al_centerY == view.al_centerY,
-                alertView.al_top == view.al_top + alertViewTopAndBottomMargin,
-                alertView.al_bottom == view.al_bottom - alertViewTopAndBottomMargin,
-                alertView.al_right == view.al_right - alertViewLeftAndRightMargin,
-                alertView.al_left == view.al_left + alertViewLeftAndRightMargin,
-            ])
-
-            alertView.animate()
-            
+            AlertVC.transitioningDelegate = self
+            AlertVC.modalPresentationStyle = .Custom
+            presentViewController(AlertVC, animated: true, completion: nil)
         }
     }
 
-    func actionButtonDidTap(sender: UIButton) {
-        alertView.removeFromSuperview()
-        visualEffectView.removeFromSuperview()
-        SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough = false
-    }
 
     func styleTabBar() {
         tabBar.backgroundColor = WhiteColor
@@ -130,5 +105,15 @@ class RootViewController: UITabBarController {
         ]
         
         selectedIndex = 0
+    }
+
+    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadeInTransitionAnimator(presenting: true)
+    }
+
+    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        let animator = FadeInTransitionAnimator(presenting: false)
+
+        return animator
     }
 }

@@ -96,9 +96,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             addSubview(disclosureIndicator)
             break
         case .Switch:
-            settingSwitch.addTarget(self, action: "switchToggled:", forControlEvents: .TouchUpInside)
-            settingSwitch.on = UIApplication.sharedApplication().isRegisteredForRemoteNotifications()
-
             addSubview(titleLabel)
             addSubview(settingSwitch)
             break
@@ -125,17 +122,6 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-    }
-    
-    //MARK: UISwitch
-    func switchToggled(sender: UISwitch) {
-        settingSwitch.on = !settingSwitch.selected
-         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = sender.on
-
-        if sender.on {
-            UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
-            UIApplication.sharedApplication().registerForRemoteNotifications()
-        }
     }
     
     //MARK: UITextFieldDelegate

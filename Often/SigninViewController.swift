@@ -52,9 +52,11 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     }
 
     func didTapcancelButton(sender: UIButton) {
-        self.view.endEditing(true)
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+
         dismissViewControllerAnimated(true, completion: nil)
     }
+
     
     func setupLayout() {
         let constraints: [NSLayoutConstraint] = [
@@ -85,7 +87,7 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
 
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

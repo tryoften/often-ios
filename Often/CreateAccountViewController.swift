@@ -48,7 +48,8 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     func didTapCancelButton(sender: UIButton) {
-        self.view.endEditing(true)
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+
         dismissViewControllerAnimated(true, completion: nil)
     }
         
@@ -95,9 +96,9 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
     }
-    
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == createAccountView.usernameTextField {
             createAccountView.emailTextField.becomeFirstResponder()

@@ -19,7 +19,6 @@ enum ProfileSettingsSection: Int {
 class AppSettingsViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
-    MFMailComposeViewControllerDelegate,
     UIActionSheetDelegate,
     TableViewCellDelegate {
     var appSettingView: AppSettingsView
@@ -38,7 +37,6 @@ class AppSettingsViewController: UIViewController,
     ]
     
     var aboutSettings = [
-        "FAQ",
         "Terms of Use & Privacy Policy"
     ]
     
@@ -77,6 +75,8 @@ class AppSettingsViewController: UIViewController,
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
+
+        appSettingView.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -168,8 +168,16 @@ class AppSettingsViewController: UIViewController,
                     let walkthroughViewController = InstallationWalkthroughViewContoller(viewModel: loginViewModel, inAppSetting: true)
 
                     presentViewController(walkthroughViewController, animated: true, completion: nil)
-                case 1: break
-                case 2: launchEmail(self)
+                case 1:
+                    if let url = NSURL(string: "https://itunes.apple.com/us/app/apple-store/id1053313047?mt=8") {
+                        UIApplication.sharedApplication().openURL(url)
+                    }
+
+                case 2:
+                    if let url = NSURL(string: "https://twitter.com/tryoften") {
+                        pushNewAboutViewController(url, title: "support".uppercaseString)
+                    }
+
                 default: break
                 }
 
@@ -177,11 +185,8 @@ class AppSettingsViewController: UIViewController,
                 var link, title: String?
                 switch indexPath.row {
                 case 0:
-                    link = "http://www.tryoften.com/faq.html"
-                    title = aboutSettings[0]
-                case 1:
                     link = "http://www.tryoften.com/privacypolicy.html"
-                    title = aboutSettings[1]
+                    title = aboutSettings[0] 
                 default: break
                 }
 
@@ -253,6 +258,8 @@ class AppSettingsViewController: UIViewController,
                 cell.userInteractionEnabled = false
             case 2:
                 cell = UserProfileSettingsTableViewCell(type: .Switch)
+                cell.settingSwitch.addTarget(self, action: #selector(AppSettingsViewController.switchToggled(_:)), forControlEvents: .TouchUpInside)
+                cell.settingSwitch.on = SessionManagerFlags.defaultManagerFlags.userNotificationSettings
                 cell.disclosureIndicator.image = UIImage(named: "")
             default:
                 break
@@ -276,39 +283,10 @@ class AppSettingsViewController: UIViewController,
         }
     }
 
-    // MARK: MFMailComposeViewControllerDelegate - (Does not work in Simulator)
-    func launchEmail(sender: AnyObject) {
-        let emailTitle = "Often Feedback"
-        let messageBody = ""
-        let toRecipents = ["feedback@tryoften.com"]
-        let mc: MFMailComposeViewController = MFMailComposeViewController()
-        
-        mc.mailComposeDelegate = self
-        mc.setSubject(emailTitle)
-        mc.setMessageBody(messageBody, isHTML: false)
-        mc.setToRecipients(toRecipents)
-        
-        mc.modalTransitionStyle = .CoverVertical
-        presentViewController(mc, animated: true, completion: nil)
+    func switchToggled(sender: UISwitch) {
+        SessionManager.defaultManager.updateUserPushNotificationStatus(sender.on)
     }
-    
-    
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-        switch result.rawValue {
-        case MFMailComposeResultCancelled.rawValue:
-            print("Mail cancelled")
-        case MFMailComposeResultSaved.rawValue:
-            print("Mail saved")
-        case MFMailComposeResultSent.rawValue:
-            print("Mail sent")
-        case MFMailComposeResultFailed.rawValue:
-            print("Mail sent failure: \(error!.localizedDescription)")
-        default:
-            break
-        }
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
+
     // MARK: UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {

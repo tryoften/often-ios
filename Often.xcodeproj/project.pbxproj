@@ -211,6 +211,12 @@
 		3BD522421CC6F40000A5577F /* FLAnimatedImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BE0BCA31BEDB8B700037E21 /* MediaItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C663211B8B6FA60014433D /* MediaItemsViewModel.swift */; };
 		3BE12EF31BEF020800F300FA /* MediaItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */; };
+		3BF041EC1D05D9CA00418484 /* PushNotificationAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF041EB1D05D9CA00418484 /* PushNotificationAlertViewController.swift */; };
+		3BF041ED1D05DA5E00418484 /* PushNotificationAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF041EB1D05D9CA00418484 /* PushNotificationAlertViewController.swift */; };
+		3BF532BD1D00DD5A00E740DC /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF532BC1D00DD5A00E740DC /* AlertViewController.swift */; };
+		3BF532BE1D00DD5A00E740DC /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF532BC1D00DD5A00E740DC /* AlertViewController.swift */; };
+		3BF532C01D0228A100E740DC /* PushNotifcationAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */; };
+		3BF532C11D0228A100E740DC /* PushNotifcationAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */; };
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
@@ -1094,6 +1100,9 @@
 		3BE12EF11BEF020800F300FA /* MediaItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsViewController.swift; path = ../Often/MediaItemsViewController.swift; sourceTree = "<group>"; };
 		3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDProgressView.swift; sourceTree = "<group>"; };
 		3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		3BF041EB1D05D9CA00418484 /* PushNotificationAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationAlertViewController.swift; sourceTree = "<group>"; };
+		3BF532BC1D00DD5A00E740DC /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifcationAlertView.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManagerFlags.swift; sourceTree = "<group>"; };
 		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
@@ -1906,6 +1915,8 @@
 				3BDF98CA1BA2652F00F383D8 /* SigninViewController.swift */,
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */,
+				3BF532BC1D00DD5A00E740DC /* AlertViewController.swift */,
+				3BF041EB1D05D9CA00418484 /* PushNotificationAlertViewController.swift */,
 				695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */,
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
 				69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */,
@@ -1929,6 +1940,7 @@
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
+				3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
 				3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */,
 				3BAC294C1C45B28400F44DF7 /* KeyboardWalkthroughSuccessMessageView.swift */,
@@ -3012,6 +3024,7 @@
 				810EA4E51C8579D1005A6C6D /* UIColor+HEXString.m in Sources */,
 				810EA4E61C8579D1005A6C6D /* FilterTabView.swift in Sources */,
 				810EA4E71C8579D1005A6C6D /* TextProcessingManager.swift in Sources */,
+				3BF041ED1D05DA5E00418484 /* PushNotificationAlertViewController.swift in Sources */,
 				810EA4E81C8579D1005A6C6D /* UIDevice+DeviceList.swift in Sources */,
 				810EA4EB1C8579D1005A6C6D /* Signal.swift in Sources */,
 				810EA4ED1C8579D1005A6C6D /* delay.swift in Sources */,
@@ -3067,6 +3080,7 @@
 				810EA5331C8579D1005A6C6D /* Constants.swift in Sources */,
 				810EA5361C8579D1005A6C6D /* Notification.swift in Sources */,
 				816D50EA1C8A3354007B3249 /* CategoryCollectionViewCell.swift in Sources */,
+				3BF532BE1D00DD5A00E740DC /* AlertViewController.swift in Sources */,
 				BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */,
 				810EA5381C8579D1005A6C6D /* Validation.swift in Sources */,
 				810EA5391C8579D1005A6C6D /* WindowRootViewController.swift in Sources */,
@@ -3080,6 +3094,7 @@
 				816D50291C862E8C007B3249 /* UIColor+Often.swift in Sources */,
 				3B5006521CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */,
 				810EA5411C8579D1005A6C6D /* EmailAccountManager.swift in Sources */,
+				3BF532C11D0228A100E740DC /* PushNotifcationAlertView.swift in Sources */,
 				BF18A40D1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				810EA5421C8579D1005A6C6D /* SkipSignupView.swift in Sources */,
 				810EA5451C8579D1005A6C6D /* VideoMediaItem.swift in Sources */,
@@ -3209,6 +3224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BF532C01D0228A100E740DC /* PushNotifcationAlertView.swift in Sources */,
 				816D50471C8A04CF007B3249 /* ArticleMediaItem.swift in Sources */,
 				8157AD851CB58533001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
 				816D50451C8A04CF007B3249 /* MediaItem.swift in Sources */,
@@ -3240,6 +3256,7 @@
 				816D50891C8A0583007B3249 /* TwitterAccountManager.swift in Sources */,
 				816D50BB1C8A05E3007B3249 /* NotificationListener.swift in Sources */,
 				816D507A1C8A052D007B3249 /* MediaItemsViewController.swift in Sources */,
+				3BF532BD1D00DD5A00E740DC /* AlertViewController.swift in Sources */,
 				816D50A61C8A0596007B3249 /* UserCreationViewController.swift in Sources */,
 				816D505D1C8A04E5007B3249 /* MediaItemCollectionViewCell.swift in Sources */,
 				3B5006311CADAAE2003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
@@ -3308,6 +3325,7 @@
 				BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */,
 				816D50C11C8A060F007B3249 /* PKHUD.swift in Sources */,
 				69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */,
+				3BF041EC1D05D9CA00418484 /* PushNotificationAlertViewController.swift in Sources */,
 				816D50791C8A052D007B3249 /* MediaItemGroupsViewController.swift in Sources */,
 				816D50611C8A04F4007B3249 /* TwitterEmptyStateView.swift in Sources */,
 				816D509D1C8A058D007B3249 /* SigninView.swift in Sources */,

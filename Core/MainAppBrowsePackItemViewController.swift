@@ -149,6 +149,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             } else {
                 PacksService.defaultInstance.addPack(pack)
                 button.packState = .Added
+
+                SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount += 1
+
+                if !SessionManagerFlags.defaultManagerFlags.userNotificationSettings {
+                    if SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount % 3 == 0 {
+                        SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount = 0
+                        let AlertVC = PushNotificationAlertViewController()
+                        AlertVC.transitioningDelegate = self
+                        AlertVC.modalPresentationStyle = .Custom
+                        presentViewController(AlertVC, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }
