@@ -209,9 +209,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
             #if KEYBOARD
-            cell.overlayVisible = !cell.overlayVisible
+                cell.overlayVisible = !cell.overlayVisible
             #endif
-            mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
+                mediaLinkCollectionViewCellDidToggleCopyButton(cell, selected: true)
         }
     }
         
