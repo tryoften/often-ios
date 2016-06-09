@@ -102,8 +102,13 @@ class MediaItemDetailViewController: UIViewController {
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
             
         #if !(KEYBOARD)
-            DropDownErrorMessage().setMessage("Copied quote!".uppercaseString,
-                                                  subtitle: item.getInsertableText(), duration: 2.0, errorBackgroundColor: UIColor(fromHexString: "#152036"))
+            let shareObjects = [item.getInsertableText()]
+            
+            let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
+            
+            activityVC.popoverPresentationController?.sourceView = sender
+            self.presentViewController(activityVC, animated: true, completion: nil)
         #endif
         }
     }
