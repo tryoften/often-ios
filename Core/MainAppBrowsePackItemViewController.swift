@@ -142,6 +142,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
         
+        showHud()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        
         if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
                 PacksService.defaultInstance.removePack(pack)
@@ -155,6 +158,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                 if !SessionManagerFlags.defaultManagerFlags.userNotificationSettings {
                     if SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount % 3 == 0 {
                         SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount = 0
+
+                        hudTimer?.invalidate()
+                        hideHud()
+
                         let AlertVC = PushNotificationAlertViewController()
                         AlertVC.transitioningDelegate = self
                         AlertVC.modalPresentationStyle = .Custom
