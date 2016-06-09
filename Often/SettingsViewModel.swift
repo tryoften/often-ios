@@ -43,9 +43,7 @@ class SettingsViewModel: NSObject, SessionManagerDelegate {
         }
     }
     
-    func sessionManagerNoUserFound(sessionManager: SessionManager) {
-
-    }
+    func sessionManagerNoUserFound(sessionManager: SessionManager) {}
 
 }
 

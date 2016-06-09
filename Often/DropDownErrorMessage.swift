@@ -127,7 +127,7 @@ class DropDownErrorMessage: UIButton {
             frame.origin.y = -10
             self.frame = frame
             }, completion: nil)
-        
+
         
         self.performSelector("viewWasTapped:", withObject: self, afterDelay: dropDownDuration)
         

@@ -73,7 +73,7 @@ class AlertView: SpringView {
         super.init(frame: frame)
         
         backgroundColor = WhiteColor
-        layer.cornerRadius = 4
+        layer.cornerRadius = 5.0
         
         animation = "slideUp"
         curve = "easeOut"

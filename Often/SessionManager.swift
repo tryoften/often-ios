@@ -20,7 +20,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
         return accountManager.currentUser
     }
 
-    override init() {
+     override init() {
         Analytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
@@ -51,6 +51,25 @@ class SessionManager: NSObject, AccountManagerDelegate {
             case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
             }
         })
+    }
+
+    func updateUserPushNotificationStatus(status: Bool)  {
+        guard let userId = currentUser?.id else {
+            return
+        }
+
+        currentUser?.pushNotificationStatus = status
+        SessionManagerFlags.defaultManagerFlags.userNotificationSettings = status
+
+        let userRef = FIRDatabase.database().reference().child("users/\(userId)")
+        let pushNotificationEndPoint = userRef.child("pushNotificationStatus")
+
+        pushNotificationEndPoint.setValue(status)
+
+        if status {
+            UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+        }
     }
 
 

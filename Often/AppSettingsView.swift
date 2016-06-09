@@ -26,8 +26,6 @@ class AppSettingsView: UIView {
         addSubview(tableView)
 
         setupLayout()
-
-
     }
 
     required init?(coder aDecoder: NSCoder) {
