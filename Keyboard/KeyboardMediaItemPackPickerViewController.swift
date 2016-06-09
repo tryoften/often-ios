@@ -19,7 +19,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     weak var delegate: KeyboardMediaItemPackPickerViewControllerDelegate?
     private var packServiceListener: Listener?
     
-    init(viewModel: PacksService) {
+    init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         self.viewModel = viewModel
         
         packSliderView = PackSliderView()
@@ -33,6 +33,8 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         dismissalView.backgroundColor = ClearColor
         
         super.init(collectionViewLayout: KeyboardMediaItemPackPickerViewController.provideLayout())
+        
+        self.textProcessor = textProcessor
         
         packSliderView.slider.addTarget(self, action: #selector(KeyboardMediaItemPackPickerViewController.sliderDidChange(_:)), forControlEvents: .ValueChanged)
         packSliderView.slider.minimumValue = 40

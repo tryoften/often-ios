@@ -9,12 +9,9 @@
 import Foundation
 
 class PackItemViewModel: BrowseViewModel {
-    var shareLink: String?
-    
     var packId: String {
         didSet {
             ref = baseRef.childByAppendingPath("packs/\(packId)")
-            shareLink = "oftn.me/\(packId)"
         }
     }
     

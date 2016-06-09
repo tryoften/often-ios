@@ -23,6 +23,9 @@ class PackMediaItem: MediaItem {
     var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
     var isFavorites: Bool = false
     var isRecents: Bool = false
+    var shareLink: String? {
+        return "oftn.me/\(pack_id)"
+    }
 
     required init(data: NSDictionary) {
         super.init(data: data)
