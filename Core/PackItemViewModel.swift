@@ -63,6 +63,20 @@ class PackItemViewModel: BrowseViewModel {
         return true
     }
 
+    func showPushNotificationAlertForPack() -> Bool {
+        SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount += 1
+
+        if !SessionManagerFlags.defaultManagerFlags.userNotificationSettings {
+            if SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount % 3 == 0 {
+                SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount = 0
+
+                return true
+            }
+        }
+
+        return false
+    }
+
     func checkCurrentPackContents() {
         if !self.doesCurrentPackContainTypeForCategory(.Gif) {
             typeFilter = .Quote

@@ -60,11 +60,12 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         super.init(viewModel: viewModel)
 
         loginView.scrollView.delegate = self
-        
+
         view.addSubview(loginView)
         setupLayout()
-        
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+
+
+        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(7.0, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
         launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
