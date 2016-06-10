@@ -118,31 +118,31 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
         self.hideHud()
-        
+
         if let text = title {
             header.title = text
         }
-        
+
         if let string = subtitle {
             header.subtitle = string
         }
-        
+
         header.primaryButton.title = pack.callToActionText()
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
         header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-        
+
         let topRightButton = ShareBarButton()
         topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        
+
         let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
         positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
         positionedButtonView.addSubview(topRightButton)
-        
+
         let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
         navigationItem.rightBarButtonItem = topRightBarButton
-        
+
         updateFilterBar(true)
     }
     
@@ -150,7 +150,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         guard let button = sender as? BrowsePackDownloadButton else {
             return
         }
-        
+
+        showHud()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+
         if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
                 PacksService.defaultInstance.removePack(pack)
@@ -161,19 +164,19 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
                 SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount += 1
 
-                if !SessionManagerFlags.defaultManagerFlags.userNotificationSettings {
-                    if SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount % 3 == 0 {
-                        SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount = 0
-                        let AlertVC = PushNotificationAlertViewController()
-                        AlertVC.transitioningDelegate = self
-                        AlertVC.modalPresentationStyle = .Custom
-                        presentViewController(AlertVC, animated: true, completion: nil)
-                    }
+                if packViewModel.showPushNotificationAlertForPack() {
+                    hudTimer?.invalidate()
+                    hideHud()
+
+                    let AlertVC = PushNotificationAlertViewController()
+                    AlertVC.transitioningDelegate = self
+                    AlertVC.modalPresentationStyle = .Custom
+                    presentViewController(AlertVC, animated: true, completion: nil)
                 }
             }
         }
     }
-    
+
     func topRightButtonTapped(sender: UIButton) {
         if let title = packViewModel.pack?.name {
             let copyText = "Check out this \(title) keyboard I found on Often!"
