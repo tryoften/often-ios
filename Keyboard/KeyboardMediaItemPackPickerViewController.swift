@@ -244,8 +244,10 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
     }
     
     func sharePackButtonDidTap(sender: UIButton) {
-        let id = viewModel.mediaItems[sender.tag].id
-        textProcessor?.insertText("Share dis shit !!!! \(id)")
+        guard let pack = viewModel.mediaItems[sender.tag] as? PackMediaItem, name = pack.name, link = pack.shareLink else {
+            return
+        }
+        textProcessor?.insertText("Yo check out this \(name) keyboard I found on Often! \(link)")
     }
     
 }
