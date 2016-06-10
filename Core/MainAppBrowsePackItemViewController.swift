@@ -162,8 +162,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                 PacksService.defaultInstance.addPack(pack)
                 button.packState = .Added
 
-                SessionManagerFlags.defaultManagerFlags.pushNotificationShownCount += 1
-
                 if packViewModel.showPushNotificationAlertForPack() {
                     hudTimer?.invalidate()
                     hideHud()
