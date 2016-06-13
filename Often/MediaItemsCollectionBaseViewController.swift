@@ -344,7 +344,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                 Nuke.taskWith(url) {
                     if let image = $0.image as? AnimatedImage, let data = image.data {
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
-                        let shareObjects = [image]
+                        let shareObjects = [data]
                         
                         let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
                         activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]

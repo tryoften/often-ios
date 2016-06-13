@@ -54,7 +54,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         shareButton = UIButton()
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.backgroundColor = ClearColor
-        shareButton.setImage(StyleKit.imageOfShareCanvas(scale: 1, color: WhiteColor), forState: .Normal)
+        shareButton.setImage(StyleKit.imageOfShareCanvas(color: WhiteColor), forState: .Normal)
 
         var layer = CAShapeLayer()
         layer.path = BrowseMediaItemCollectionViewCell.drawImageMask().CGPath
@@ -154,10 +154,10 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             addedBadgeView.al_right == al_right - 12,
             addedBadgeView.al_top == al_top + 96,
             
-            shareButton.al_width == 30,
+            shareButton.al_width == 40,
             shareButton.al_height == shareButton.al_width,
-            shareButton.al_top == al_top + 5,
-            shareButton.al_right == al_right - 5,
+            shareButton.al_top == al_top,
+            shareButton.al_right == al_right,
 
             placeholderImageView.al_width == imageView.al_width,
             placeholderImageView.al_height == imageView.al_height,

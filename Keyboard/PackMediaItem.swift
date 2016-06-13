@@ -23,9 +23,7 @@ class PackMediaItem: MediaItem {
     var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
     var isFavorites: Bool = false
     var isRecents: Bool = false
-    var shareLink: String? {
-        return "oftn.me/\(pack_id)"
-    }
+    var shareLink: String?
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -36,6 +34,7 @@ class PackMediaItem: MediaItem {
         
         if let id = data["id"] as? String {
             self.pack_id = id
+            self.shareLink = "oftn.at/k/\(id)"
         }
 
         if let name = data["name"] as? String {
