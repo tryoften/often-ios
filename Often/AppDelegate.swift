@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if let packid = userInfo["p"] as? String {
             NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
-
+            
             completionHandler(.NewData)
         } else {
             completionHandler(.Failed)
