@@ -69,6 +69,8 @@ class SessionManager: NSObject, AccountManagerDelegate {
         if status {
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
             UIApplication.sharedApplication().registerForRemoteNotifications()
+        } else {
+            UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }
     }
 
