@@ -21,7 +21,7 @@ extension ImageManager {
 
         var managerConf = ImageManager.shared.configuration
         var loaderConf = (managerConf.loader as? ImageLoader)!.configuration
-        loaderConf.cache = DFDiskCache(name: "often-cache")
+        loaderConf.cache = DFDiskCache(path: AppSuiteName, error: nil)
         managerConf.loader = ImageLoader(configuration: loaderConf, delegate: AnimatedImageLoaderDelegate())
         ImageManager.shared = (ImageManager(configuration: managerConf))
     }

@@ -77,7 +77,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
         if let token = FIRInstanceID.instanceID().token() {
             currentUser?.firebasePushNotificationToken = token
         }
-        
+
         pushNotificationTokenEndPoint.setValue(user.firebasePushNotificationToken)
         pushNotificationStatusEndPoint.setValue(status)
     }
