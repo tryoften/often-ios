@@ -11,6 +11,7 @@ import Crashlytics
 import TwitterKit
 import Alamofire
 import Firebase
+import FirebaseInstanceID
 
 typealias AccountManagerResultCallback = (results: ResultType) -> Void
 
@@ -33,6 +34,9 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
             delegate?.accountManagerNoUserFound(self)
             return
         }
+
+        let refreshedToken = FIRInstanceID.instanceID().token()
+        print(refreshedToken)
 
         userRef = firebase.child("users/\(userID)")
         userRef?.observeEventType(.Value, withBlock: { snapshot in

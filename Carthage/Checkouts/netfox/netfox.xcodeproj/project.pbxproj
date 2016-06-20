@@ -1,0 +1,342 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEFE42C51C0DDBD8001A56E0 /* NFX.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42B51C0DDBD8001A56E0 /* NFX.swift */; };
+		CEFE42C61C0DDBD8001A56E0 /* NFXAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42B61C0DDBD8001A56E0 /* NFXAssets.swift */; };
+		CEFE42C71C0DDBD8001A56E0 /* NFXDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42B71C0DDBD8001A56E0 /* NFXDetailsController.swift */; };
+		CEFE42C81C0DDBD8001A56E0 /* NFXGenericBodyDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42B81C0DDBD8001A56E0 /* NFXGenericBodyDetailsController.swift */; };
+		CEFE42C91C0DDBD8001A56E0 /* NFXGenericController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42B91C0DDBD8001A56E0 /* NFXGenericController.swift */; };
+		CEFE42CA1C0DDBD8001A56E0 /* NFXHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BA1C0DDBD8001A56E0 /* NFXHelper.swift */; };
+		CEFE42CB1C0DDBD8001A56E0 /* NFXHTTPModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BB1C0DDBD8001A56E0 /* NFXHTTPModel.swift */; };
+		CEFE42CC1C0DDBD8001A56E0 /* NFXHTTPModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BC1C0DDBD8001A56E0 /* NFXHTTPModelManager.swift */; };
+		CEFE42CD1C0DDBD8001A56E0 /* NFXImageBodyDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BD1C0DDBD8001A56E0 /* NFXImageBodyDetailsController.swift */; };
+		CEFE42CE1C0DDBD8001A56E0 /* NFXInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BE1C0DDBD8001A56E0 /* NFXInfoController.swift */; };
+		CEFE42CF1C0DDBD8001A56E0 /* NFXListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42BF1C0DDBD8001A56E0 /* NFXListCell.swift */; };
+		CEFE42D01C0DDBD8001A56E0 /* NFXListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42C01C0DDBD8001A56E0 /* NFXListController.swift */; };
+		CEFE42D11C0DDBD8001A56E0 /* NFXProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42C11C0DDBD8001A56E0 /* NFXProtocol.swift */; };
+		CEFE42D21C0DDBD8001A56E0 /* NFXRawBodyDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42C21C0DDBD8001A56E0 /* NFXRawBodyDetailsController.swift */; };
+		CEFE42D31C0DDBD8001A56E0 /* NFXSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42C31C0DDBD8001A56E0 /* NFXSettingsController.swift */; };
+		CEFE42D41C0DDBD8001A56E0 /* NFXStatisticsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE42C41C0DDBD8001A56E0 /* NFXStatisticsController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B3BC020F1C09CDA000C17F3A /* netfox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = netfox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEFE42B51C0DDBD8001A56E0 /* NFX.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFX.swift; sourceTree = "<group>"; };
+		CEFE42B61C0DDBD8001A56E0 /* NFXAssets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXAssets.swift; sourceTree = "<group>"; };
+		CEFE42B71C0DDBD8001A56E0 /* NFXDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXDetailsController.swift; sourceTree = "<group>"; };
+		CEFE42B81C0DDBD8001A56E0 /* NFXGenericBodyDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXGenericBodyDetailsController.swift; sourceTree = "<group>"; };
+		CEFE42B91C0DDBD8001A56E0 /* NFXGenericController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXGenericController.swift; sourceTree = "<group>"; };
+		CEFE42BA1C0DDBD8001A56E0 /* NFXHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXHelper.swift; sourceTree = "<group>"; };
+		CEFE42BB1C0DDBD8001A56E0 /* NFXHTTPModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXHTTPModel.swift; sourceTree = "<group>"; };
+		CEFE42BC1C0DDBD8001A56E0 /* NFXHTTPModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXHTTPModelManager.swift; sourceTree = "<group>"; };
+		CEFE42BD1C0DDBD8001A56E0 /* NFXImageBodyDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXImageBodyDetailsController.swift; sourceTree = "<group>"; };
+		CEFE42BE1C0DDBD8001A56E0 /* NFXInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXInfoController.swift; sourceTree = "<group>"; };
+		CEFE42BF1C0DDBD8001A56E0 /* NFXListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXListCell.swift; sourceTree = "<group>"; };
+		CEFE42C01C0DDBD8001A56E0 /* NFXListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXListController.swift; sourceTree = "<group>"; };
+		CEFE42C11C0DDBD8001A56E0 /* NFXProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXProtocol.swift; sourceTree = "<group>"; };
+		CEFE42C21C0DDBD8001A56E0 /* NFXRawBodyDetailsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXRawBodyDetailsController.swift; sourceTree = "<group>"; };
+		CEFE42C31C0DDBD8001A56E0 /* NFXSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXSettingsController.swift; sourceTree = "<group>"; };
+		CEFE42C41C0DDBD8001A56E0 /* NFXStatisticsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NFXStatisticsController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3BC020B1C09CDA000C17F3A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3BC02051C09CDA000C17F3A = {
+			isa = PBXGroup;
+			children = (
+				CEFE42B41C0DDBD8001A56E0 /* netfox */,
+				B3BC02101C09CDA000C17F3A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B3BC02101C09CDA000C17F3A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3BC020F1C09CDA000C17F3A /* netfox.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEFE42B41C0DDBD8001A56E0 /* netfox */ = {
+			isa = PBXGroup;
+			children = (
+				CEFE42B51C0DDBD8001A56E0 /* NFX.swift */,
+				CEFE42B61C0DDBD8001A56E0 /* NFXAssets.swift */,
+				CEFE42B71C0DDBD8001A56E0 /* NFXDetailsController.swift */,
+				CEFE42B81C0DDBD8001A56E0 /* NFXGenericBodyDetailsController.swift */,
+				CEFE42B91C0DDBD8001A56E0 /* NFXGenericController.swift */,
+				CEFE42BA1C0DDBD8001A56E0 /* NFXHelper.swift */,
+				CEFE42BB1C0DDBD8001A56E0 /* NFXHTTPModel.swift */,
+				CEFE42BC1C0DDBD8001A56E0 /* NFXHTTPModelManager.swift */,
+				CEFE42BD1C0DDBD8001A56E0 /* NFXImageBodyDetailsController.swift */,
+				CEFE42BE1C0DDBD8001A56E0 /* NFXInfoController.swift */,
+				CEFE42BF1C0DDBD8001A56E0 /* NFXListCell.swift */,
+				CEFE42C01C0DDBD8001A56E0 /* NFXListController.swift */,
+				CEFE42C11C0DDBD8001A56E0 /* NFXProtocol.swift */,
+				CEFE42C21C0DDBD8001A56E0 /* NFXRawBodyDetailsController.swift */,
+				CEFE42C31C0DDBD8001A56E0 /* NFXSettingsController.swift */,
+				CEFE42C41C0DDBD8001A56E0 /* NFXStatisticsController.swift */,
+			);
+			path = netfox;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B3BC020C1C09CDA000C17F3A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B3BC020E1C09CDA000C17F3A /* netfox */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3BC02171C09CDA000C17F3A /* Build configuration list for PBXNativeTarget "netfox" */;
+			buildPhases = (
+				B3BC020A1C09CDA000C17F3A /* Sources */,
+				B3BC020B1C09CDA000C17F3A /* Frameworks */,
+				B3BC020C1C09CDA000C17F3A /* Headers */,
+				B3BC020D1C09CDA000C17F3A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = netfox;
+			productName = netfox;
+			productReference = B3BC020F1C09CDA000C17F3A /* netfox.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3BC02061C09CDA000C17F3A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = kasketis;
+				TargetAttributes = {
+					B3BC020E1C09CDA000C17F3A = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = B3BC02091C09CDA000C17F3A /* Build configuration list for PBXProject "netfox" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = B3BC02051C09CDA000C17F3A;
+			productRefGroup = B3BC02101C09CDA000C17F3A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3BC020E1C09CDA000C17F3A /* netfox */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B3BC020D1C09CDA000C17F3A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3BC020A1C09CDA000C17F3A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEFE42CD1C0DDBD8001A56E0 /* NFXImageBodyDetailsController.swift in Sources */,
+				CEFE42CA1C0DDBD8001A56E0 /* NFXHelper.swift in Sources */,
+				CEFE42C51C0DDBD8001A56E0 /* NFX.swift in Sources */,
+				CEFE42D41C0DDBD8001A56E0 /* NFXStatisticsController.swift in Sources */,
+				CEFE42C81C0DDBD8001A56E0 /* NFXGenericBodyDetailsController.swift in Sources */,
+				CEFE42C91C0DDBD8001A56E0 /* NFXGenericController.swift in Sources */,
+				CEFE42D11C0DDBD8001A56E0 /* NFXProtocol.swift in Sources */,
+				CEFE42CC1C0DDBD8001A56E0 /* NFXHTTPModelManager.swift in Sources */,
+				CEFE42D31C0DDBD8001A56E0 /* NFXSettingsController.swift in Sources */,
+				CEFE42C61C0DDBD8001A56E0 /* NFXAssets.swift in Sources */,
+				CEFE42C71C0DDBD8001A56E0 /* NFXDetailsController.swift in Sources */,
+				CEFE42CE1C0DDBD8001A56E0 /* NFXInfoController.swift in Sources */,
+				CEFE42CF1C0DDBD8001A56E0 /* NFXListCell.swift in Sources */,
+				CEFE42D01C0DDBD8001A56E0 /* NFXListController.swift in Sources */,
+				CEFE42D21C0DDBD8001A56E0 /* NFXRawBodyDetailsController.swift in Sources */,
+				CEFE42CB1C0DDBD8001A56E0 /* NFXHTTPModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B3BC02151C09CDA000C17F3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B3BC02161C09CDA000C17F3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B3BC02181C09CDA000C17F3A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "netfox-info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kasketis.netfox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B3BC02191C09CDA000C17F3A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "netfox-info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kasketis.netfox;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3BC02091C09CDA000C17F3A /* Build configuration list for PBXProject "netfox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3BC02151C09CDA000C17F3A /* Debug */,
+				B3BC02161C09CDA000C17F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3BC02171C09CDA000C17F3A /* Build configuration list for PBXNativeTarget "netfox" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3BC02181C09CDA000C17F3A /* Debug */,
+				B3BC02191C09CDA000C17F3A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3BC02061C09CDA000C17F3A /* Project object */;
+}

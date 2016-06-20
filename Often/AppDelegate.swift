@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.sharedSDK().debug = true
         Twitter.sharedInstance().startWithConsumerKey(TwitterConsumerKey, consumerSecret: TwitterConsumerSecret)
         Fabric.with([Crashlytics(), Twitter.sharedInstance()])
-        FIROptions.defaultOptions().deepLinkURLScheme = "com.tryoften.often.master"
+        FIROptions.defaultOptions().deepLinkURLScheme = AppIdentifier
         FIRApp.configure()
         FIRDatabase.database().persistenceEnabled = true
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
@@ -85,11 +85,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.absoluteString.hasPrefix("fb") {
+        guard let urlString = url.absoluteString else {
+            return false
+        }
+
+        if urlString.hasPrefix("fb") {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         
-        if url.absoluteString.containsString("pack/") {
+        if urlString.containsString("pack/") {
             guard let id = url.lastPathComponent else {
                 return false
             }

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Nuke
 
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {

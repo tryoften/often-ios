@@ -1,5 +1,6 @@
 platform :ios, '8.0'
 
+#use_frameworks!
 inhibit_all_warnings!
 source 'https://github.com/CocoaPods/Specs.git'
 
@@ -10,11 +11,11 @@ def base_deps
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Messaging'
   pod 'DateTools', '~> 1.6'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
-  pod 'Firebase/Messaging'
 end
 
 target 'Often' do
@@ -27,3 +28,6 @@ target 'Keyboard' do
   base_deps
 end
 
+target 'Often (iMessage)' do
+  base_deps
+end

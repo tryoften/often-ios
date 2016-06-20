@@ -33,10 +33,11 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 
     @objc func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         guard let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
-            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), let transitionContextContainerView = transitionContext.containerView()  else {
+            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
                 return
         }
-
+        
+        let transitionContextContainerView = transitionContext.containerView()
         let lastViewControllerFrame = CGRectMake(fromViewController.view.bounds.origin.x, fromViewController.view.bounds.origin.y,  fromViewController.view.bounds.width, fromViewController.view.bounds.height)
         let tintView = UIView(frame: lastViewControllerFrame)
 

@@ -18,7 +18,7 @@ public class StyleKit : NSObject {
 
     public class func drawBackspace(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Frames
         let frame = CGRect(x: keySize.origin.x, y: keySize.origin.y, width: keySize.size.width, height: keySize.size.height)
@@ -76,7 +76,7 @@ public class StyleKit : NSObject {
 
     public class func drawArrowup(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Frames
         let frame = CGRect(x: keySize.origin.x, y: keySize.origin.y, width: keySize.size.width, height: keySize.size.height)
@@ -122,7 +122,7 @@ public class StyleKit : NSObject {
 
     public class func drawSearch(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// search
         CGContextSaveGState(context)
@@ -157,7 +157,7 @@ public class StyleKit : NSObject {
 
     public class func drawArrowheadup(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, borderWidth: CGFloat = 2) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// head Drawing
         CGContextSaveGState(context)
@@ -181,7 +181,7 @@ public class StyleKit : NSObject {
 
     public class func drawShare(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// share
         CGContextSaveGState(context)
@@ -241,7 +241,7 @@ public class StyleKit : NSObject {
 
     public class func drawClose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// close
         CGContextSaveGState(context)
@@ -298,7 +298,7 @@ public class StyleKit : NSObject {
 
     public class func drawButtonclose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// close 2
         CGContextSaveGState(context)
@@ -347,7 +347,7 @@ public class StyleKit : NSObject {
 
     public class func drawFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -419,7 +419,7 @@ public class StyleKit : NSObject {
 
     public class func drawFavoritedstate(frame frame: CGRect = CGRect(x: 0, y: 0, width: 62, height: 62), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
@@ -476,7 +476,7 @@ public class StyleKit : NSObject {
 
     public class func drawRefresharrow(frame frame: CGRect = CGRect(x: 4, y: 2, width: 22, height: 26), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -521,7 +521,7 @@ public class StyleKit : NSObject {
 
     public class func drawTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -601,7 +601,7 @@ public class StyleKit : NSObject {
 
     public class func drawClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -671,7 +671,7 @@ public class StyleKit : NSObject {
 
     public class func drawCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -731,7 +731,7 @@ public class StyleKit : NSObject {
 
     public class func drawCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -801,7 +801,7 @@ public class StyleKit : NSObject {
 
     public class func drawInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -893,7 +893,7 @@ public class StyleKit : NSObject {
 
     public class func drawKeyboard(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Icon
         CGContextSaveGState(context)
@@ -938,7 +938,7 @@ public class StyleKit : NSObject {
 
     public class func drawUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1014,7 +1014,7 @@ public class StyleKit : NSObject {
 
     public class func drawClosebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor6 = UIColor(red: 0.812, green: 0.812, blue: 0.812, alpha: 0.540)
@@ -1067,7 +1067,7 @@ public class StyleKit : NSObject {
 
     public class func drawSearchbaricon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -1102,7 +1102,7 @@ public class StyleKit : NSObject {
 
     public class func drawSharebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -1147,7 +1147,7 @@ public class StyleKit : NSObject {
 
     public class func drawSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1198,7 +1198,7 @@ public class StyleKit : NSObject {
 
     public class func drawTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1282,7 +1282,7 @@ public class StyleKit : NSObject {
 
     public class func drawProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1338,7 +1338,7 @@ public class StyleKit : NSObject {
 
     public class func drawGlobebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor6 = UIColor(red: 0.812, green: 0.812, blue: 0.812, alpha: 0.540)
@@ -1422,7 +1422,7 @@ public class StyleKit : NSObject {
 
     public class func drawSearchtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -1464,7 +1464,7 @@ public class StyleKit : NSObject {
 
     public class func drawTrendingtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -1525,7 +1525,7 @@ public class StyleKit : NSObject {
 
     public class func drawFavoritestab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1577,7 +1577,7 @@ public class StyleKit : NSObject {
 
     public class func drawRecentstab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -1647,7 +1647,7 @@ public class StyleKit : NSObject {
 
     public class func drawBackarrow(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, rotate: CGFloat = -90) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -1687,7 +1687,7 @@ public class StyleKit : NSObject {
 
     public class func drawHotness(scale scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor9 = UIColor(red: 0.970, green: 0.730, blue: 0.233, alpha: 1.000)
@@ -1728,7 +1728,7 @@ public class StyleKit : NSObject {
 
     public class func drawMenu(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -1764,7 +1764,7 @@ public class StyleKit : NSObject {
 
     public class func drawCancelbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
 
         //// Variable Declarations
@@ -1815,7 +1815,7 @@ public class StyleKit : NSObject {
 
     public class func drawInsertbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
 
         //// Variable Declarations
@@ -1888,7 +1888,7 @@ public class StyleKit : NSObject {
 
     public class func drawLyricsclosebutton(scale scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor7 = UIColor(red: 0.383, green: 0.383, blue: 0.387, alpha: 1.000)
@@ -1945,7 +1945,7 @@ public class StyleKit : NSObject {
 
     public class func drawSnapchat(scale scale: CGFloat = 0.5, snapchatSelect: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
@@ -2020,7 +2020,7 @@ public class StyleKit : NSObject {
 
     public class func drawPremium(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -2089,7 +2089,7 @@ public class StyleKit : NSObject {
 
     public class func drawCategoryicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2139,7 +2139,7 @@ public class StyleKit : NSObject {
 
     public class func drawGlobe(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2227,7 +2227,7 @@ public class StyleKit : NSObject {
 
     public class func drawPacktab(frame frame: CGRect = CGRect(x: 19, y: 11, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -2272,7 +2272,7 @@ public class StyleKit : NSObject {
 
     public class func drawEnterkey(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let strokeColor9 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 0.540)
@@ -2324,7 +2324,7 @@ public class StyleKit : NSObject {
 
     public class func drawCheckicon(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
 
         //// Variable Declarations
@@ -2370,7 +2370,7 @@ public class StyleKit : NSObject {
 
     public class func drawClipboard_button(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2421,7 +2421,7 @@ public class StyleKit : NSObject {
 
     public class func drawThumbslider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 51, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -2455,7 +2455,7 @@ public class StyleKit : NSObject {
 
     public class func drawSlider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 568, height: 39), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor18 = UIColor(red: 0.897, green: 0.897, blue: 0.897, alpha: 1.000)
@@ -2479,7 +2479,7 @@ public class StyleKit : NSObject {
 
     public class func drawCategoryButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -2533,7 +2533,7 @@ public class StyleKit : NSObject {
 
     public class func drawGifsButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let textForeground2 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -2561,7 +2561,7 @@ public class StyleKit : NSObject {
 
     public class func drawQuotesButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let textForeground2 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -2599,7 +2599,7 @@ public class StyleKit : NSObject {
 
     public class func drawMenuButton(frame frame: CGRect = CGRect(x: 1, y: 0, width: 50, height: 50), selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
@@ -2631,7 +2631,7 @@ public class StyleKit : NSObject {
 
     public class func drawCategoriesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
@@ -2678,7 +2678,7 @@ public class StyleKit : NSObject {
 
     public class func drawPacksMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2728,7 +2728,7 @@ public class StyleKit : NSObject {
 
     public class func drawQuotesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2794,7 +2794,7 @@ public class StyleKit : NSObject {
 
     public class func drawGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2854,7 +2854,7 @@ public class StyleKit : NSObject {
 
     public class func drawHashtagicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -2956,7 +2956,7 @@ public class StyleKit : NSObject {
 
     public class func drawShareButtonCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let mainAppHighlightColor = UIColor(red: 0.692, green: 0.692, blue: 0.692, alpha: 1.000)
@@ -3029,7 +3029,7 @@ public class StyleKit : NSObject {
 
     public class func drawShareCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -3123,7 +3123,7 @@ public class StyleKit : NSObject {
 
     public class func drawEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor11 = UIColor(red: 0.888, green: 0.888, blue: 0.888, alpha: 1.000)
@@ -3147,7 +3147,7 @@ public class StyleKit : NSObject {
 
     public class func drawAbcIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// label Drawing
         CGContextSaveGState(context)
@@ -3167,7 +3167,7 @@ public class StyleKit : NSObject {
 
     public class func drawRecentIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3201,7 +3201,7 @@ public class StyleKit : NSObject {
 
     public class func drawPeopleIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3259,7 +3259,7 @@ public class StyleKit : NSObject {
 
     public class func drawNatureIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3304,7 +3304,7 @@ public class StyleKit : NSObject {
 
     public class func drawFoodIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3424,7 +3424,7 @@ public class StyleKit : NSObject {
 
     public class func drawConfettiIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3587,7 +3587,7 @@ public class StyleKit : NSObject {
 
     public class func drawActivityIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -3688,7 +3688,7 @@ public class StyleKit : NSObject {
 
     public class func drawBuildingsIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icons
         CGContextSaveGState(context)
@@ -3891,7 +3891,7 @@ public class StyleKit : NSObject {
 
     public class func drawRandomIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icons
         CGContextSaveGState(context)
@@ -4029,7 +4029,7 @@ public class StyleKit : NSObject {
 
     public class func drawFlagIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// icon
         CGContextSaveGState(context)
@@ -4106,7 +4106,7 @@ public class StyleKit : NSObject {
 
     public class func drawBackspaceIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         var colorHueComponent: CGFloat = 1,
@@ -4168,7 +4168,7 @@ public class StyleKit : NSObject {
 
     public class func drawSmileyIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        let context = UIGraphicsGetCurrentContext()!
 
         //// Color Declarations
         let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
@@ -4224,7 +4224,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawBackspace(color: color, keySize: keySize)
 
-        let imageOfBackspace = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfBackspace = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfBackspace
@@ -4234,7 +4234,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawArrowup(color: color, keySize: keySize)
 
-        let imageOfArrowup = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfArrowup = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfArrowup
@@ -4244,7 +4244,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearch(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfSearch = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSearch = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSearch
@@ -4254,7 +4254,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawArrowheadup(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, borderWidth: borderWidth)
 
-        let imageOfArrowheadup = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfArrowheadup = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfArrowheadup
@@ -4264,7 +4264,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawShare(color: color)
 
-        let imageOfShare = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfShare = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfShare
@@ -4274,7 +4274,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClose(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfClose = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfClose = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfClose
@@ -4284,7 +4284,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawButtonclose(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfButtonclose = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfButtonclose = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfButtonclose
@@ -4294,7 +4294,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawFavorite(color: color, scale: scale, selected: selected, favorited: favorited)
 
-        let imageOfFavorite = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfFavorite = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfFavorite
@@ -4304,7 +4304,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFavoritedstate(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfFavoritedstate = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfFavoritedstate = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfFavoritedstate
@@ -4314,7 +4314,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRefresharrow(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfRefresharrow = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfRefresharrow = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfRefresharrow
@@ -4324,7 +4324,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawTrash(color: color, scale: scale, selected: selected)
 
-        let imageOfTrash = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfTrash = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfTrash
@@ -4334,7 +4334,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawClipboard(color: color, scale: scale, selected: selected)
 
-        let imageOfClipboard = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfClipboard = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfClipboard
@@ -4344,7 +4344,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCheckmark(color: color, scale: scale, selected: selected)
 
-        let imageOfCheckmark = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCheckmark = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCheckmark
@@ -4354,7 +4354,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCancel(color: color, scale: scale, selected: selected)
 
-        let imageOfCancel = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCancel = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCancel
@@ -4364,7 +4364,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawInsert(color: color, scale: scale, selected: selected)
 
-        let imageOfInsert = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfInsert = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfInsert
@@ -4374,7 +4374,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawKeyboard(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfKeyboard = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfKeyboard = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfKeyboard
@@ -4384,7 +4384,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawUndo(color: color, scale: scale, selected: selected)
 
-        let imageOfUndo = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfUndo = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfUndo
@@ -4394,7 +4394,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClosebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfClosebutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfClosebutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfClosebutton
@@ -4404,7 +4404,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearchbaricon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfSearchbaricon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSearchbaricon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSearchbaricon
@@ -4414,7 +4414,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSharebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfSharebutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSharebutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSharebutton
@@ -4424,7 +4424,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawSettings(color: color, scale: scale, selected: selected)
 
-        let imageOfSettings = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSettings = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSettings
@@ -4434,7 +4434,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawTrending(color: color, scale: scale, selected: selected)
 
-        let imageOfTrending = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfTrending = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfTrending
@@ -4444,7 +4444,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawProfile(color: color, scale: scale, selected: selected)
 
-        let imageOfProfile = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfProfile = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfProfile
@@ -4454,7 +4454,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGlobebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfGlobebutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfGlobebutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfGlobebutton
@@ -4464,7 +4464,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearchtab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfSearchtab = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSearchtab = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSearchtab
@@ -4474,7 +4474,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawTrendingtab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfTrendingtab = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfTrendingtab = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfTrendingtab
@@ -4484,7 +4484,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFavoritestab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected, favorited: favorited)
 
-        let imageOfFavoritestab = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfFavoritestab = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfFavoritestab
@@ -4494,7 +4494,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRecentstab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfRecentstab = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfRecentstab = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfRecentstab
@@ -4504,7 +4504,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBackarrow(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected, rotate: rotate)
 
-        let imageOfBackarrow = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfBackarrow = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfBackarrow
@@ -4514,7 +4514,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 24, height: 30), false, 0)
             StyleKit.drawHotness(scale: scale)
 
-        let imageOfHotness = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfHotness = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfHotness
@@ -4524,7 +4524,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawMenu(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfMenu = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfMenu = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfMenu
@@ -4534,7 +4534,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCancelbutton(color: color, scale: scale, selected: selected)
 
-        let imageOfCancelbutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCancelbutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCancelbutton
@@ -4544,7 +4544,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawInsertbutton(color: color, scale: scale, selected: selected)
 
-        let imageOfInsertbutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfInsertbutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfInsertbutton
@@ -4554,7 +4554,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawLyricsclosebutton(scale: scale)
 
-        let imageOfLyricsclosebutton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfLyricsclosebutton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfLyricsclosebutton
@@ -4564,7 +4564,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawSnapchat(scale: scale, snapchatSelect: snapchatSelect)
 
-        let imageOfSnapchat = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSnapchat = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSnapchat
@@ -4574,7 +4574,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPremium(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
-        let imageOfPremium = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfPremium = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfPremium
@@ -4584,7 +4584,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoryicon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfCategoryicon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCategoryicon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCategoryicon
@@ -4594,7 +4594,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGlobe(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfGlobe = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfGlobe = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfGlobe
@@ -4604,7 +4604,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPacktab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfPacktab = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfPacktab = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfPacktab
@@ -4614,7 +4614,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawEnterkey(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfEnterkey = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfEnterkey = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfEnterkey
@@ -4624,7 +4624,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawCheckicon(color: color, scale: scale, selected: selected)
 
-        let imageOfCheckicon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCheckicon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCheckicon
@@ -4634,7 +4634,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClipboard_button(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfClipboard_button = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfClipboard_button = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfClipboard_button
@@ -4644,7 +4644,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawThumbslider(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfThumbslider = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfThumbslider = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfThumbslider
@@ -4654,7 +4654,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSlider(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfSlider = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSlider = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSlider
@@ -4664,7 +4664,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoryButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfCategoryButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCategoryButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCategoryButton
@@ -4674,7 +4674,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGifsButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfGifsButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfGifsButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfGifsButton
@@ -4684,7 +4684,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawQuotesButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfQuotesButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfQuotesButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfQuotesButton
@@ -4694,7 +4694,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), selected: selected)
 
-        let imageOfMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfMenuButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfMenuButton
@@ -4704,7 +4704,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoriesMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfCategoriesMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfCategoriesMenuButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfCategoriesMenuButton
@@ -4714,7 +4714,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPacksMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfPacksMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfPacksMenuButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfPacksMenuButton
@@ -4724,7 +4724,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawQuotesMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfQuotesMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfQuotesMenuButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfQuotesMenuButton
@@ -4734,7 +4734,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGifMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfGifMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfGifMenuButton = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfGifMenuButton
@@ -4744,7 +4744,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawHashtagicon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfHashtagicon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfHashtagicon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfHashtagicon
@@ -4754,7 +4754,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawShareButtonCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
-        let imageOfShareButtonCanvas = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfShareButtonCanvas = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfShareButtonCanvas
@@ -4764,7 +4764,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawShareCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfShareCanvas = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfShareCanvas = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfShareCanvas
@@ -4774,7 +4774,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawEmojiSelectedIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), emojiScale: emojiScale)
 
-        let imageOfEmojiSelectedIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfEmojiSelectedIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfEmojiSelectedIcon
@@ -4784,7 +4784,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawAbcIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfAbcIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfAbcIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfAbcIcon
@@ -4794,7 +4794,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRecentIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfRecentIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfRecentIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfRecentIcon
@@ -4804,7 +4804,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPeopleIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfPeopleIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfPeopleIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfPeopleIcon
@@ -4814,7 +4814,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawNatureIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfNatureIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfNatureIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfNatureIcon
@@ -4824,7 +4824,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFoodIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfFoodIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfFoodIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfFoodIcon
@@ -4834,7 +4834,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawConfettiIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfConfettiIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfConfettiIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfConfettiIcon
@@ -4844,7 +4844,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawActivityIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfActivityIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfActivityIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfActivityIcon
@@ -4854,7 +4854,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBuildingsIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfBuildingsIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfBuildingsIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfBuildingsIcon
@@ -4864,7 +4864,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRandomIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfRandomIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfRandomIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfRandomIcon
@@ -4874,7 +4874,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFlagIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfFlagIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfFlagIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfFlagIcon
@@ -4884,7 +4884,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBackspaceIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
-        let imageOfBackspaceIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfBackspaceIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfBackspaceIcon
@@ -4894,7 +4894,7 @@ public class StyleKit : NSObject {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSmileyIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
-        let imageOfSmileyIcon = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSmileyIcon = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
 
         return imageOfSmileyIcon

@@ -6,14 +6,16 @@
 //  Copyright (c) 2014 Project Surf Inc. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 #if DEBUG
     var BaseURL = "https://often-dev.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
+    let AppIdentifier = "com.tryoften.often.master"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.Keyboard"
+    let AppIdentifier = "com.tryoften.often"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"

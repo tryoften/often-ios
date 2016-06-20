@@ -1,0 +1,1153 @@
+BCSymbolMap Version: 1.0
+-[FLAnimatedImage frameCacheSizeCurrent]
+-[FLAnimatedImage setFrameCacheSizeMax:]
+-[FLAnimatedImage setFrameCacheSizeMaxInternal:]
++[FLAnimatedImage initialize]
+__29+[FLAnimatedImage initialize]_block_invoke
+__copy_helper_block_
+__destroy_helper_block_
+-[FLAnimatedImage init]
+__23-[FLAnimatedImage init]_block_invoke
+-[FLAnimatedImage initWithAnimatedGIFData:]
+-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2
+__copy_helper_block_.74
+__destroy_helper_block_.75
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.77
+__copy_helper_block_.80
+__destroy_helper_block_.81
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.108
+__copy_helper_block_.111
+__destroy_helper_block_.112
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.116
+__copy_helper_block_.119
+__destroy_helper_block_.120
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.128
+__copy_helper_block_.131
+__destroy_helper_block_.132
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.136
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke_2.141
+__copy_helper_block_.144
+__destroy_helper_block_.145
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.149
+__copy_helper_block_.152
+__destroy_helper_block_.153
+__83-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]_block_invoke.155
+__copy_helper_block_.158
+__destroy_helper_block_.159
++[FLAnimatedImage animatedImageWithGIFData:]
+-[FLAnimatedImage dealloc]
+-[FLAnimatedImage imageLazilyCachedAtIndex:]
+__44-[FLAnimatedImage imageLazilyCachedAtIndex:]_block_invoke
+__copy_helper_block_.178
+__destroy_helper_block_.179
+-[FLAnimatedImage addFrameIndexesToCache:]
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_2
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_3
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke_4
+__copy_helper_block_.220
+__destroy_helper_block_.221
+__42-[FLAnimatedImage addFrameIndexesToCache:]_block_invoke.223
+__copy_helper_block_.226
+__destroy_helper_block_.227
+__copy_helper_block_.230
+__destroy_helper_block_.231
+__copy_helper_block_.236
+__destroy_helper_block_.237
++[FLAnimatedImage sizeForImage:]
+__32+[FLAnimatedImage sizeForImage:]_block_invoke
+__copy_helper_block_.243
+__destroy_helper_block_.244
+-[FLAnimatedImage imageAtIndex:]
+-[FLAnimatedImage frameIndexesToCache]
+__38-[FLAnimatedImage frameIndexesToCache]_block_invoke
+-[FLAnimatedImage purgeFrameCacheIfNeeded]
+__42-[FLAnimatedImage purgeFrameCacheIfNeeded]_block_invoke
+__42-[FLAnimatedImage purgeFrameCacheIfNeeded]_block_invoke_2
+__copy_helper_block_.262
+__destroy_helper_block_.263
+__copy_helper_block_.265
+__destroy_helper_block_.266
+-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]
+__56-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]_block_invoke
+__copy_helper_block_.274
+__destroy_helper_block_.275
+-[FLAnimatedImage resetFrameCacheSizeMaxInternal]
+__49-[FLAnimatedImage resetFrameCacheSizeMaxInternal]_block_invoke
+__copy_helper_block_.285
+__destroy_helper_block_.286
+-[FLAnimatedImage didReceiveMemoryWarning:]
+__43-[FLAnimatedImage didReceiveMemoryWarning:]_block_invoke
+__copy_helper_block_.298
+__destroy_helper_block_.299
++[FLAnimatedImage predrawnImageFromImage:]
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke
+__copy_helper_block_.303
+__destroy_helper_block_.304
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.306
+__copy_helper_block_.309
+__destroy_helper_block_.310
+CGRectMake
+__42+[FLAnimatedImage predrawnImageFromImage:]_block_invoke.318
+__copy_helper_block_.321
+__destroy_helper_block_.322
+-[FLAnimatedImage description]
+-[FLAnimatedImage posterImage]
+-[FLAnimatedImage size]
+-[FLAnimatedImage loopCount]
+-[FLAnimatedImage delayTimesForIndexes]
+-[FLAnimatedImage frameCount]
+-[FLAnimatedImage frameCacheSizeMax]
+-[FLAnimatedImage data]
+-[FLAnimatedImage frameCacheSizeOptimal]
+-[FLAnimatedImage isPredrawingEnabled]
+-[FLAnimatedImage frameCacheSizeMaxInternal]
+-[FLAnimatedImage requestedFrameIndex]
+-[FLAnimatedImage setRequestedFrameIndex:]
+-[FLAnimatedImage posterImageFrameIndex]
+-[FLAnimatedImage cachedFramesForIndexes]
+-[FLAnimatedImage cachedFrameIndexes]
+-[FLAnimatedImage requestedFrameIndexes]
+-[FLAnimatedImage allFramesIndexSet]
+-[FLAnimatedImage memoryWarningCount]
+-[FLAnimatedImage setMemoryWarningCount:]
+-[FLAnimatedImage serialQueue]
+-[FLAnimatedImage imageSource]
+-[FLAnimatedImage weakProxy]
+-[FLAnimatedImage debug_delegate]
+-[FLAnimatedImage setDebug_delegate:]
+-[FLAnimatedImage .cxx_destruct]
++[FLAnimatedImage(Logging) setLogBlock:logLevel:]
++[FLAnimatedImage(Logging) logStringFromBlock:withLevel:]
++[FLWeakProxy weakProxyForObject:]
+-[FLWeakProxy forwardingTargetForSelector:]
+-[FLWeakProxy forwardInvocation:]
+-[FLWeakProxy methodSignatureForSelector:]
+-[FLWeakProxy target]
+-[FLWeakProxy setTarget:]
+-[FLWeakProxy .cxx_destruct]
+OBJC_METH_VAR_NAME_
+OBJC_SELECTOR_REFERENCES_
+OBJC_METH_VAR_NAME_.1
+OBJC_SELECTOR_REFERENCES_.2
+OBJC_METH_VAR_NAME_.3
+OBJC_SELECTOR_REFERENCES_.4
+OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMax
+OBJC_METH_VAR_NAME_.5
+OBJC_SELECTOR_REFERENCES_.6
+OBJC_METH_VAR_NAME_.7
+OBJC_SELECTOR_REFERENCES_.8
+OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeMaxInternal
+OBJC_CLASSLIST_REFERENCES_$_
+OBJC_METH_VAR_NAME_.9
+OBJC_SELECTOR_REFERENCES_.10
+OBJC_CLASSLIST_REFERENCES_$_.11
+OBJC_METH_VAR_NAME_.12
+OBJC_SELECTOR_REFERENCES_.13
+allAnimatedImagesWeak
+OBJC_CLASSLIST_REFERENCES_$_.14
+OBJC_METH_VAR_NAME_.15
+OBJC_SELECTOR_REFERENCES_.16
+OBJC_CLASSLIST_REFERENCES_$_.17
+OBJC_METH_VAR_NAME_.18
+OBJC_SELECTOR_REFERENCES_.19
+OBJC_CLASSLIST_REFERENCES_$_.20
+.str
+OBJC_METH_VAR_NAME_.21
+OBJC_SELECTOR_REFERENCES_.22
+.str.23
+_unnamed_cfstring_
+OBJC_CLASSLIST_REFERENCES_$_.24
+OBJC_METH_VAR_NAME_.25
+OBJC_SELECTOR_REFERENCES_.26
+.str.27
+_unnamed_cfstring_.28
+OBJC_METH_VAR_NAME_.29
+OBJC_SELECTOR_REFERENCES_.30
+OBJC_METH_VAR_NAME_.31
+OBJC_SELECTOR_REFERENCES_.32
+OBJC_METH_VAR_NAME_.33
+OBJC_SELECTOR_REFERENCES_.34
+OBJC_METH_VAR_NAME_.35
+OBJC_SELECTOR_REFERENCES_.36
+OBJC_METH_VAR_NAME_.37
+OBJC_SELECTOR_REFERENCES_.38
+.str.39
+OBJC_CLASS_NAME_
+__block_descriptor_tmp
+OBJC_METH_VAR_NAME_.40
+OBJC_SELECTOR_REFERENCES_.41
+OBJC_METH_VAR_NAME_.42
+OBJC_SELECTOR_REFERENCES_.43
+.str.44
+_unnamed_cfstring_.45
+OBJC_METH_VAR_NAME_.46
+OBJC_SELECTOR_REFERENCES_.47
+.str.48
+__block_descriptor_tmp.49
+__block_literal_global
+OBJC_METH_VAR_NAME_.50
+OBJC_SELECTOR_REFERENCES_.51
+OBJC_METH_VAR_NAME_.52
+OBJC_SELECTOR_REFERENCES_.53
+OBJC_METH_VAR_NAME_.54
+OBJC_SELECTOR_REFERENCES_.55
+.str.56
+_unnamed_cfstring_.57
+__block_descriptor_tmp.58
+__block_literal_global.59
+OBJC_CLASSLIST_SUP_REFS_$_
+OBJC_METH_VAR_NAME_.60
+OBJC_SELECTOR_REFERENCES_.61
+OBJC_IVAR_$_FLAnimatedImage._data
+OBJC_IVAR_$_FLAnimatedImage._predrawingEnabled
+OBJC_CLASSLIST_REFERENCES_$_.62
+OBJC_METH_VAR_NAME_.63
+OBJC_SELECTOR_REFERENCES_.64
+OBJC_IVAR_$_FLAnimatedImage._cachedFramesForIndexes
+OBJC_CLASSLIST_REFERENCES_$_.65
+OBJC_IVAR_$_FLAnimatedImage._cachedFrameIndexes
+OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndexes
+OBJC_CLASSLIST_REFERENCES_$_.66
+OBJC_METH_VAR_NAME_.67
+OBJC_SELECTOR_REFERENCES_.68
+OBJC_CLASSLIST_REFERENCES_$_.69
+OBJC_METH_VAR_NAME_.70
+OBJC_SELECTOR_REFERENCES_.71
+OBJC_IVAR_$_FLAnimatedImage._imageSource
+.str.72
+_unnamed_cfstring_.73
+__block_descriptor_tmp.76
+.str.78
+_unnamed_cfstring_.79
+__block_descriptor_tmp.82
+OBJC_METH_VAR_NAME_.83
+OBJC_SELECTOR_REFERENCES_.84
+OBJC_METH_VAR_NAME_.85
+OBJC_SELECTOR_REFERENCES_.86
+OBJC_IVAR_$_FLAnimatedImage._loopCount
+OBJC_METH_VAR_NAME_.87
+OBJC_SELECTOR_REFERENCES_.88
+OBJC_CLASSLIST_REFERENCES_$_.89
+OBJC_METH_VAR_NAME_.90
+OBJC_SELECTOR_REFERENCES_.91
+OBJC_METH_VAR_NAME_.92
+OBJC_SELECTOR_REFERENCES_.93
+OBJC_IVAR_$_FLAnimatedImage._posterImage
+OBJC_IVAR_$_FLAnimatedImage._size
+OBJC_METH_VAR_NAME_.94
+OBJC_SELECTOR_REFERENCES_.95
+OBJC_IVAR_$_FLAnimatedImage._posterImageFrameIndex
+OBJC_METH_VAR_NAME_.96
+OBJC_SELECTOR_REFERENCES_.97
+OBJC_METH_VAR_NAME_.98
+OBJC_SELECTOR_REFERENCES_.99
+OBJC_METH_VAR_NAME_.100
+OBJC_SELECTOR_REFERENCES_.101
+OBJC_METH_VAR_NAME_.102
+OBJC_SELECTOR_REFERENCES_.103
+OBJC_METH_VAR_NAME_.104
+OBJC_SELECTOR_REFERENCES_.105
+OBJC_METH_VAR_NAME_.106
+OBJC_SELECTOR_REFERENCES_.107
+.str.109
+_unnamed_cfstring_.110
+__block_descriptor_tmp.113
+OBJC_METH_VAR_NAME_.114
+OBJC_SELECTOR_REFERENCES_.115
+.str.117
+_unnamed_cfstring_.118
+__block_descriptor_tmp.121
+OBJC_METH_VAR_NAME_.122
+OBJC_SELECTOR_REFERENCES_.123
+OBJC_METH_VAR_NAME_.124
+OBJC_SELECTOR_REFERENCES_.125
+OBJC_METH_VAR_NAME_.126
+OBJC_SELECTOR_REFERENCES_.127
+.str.129
+_unnamed_cfstring_.130
+__block_descriptor_tmp.133
+OBJC_METH_VAR_NAME_.134
+OBJC_SELECTOR_REFERENCES_.135
+.str.137
+_unnamed_cfstring_.138
+OBJC_CLASS_NAME_.139
+__block_descriptor_tmp.140
+.str.142
+_unnamed_cfstring_.143
+__block_descriptor_tmp.146
+OBJC_IVAR_$_FLAnimatedImage._delayTimesForIndexes
+OBJC_IVAR_$_FLAnimatedImage._frameCount
+OBJC_METH_VAR_NAME_.147
+OBJC_SELECTOR_REFERENCES_.148
+.str.150
+_unnamed_cfstring_.151
+__block_descriptor_tmp.154
+.str.156
+_unnamed_cfstring_.157
+__block_descriptor_tmp.160
+OBJC_METH_VAR_NAME_.161
+OBJC_SELECTOR_REFERENCES_.162
+OBJC_IVAR_$_FLAnimatedImage._frameCacheSizeOptimal
+OBJC_CLASSLIST_REFERENCES_$_.163
+OBJC_METH_VAR_NAME_.164
+OBJC_SELECTOR_REFERENCES_.165
+OBJC_IVAR_$_FLAnimatedImage._allFramesIndexSet
+OBJC_CLASSLIST_REFERENCES_$_.166
+OBJC_METH_VAR_NAME_.167
+OBJC_SELECTOR_REFERENCES_.168
+OBJC_IVAR_$_FLAnimatedImage._weakProxy
+OBJC_METH_VAR_NAME_.169
+OBJC_SELECTOR_REFERENCES_.170
+OBJC_CLASSLIST_REFERENCES_$_.171
+OBJC_METH_VAR_NAME_.172
+OBJC_SELECTOR_REFERENCES_.173
+OBJC_METH_VAR_NAME_.174
+OBJC_SELECTOR_REFERENCES_.175
+.str.176
+_unnamed_cfstring_.177
+__block_descriptor_tmp.180
+OBJC_METH_VAR_NAME_.181
+OBJC_SELECTOR_REFERENCES_.182
+OBJC_METH_VAR_NAME_.183
+OBJC_SELECTOR_REFERENCES_.184
+OBJC_METH_VAR_NAME_.185
+OBJC_SELECTOR_REFERENCES_.186
+OBJC_METH_VAR_NAME_.187
+OBJC_SELECTOR_REFERENCES_.188
+OBJC_METH_VAR_NAME_.189
+OBJC_SELECTOR_REFERENCES_.190
+OBJC_METH_VAR_NAME_.191
+OBJC_SELECTOR_REFERENCES_.192
+OBJC_METH_VAR_NAME_.193
+OBJC_SELECTOR_REFERENCES_.194
+OBJC_METH_VAR_NAME_.195
+OBJC_SELECTOR_REFERENCES_.196
+OBJC_METH_VAR_NAME_.197
+OBJC_SELECTOR_REFERENCES_.198
+OBJC_METH_VAR_NAME_.199
+OBJC_SELECTOR_REFERENCES_.200
+OBJC_METH_VAR_NAME_.201
+OBJC_SELECTOR_REFERENCES_.202
+.str.203
+_unnamed_cfstring_.204
+__block_descriptor_tmp.205
+__block_literal_global.206
+OBJC_METH_VAR_NAME_.207
+OBJC_SELECTOR_REFERENCES_.208
+OBJC_METH_VAR_NAME_.209
+OBJC_SELECTOR_REFERENCES_.210
+.str.211
+OBJC_IVAR_$_FLAnimatedImage._serialQueue
+OBJC_METH_VAR_NAME_.212
+OBJC_SELECTOR_REFERENCES_.213
+OBJC_METH_VAR_NAME_.214
+OBJC_SELECTOR_REFERENCES_.215
+OBJC_METH_VAR_NAME_.216
+OBJC_SELECTOR_REFERENCES_.217
+.str.218
+_unnamed_cfstring_.219
+__block_descriptor_tmp.222
+OBJC_METH_VAR_NAME_.224
+OBJC_SELECTOR_REFERENCES_.225
+.str.228
+__block_descriptor_tmp.229
+.str.232
+__block_descriptor_tmp.233
+OBJC_METH_VAR_NAME_.234
+OBJC_SELECTOR_REFERENCES_.235
+__block_descriptor_tmp.238
+OBJC_METH_VAR_NAME_.239
+OBJC_SELECTOR_REFERENCES_.240
+.str.241
+_unnamed_cfstring_.242
+__block_descriptor_tmp.245
+OBJC_METH_VAR_NAME_.246
+OBJC_SELECTOR_REFERENCES_.247
+OBJC_METH_VAR_NAME_.248
+OBJC_SELECTOR_REFERENCES_.249
+OBJC_METH_VAR_NAME_.250
+OBJC_SELECTOR_REFERENCES_.251
+OBJC_METH_VAR_NAME_.252
+OBJC_SELECTOR_REFERENCES_.253
+OBJC_METH_VAR_NAME_.254
+OBJC_SELECTOR_REFERENCES_.255
+.str.256
+_unnamed_cfstring_.257
+__block_descriptor_tmp.258
+__block_literal_global.259
+OBJC_METH_VAR_NAME_.260
+OBJC_SELECTOR_REFERENCES_.261
+__block_descriptor_tmp.264
+__block_descriptor_tmp.267
+OBJC_METH_VAR_NAME_.268
+OBJC_SELECTOR_REFERENCES_.269
+OBJC_METH_VAR_NAME_.270
+OBJC_SELECTOR_REFERENCES_.271
+.str.272
+_unnamed_cfstring_.273
+__block_descriptor_tmp.276
+OBJC_METH_VAR_NAME_.277
+OBJC_SELECTOR_REFERENCES_.278
+OBJC_METH_VAR_NAME_.279
+OBJC_SELECTOR_REFERENCES_.280
+OBJC_METH_VAR_NAME_.281
+OBJC_SELECTOR_REFERENCES_.282
+.str.283
+_unnamed_cfstring_.284
+__block_descriptor_tmp.287
+OBJC_METH_VAR_NAME_.288
+OBJC_SELECTOR_REFERENCES_.289
+OBJC_METH_VAR_NAME_.290
+OBJC_SELECTOR_REFERENCES_.291
+OBJC_METH_VAR_NAME_.292
+OBJC_SELECTOR_REFERENCES_.293
+OBJC_METH_VAR_NAME_.294
+OBJC_SELECTOR_REFERENCES_.295
+.str.296
+_unnamed_cfstring_.297
+__block_descriptor_tmp.300
+.str.301
+_unnamed_cfstring_.302
+__block_descriptor_tmp.305
+.str.307
+_unnamed_cfstring_.308
+__block_descriptor_tmp.311
+OBJC_METH_VAR_NAME_.312
+OBJC_SELECTOR_REFERENCES_.313
+OBJC_METH_VAR_NAME_.314
+OBJC_SELECTOR_REFERENCES_.315
+OBJC_METH_VAR_NAME_.316
+OBJC_SELECTOR_REFERENCES_.317
+.str.319
+_unnamed_cfstring_.320
+__block_descriptor_tmp.323
+OBJC_METH_VAR_NAME_.324
+OBJC_SELECTOR_REFERENCES_.325
+.str.326
+_unnamed_cfstring_.327
+OBJC_METH_VAR_NAME_.328
+OBJC_SELECTOR_REFERENCES_.329
+.str.330
+_unnamed_cfstring_.331
+OBJC_IVAR_$_FLAnimatedImage._requestedFrameIndex
+OBJC_IVAR_$_FLAnimatedImage._memoryWarningCount
+OBJC_IVAR_$_FLAnimatedImage._debug_delegate
+OBJC_CLASS_NAME_.332
+OBJC_METH_VAR_NAME_.333
+OBJC_METH_VAR_TYPE_
+OBJC_METH_VAR_NAME_.334
+OBJC_METH_VAR_TYPE_.335
+OBJC_METH_VAR_NAME_.336
+OBJC_METH_VAR_TYPE_.337
+l_OBJC_$_CLASS_METHODS_FLAnimatedImage
+l_OBJC_METACLASS_RO_$_FLAnimatedImage
+OBJC_CLASS_NAME_.338
+OBJC_METH_VAR_TYPE_.339
+OBJC_METH_VAR_NAME_.340
+OBJC_METH_VAR_TYPE_.341
+OBJC_METH_VAR_TYPE_.342
+OBJC_METH_VAR_TYPE_.343
+OBJC_METH_VAR_NAME_.344
+OBJC_METH_VAR_TYPE_.345
+OBJC_METH_VAR_TYPE_.346
+OBJC_METH_VAR_NAME_.347
+OBJC_METH_VAR_TYPE_.348
+OBJC_METH_VAR_NAME_.349
+OBJC_METH_VAR_NAME_.350
+OBJC_METH_VAR_NAME_.351
+OBJC_METH_VAR_TYPE_.352
+OBJC_METH_VAR_NAME_.353
+OBJC_METH_VAR_TYPE_.354
+OBJC_METH_VAR_NAME_.355
+l_OBJC_$_INSTANCE_METHODS_FLAnimatedImage
+OBJC_METH_VAR_NAME_.356
+OBJC_METH_VAR_TYPE_.357
+OBJC_METH_VAR_NAME_.358
+OBJC_METH_VAR_TYPE_.359
+OBJC_METH_VAR_NAME_.360
+OBJC_METH_VAR_TYPE_.361
+OBJC_METH_VAR_NAME_.362
+OBJC_METH_VAR_TYPE_.363
+OBJC_METH_VAR_NAME_.364
+OBJC_METH_VAR_NAME_.365
+OBJC_METH_VAR_NAME_.366
+OBJC_METH_VAR_TYPE_.367
+OBJC_METH_VAR_NAME_.368
+OBJC_METH_VAR_NAME_.369
+OBJC_METH_VAR_NAME_.370
+OBJC_METH_VAR_NAME_.371
+OBJC_METH_VAR_NAME_.372
+OBJC_METH_VAR_TYPE_.373
+OBJC_METH_VAR_NAME_.374
+OBJC_METH_VAR_TYPE_.375
+OBJC_METH_VAR_NAME_.376
+OBJC_METH_VAR_NAME_.377
+OBJC_METH_VAR_TYPE_.378
+OBJC_METH_VAR_NAME_.379
+OBJC_METH_VAR_NAME_.380
+OBJC_METH_VAR_TYPE_.381
+OBJC_METH_VAR_NAME_.382
+OBJC_METH_VAR_TYPE_.383
+OBJC_METH_VAR_NAME_.384
+OBJC_METH_VAR_TYPE_.385
+OBJC_METH_VAR_NAME_.386
+OBJC_METH_VAR_TYPE_.387
+OBJC_METH_VAR_NAME_.388
+OBJC_METH_VAR_TYPE_.389
+l_OBJC_$_INSTANCE_VARIABLES_FLAnimatedImage
+OBJC_CLASS_NAME_.390
+OBJC_PROP_NAME_ATTR_
+OBJC_PROP_NAME_ATTR_.391
+OBJC_PROP_NAME_ATTR_.392
+OBJC_PROP_NAME_ATTR_.393
+OBJC_PROP_NAME_ATTR_.394
+OBJC_PROP_NAME_ATTR_.395
+OBJC_PROP_NAME_ATTR_.396
+OBJC_PROP_NAME_ATTR_.397
+OBJC_PROP_NAME_ATTR_.398
+OBJC_PROP_NAME_ATTR_.399
+OBJC_PROP_NAME_ATTR_.400
+OBJC_PROP_NAME_ATTR_.401
+OBJC_PROP_NAME_ATTR_.402
+OBJC_PROP_NAME_ATTR_.403
+OBJC_PROP_NAME_ATTR_.404
+OBJC_PROP_NAME_ATTR_.405
+OBJC_PROP_NAME_ATTR_.406
+OBJC_PROP_NAME_ATTR_.407
+OBJC_PROP_NAME_ATTR_.408
+OBJC_PROP_NAME_ATTR_.409
+OBJC_PROP_NAME_ATTR_.410
+OBJC_PROP_NAME_ATTR_.411
+OBJC_PROP_NAME_ATTR_.412
+OBJC_PROP_NAME_ATTR_.413
+OBJC_PROP_NAME_ATTR_.414
+OBJC_PROP_NAME_ATTR_.415
+OBJC_PROP_NAME_ATTR_.416
+OBJC_PROP_NAME_ATTR_.417
+OBJC_PROP_NAME_ATTR_.418
+OBJC_PROP_NAME_ATTR_.419
+OBJC_PROP_NAME_ATTR_.420
+OBJC_PROP_NAME_ATTR_.421
+OBJC_PROP_NAME_ATTR_.422
+OBJC_PROP_NAME_ATTR_.423
+OBJC_PROP_NAME_ATTR_.424
+OBJC_PROP_NAME_ATTR_.425
+OBJC_PROP_NAME_ATTR_.426
+OBJC_PROP_NAME_ATTR_.427
+OBJC_PROP_NAME_ATTR_.428
+OBJC_PROP_NAME_ATTR_.429
+OBJC_PROP_NAME_ATTR_.430
+OBJC_PROP_NAME_ATTR_.431
+OBJC_PROP_NAME_ATTR_.432
+OBJC_PROP_NAME_ATTR_.433
+l_OBJC_$_PROP_LIST_FLAnimatedImage
+l_OBJC_CLASS_RO_$_FLAnimatedImage
+_logBlock
+_logLevel
+OBJC_CLASS_NAME_.434
+OBJC_METH_VAR_NAME_.435
+OBJC_METH_VAR_TYPE_.436
+l_OBJC_$_CATEGORY_CLASS_METHODS_FLAnimatedImage_$_Logging
+l_OBJC_$_CATEGORY_FLAnimatedImage_$_Logging
+OBJC_METH_VAR_NAME_.437
+OBJC_SELECTOR_REFERENCES_.438
+OBJC_IVAR_$_FLWeakProxy._target
+OBJC_METH_VAR_NAME_.439
+OBJC_SELECTOR_REFERENCES_.440
+OBJC_METH_VAR_NAME_.441
+OBJC_SELECTOR_REFERENCES_.442
+OBJC_CLASS_NAME_.443
+l_OBJC_$_CLASS_METHODS_FLWeakProxy
+l_OBJC_METACLASS_RO_$_FLWeakProxy
+OBJC_METH_VAR_NAME_.444
+OBJC_METH_VAR_TYPE_.445
+OBJC_METH_VAR_NAME_.446
+OBJC_METH_VAR_NAME_.447
+OBJC_METH_VAR_NAME_.448
+l_OBJC_$_INSTANCE_METHODS_FLWeakProxy
+OBJC_METH_VAR_NAME_.449
+OBJC_METH_VAR_TYPE_.450
+l_OBJC_$_INSTANCE_VARIABLES_FLWeakProxy
+OBJC_CLASS_NAME_.451
+OBJC_PROP_NAME_ATTR_.452
+OBJC_PROP_NAME_ATTR_.453
+l_OBJC_$_PROP_LIST_FLWeakProxy
+l_OBJC_CLASS_RO_$_FLWeakProxy
+OBJC_LABEL_CLASS_$
+OBJC_LABEL_CATEGORY_$
+Apple LLVM version 7.3.0 (clang-703.0.29)
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGGeometry.h
+/Users/luc/Projects/often-ios/Carthage/Checkouts/FLAnimatedImage
+dispatch_get_main_queue
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/include/dispatch/queue.h
+NSMaxRange
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework/Headers/NSRange.h
+NSMakeRange
+-[FLWeakProxy .cxx_destruct]
+/Users/luc/Projects/often-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImage.m
+-[FLWeakProxy setTarget:]
+-[FLWeakProxy target]
+-[FLWeakProxy methodSignatureForSelector:]
+-[FLWeakProxy forwardInvocation:]
+-[FLWeakProxy forwardingTargetForSelector:]
++[FLWeakProxy weakProxyForObject:]
++[FLAnimatedImage(Logging) logStringFromBlock:withLevel:]
++[FLAnimatedImage(Logging) setLogBlock:logLevel:]
+-[FLAnimatedImage .cxx_destruct]
+-[FLAnimatedImage setDebug_delegate:]
+-[FLAnimatedImage debug_delegate]
+-[FLAnimatedImage weakProxy]
+-[FLAnimatedImage imageSource]
+-[FLAnimatedImage serialQueue]
+-[FLAnimatedImage setMemoryWarningCount:]
+-[FLAnimatedImage memoryWarningCount]
+-[FLAnimatedImage allFramesIndexSet]
+-[FLAnimatedImage requestedFrameIndexes]
+-[FLAnimatedImage cachedFrameIndexes]
+-[FLAnimatedImage cachedFramesForIndexes]
+-[FLAnimatedImage posterImageFrameIndex]
+-[FLAnimatedImage setRequestedFrameIndex:]
+-[FLAnimatedImage requestedFrameIndex]
+-[FLAnimatedImage frameCacheSizeMaxInternal]
+-[FLAnimatedImage isPredrawingEnabled]
+-[FLAnimatedImage frameCacheSizeOptimal]
+-[FLAnimatedImage data]
+/Users/luc/Projects/often-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImage.h
+-[FLAnimatedImage frameCacheSizeMax]
+-[FLAnimatedImage frameCount]
+-[FLAnimatedImage delayTimesForIndexes]
+-[FLAnimatedImage loopCount]
+-[FLAnimatedImage size]
+-[FLAnimatedImage posterImage]
+-[FLAnimatedImage description]
++[FLAnimatedImage predrawnImageFromImage:]
+-[FLAnimatedImage didReceiveMemoryWarning:]
+-[FLAnimatedImage resetFrameCacheSizeMaxInternal]
+-[FLAnimatedImage growFrameCacheSizeAfterMemoryWarning:]
+-[FLAnimatedImage purgeFrameCacheIfNeeded]
+-[FLAnimatedImage frameIndexesToCache]
+-[FLAnimatedImage imageAtIndex:]
++[FLAnimatedImage sizeForImage:]
+-[FLAnimatedImage addFrameIndexesToCache:]
+-[FLAnimatedImage imageLazilyCachedAtIndex:]
+-[FLAnimatedImage dealloc]
++[FLAnimatedImage animatedImageWithGIFData:]
+-[FLAnimatedImage initWithAnimatedGIFData:optimalFrameCacheSize:predrawingEnabled:]
+-[FLAnimatedImage initWithAnimatedGIFData:]
+-[FLAnimatedImage init]
++[FLAnimatedImage initialize]
+-[FLAnimatedImage setFrameCacheSizeMaxInternal:]
+-[FLAnimatedImage setFrameCacheSizeMax:]
+-[FLAnimatedImage frameCacheSizeCurrent]
+-[FLAnimatedImageView initWithImage:]
+-[FLAnimatedImageView initWithImage:highlightedImage:]
+-[FLAnimatedImageView initWithFrame:]
+-[FLAnimatedImageView initWithCoder:]
+-[FLAnimatedImageView commonInit]
+-[FLAnimatedImageView setAnimatedImage:]
+-[FLAnimatedImageView dealloc]
+-[FLAnimatedImageView didMoveToSuperview]
+-[FLAnimatedImageView didMoveToWindow]
+-[FLAnimatedImageView setAlpha:]
+-[FLAnimatedImageView setHidden:]
+-[FLAnimatedImageView intrinsicContentSize]
+-[FLAnimatedImageView image]
+-[FLAnimatedImageView setImage:]
+-[FLAnimatedImageView frameDelayGreatestCommonDivisor]
+gcd
+-[FLAnimatedImageView startAnimating]
+-[FLAnimatedImageView setRunLoopMode:]
+-[FLAnimatedImageView stopAnimating]
+-[FLAnimatedImageView isAnimating]
+-[FLAnimatedImageView setHighlighted:]
+-[FLAnimatedImageView updateShouldAnimate]
+-[FLAnimatedImageView displayDidRefresh:]
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.152
+__copy_helper_block_.155
+__destroy_helper_block_.156
+__41-[FLAnimatedImageView displayDidRefresh:]_block_invoke.174
+__copy_helper_block_.177
+__destroy_helper_block_.178
++[FLAnimatedImageView defaultRunLoopMode]
+-[FLAnimatedImageView displayLayer:]
+-[FLAnimatedImageView runLoopMode]
+-[FLAnimatedImageView animatedImage]
+-[FLAnimatedImageView loopCompletionBlock]
+-[FLAnimatedImageView setLoopCompletionBlock:]
+-[FLAnimatedImageView currentFrame]
+-[FLAnimatedImageView setCurrentFrame:]
+-[FLAnimatedImageView currentFrameIndex]
+-[FLAnimatedImageView setCurrentFrameIndex:]
+-[FLAnimatedImageView loopCountdown]
+-[FLAnimatedImageView setLoopCountdown:]
+-[FLAnimatedImageView accumulator]
+-[FLAnimatedImageView setAccumulator:]
+-[FLAnimatedImageView displayLink]
+-[FLAnimatedImageView setDisplayLink:]
+-[FLAnimatedImageView shouldAnimate]
+-[FLAnimatedImageView setShouldAnimate:]
+-[FLAnimatedImageView needsDisplayWhenImageBecomesAvailable]
+-[FLAnimatedImageView setNeedsDisplayWhenImageBecomesAvailable:]
+-[FLAnimatedImageView debug_delegate]
+-[FLAnimatedImageView setDebug_delegate:]
+-[FLAnimatedImageView .cxx_destruct]
+OBJC_METH_VAR_NAME_.11
+OBJC_SELECTOR_REFERENCES_.12
+OBJC_METH_VAR_NAME_.13
+OBJC_SELECTOR_REFERENCES_.14
+OBJC_IVAR_$_FLAnimatedImageView._animatedImage
+OBJC_METH_VAR_NAME_.17
+OBJC_SELECTOR_REFERENCES_.18
+OBJC_METH_VAR_NAME_.19
+OBJC_SELECTOR_REFERENCES_.20
+OBJC_METH_VAR_NAME_.23
+OBJC_SELECTOR_REFERENCES_.24
+OBJC_METH_VAR_NAME_.27
+OBJC_SELECTOR_REFERENCES_.28
+OBJC_METH_VAR_NAME_.39
+OBJC_SELECTOR_REFERENCES_.40
+OBJC_METH_VAR_NAME_.41
+OBJC_SELECTOR_REFERENCES_.42
+OBJC_METH_VAR_NAME_.43
+OBJC_SELECTOR_REFERENCES_.44
+OBJC_METH_VAR_NAME_.45
+OBJC_SELECTOR_REFERENCES_.46
+OBJC_IVAR_$_FLAnimatedImageView._displayLink
+OBJC_METH_VAR_NAME_.47
+OBJC_SELECTOR_REFERENCES_.48
+OBJC_METH_VAR_NAME_.49
+OBJC_SELECTOR_REFERENCES_.50
+OBJC_METH_VAR_NAME_.51
+OBJC_SELECTOR_REFERENCES_.52
+OBJC_METH_VAR_NAME_.53
+OBJC_SELECTOR_REFERENCES_.54
+OBJC_METH_VAR_NAME_.55
+OBJC_SELECTOR_REFERENCES_.56
+OBJC_METH_VAR_NAME_.57
+OBJC_SELECTOR_REFERENCES_.58
+OBJC_METH_VAR_NAME_.59
+OBJC_SELECTOR_REFERENCES_.60
+OBJC_METH_VAR_NAME_.61
+OBJC_SELECTOR_REFERENCES_.62
+OBJC_METH_VAR_NAME_.65
+OBJC_SELECTOR_REFERENCES_.66
+OBJC_METH_VAR_NAME_.69
+OBJC_SELECTOR_REFERENCES_.70
+OBJC_METH_VAR_NAME_.71
+OBJC_SELECTOR_REFERENCES_.72
+OBJC_METH_VAR_NAME_.73
+OBJC_SELECTOR_REFERENCES_.74
+OBJC_METH_VAR_NAME_.75
+OBJC_SELECTOR_REFERENCES_.76
+OBJC_METH_VAR_NAME_.77
+OBJC_SELECTOR_REFERENCES_.78
+OBJC_METH_VAR_NAME_.79
+OBJC_SELECTOR_REFERENCES_.80
+OBJC_METH_VAR_NAME_.81
+OBJC_SELECTOR_REFERENCES_.82
+OBJC_CLASSLIST_REFERENCES_$_.85
+OBJC_METH_VAR_NAME_.86
+OBJC_SELECTOR_REFERENCES_.87
+OBJC_METH_VAR_NAME_.88
+OBJC_SELECTOR_REFERENCES_.89
+OBJC_CLASSLIST_REFERENCES_$_.92
+OBJC_METH_VAR_NAME_.93
+OBJC_SELECTOR_REFERENCES_.94
+OBJC_METH_VAR_NAME_.95
+OBJC_SELECTOR_REFERENCES_.96
+OBJC_METH_VAR_NAME_.97
+OBJC_SELECTOR_REFERENCES_.98
+OBJC_METH_VAR_NAME_.99
+OBJC_SELECTOR_REFERENCES_.100
+OBJC_METH_VAR_NAME_.101
+OBJC_SELECTOR_REFERENCES_.102
+OBJC_METH_VAR_NAME_.103
+OBJC_SELECTOR_REFERENCES_.104
+OBJC_CLASSLIST_REFERENCES_$_.105
+OBJC_METH_VAR_NAME_.108
+OBJC_SELECTOR_REFERENCES_.109
+OBJC_CLASSLIST_REFERENCES_$_.110
+OBJC_METH_VAR_NAME_.111
+OBJC_SELECTOR_REFERENCES_.112
+.str.113
+OBJC_CLASSLIST_REFERENCES_$_.114
+OBJC_METH_VAR_NAME_.115
+OBJC_SELECTOR_REFERENCES_.116
+OBJC_METH_VAR_NAME_.119
+OBJC_SELECTOR_REFERENCES_.120
+OBJC_IVAR_$_FLAnimatedImageView._runLoopMode
+OBJC_METH_VAR_NAME_.121
+OBJC_SELECTOR_REFERENCES_.122
+OBJC_METH_VAR_NAME_.123
+OBJC_SELECTOR_REFERENCES_.124
+OBJC_METH_VAR_NAME_.125
+OBJC_SELECTOR_REFERENCES_.126
+OBJC_METH_VAR_NAME_.127
+OBJC_SELECTOR_REFERENCES_.128
+OBJC_METH_VAR_NAME_.129
+OBJC_SELECTOR_REFERENCES_.130
+OBJC_METH_VAR_NAME_.131
+OBJC_SELECTOR_REFERENCES_.132
+OBJC_METH_VAR_NAME_.133
+OBJC_SELECTOR_REFERENCES_.134
+OBJC_CLASSLIST_REFERENCES_$_.135
+.str.136
+_unnamed_cfstring_.137
+OBJC_METH_VAR_NAME_.138
+OBJC_SELECTOR_REFERENCES_.139
+.str.140
+OBJC_METH_VAR_NAME_.141
+OBJC_SELECTOR_REFERENCES_.142
+OBJC_CLASSLIST_REFERENCES_$_.143
+OBJC_METH_VAR_NAME_.144
+OBJC_SELECTOR_REFERENCES_.145
+OBJC_METH_VAR_NAME_.146
+OBJC_SELECTOR_REFERENCES_.147
+OBJC_METH_VAR_NAME_.148
+OBJC_SELECTOR_REFERENCES_.149
+OBJC_METH_VAR_NAME_.150
+OBJC_SELECTOR_REFERENCES_.151
+.str.153
+_unnamed_cfstring_.154
+__block_descriptor_tmp.157
+OBJC_METH_VAR_NAME_.158
+OBJC_SELECTOR_REFERENCES_.159
+OBJC_METH_VAR_NAME_.160
+OBJC_SELECTOR_REFERENCES_.161
+OBJC_METH_VAR_NAME_.162
+OBJC_SELECTOR_REFERENCES_.163
+OBJC_METH_VAR_NAME_.166
+OBJC_SELECTOR_REFERENCES_.167
+OBJC_METH_VAR_NAME_.168
+OBJC_SELECTOR_REFERENCES_.169
+OBJC_METH_VAR_NAME_.170
+OBJC_SELECTOR_REFERENCES_.171
+.str.175
+_unnamed_cfstring_.176
+__block_descriptor_tmp.179
+OBJC_METH_VAR_NAME_.180
+OBJC_SELECTOR_REFERENCES_.181
+OBJC_METH_VAR_NAME_.182
+OBJC_SELECTOR_REFERENCES_.183
+OBJC_METH_VAR_NAME_.184
+OBJC_SELECTOR_REFERENCES_.185
+OBJC_CLASSLIST_REFERENCES_$_.186
+OBJC_IVAR_$_FLAnimatedImageView._loopCompletionBlock
+OBJC_IVAR_$_FLAnimatedImageView._currentFrame
+OBJC_IVAR_$_FLAnimatedImageView._currentFrameIndex
+OBJC_IVAR_$_FLAnimatedImageView._loopCountdown
+OBJC_IVAR_$_FLAnimatedImageView._accumulator
+OBJC_IVAR_$_FLAnimatedImageView._shouldAnimate
+OBJC_IVAR_$_FLAnimatedImageView._needsDisplayWhenImageBecomesAvailable
+OBJC_IVAR_$_FLAnimatedImageView._debug_delegate
+l_OBJC_$_CLASS_METHODS_FLAnimatedImageView
+l_OBJC_METACLASS_RO_$_FLAnimatedImageView
+OBJC_CLASS_NAME_.195
+OBJC_METH_VAR_TYPE_.196
+OBJC_METH_VAR_TYPE_.197
+OBJC_METH_VAR_TYPE_.198
+OBJC_METH_VAR_TYPE_.199
+OBJC_METH_VAR_TYPE_.200
+OBJC_METH_VAR_TYPE_.201
+OBJC_METH_VAR_TYPE_.202
+OBJC_METH_VAR_TYPE_.203
+OBJC_METH_VAR_TYPE_.204
+OBJC_METH_VAR_TYPE_.205
+OBJC_METH_VAR_NAME_.206
+OBJC_METH_VAR_TYPE_.208
+OBJC_METH_VAR_TYPE_.210
+OBJC_METH_VAR_TYPE_.211
+OBJC_METH_VAR_TYPE_.212
+OBJC_METH_VAR_NAME_.213
+l_OBJC_$_INSTANCE_METHODS_FLAnimatedImageView
+OBJC_METH_VAR_TYPE_.215
+OBJC_METH_VAR_NAME_.217
+OBJC_METH_VAR_TYPE_.218
+OBJC_METH_VAR_NAME_.219
+OBJC_METH_VAR_TYPE_.220
+OBJC_METH_VAR_NAME_.221
+OBJC_METH_VAR_TYPE_.222
+OBJC_METH_VAR_NAME_.223
+OBJC_METH_VAR_TYPE_.224
+OBJC_METH_VAR_NAME_.225
+OBJC_METH_VAR_TYPE_.226
+OBJC_METH_VAR_NAME_.227
+OBJC_METH_VAR_NAME_.228
+OBJC_METH_VAR_TYPE_.229
+OBJC_METH_VAR_NAME_.230
+OBJC_METH_VAR_TYPE_.231
+OBJC_METH_VAR_NAME_.232
+OBJC_METH_VAR_TYPE_.233
+l_OBJC_$_INSTANCE_VARIABLES_FLAnimatedImageView
+OBJC_CLASS_NAME_.234
+OBJC_PROP_NAME_ATTR_.235
+OBJC_PROP_NAME_ATTR_.236
+OBJC_PROP_NAME_ATTR_.237
+OBJC_PROP_NAME_ATTR_.238
+OBJC_PROP_NAME_ATTR_.239
+OBJC_PROP_NAME_ATTR_.240
+OBJC_PROP_NAME_ATTR_.241
+OBJC_PROP_NAME_ATTR_.242
+OBJC_PROP_NAME_ATTR_.243
+OBJC_PROP_NAME_ATTR_.244
+OBJC_PROP_NAME_ATTR_.245
+OBJC_PROP_NAME_ATTR_.246
+OBJC_PROP_NAME_ATTR_.247
+OBJC_PROP_NAME_ATTR_.248
+OBJC_PROP_NAME_ATTR_.249
+OBJC_PROP_NAME_ATTR_.250
+OBJC_PROP_NAME_ATTR_.251
+OBJC_PROP_NAME_ATTR_.252
+OBJC_PROP_NAME_ATTR_.253
+OBJC_PROP_NAME_ATTR_.254
+OBJC_PROP_NAME_ATTR_.255
+l_OBJC_$_PROP_LIST_FLAnimatedImageView
+l_OBJC_CLASS_RO_$_FLAnimatedImageView
+/Users/luc/Projects/often-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImageView.m
+-[FLAnimatedImageView .cxx_destruct]
+-[FLAnimatedImageView setDebug_delegate:]
+-[FLAnimatedImageView debug_delegate]
+-[FLAnimatedImageView setNeedsDisplayWhenImageBecomesAvailable:]
+-[FLAnimatedImageView needsDisplayWhenImageBecomesAvailable]
+-[FLAnimatedImageView setShouldAnimate:]
+-[FLAnimatedImageView shouldAnimate]
+-[FLAnimatedImageView setDisplayLink:]
+-[FLAnimatedImageView displayLink]
+-[FLAnimatedImageView setAccumulator:]
+-[FLAnimatedImageView accumulator]
+-[FLAnimatedImageView setLoopCountdown:]
+-[FLAnimatedImageView loopCountdown]
+-[FLAnimatedImageView setCurrentFrameIndex:]
+-[FLAnimatedImageView currentFrameIndex]
+/Users/luc/Projects/often-ios/Carthage/Checkouts/FLAnimatedImage/FLAnimatedImage/FLAnimatedImageView.h
+-[FLAnimatedImageView setCurrentFrame:]
+-[FLAnimatedImageView currentFrame]
+-[FLAnimatedImageView setLoopCompletionBlock:]
+-[FLAnimatedImageView loopCompletionBlock]
+-[FLAnimatedImageView animatedImage]
+-[FLAnimatedImageView runLoopMode]
+-[FLAnimatedImageView displayLayer:]
++[FLAnimatedImageView defaultRunLoopMode]
+-[FLAnimatedImageView displayDidRefresh:]
+-[FLAnimatedImageView updateShouldAnimate]
+-[FLAnimatedImageView setHighlighted:]
+-[FLAnimatedImageView isAnimating]
+-[FLAnimatedImageView stopAnimating]
+-[FLAnimatedImageView setRunLoopMode:]
+-[FLAnimatedImageView startAnimating]
+-[FLAnimatedImageView frameDelayGreatestCommonDivisor]
+-[FLAnimatedImageView setImage:]
+-[FLAnimatedImageView image]
+-[FLAnimatedImageView intrinsicContentSize]
+-[FLAnimatedImageView setHidden:]
+-[FLAnimatedImageView setAlpha:]
+-[FLAnimatedImageView didMoveToWindow]
+-[FLAnimatedImageView didMoveToSuperview]
+-[FLAnimatedImageView dealloc]
+-[FLAnimatedImageView setAnimatedImage:]
+-[FLAnimatedImageView commonInit]
+-[FLAnimatedImageView initWithCoder:]
+-[FLAnimatedImageView initWithFrame:]
+-[FLAnimatedImageView initWithImage:highlightedImage:]
+-[FLAnimatedImageView initWithImage:]
+/Users/luc/Library/Developer/Xcode/DerivedData/FLAnimatedImage-fbgxhittqnywvncpxxusrindmsui/Build/Intermediates/FLAnimatedImage.build/Debug-iphoneos/FLAnimatedImage.build/DerivedSources/FLAnimatedImage_vers.c
+_ZL15__ARCLite__loadv
+_ZL58__arclite_NSMutableDictionary__setObject_forKeyedSubscriptP19NSMutableDictionaryP13objc_selectorP11objc_objectS4_
+_ZL22add_image_hook_swiftV1PK11mach_headerl
+_ZL42__arclite_NSUndoManagerProxy_isKindOfClassP11objc_objectP13objc_selectorP10objc_class
+_ZL13replaceMethodP10objc_classP13objc_selectorPFP11objc_objectS4_S2_zEPS6_
+_ZL30__arclite_NSManagedObject_initP11objc_objectP13objc_selector
+_ZL41__arclite_NSManagedObject_allocWithEntityP11objc_objectP13objc_selectorS0_
+_ZL36__arclite_NSManagedObject_allocBatchP11objc_objectP13objc_selectorPS0_S0_j
+_ZL37__arclite_NSKKMS_fastIndexForKnownKeyP11objc_objectP13objc_selectorS0_
+_ZL28__arclite_NSKKMS_indexForKeyP11objc_objectP13objc_selectorS0_
+_ZL29__arclite_NSKKsD_objectForKeyP11objc_objectP13objc_selectorS0_
+_ZL35__arclite_NSKKsD_removeObjectForKeyP11objc_objectP13objc_selectorS0_
+_ZL33__arclite_NSKKsD_setObject_forKeyP11objc_objectP13objc_selectorS0_S0_
+_ZL41__arclite_NSKKsD_addEntriesFromDictionaryP11objc_objectP13objc_selectorP12NSDictionary
+_ZL28__arclite_objc_readClassPairP10objc_classPK15objc_image_info
+_ZL32__arclite_objc_allocateClassPairP10objc_classPKcm
+_ZL32__arclite_object_getIndexedIvarsP11objc_object
+_ZL23__arclite_objc_getClassPKc
+_ZL27__arclite_objc_getMetaClassPKc
+_ZL31__arclite_objc_getRequiredClassPKc
+_ZL26__arclite_objc_lookUpClassPKc
+_ZL26__arclite_objc_getProtocolPKc
+_ZL23__arclite_class_getNameP10objc_class
+_ZL26__arclite_protocol_getNameP8Protocol
+_ZL37__arclite_objc_copyClassNamesForImagePKcPj
+_ZL17transcribeMethodsP10objc_classP15glue_class_ro_t
+_ZL19transcribeProtocolsP10objc_classP15glue_class_ro_t
+_ZL20transcribePropertiesP10objc_classP15glue_class_ro_t
+_ZL14initialize_impP11objc_objectP13objc_selector
+_ZL18allocateMaybeSwiftP18glue_swift_class_tm
+_ZL22copySwiftV1MangledNamePKcb
+_ZL13demangledNamePKcb
+_ZL16scanMangledFieldRPKcS0_S1_Ri
+_ZL30arclite_uninitialized_functionv
+_ZL12cxxConstructP11objc_object
+_ZL20fixStringForCoreDataP11objc_object
+OBJC_METACLASS_$___ARCLite__
+_ZL24OBJC_CLASS_$___ARCLite__
+_ZL31OBJC_METACLASS_RO_$___ARCLite__
+_non_lazy_classes
+_ZL27OBJC_CLASS_RO_$___ARCLite__
+_ZL11_class_name
+_ZL32OBJC_$_CLASS_METHODS___ARCLite__
+_ZL17_load_method_name
+_ZL17_load_method_type
+OBJC_METH_VAR_TYPE_.6
+l_OBJC_$_PROTOCOL_INSTANCE_METHODS___ARCLiteKeyedSubscripting__
+l_OBJC_$_PROTOCOL_METHOD_TYPES___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_LABEL_PROTOCOL_$___ARCLiteKeyedSubscripting__
+l_OBJC_PROTOCOL_REFERENCE_$___ARCLiteKeyedSubscripting__
+.str.7
+.str.8
+_ZL30NSUndoManagerProxy_targetClass
+.str.11
+.str.12
+_ZL29original_NSManagedObject_init
+_ZL40original_NSManagedObject_allocWithEntity
+_ZL35original_NSManagedObject_allocBatch
+_ZL25NSMutableDictionary_class
+.str.19
+_ZL22NSConstantString_class
+.str.20
+_ZL14NSString_class
+.str.21
+OBJC_METH_VAR_NAME_.22
+OBJC_SELECTOR_REFERENCES_.23
+_ZL36original_NSKKMS_fastIndexForKnownKey
+OBJC_METH_VAR_NAME_.24
+OBJC_SELECTOR_REFERENCES_.25
+_ZL27original_NSKKMS_indexForKey
+.str.26
+_ZL28original_NSKKsD_objectForKey
+_ZL34original_NSKKsD_removeObjectForKey
+_ZL32original_NSKKsD_setObject_forKey
+_ZL40original_NSKKsD_addEntriesFromDictionary
+_ZZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+_ZGVZL22add_image_hook_swiftV1PK11mach_headerlE7patches
+.str.31
+.str.32
+_ZL31original_objc_allocateClassPair
+.str.33
+_ZL31original_object_getIndexedIvars
+.str.34
+_ZL22original_objc_getClass
+.str.35
+_ZL26original_objc_getMetaClass
+.str.36
+_ZL30original_objc_getRequiredClass
+.str.37
+_ZL25original_objc_lookUpClass
+.str.38
+_ZL25original_objc_getProtocol
+_ZL22original_class_getName
+.str.40
+_ZL25original_protocol_getName
+.str.41
+_ZL36original_objc_copyClassNamesForImage
+OBJC_METH_VAR_NAME_.44
+OBJC_SELECTOR_REFERENCES_.45
+.str.46
+.str.47
+.str.49
+.str.50
+.str.51
+.str.52
+.str.53
+_ZL12demangleLock
+_ZL9Demangled
+.str.54
+.str.55
+.str.57
+OBJC_METH_VAR_NAME_.58
+OBJC_SELECTOR_REFERENCES_.59
+OBJC_METH_VAR_NAME_.62
+OBJC_SELECTOR_REFERENCES_.63
+OBJC_METH_VAR_NAME_.64
+OBJC_SELECTOR_REFERENCES_.65
+OBJC_METH_VAR_NAME_.66
+OBJC_SELECTOR_REFERENCES_.67
+OBJC_METH_VAR_NAME_.68
+OBJC_SELECTOR_REFERENCES_.69
+Apple LLVM version 7.3.0 (clang-703.0.21)
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x objective-c++ -arch arm64 -fmessage-length=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit=0 -std=c++11 -Wno-trigraphs -fno-exceptions -fno-rtti -mpascal-strings -Os -Wno-missing-field-initializers -Wmissing-prototypes -Wno-implicit-atomic-properties -Wno-arc-repeated-use-of-weak -Wno-non-virtual-dtor -Wno-overloaded-virtual -Wno-exit-time-destructors -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wshorten-64-to-32 -Wno-newline-eof -Wno-selector -Wno-strict-selector-match -Wno-undeclared-selector -Wno-deprecated-implementations -Wno-c++11-extensions -D NDEBUG=1 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk -fstrict-aliasing -Wprotocol -Wdeprecated-declarations -Winvalid-offsetof -miphoneos-version-min=4.3 -g -fno-threadsafe-statics -Wno-sign-conversion -fembed-bitcode -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-generated-files.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-own-target-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-all-target-headers.hmap -iquote /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/arclite_iphoneos-project-headers.hmap -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts/include -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources/arm64 -I /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/DerivedSources -F/Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/Symbols/BuiltProducts -F/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/System/Library/PrivateFrameworks -Wall -Wextra -Wno-gcc-compat -fgnu-inline-asm -MMD -MT dependencies -MF /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.d --serialize-diagnostics /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.dia -c /Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm -o /Library/Caches/com.apple.xbs/Binaries/arclite_iOS/arclite_iOS-65~248/TempContent/Objects/arclite.build/arclite_iOS.build/Objects-normal/arm64/arclite.o -mlinker-version=264.3
+__arclite_NSKKsD_addEntriesFromDictionary
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65/source/arclite.mm
+/Library/Caches/com.apple.xbs/Sources/arclite_iOS/arclite-65
+__arclite_NSKKsD_setObject_forKey
+__arclite_NSKKsD_removeObjectForKey
+__arclite_NSKKsD_objectForKey
+__arclite_NSKKMS_indexForKey
+fixStringForCoreData
+__arclite_NSKKMS_fastIndexForKnownKey
+__arclite_NSManagedObject_allocBatch
+__arclite_NSManagedObject_allocWithEntity
+cxxConstruct
+__arclite_NSManagedObject_init
+arclite_uninitialized_function
+replaceMethod
+__arclite_NSUndoManagerProxy_isKindOfClass
+patch_lazy_pointers
+patch_t<const char **(const char *, unsigned int *)>
+__arclite_objc_copyClassNamesForImage
+patch_t<const char *(Protocol *)>
+__arclite_protocol_getName
+patch_t<const char *(Class)>
+__isctype
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/ctype.h
+isdigit
+scanMangledField
+copySwiftV1DemangledName
+demangledName
+__arclite_class_getName
+patch_t<Protocol *(const char *)>
+__arclite_objc_getProtocol
+__arclite_objc_lookUpClass
+__arclite_objc_getRequiredClass
+__arclite_objc_getMetaClass
+patch_t<Class (const char *)>
+copySwiftV1MangledName
+__arclite_objc_getClass
+patch_t<void *(id)>
+word_align
+__arclite_object_getIndexedIvars
+patch_t<Class (Class, const char *, unsigned long)>
+allocateMaybeSwift
+isSwift
+metaclass
+__arclite_objc_allocateClassPair
+patch_t<Class (Class, const objc_image_info *)>
+initialize_imp
+property_list_nth
+transcribeProperties
+transcribeProtocols
+method_list_nth
+transcribeMethods
+alignment
+max
+ivar_list_nth
+transcribeIvars
+fastFlags
+data
+ro
+__arclite_objc_readClassPair
+add_image_hook_swiftV1
+install_swiftV1
+install_ARC
+objc_collectingEnabled
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.Internal.sdk/usr/include/objc/objc-auto.h
+keyedGetter
+__arclite_NSMutableDictionary__setObject_forKeyedSubscript
+addOrReplaceMethod
+install_dict_nil_value
+install_subscripting
+install_autoreleasepool
+__ARCLite__load

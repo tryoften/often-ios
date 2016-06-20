@@ -1,0 +1,3 @@
+framework module NukeAlamofirePlugin {
+    header "NukeAlamofirePlugin-Swift.h"
+}

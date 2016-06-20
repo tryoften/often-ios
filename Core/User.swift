@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Project Surf. All rights reserved.
 //
 
-import Crashlytics
+//import Crashlytics
 
 class User: NSObject {
     var id: String = ""
@@ -101,7 +101,7 @@ class User: NSObject {
             self.firebasePushNotificationToken = firebasePushNotificationToken
         }
 
-        setupCrashlytics()
+//        setupCrashlytics()
     }
     
     func dataChangedToDictionary() -> [String: String] {
@@ -121,11 +121,11 @@ class User: NSObject {
         return userData
     }
 
-    private func setupCrashlytics() {
-        Crashlytics.sharedInstance().setUserEmail(email)
-        Crashlytics.sharedInstance().setUserIdentifier(id)
-        Crashlytics.sharedInstance().setUserName(name)
-    }
+//    private func setupCrashlytics() {
+//        Crashlytics.sharedInstance().setUserEmail(email)
+//        Crashlytics.sharedInstance().setUserIdentifier(id)
+//        Crashlytics.sharedInstance().setUserName(name)
+//    }
 }
 
 struct UserAuthData {

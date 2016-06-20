@@ -63,7 +63,7 @@ class PacksService: PackItemViewModel {
         } catch _ {
         }
 
-        subscriptionsRef = userRef.childByAppendingPath("subscriptions")
+        subscriptionsRef = userRef.child("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
     }

@@ -18,7 +18,7 @@ struct AnalyticsProperties {
     var deviceType: String
     var systemVersion: String
 
-    init(eventName: String, classFile: String = __FILE__, methodName: String = __FUNCTION__) {
+    init(eventName: String, classFile: String = #file, methodName: String = #function) {
         event = eventName
         method = methodName
         className = fileNameFromFilepath(classFile)

@@ -1,0 +1,54 @@
+BCSymbolMap Version: 1.0
+objectdestroy
+_TPA__TFFC19NukeAlamofirePlugin24AlamofireImageDataLoader8taskWithFTV4Nuke12ImageRequest8progressFT9completedVs5Int645totalS3__T_10completionFT4dataGSqCSo6NSData_8responseGSqCSo13NSURLResponse_5errorGSqPs9ErrorType___T__CSo16NSURLSessionTaskU_FTGSqCSo12NSURLRequest_GSqCSo17NSHTTPURLResponse_GSqS4__GSqCSo7NSError__T_
+_TPA__TFFC19NukeAlamofirePlugin24AlamofireImageDataLoader8taskWithFTV4Nuke12ImageRequest8progressFT9completedVs5Int645totalS3__T_10completionFT4dataGSqCSo6NSData_8responseGSqCSo13NSURLResponse_5errorGSqPs9ErrorType___T__CSo16NSURLSessionTaskU0_FTS3_S3_S3__T_
+_TPA__TTRXFo_dVs5Int64dS_dS__dT__XFo_iTS_S_S___iT__
+get_field_types_AlamofireImageDataLoader
+objectdestroy.1
+objectdestroy.3
+_TMLCSo12NSURLRequest
+metadata
+metadata.2
+metadata.4
+L_selector_data(invalidateAndCancel)
+L_selector(invalidateAndCancel)
+L_selector_data(configuration)
+L_selector(configuration)
+L_selector_data(URLCache)
+L_selector(URLCache)
+L_selector_data(removeAllCachedResponses)
+L_selector(removeAllCachedResponses)
+_METACLASS_DATA__TtC19NukeAlamofirePlugin24AlamofireImageDataLoader
+_IVARS__TtC19NukeAlamofirePlugin24AlamofireImageDataLoader
+_DATA__TtC19NukeAlamofirePlugin24AlamofireImageDataLoader
+_TMfC19NukeAlamofirePlugin24AlamofireImageDataLoader
+_swift_FORCE_LOAD_$_swiftFoundation_$_NukeAlamofirePlugin
+_swift_FORCE_LOAD_$_swiftObjectiveC_$_NukeAlamofirePlugin
+_swift_FORCE_LOAD_$_swiftDarwin_$_NukeAlamofirePlugin
+_swift_FORCE_LOAD_$_swiftDispatch_$_NukeAlamofirePlugin
+l_protocol_conformances
+got._TMp4Nuke16ImageDataLoading
+field_type_vector_AlamofireImageDataLoader
+objc_classes
+Apple LLVM version 7.3.0 (clang-703.0.29)
+-emit-bc -primary-file /Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin/Source/AlamofireImageDataLoader.swift -target arm64-apple-ios8.0 -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk -I /Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Products/Release-iphoneos -F /Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Products/Release-iphoneos -F /Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin/Carthage/Build/iOS -application-extension -g -module-cache-path /Users/luc/Library/Developer/Xcode/DerivedData/ModuleCache -serialize-debugging-options -Xcc "-I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/swift-overrides.hmap" -Xcc -iquote -Xcc "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/NukeAlamofirePlugin-generated-files.hmap" -Xcc "-I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/NukeAlamofirePlugin-own-target-headers.hmap" -Xcc "-I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/NukeAlamofirePlugin-all-non-framework-target-headers.hmap" -Xcc -ivfsoverlay -Xcc /Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/all-product-headers.yaml -Xcc -iquote -Xcc "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/NukeAlamofirePlugin-project-headers.hmap" -Xcc -I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Products/Release-iphoneos/include -Xcc "-I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/DerivedSources/arm64" -Xcc "-I/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/DerivedSources" -Xcc -working-directory/Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin -emit-module-doc-path "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/Objects-normal/arm64/AlamofireImageDataLoader~partial.swiftdoc" -O -parse-as-library -module-name NukeAlamofirePlugin -emit-module-path "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/Objects-normal/arm64/AlamofireImageDataLoader~partial.swiftmodule" -serialize-diagnostics-path "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/Objects-normal/arm64/AlamofireImageDataLoader.dia" -emit-dependencies-path "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/Objects-normal/arm64/AlamofireImageDataLoader.d" -o "/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/Objects-normal/arm64/AlamofireImageDataLoader.bc" -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift
+<swift-imported-modules>
+/Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin
+Apple Swift version 2.2 (swiftlang-703.0.18.1 clang-703.0.29)
+_TFFC19NukeAlamofirePlugin24AlamofireImageDataLoader8taskWithFTV4Nuke12ImageRequest8progressFT9completedVs5Int645totalS3__T_10completionFT4dataGSqCSo6NSData_8responseGSqCSo13NSURLResponse_5errorGSqPs9ErrorType___T__CSo16NSURLSessionTaskU_FTGSqCSo12NSURLRequest_GSqCSo17NSHTTPURLResponse_GSqS4__GSqCSo7NSError__T_
+AlamofireImageDataLoader.swift
+/Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin/Source
+_TFFC19NukeAlamofirePlugin24AlamofireImageDataLoader8taskWithFTV4Nuke12ImageRequest8progressFT9completedVs5Int645totalS3__T_10completionFT4dataGSqCSo6NSData_8responseGSqCSo13NSURLResponse_5errorGSqPs9ErrorType___T__CSo16NSURLSessionTaskU0_FTS3_S3_S3__T_
+_TTRXFo_dVs5Int64dS_dS__dT__XFo_iTS_S_S___iT__
+_TMaC19NukeAlamofirePlugin24AlamofireImageDataLoader
+_TWaC19NukeAlamofirePlugin24AlamofireImageDataLoader4Nuke16ImageDataLoadingS_
+removeAllCachedImages
+invalidate
+taskWith
+manager.get
+deinit
+_TMaCSo12NSURLRequest
+init
+_TIFC19NukeAlamofirePlugin24AlamofireImageDataLoadercFT7managerC9Alamofire7Manager_S0_A_
+/Users/luc/Projects/often-ios/Carthage/Checkouts/Nuke-Alamofire-Plugin/Source/AlamofireImageDataLoader.swift
+/Users/luc/Library/Developer/Xcode/DerivedData/Nuke-Alamofire-Plugin-haplllplyxhxqsgondvzzebtxxon/Build/Intermediates/Nuke-Alamofire-Plugin.build/Release-iphoneos/Nuke iOS Alamofire Plugin.build/DerivedSources/NukeAlamofirePlugin_vers.c
