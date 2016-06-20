@@ -14,6 +14,7 @@ import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
 import FirebaseDynamicLinks
+import Nuke
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Flurry.startSession(FlurryClientKey)
+        ImageManager.shared.setupImageManager()
+
         application.applicationIconBadgeNumber = 0
 
         let screen = UIScreen.mainScreen()

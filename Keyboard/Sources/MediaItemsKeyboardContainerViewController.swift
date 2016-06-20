@@ -41,8 +41,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
                 Fabric.sharedSDK().debug = true
                 Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
                 Flurry.startSession(FlurryClientKey)
-            #endif
                 ImageManager.shared.setupImageManager()
+            #endif
                 self.viewModel = KeyboardViewModel()
             }
         }
