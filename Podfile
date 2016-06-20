@@ -15,6 +15,7 @@ def base_deps
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
   pod 'Firebase/Messaging'
+  pod 'DFCache'
 end
 
 target 'Often' do
