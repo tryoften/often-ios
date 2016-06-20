@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Nuke
+import NukeAnimatedImagePlugin
+import FLAnimatedImage
+import Preheat
 
 public enum UserState {
     case NoTwitter
@@ -42,7 +46,7 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
         super.init(collectionViewLayout: collectionViewLayout)
         
         self.viewModel.delegate = self
-        
+
         view.backgroundColor = VeryLightGray
         view.layer.masksToBounds = true
 
@@ -180,6 +184,18 @@ class MediaItemsViewController: MediaItemsCollectionBaseViewController, MediaIte
                 cell.favoriteRibbon.hidden = true
             }
         }
+    }
+
+    override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let url = viewModel.mediaItemGroupItemsForIndex(index.section)[index.row].smallImageURL {
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
     }
 
     //TODO(luc): move this method out into a subclass

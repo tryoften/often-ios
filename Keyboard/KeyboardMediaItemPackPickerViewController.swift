@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import Nuke
+import Preheat
+
 
 private let KeyboardMediaItemPackHeaderViewCellReuseIdentifier = "PackHeaderViewCell"
 private let PacksCellReuseIdentifier = "TrendingArtistsCell"
@@ -230,6 +233,18 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             
             collectionView.setContentOffset(CGPointMake(xPosition, -4), animated: true)
         }
+    }
+
+    override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let url = viewModel.mediaItems[index.row].smallImageURL {
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
     }
     
     // MARK: LaunchMainApp
