@@ -857,6 +857,8 @@
 		BF18A40F1CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
 		BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
 		BF3FA1EC1CACAA6800DBB87B /* (null) in Sources */ = {isa = PBXBuildFile; };
+		BF6A03E91D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
+		BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
 		BF9861531CDA9AEA005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861551CDA9AEC005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
@@ -1265,6 +1267,7 @@
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF1C79B81CCEC3E2002ED5B7 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
+		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF99550B1CF653D50054E770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
 		BF99714C1CBEF030008351C7 /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1913,6 +1916,7 @@
 			children = (
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
 				3BD971E01B9FD374007EAB5A /* LogInViewController.swift */,
+				BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */,
 				3BAC29531C4838D300F44DF7 /* UserCreationViewController.swift */,
 				3BAC29461C458AF700F44DF7 /* InstallationWalkthroughViewContoller.swift */,
 				3BDF98C51BA262DE00F383D8 /* CreateAccountViewController.swift */,
@@ -3121,6 +3125,7 @@
 				810EA5531C8579D1005A6C6D /* ChangeListener.swift in Sources */,
 				810EA5541C8579D1005A6C6D /* MediaItemGroupViewModel.swift in Sources */,
 				810EA5551C8579D1005A6C6D /* EventEmittable.swift in Sources */,
+				BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */,
 				BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3283,6 +3288,7 @@
 				816D50CF1C8A075D007B3249 /* FrameView.swift in Sources */,
 				BF99715F1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				816D50B91C8A05E3007B3249 /* Listener.swift in Sources */,
+				BF6A03E91D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */,
 				816D503D1C8A04CA007B3249 /* User.swift in Sources */,
 				816D508D1C8A0583007B3249 /* SessionManager.swift in Sources */,
 				816D50BA1C8A05E3007B3249 /* Notification.swift in Sources */,

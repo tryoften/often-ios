@@ -19,8 +19,8 @@ class PacksViewModel: MediaItemsViewModel {
         }
 
         let group = MediaItemGroup(dictionary: [
-            "id": "packs",
-            "title": "Packs",
+            "id": "music",
+            "title": "Music",
             "type": "pack"
             ])
         group.items = packs
@@ -28,7 +28,45 @@ class PacksViewModel: MediaItemsViewModel {
             .filter { !$0.featured }
             .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
         
-        return [group]
+        
+        let group2 = MediaItemGroup(dictionary: [
+            "id": "tv shows",
+            "title": "TV Shows",
+            "type": "pack"
+            ])
+        group2.items = group.items
+        
+        let group3 = MediaItemGroup(dictionary: [
+            "id": "sports",
+            "title": "Sports",
+            "type": "pack"
+            ])
+        group3.items = group.items
+        
+        let group4 = MediaItemGroup(dictionary: [
+            "id": "politics",
+            "title": "Politics",
+            "type": "pack"
+            ])
+        group4.items = group.items
+        
+        let group5 = MediaItemGroup(dictionary: [
+            "id": "celebs",
+            "title": "Celebs",
+            "type": "pack"
+            ])
+        group5.items = group.items
+        
+        let group6 = MediaItemGroup(dictionary: [
+            "id": "random",
+            "title": "Random",
+            "type": "pack"
+            ])
+        group6.items = group.items
+        
+        
+        return [group, group2, group3, group4, group5, group6]
+        
     }
     
     override func generateMediaItemGroups() -> [MediaItemGroup] {
