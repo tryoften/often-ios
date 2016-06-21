@@ -41,8 +41,8 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
                 Fabric.sharedSDK().debug = true
                 Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
                 Flurry.startSession(FlurryClientKey)
+                ImageManager.shared.setupImageManager()
             #endif
-                self.setupImageManager()
                 self.viewModel = KeyboardViewModel()
             }
         }
@@ -65,13 +65,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.textProcessor = nil
         self.packsVC = nil
         PacksService.defaultInstance
-    }
-
-    func setupImageManager() {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
     }
 
     override func viewDidLoad() {

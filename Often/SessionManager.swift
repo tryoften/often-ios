@@ -62,16 +62,10 @@ class SessionManager: NSObject, AccountManagerDelegate {
         user.pushNotificationStatus = status
         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = status
 
-        if let token =  FIRInstanceID.instanceID().token() {
-            currentUser?.firebasePushNotificationToken = token
-        }
-
         let userRef = FIRDatabase.database().reference().child("users/\(userId)")
         let pushNotificationTokenEndPoint = userRef.child("firebasePushNotificationToken")
         let pushNotificationStatusEndPoint = userRef.child("pushNotificationStatus")
 
-        pushNotificationTokenEndPoint.setValue(user.firebasePushNotificationToken)
-        pushNotificationStatusEndPoint.setValue(status)
 
         if status {
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
@@ -79,6 +73,13 @@ class SessionManager: NSObject, AccountManagerDelegate {
         } else {
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }
+
+        if let token = FIRInstanceID.instanceID().token() {
+            currentUser?.firebasePushNotificationToken = token
+        }
+
+        pushNotificationTokenEndPoint.setValue(user.firebasePushNotificationToken)
+        pushNotificationStatusEndPoint.setValue(status)
     }
 
 

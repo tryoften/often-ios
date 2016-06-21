@@ -8,6 +8,8 @@
 //
 
 import UIKit
+import Preheat
+import Nuke
 
 class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
     UICollectionViewDelegateFlowLayout {
@@ -176,6 +178,18 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
             }
         }
+    }
+
+    override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let url = viewModel.mediaItems[index.row].smallImageURL {
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
     }
 
     // Empty States button actions

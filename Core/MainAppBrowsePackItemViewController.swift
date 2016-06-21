@@ -63,14 +63,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setupImageManager() {
-        let decoder = ImageDecoderComposition(decoders: [AnimatedImageDecoder(), ImageDecoder()])
-        let loader = ImageLoader(configuration: ImageLoaderConfiguration(dataLoader: ImageDataLoader(), decoder: decoder), delegate: AnimatedImageLoaderDelegate())
-        let cache = AnimatedImageMemoryCache()
-        ImageManager.shared = ImageManager(configuration: ImageManagerConfiguration(loader: loader, cache: cache))
-    }
-    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -86,13 +78,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupImageManager()
         showHud()
         loadPackData()
         
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
-    
+
     func setLayout() {
         view.addConstraints([
             filterButton.al_centerX == view.al_centerX,
