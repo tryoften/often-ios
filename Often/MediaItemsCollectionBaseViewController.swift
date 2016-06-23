@@ -28,6 +28,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     var preheatController: PreheatController?
     var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
+    var hudTimer: NSTimer?
     var isDataLoaded: Bool {
         return false
     }
@@ -380,8 +381,22 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         #endif
         }
     }
-    // MARK: UIViewControllerAnimatedTransitioning
 
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
+    
+    // MARK: UIViewControllerAnimatedTransitioning
     func presentViewControllerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
         transitionAnimator = FadeInTransitionAnimator(presenting: true, direction: direction, duration: duration)
         presentingController.transitioningDelegate = self

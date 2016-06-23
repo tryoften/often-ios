@@ -80,7 +80,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.viewDidLoad()
         showHud()
         loadPackData()
-        
+
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
