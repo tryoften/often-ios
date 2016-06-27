@@ -185,6 +185,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.titleLabel.text = pack.name
         cell.itemCount = pack.items_count
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
+        cell.updatedContentBadge.hidden = !pack.isUpdated
+        cell.newPackBadge.hidden = !pack.isNew
+
+        if pack.isUpdated {
+            cell.addedBadgeView.hidden = true
+        }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 

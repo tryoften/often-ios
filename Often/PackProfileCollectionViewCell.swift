@@ -9,12 +9,11 @@
 import Foundation
 
 class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
-    
     var primaryButton: UIButton
 
     override init(frame: CGRect) {
-
         primaryButton = UIButton()
+
         super.init(frame: frame)
 
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +23,6 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
         primaryButton.setTitleColor(BlackColor, forState: .Normal)
         
         addSubview(primaryButton)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,7 +31,7 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
 
     override func setupLayout() {
         super.setupLayout()
-        
+
         addConstraints([
             primaryButton.al_bottom == al_bottom,
             primaryButton.al_height == 27,
