@@ -12,6 +12,18 @@
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		3B029ABC1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
 		3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
+		3B0D11591D21C66400B58F13 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
+		3B0D115A1D21C66400B58F13 /* DFCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D115B1D21C67F00B58F13 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
+		3B0D115C1D21C67F00B58F13 /* DFCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D115D1D21C68E00B58F13 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
+		3B0D115E1D21C68E00B58F13 /* DFCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D11671D21C94000B58F13 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; };
+		3B0D11681D21C94000B58F13 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D11691D21C95900B58F13 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; };
+		3B0D116A1D21C95900B58F13 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D116B1D21C96200B58F13 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; };
+		3B0D116C1D21C96200B58F13 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -154,12 +166,6 @@
 		3B75E50E1C6E6479008D4CE3 /* MediaItemPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B05051C47357E00BA731B /* MediaItemPageHeaderView.swift */; };
 		3B75E5111C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
 		3B75E5121C6E6B1B008D4CE3 /* UIDevice+DeviceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */; };
-		3B7A50CD1D145107009E6B47 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CC1D145107009E6B47 /* Preheat.framework */; };
-		3B7A50CE1D145107009E6B47 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CC1D145107009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B7A50D01D145191009E6B47 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CF1D145191009E6B47 /* Preheat.framework */; };
-		3B7A50D11D145191009E6B47 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CF1D145191009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3B7A50D31D1451BF009E6B47 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50D21D1451BF009E6B47 /* Preheat.framework */; };
-		3B7A50D41D1451BF009E6B47 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50D21D1451BF009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B7A50D61D17B803009E6B47 /* ImageManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A50D51D17B803009E6B47 /* ImageManagerExtension.swift */; };
 		3B7A50D71D17B803009E6B47 /* ImageManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A50D51D17B803009E6B47 /* ImageManagerExtension.swift */; };
 		3B7A50D81D17B803009E6B47 /* ImageManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7A50D51D17B803009E6B47 /* ImageManagerExtension.swift */; };
@@ -950,9 +956,10 @@
 				81DED5001CDBECA400A34056 /* Alamofire.framework in Embed Frameworks */,
 				30E00C781BC86C3D00DDF24C /* Spring.framework in Embed Frameworks */,
 				81C081041CC57462009DA5E8 /* Nuke.framework in Embed Frameworks */,
+				3B0D115A1D21C66400B58F13 /* DFCache.framework in Embed Frameworks */,
 				81DED5021CDBECD700A34056 /* FLAnimatedImage.framework in Embed Frameworks */,
 				81C081001CC57462009DA5E8 /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
-				3B7A50CE1D145107009E6B47 /* Preheat.framework in Embed Frameworks */,
+				3B0D11681D21C94000B58F13 /* Preheat.framework in Embed Frameworks */,
 				81C081021CC57462009DA5E8 /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -967,9 +974,10 @@
 				810EA5861C8579D1005A6C6D /* Spring.framework in Embed Frameworks */,
 				81C081071CC5769F009DA5E8 /* FLAnimatedImage.framework in Embed Frameworks */,
 				81C080F81CC57207009DA5E8 /* Nuke.framework in Embed Frameworks */,
+				3B0D115E1D21C68E00B58F13 /* DFCache.framework in Embed Frameworks */,
 				81C080F41CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
 				81C080FD1CC57382009DA5E8 /* Alamofire.framework in Embed Frameworks */,
-				3B7A50D41D1451BF009E6B47 /* Preheat.framework in Embed Frameworks */,
+				3B0D116C1D21C96200B58F13 /* Preheat.framework in Embed Frameworks */,
 				81C080F61CC57207009DA5E8 /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1029,7 +1037,8 @@
 				3BD5223A1CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Embed Frameworks */,
 				3BD522401CC6F33F00A5577F /* NukeAlamofirePlugin.framework in Embed Frameworks */,
 				3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */,
-				3B7A50D11D145191009E6B47 /* Preheat.framework in Embed Frameworks */,
+				3B0D115C1D21C67F00B58F13 /* DFCache.framework in Embed Frameworks */,
+				3B0D116A1D21C95900B58F13 /* Preheat.framework in Embed Frameworks */,
 				3B309D6A1CE39C36005B9942 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -1045,6 +1054,8 @@
 		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = delay.swift; path = ../Often/delay.swift; sourceTree = "<group>"; };
+		3B0D11581D21C66400B58F13 /* DFCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFCache.framework; path = Carthage/Build/iOS/DFCache.framework; sourceTree = "<group>"; };
+		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1084,9 +1095,6 @@
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleKit.swift; path = ../Keyboard/StyleKit.swift; sourceTree = "<group>"; };
 		3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsCollectionBaseViewController.swift; path = ../Often/MediaItemsCollectionBaseViewController.swift; sourceTree = "<group>"; };
 		3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardCancelBar.swift; sourceTree = "<group>"; };
-		3B7A50CC1D145107009E6B47 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
-		3B7A50CF1D145191009E6B47 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
-		3B7A50D21D1451BF009E6B47 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B7A50D51D17B803009E6B47 /* ImageManagerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManagerExtension.swift; sourceTree = "<group>"; };
 		3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoaderView.swift; sourceTree = "<group>"; };
 		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
@@ -1321,9 +1329,9 @@
 				810EA55D1C8579D1005A6C6D /* Crashlytics.framework in Frameworks */,
 				810EA55E1C8579D1005A6C6D /* Twitter.framework in Frameworks */,
 				810EA55F1C8579D1005A6C6D /* libstdc++.6.dylib in Frameworks */,
+				3B0D116B1D21C96200B58F13 /* Preheat.framework in Frameworks */,
 				810EA5601C8579D1005A6C6D /* libsqlite3.dylib in Frameworks */,
 				3B25C6A11C861F3A00C1BD74 /* AVFoundation.framework in Frameworks */,
-				3B7A50D31D1451BF009E6B47 /* Preheat.framework in Frameworks */,
 				81C080F31CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework in Frameworks */,
 				810EA5611C8579D1005A6C6D /* libz.dylib in Frameworks */,
 				810EA5621C8579D1005A6C6D /* Social.framework in Frameworks */,
@@ -1331,6 +1339,7 @@
 				810EA5641C8579D1005A6C6D /* QuartzCore.framework in Frameworks */,
 				810EA5651C8579D1005A6C6D /* MobileCoreServices.framework in Frameworks */,
 				3B25C6BF1C861F3A00C1BD74 /* MediaPlayer.framework in Frameworks */,
+				3B0D115D1D21C68E00B58F13 /* DFCache.framework in Frameworks */,
 				81C081061CC5769F009DA5E8 /* FLAnimatedImage.framework in Frameworks */,
 				81C080F71CC57207009DA5E8 /* Nuke.framework in Frameworks */,
 				3B25C6D31C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
@@ -1415,6 +1424,7 @@
 				813B27EA1C69B01E003B6110 /* Crashlytics.framework in Frameworks */,
 				3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */,
 				81164A911A9D6B2200AE5B30 /* libstdc++.6.dylib in Frameworks */,
+				3B0D11671D21C94000B58F13 /* Preheat.framework in Frameworks */,
 				81794EEB1A81E66D009D4A71 /* libsqlite3.dylib in Frameworks */,
 				3B25C69E1C861F3A00C1BD74 /* AVFoundation.framework in Frameworks */,
 				81C080FF1CC57462009DA5E8 /* NukeAnimatedImagePlugin.framework in Frameworks */,
@@ -1425,13 +1435,13 @@
 				81794EDD1A81E63B009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				3B25C6BC1C861F3A00C1BD74 /* MediaPlayer.framework in Frameworks */,
 				81C081031CC57462009DA5E8 /* Nuke.framework in Frameworks */,
+				3B0D11591D21C66400B58F13 /* DFCache.framework in Frameworks */,
 				3B25C6D01C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
 				3B25C6AD1C861F3A00C1BD74 /* Security.framework in Frameworks */,
 				81DED5011CDBECD700A34056 /* FLAnimatedImage.framework in Frameworks */,
 				3B25C6D51C861F3A00C1BD74 /* Fabric.framework in Frameworks */,
 				81794EDB1A81E633009D4A71 /* CoreLocation.framework in Frameworks */,
 				3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */,
-				3B7A50CD1D145107009E6B47 /* Preheat.framework in Frameworks */,
 				813B27E61C69B01E003B6110 /* SystemConfiguration.framework in Frameworks */,
 				3B25C6B21C861F3A00C1BD74 /* CoreMedia.framework in Frameworks */,
 				81794ED91A81E62D009D4A71 /* CoreGraphics.framework in Frameworks */,
@@ -1505,7 +1515,6 @@
 				3B25C6A91C861F3A00C1BD74 /* Accounts.framework in Frameworks */,
 				3BD5223B1CC6F32300A5577F /* Nuke.framework in Frameworks */,
 				3B25C6C71C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
-				3B7A50D01D145191009E6B47 /* Preheat.framework in Frameworks */,
 				81DA3F431C24BE85006822D3 /* Social.framework in Frameworks */,
 				3BD522391CC6F31900A5577F /* NukeAnimatedImagePlugin.framework in Frameworks */,
 				3B25C69A1C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */,
@@ -1520,12 +1529,14 @@
 				3B25C6A41C861F3A00C1BD74 /* Social.framework in Frameworks */,
 				81DA3F4A1C24BE85006822D3 /* CoreLocation.framework in Frameworks */,
 				81DA3F4B1C24BE85006822D3 /* CoreGraphics.framework in Frameworks */,
+				3B0D115B1D21C67F00B58F13 /* DFCache.framework in Frameworks */,
 				81DA3F4C1C24BE85006822D3 /* AudioToolbox.framework in Frameworks */,
 				81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */,
 				81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */,
 				81DA3F501C24BE85006822D3 /* Accounts.framework in Frameworks */,
 				81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */,
 				3B25C6AE1C861F3A00C1BD74 /* Security.framework in Frameworks */,
+				3B0D11691D21C95900B58F13 /* Preheat.framework in Frameworks */,
 				3B25C6D11C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
 				3BD522411CC6F40000A5577F /* FLAnimatedImage.framework in Frameworks */,
 				811E6EB41C6AE192008B789C /* Crashlytics.framework in Frameworks */,
@@ -1679,9 +1690,8 @@
 		7F93937CEF33AF0CDDEE7D74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3B7A50D21D1451BF009E6B47 /* Preheat.framework */,
-				3B7A50CF1D145191009E6B47 /* Preheat.framework */,
-				3B7A50CC1D145107009E6B47 /* Preheat.framework */,
+				3B0D11661D21C94000B58F13 /* Preheat.framework */,
+				3B0D11581D21C66400B58F13 /* DFCache.framework */,
 				BF1C79B81CCEC3E2002ED5B7 /* Material.framework */,
 				81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */,
 				81C080F01CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework */,
@@ -2953,6 +2963,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nuke.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NukeAlamofirePlugin.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/NukeAnimatedImagePlugin.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/DFCache.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Preheat.framework",
 			);
 			name = "Copy Frameworks (Carthage)";
 			outputPaths = (
@@ -3708,7 +3720,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -4102,7 +4114,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;

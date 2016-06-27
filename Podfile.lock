@@ -15,7 +15,6 @@ PODS:
   - Bolts/Tasks (1.7.0)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
-  - DFCache (4.0.0)
   - Facebook-iOS-SDK (4.1.0):
     - Bolts (~> 1.1)
     - Facebook-iOS-SDK/CoreKit (= 4.1.0)
@@ -113,7 +112,6 @@ DEPENDENCIES:
   - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
-  - DFCache
   - Facebook-iOS-SDK
   - Firebase/Auth
   - Firebase/Core
@@ -137,7 +135,6 @@ SPEC CHECKSUMS:
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  DFCache: 6a2d16adb3c12e79feb993380ace4340cc5ae34b
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
   Firebase: 6d4012da1598732a2b43f16d8355eca90f94ed59
   FirebaseAnalytics: 6f75b04e6bfb8e0b6e9ef298e04c24eea3b13863
