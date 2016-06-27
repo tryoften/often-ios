@@ -11,13 +11,15 @@ import Foundation
 #if DEBUG
     var BaseURL = "https://often-dev.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
+    let ParseAppID = "TEnbb61NmEGK3kYz0IqP8CUSZhKSF6HU31QQBXe0"
+    let ParseClientKey = "FLUXnTCOs6NfHDHgqZaUUUPnbzmmOYxMh8tf2nAh"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.Keyboard"
+    let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
+    let ParseClientKey = "sojWTShuzJqnaXzusIihvyIiaCnksrlvuj9z7OKV"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
-let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
-let ParseClientKey = "sojWTShuzJqnaXzusIihvyIiaCnksrlvuj9z7OKV"
 let FabricAPIKey = "e869c8341ef7380d0df5ebd7131f8b82beb9ee82"
 let FlurryClientKey = "NS7ZP78CBVXH283QN3JB"
 let AnalyticsWriteKey = "rN5D0WO3nhtyXhzR7qgF1QYKhF9KWb6x"

@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ImageManager.shared.setupImageManager()
 
         application.applicationIconBadgeNumber = 0
-
+        
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 
@@ -71,7 +71,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {        
+        // Set token for APNS for Firebase
+        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
+        var tokenString = ""
+        
+        for i in 0..<deviceToken.length {
+            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
+        }
+        
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Unknown)
+    
+        // Parse set APNS token
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
         installation.channels = ["global"]
@@ -127,9 +138,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-
+        
         if let packid = userInfo["p"] as? String {
-            NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
+            delay(1) {
+                NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
+            }
             
             completionHandler(.NewData)
         } else {
@@ -141,7 +154,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func tokenRefreshNotificaiton(notification: NSNotification) {
         let refreshedToken = FIRInstanceID.instanceID().token()
 
-        print(refreshedToken)
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
