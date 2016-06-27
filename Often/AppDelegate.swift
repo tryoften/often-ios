@@ -68,35 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    func registerForPushNotifications(application: UIApplication) {
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        application.registerUserNotificationSettings(notificationSettings)
-    }
-    
-    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        if notificationSettings.types != .None {
-            application.registerForRemoteNotifications()
-        }
-    }
-    
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {        
-        // Set token for APNS for Firebase
-        let tokenChars = UnsafePointer<CChar>(deviceToken.bytes)
-        var tokenString = ""
-        
-        for i in 0..<deviceToken.length {
-            tokenString += String(format: "%02.2hhx", arguments: [tokenChars[i]])
-        }
-        
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.Unknown)
-    
-        // Parse set APNS token
-        let installation = PFInstallation.currentInstallation()
-        installation.setDeviceTokenFromData(deviceToken)
-        installation.channels = ["global"]
-        installation.saveInBackground()
-    }
-    
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
          PFPush.handlePush(userInfo)
@@ -146,11 +117,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-
-        print(userInfo)
         
         if let packid = userInfo["p"] as? String {
-            NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
+            delay(1) {
+                NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
+            }
             
             completionHandler(.NewData)
         } else {
