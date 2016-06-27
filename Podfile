@@ -23,6 +23,16 @@ target 'Often' do
   pod 'Facebook-iOS-SDK'
 end
 
+target 'Often (Dev)' do
+    base_deps
+    pod 'Reveal-iOS-SDK', :configurations => ['Debug']
+    pod 'Facebook-iOS-SDK'
+end
+
+target 'Keyboard (Dev)' do
+    base_deps
+end
+
 target 'Keyboard' do
   base_deps
 end

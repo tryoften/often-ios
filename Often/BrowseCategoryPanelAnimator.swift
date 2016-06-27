@@ -68,6 +68,9 @@ class BrowseCategoryPanelAnimator: FadeInTransitionAnimator, UIViewControllerTra
                 self.tintView.alpha = 0
                 transitionContextContainerView.alpha = 0
                 
+                let lastTintFrame = self.tintView.frame
+                self.tintView.frame = CGRectMake(0, 0, lastTintFrame.width + (screenWidth * 0.45), lastTintFrame.height)
+                
                 toViewController.view.userInteractionEnabled = true
                 toViewController.view.tintAdjustmentMode = .Automatic
                 

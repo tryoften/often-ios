@@ -2806,6 +2806,7 @@ public class StyleKit : NSObject {
         //// icon
         CGContextSaveGState(context)
         CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.51000 * frame.height)
+        CGContextRotateCTM(context, -0.85 * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, scale, scale)
 
 
@@ -3121,6 +3122,58 @@ public class StyleKit : NSObject {
 
 
         CGContextRestoreGState(context)
+    }
+
+    public class func drawGiftabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 88, height: 71)) {
+        //// Color Declarations
+        let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
+        let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
+
+        //// gif-icon
+        //// path-1 Drawing
+        let path1Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 36, y: frame.minY + 26, width: 16, height: 16), cornerRadius: 3)
+        strokeColor3.setStroke()
+        path1Path.lineWidth = 6
+        path1Path.stroke()
+
+
+        //// Triangle-1 Drawing
+        let triangle1Path = UIBezierPath()
+        triangle1Path.moveToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 32.98))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 34.47), controlPoint1: CGPoint(x: frame.minX + 47.34, y: frame.minY + 33.39), controlPoint2: CGPoint(x: frame.minX + 47.35, y: frame.minY + 34.06))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 42.9, y: frame.minY + 37.5))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 41.94, y: frame.minY + 36.86), controlPoint1: CGPoint(x: frame.minX + 42.37, y: frame.minY + 37.91), controlPoint2: CGPoint(x: frame.minX + 41.94, y: frame.minY + 37.63))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 41.94, y: frame.minY + 30.6))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 42.9, y: frame.minY + 29.95), controlPoint1: CGPoint(x: frame.minX + 41.94, y: frame.minY + 29.83), controlPoint2: CGPoint(x: frame.minX + 42.37, y: frame.minY + 29.54))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 32.98))
+        triangle1Path.closePath()
+        triangle1Path.miterLimit = 4;
+
+        triangle1Path.usesEvenOddFillRule = true;
+
+        fillColor3.setFill()
+        triangle1Path.fill()
+    }
+
+    public class func drawPacktabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
+
+        //// Group- 6
+        //// Rectangle-758 Drawing
+        let rectangle758Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 23, width: 19, height: 3), cornerRadius: 1.5)
+        color.setFill()
+        rectangle758Path.fill()
+
+
+        //// Rectangle-758-Copy-4 Drawing
+        let rectangle758Copy4Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 18.25, width: 19, height: 3), cornerRadius: 1.5)
+        color.setFill()
+        rectangle758Copy4Path.fill()
+
+
+        //// Rectangle-758-Copy Drawing
+        let rectangle758CopyPath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 28, width: 19, height: 3), cornerRadius: 1.5)
+        color.setFill()
+        rectangle758CopyPath.fill()
     }
 
     public class func drawCanvas1(frame frame: CGRect = CGRect(x: 102, y: 96, width: 265, height: 276)) {
@@ -4802,6 +4855,16 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfMainAppMenu
+    }
+
+    public class func imageOfPacktabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawPacktabnew(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
+
+        let imageOfPacktabnew = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfPacktabnew
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {

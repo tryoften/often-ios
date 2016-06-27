@@ -186,7 +186,19 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         collectionView?.reloadData()
         viewModel.fetchData()
         hideMaskView()
-    }    
+    }
+
+    override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let group = packViewModel.getMediaItemGroupForCurrentType(), url = group.items[index.row].smallImageURL {
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
+    }
 
     func toggleCategoryViewController() {
         guard let pack = packViewModel.pack  else {

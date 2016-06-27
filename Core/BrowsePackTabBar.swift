@@ -50,7 +50,7 @@ class BrowsePackTabBar: SlideTabBar {
         
         packsTabBarItem = UITabBarItem()
         packsTabBarItem.tag = BrowsePackTabType.Packs.rawValue
-        packsTabBarItem.image = StyleKit.imageOfPacksMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        packsTabBarItem.image = StyleKit.imageOfPacktabnew(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         packsTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         
         deleteTabBarItem = UITabBarItem()
