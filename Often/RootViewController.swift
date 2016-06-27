@@ -84,7 +84,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         }
 
         let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController(viewModel: PacksViewModel()))
-
+        
         let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
             viewModel: SettingsViewModel(sessionManager: sessionManager)))
 

@@ -38,8 +38,8 @@ class AppSettingsView: UIView {
             tableView.al_top == al_top,
             tableView.al_right == al_right,
             tableView.al_bottom == al_bottom
-            ])
+        ])
 
     }
-    
+
 }

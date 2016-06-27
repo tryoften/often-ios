@@ -221,6 +221,8 @@ let BrowseSectionHeaderViewBackgroundColor = UIColor(fromHexString: "#ffffff")
 
 // Base Navigation Bar
 let NavigationBarColor = UIColor.whiteColor()
+let NavigationBarHeight: CGFloat = 44.0
+let StatusBarHeight: CGFloat = 22.0
 
 //Category Collection View Cell
 let CategoryCollectionViewCellTitleLabelTextColor = UIColor.whiteColor()
