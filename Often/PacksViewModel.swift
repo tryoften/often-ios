@@ -13,7 +13,7 @@ class PacksViewModel: MediaItemsViewModel {
         super.init(collectionType: .Packs)
     }
     
-    func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
+    func generatePacksGroup(_ items: [MediaItem]) -> [MediaItemGroup] {
         guard let packs = items as? [PackMediaItem] else {
             return [MediaItemGroup]()
         }
@@ -26,7 +26,7 @@ class PacksViewModel: MediaItemsViewModel {
         group.items = packs
             .filter { $0.published }
             .filter { !$0.featured }
-            .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
+            .sorted { $0.publishedTime.compare($1.publishedTime as Date) == .orderedDescending }
         
         return [group]
     }

@@ -40,7 +40,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
 
@@ -59,37 +59,49 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     }
     
     override func setupLayout() {
-        addConstraints([
+        var constraints = [
             coverPhoto.al_top == al_top,
             coverPhoto.al_left == al_left,
             coverPhoto.al_width == al_width,
-            coverPhoto.al_height == al_height,
+            coverPhoto.al_height == al_height
+        ]
 
+        constraints += [
             coverPhotoTintView.al_width == coverPhoto.al_width,
             coverPhotoTintView.al_height == coverPhoto.al_height,
             coverPhotoTintView.al_left == coverPhoto.al_left,
-            coverPhotoTintView.al_top == coverPhoto.al_top,
+            coverPhotoTintView.al_top == coverPhoto.al_top
+        ]
 
+        constraints += [
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_centerY == al_centerY - tabContainerViewHeight,
             titleLabel.al_top >= al_top + 30,
             titleLabel.al_height == 22,
-            titleLabel.al_width <= al_width - 30,
+            titleLabel.al_width <= al_width - 30
+        ]
 
+        constraints += [
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_left == al_left + 50,
             subtitleLabel.al_right == al_right - 50,
             subtitleLabel.al_top  == titleLabel.al_bottom,
-            subtitleLabel.al_height == 60,
+            subtitleLabel.al_height == 60
+        ]
 
+        constraints += [
             primaryButton.al_centerX == al_centerX,
             primaryButton.al_top == subtitleLabel.al_bottom + 5,
-            primaryButton.al_height == 30,
+            primaryButton.al_height == 30
+        ]
 
+        constraints += [
             tabContainerView.al_bottom == al_bottom,
             tabContainerView.al_left == al_left,
             tabContainerView.al_right == al_right,
             tabContainerView.al_height == tabContainerViewHeight
-        ])
+        ]
+
+        addConstraints(constraints)
     }
 }

@@ -20,7 +20,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
     var viewModel: BrowseViewModel
-    var hudTimer: NSTimer?
+    var hudTimer: Timer?
 #if KEYBOARD
     var navigationBar: KeyboardBrowseNavigationBar?
 #endif
@@ -34,17 +34,17 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.dataSource = self
-        collectionView?.registerClass(MediaItemsSectionHeaderView.self,
+        collectionView?.register(MediaItemsSectionHeaderView.self,
             forSupplementaryViewOfKind: UICollectionElementKindSectionHeader,
             withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
     #if KEYBOARD
         navigationBar = KeyboardBrowseNavigationBar()
-        navigationBar?.thumbnailImageButton.addTarget(self, action: #selector(BrowseMediaItemViewController.backButtonSelected), forControlEvents: .TouchUpInside)
+        navigationBar?.thumbnailImageButton.addTarget(self, action: #selector(BrowseMediaItemViewController.backButtonSelected), for: .touchUpInside)
         navigationBar?.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navigationBar!)
     #else
-        collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
+        collectionView?.register(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
     #endif
 
         extendedLayoutIncludesOpaqueBars = false
@@ -62,49 +62,49 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         self.setNeedsStatusBarAppearanceUpdate()
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        showNavigationBar(false)
+//        showNavigationBar(false)
     #if KEYBOARD
         containerViewController?.resetPosition()
     #endif
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        showNavigationBar(false)
+//        showNavigationBar(false)
 
     #if KEYBOARD
         containerViewController?.resetPosition()
     #endif
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        collectionView?.setContentOffset(CGPointZero, animated: false)
+        collectionView?.setContentOffset(CGPoint.zero, animated: false)
 
         if let navigationBar = navigationController?.navigationBar {
-            navigationBar.barStyle = .Black
-            navigationBar.translucent = true
+            navigationBar.barStyle = .black
+            navigationBar.isTranslucent = true
         }
     }
 
     class func provideCollectionViewLayout() -> UICollectionViewFlowLayout {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenWidth = UIScreen.main().bounds.size.width
         let layout = CSStickyHeaderFlowLayout()
 
     #if KEYBOARD
         let topMargin = CGFloat(41.0)
     #else
         let topMargin = CGFloat(0.0)
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 110)
-        layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 295)
+        layout.parallaxHeaderMinimumReferenceSize = CGSize(width: screenWidth, height: 110)
+        layout.parallaxHeaderReferenceSize = CGSize(width: screenWidth, height: 295)
         layout.parallaxHeaderAlwaysOnTop = true
     #endif
 
         layout.disableStickyHeaders = false
-        layout.itemSize = CGSizeMake(UIScreen.mainScreen().bounds.width - 20, cellHeight)
+        layout.itemSize = CGSize(width: UIScreen.main().bounds.width - 20, height: cellHeight)
         layout.minimumLineSpacing = 7.0
         layout.minimumInteritemSpacing = 7.0
         layout.sectionInset = UIEdgeInsetsMake(topMargin, 0.0, 0.0, 0.0)
@@ -112,19 +112,19 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         return layout
     }
 
-    func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
+    func setupHeaderView(_ imageURL: URL?, title: String?, subtitle: String?) {
     #if KEYBOARD
         navigationBar?.imageURL = imageURL
         navigationBar?.titleLabel.text = title
         navigationBar?.subtitleLabel.text = subtitle
     #else
         headerView?.imageURL = imageURL
-        headerView?.titleLabel.text = title?.uppercaseString
-        headerView?.subtitleLabel.text = subtitle?.uppercaseString
+        headerView?.titleLabel.text = title?.uppercased()
+        headerView?.subtitleLabel.text = subtitle?.uppercased()
     #endif
     }
 
-    func sectionHeaderTitleAtIndexPath(indexPath: NSIndexPath) -> String {
+    func sectionHeaderTitleAtIndexPath(_ indexPath: IndexPath) -> String {
         return ""
     }
 
@@ -132,12 +132,12 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     }
 
     // MARK: UICollectionViewDelegate
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
         #if !(KEYBOARD)
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: MediaItemPageHeaderViewIdentifier, forIndexPath: indexPath) as? MediaItemPageHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                withReuseIdentifier: MediaItemPageHeaderViewIdentifier, for: indexPath) as? MediaItemPageHeaderView else {
                     return UICollectionReusableView()
             }
 
@@ -152,9 +152,9 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader,
-                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                    sectionView.leftText = sectionHeaderTitleAtIndexPath(indexPath).uppercaseString
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+                withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, for: indexPath) as? MediaItemsSectionHeaderView {
+                    sectionView.leftText = sectionHeaderTitleAtIndexPath(indexPath).uppercased()
 
                     return sectionView
             }
@@ -163,45 +163,45 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         return UICollectionReusableView()
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: UIScreen.main().bounds.width, height: 36)
     }
 
     // MARK: KeyboardBrowseNavigationDelegate
     func backButtonSelected() {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: MediaItemGroupViewModelDelegate
-    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
     }
 
 
 #if KEYBOARD
-
-    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
-        guard let containerViewController = containerViewController else {
-            return
-        }
-
-        var frame = tabBarFrame
-        guard var navBarFrame = navigationBar?.frame else {
-            return
-        }
-
-        let tabBarHeight = CGRectGetHeight(frame)
-
-        navBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
-        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
-
-        navigationBarHideConstraint?.constant = navBarFrame.origin.y
-
-        UIView.animateWithDuration(animated ? 0.1 : 0) {
-            self.view.layoutSubviews()
-            containerViewController.tabBar.frame = frame
-        }
-    }
+//
+//    override func setNavigationBarOriginY(y: CGFloat, animated: Bool) {
+//        guard let containerViewController = containerViewController else {
+//            return
+//        }
+//
+//        var frame = tabBarFrame
+//        guard var navBarFrame = navigationBar?.frame else {
+//            return
+//        }
+//
+//        let tabBarHeight = frame.height
+//
+//        navBarFrame.origin.y =  fmax(fmin(KeyboardSearchBarHeight + y, KeyboardSearchBarHeight), 0)
+//        frame.origin.y = fmax(fmin(y, 0), -tabBarHeight)
+//
+//        navigationBarHideConstraint?.constant = navBarFrame.origin.y
+//
+//        UIView.animate(withDuration: animated ? 0.1 : 0) {
+//            self.view.layoutSubviews()
+//            containerViewController.tabBar.frame = frame
+//        }
+//    }
 
     func setupLayout() {
         let topMargin = KeyboardSearchBarHeight
@@ -227,7 +227,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         hudTimer?.invalidate()
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
     }
 
     func hideHud() {

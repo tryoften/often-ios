@@ -12,9 +12,9 @@ class AppSettingsView: UIView {
     var tableView: UITableView
 
     override init(frame: CGRect) {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = UIColor.clear()
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20.0, right: 0)
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = UIEdgeInsetsZero

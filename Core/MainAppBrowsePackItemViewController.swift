@@ -21,16 +21,16 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
-            self?.collectionView?.setContentOffset(CGPointZero, animated: true)
+            self?.collectionView?.setContentOffset(CGPoint.zero, animated: true)
             self?.collectionView?.reloadData()
             self?.packViewModel.checkCurrentPackContents()
             self?.headerViewDidLoad()
         }
         
-        collectionView?.registerClass(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
-        collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
+        collectionView?.register(PackPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: PackPageHeaderViewIdentifier)
+        collectionView?.register(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
+        hudTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
         
         view.addSubview(filterButton)
         setupFilterViews()
@@ -43,20 +43,20 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     func setupFilterViews() {
         let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
+            NSKernAttributeName: NSNumber(value: 1.0),
             NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
-            NSForegroundColorAttributeName: BlackColor
+            NSForegroundColorAttributeName: BlackColor!
         ]
-        let filterString = NSAttributedString(string: "filter by".uppercaseString, attributes: attributes)
+        let filterString = AttributedString(string: "filter by".uppercased(), attributes: attributes)
         
         filterButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton.backgroundColor = WhiteColor
         filterButton.layer.cornerRadius = 15
         filterButton.layer.shadowRadius = 2
         filterButton.layer.shadowOpacity = 0.2
-        filterButton.layer.shadowColor = MediumLightGrey.CGColor
-        filterButton.layer.shadowOffset = CGSizeMake(0, 2)
-        filterButton.setAttributedTitle(filterString, forState: .Normal)
+        filterButton.layer.shadowColor = MediumLightGrey?.cgColor
+        filterButton.layer.shadowOffset = CGSize(width: 0, height: 2)
+        filterButton.setAttributedTitle(filterString, for: UIControlState())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,7 +75,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         return true
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
     }
@@ -90,7 +90,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         showHud()
         loadPackData()
         
-        filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), for: .touchUpInside)
     }
     
     func setLayout() {
@@ -102,18 +102,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             ])
     }
     
-    func filterButtonDidTap(sender: UIButton) {
+    func filterButtonDidTap(_ sender: UIButton) {
         toggleCategoryViewController()
     }
     
     override func headerViewDidLoad() {
-        let imageURL: NSURL? = packViewModel.pack?.largeImageURL
+        let imageURL: URL? = packViewModel.pack?.largeImageURL
         let subtitle: String? = packViewModel.pack?.description
         
         setupHeaderView(imageURL, title: packViewModel.pack?.name, subtitle: subtitle)
     }
     
-    override func setupHeaderView(imageURL: NSURL?, title: String?, subtitle: String?) {
+    override func setupHeaderView(_ imageURL: URL?, title: String?, subtitle: String?) {
         guard let header = headerView as? PackPageHeaderView, let pack = packViewModel.pack else {
             return
         }
@@ -128,16 +128,16 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
 
         header.primaryButton.title = pack.callToActionText()
-        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), for: .touchUpInside)
+        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .added : .notAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
 
         let topRightButton = ShareBarButton()
-        topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), for: .touchUpInside)
 
-        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
+        let positionedButtonView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 30))
+        positionedButtonView.bounds = positionedButtonView.bounds.offsetBy(dx: -10, dy: 0)
         positionedButtonView.addSubview(topRightButton)
 
         let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
@@ -146,21 +146,21 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         updateFilterBar(true)
     }
     
-    func primaryButtonTapped(sender: UIButton) {
+    func primaryButtonTapped(_ sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return
         }
 
         showHud()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
 
         if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
                 PacksService.defaultInstance.removePack(pack)
-                button.packState = .NotAdded
+                button.packState = .notAdded
             } else {
                 PacksService.defaultInstance.addPack(pack)
-                button.packState = .Added
+                button.packState = .added
 
                 if packViewModel.showPushNotificationAlertForPack() {
                     hudTimer?.invalidate()
@@ -168,14 +168,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
                     let AlertVC = PushNotificationAlertViewController()
                     AlertVC.transitioningDelegate = self
-                    AlertVC.modalPresentationStyle = .Custom
-                    presentViewController(AlertVC, animated: true, completion: nil)
+                    AlertVC.modalPresentationStyle = .custom
+                    present(AlertVC, animated: true, completion: nil)
                 }
             }
         }
     }
 
-    func topRightButtonTapped(sender: UIButton) {
+    func topRightButtonTapped(_ sender: UIButton) {
         guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else  {
             return
         }
@@ -185,16 +185,16 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
         activityVC.popoverPresentationController?.sourceView = sender
-        presentViewController(activityVC, animated: true, completion: nil)
+        present(activityVC, animated: true, completion: nil)
     }
     
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSizeZero
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize.zero
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: PackPageHeaderViewIdentifier, forIndexPath: indexPath) as? PackPageHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PackPageHeaderViewIdentifier, for: indexPath) as? PackPageHeaderView else {
                 return UICollectionReusableView()
             }
             
@@ -206,12 +206,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             return headerView!
         } else {
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
     }
     
     func leftTabSelected() {
-        collectionView?.setContentOffset(CGPointZero, animated: true)
+        collectionView?.setContentOffset(CGPoint.zero, animated: true)
         
         if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
             packViewModel.typeFilter = .Gif
@@ -219,14 +219,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     func rightTabSelected() {
-        collectionView?.setContentOffset(CGPointZero, animated: true)
+        collectionView?.setContentOffset(CGPoint.zero, animated: true)
         
         if packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
             packViewModel.typeFilter = .Quote
         }
     }
     
-    func updateFilterBar(withAnimation: Bool) {
+    func updateFilterBar(_ withAnimation: Bool) {
         guard let headerView = headerView as? PackPageHeaderView else {
             return
         }
@@ -245,7 +245,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
     }
     
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    override func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
         
         updateFilterBar(false)

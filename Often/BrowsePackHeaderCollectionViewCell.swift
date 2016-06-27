@@ -32,7 +32,7 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         
         artistImage = UIImageView()
         artistImage.translatesAutoresizingMaskIntoConstraints = false
-        artistImage.contentMode = .ScaleAspectFill
+        artistImage.contentMode = .scaleAspectFill
         artistImage.clipsToBounds = true
         artistImage.layer.cornerRadius = 4.0
         
@@ -40,7 +40,7 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         confirmView.translatesAutoresizingMaskIntoConstraints = false
         confirmView.backgroundColor = BrowseHeaderCollectionViewCellConfirmViewColor
         confirmView.alpha = 0
-        confirmView.contentMode = .Center
+        confirmView.contentMode = .center
         
         shadowLayer = CAShapeLayer()
         
@@ -51,9 +51,9 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(confirmView)
         
         layer.cornerRadius = 4.0
-        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowColor = UIColor.black().cgColor
         layer.shadowOpacity = 0.25
-        layer.shadowOffset = CGSizeMake(0, 2)
+        layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 4
 
         setupLayout()
@@ -87,7 +87,7 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
     }
     
     func dismissConfirmView() {
-        UIView.animateWithDuration(0.3, delay: 1.0, options: [], animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: { () -> Void in
             self.confirmView.alpha = 0.0
             }) { (success) -> Void in
                 

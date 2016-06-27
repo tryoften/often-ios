@@ -10,12 +10,12 @@ import Foundation
 
 extension UIViewController {
     var containerViewController: KeyboardSectionsContainerViewController? {
-        var viewController = parentViewController
+        var viewController = parent
         while viewController != nil {
             if let parentViewController = viewController as? KeyboardSectionsContainerViewController {
                 return parentViewController
             }
-            viewController = viewController?.parentViewController
+            viewController = viewController?.parent
         }
         return nil
     }

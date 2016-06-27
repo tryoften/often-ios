@@ -22,8 +22,8 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
      override init() {
-        Analytics.setupWithConfiguration(SEGAnalyticsConfiguration.init(writeKey: AnalyticsWriteKey))
-        Analytics.sharedAnalytics().screen("Service_Loaded")
+        Analytics.setup(with: SEGAnalyticsConfiguration.init(writeKey: AnalyticsWriteKey))
+        Analytics.shared().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
 
         _ = ParseConfig.defaultConfig
@@ -35,26 +35,26 @@ class SessionManager: NSObject, AccountManagerDelegate {
         accountManager.delegate = self
 
         if let userID = sessionManagerFlags.userId {
-            Analytics.sharedAnalytics().identify(userID)
+            Analytics.shared().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
             crashlytics.setUserIdentifier(userID)
             accountManager.isUserLoggedIn()
         }
     }
 
-    func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
+    func login(_ accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
         accountManager = accountManagerControllerClass.init(firebase: firebase)
         accountManager.delegate = self
         accountManager.login(userData, completion: { results in
             switch results {
-            case .Success(let value): completion(results: ResultType.Success(r: value))
-            case .Error(let err): completion(results: ResultType.Error(e: err))
-            case .SystemError(let err): completion(results: ResultType.SystemError(e: err))
+            case .success(let value): completion(results: ResultType.success(r: value))
+            case .error(let err): completion(results: ResultType.error(e: err))
+            case .systemError(let err): completion(results: ResultType.systemError(e: err))
             }
         })
     }
 
-    func updateUserPushNotificationStatus(status: Bool)  {
+    func updateUserPushNotificationStatus(_ status: Bool)  {
         guard let user = currentUser, let userId = currentUser?.id else {
             return
         }
@@ -74,49 +74,49 @@ class SessionManager: NSObject, AccountManagerDelegate {
         pushNotificationStatusEndPoint.setValue(status)
 
         if status {
-            UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
-            UIApplication.sharedApplication().registerForRemoteNotifications()
+            UIApplication.shared().registerUserNotificationSettings( UIUserNotificationSettings(types: [.sound, .alert, .badge], categories: []))
+            UIApplication.shared().registerForRemoteNotifications()
         } else {
-            UIApplication.sharedApplication().unregisterForRemoteNotifications()
+            UIApplication.shared().unregisterForRemoteNotifications()
         }
     }
 
 
     func logout() {
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.logout))
+        Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.logout))
         PFUser.logOut()
         accountManager.logout()
         try! FIRAuth.auth()!.signOut()
         accountManager.delegate = nil
         sessionManagerFlags.clearSessionFlags()
 
-        guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
+        guard let directory: URL = FileManager.default().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
         }
         
         do {
-            try NSFileManager.defaultManager().removeItemAtPath(directory.path!)
+            try FileManager.default().removeItem(atPath: directory.path!)
         } catch _ {
         }
     }
 
-    func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User) {
+    func accountManagerUserDidLogin(_ accountManager: AccountManagerProtocol, user: User) {
         delegate?.sessionManagerDidLoginUser(self, user: user)
     }
 
-    func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User) {
+    func accountManagerUserDidLogout(_ accountManager: AccountManagerProtocol, user: User) {
     }
 
-    func accountManagerNoUserFound(accountManager: AccountManagerProtocol) {
+    func accountManagerNoUserFound(_ accountManager: AccountManagerProtocol) {
         delegate?.sessionManagerNoUserFound(self)
     }
 }
 
-enum SessionManagerError: ErrorType {
-    case UnvalidSignUp
+enum SessionManagerError: ErrorProtocol {
+    case unvalidSignUp
 }
 
 protocol SessionManagerDelegate: class {
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User)
-    func sessionManagerNoUserFound(sessionManager: SessionManager)
+    func sessionManagerDidLoginUser(_ sessionManager: SessionManager, user: User)
+    func sessionManagerNoUserFound(_ sessionManager: SessionManager)
 }

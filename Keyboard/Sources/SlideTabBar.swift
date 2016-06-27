@@ -19,7 +19,7 @@ class SlideTabBar: UITabBar {
             var width: CGFloat = bounds.size.width
 
             if width == 0 {
-                width = UIScreen.mainScreen().bounds.width
+                width = UIScreen.main().bounds.width
             }
 
             return width / CGFloat(count)
@@ -32,7 +32,7 @@ class SlideTabBar: UITabBar {
 
     var highlightBarEnabled: Bool {
         didSet {
-            highlightBarView.hidden = highlightBarEnabled
+            highlightBarView.isHidden = highlightBarEnabled
         }
     }
     
@@ -44,8 +44,8 @@ class SlideTabBar: UITabBar {
         }
         
         repositionSlideBar()
-        topSeperator.frame = CGRectMake(0, 0, CGRectGetWidth(frame), 0.6)
-        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
+        topSeperator.frame = CGRect(x: 0, y: 0, width: frame.width, height: 0.6)
+        bottomSeperator.frame = CGRect(x: 0, y: frame.height - 0.6, width: frame.width, height: 0.6)
     }
 
     override var items: [UITabBarItem]? {
@@ -57,7 +57,7 @@ class SlideTabBar: UITabBar {
             highlightBarWidthConstraint = highlightBarView.al_width == al_width / CGFloat(count)
             addConstraint(highlightBarWidthConstraint!)
 
-            UIView.animateWithDuration(0.3) {
+            UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
         }
@@ -73,9 +73,9 @@ class SlideTabBar: UITabBar {
         guard let items = items else {
             return
         }
-        if let item = selectedItem, let index = items.indexOf(item) {
+        if let item = selectedItem, let index = items.index(of: item) {
             highlightBarLeftConstraint?.constant = highlightBarWidth * CGFloat(index)
-            UIView.animateWithDuration(0.3) {
+            UIView.animate(withDuration: 0.3) {
                 self.layoutIfNeeded()
             }
         }
@@ -94,14 +94,14 @@ class SlideTabBar: UITabBar {
 
         self.highlightBarEnabled = enabled
 
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         addSubview(highlightBarView)
         setupHighlightBar()
         addSubview(topSeperator)
         addSubview(bottomSeperator)
 
-        backgroundColor = UIColor.whiteColor()
+        backgroundColor = UIColor.white()
     }
 
     required init?(coder aDecoder: NSCoder) {

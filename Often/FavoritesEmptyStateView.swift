@@ -14,14 +14,14 @@ class FavoritesEmptyStateView: EmptyStateView {
         let description = "Tap any lyric to start adding favorites"
         let image = UIImage(named: "favoritesemptystate")!
         
-        super.init(state: .NoFavorites)
+        super.init(state: .noFavorites)
         
         titleLabel.text = title
         descriptionLabel.text = description
         imageView.image = image
         
-        imageView.contentMode = .ScaleAspectFill
-        imageSize = .Medium
+        imageView.contentMode = .scaleAspectFill
+        imageSize = .medium
         
         addAdditionalLayouts()
     }

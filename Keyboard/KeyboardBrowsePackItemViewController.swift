@@ -13,20 +13,21 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
 
-    private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
-    
+//    private let isFullAccessEnabled = UIPasteboard.general().isKind(of: UIPasteboard)
+    private let isFullAccessEnabled = true
+
     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         tabBar = BrowsePackTabBar(highlightBarEnabled: true)
         
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
-        collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+        collectionView?.register(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
         
         tabBar.delegate = self
         packViewModel.delegate = self
         showLoadingView()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
             self?.tabBar.updateTabBarSelectedItem()
@@ -42,13 +43,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         tabBar.updateTabBarSelectedItem()
         
         view.addSubview(tabBar)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
     }
 
     deinit {
         packServiceListener = nil
         packCollectionListener = nil
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,25 +68,25 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
+        tabBar.frame = CGRect(x: view.bounds.origin.x, y: view.bounds.height - 44.5, width: view.bounds.width, height: 44.5)
     }
 
     func showFullAccessMessageIfNeeded() {
         if !isFullAccessEnabled {
             hideLoadingView()
-            showEmptyStateViewForState(.NoKeyboard, completion: { view in
+            showEmptyStateViewForState(.noKeyboard, completion: { view in
                 view.imageViewTopConstraint?.constant = -100
                 view.titleLabel.text = "You forgot to allow Full-Access"
-                view.primaryButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
-                self.view.bringSubviewToFront(view)
-                self.view.bringSubviewToFront(self.tabBar)
+                view.primaryButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), for: .touchUpInside)
+                self.view.bringSubview(toFront: view)
+                self.view.bringSubview(toFront: self.tabBar)
             })
         } else {
             hideEmptyStateView()
@@ -94,15 +95,15 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     func didTapGoToSettingsButton() {
         let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-        if let appSettings = NSURL(string: appSettingsString) {
+        if let appSettings = URL(string: appSettingsString) {
             self.openURL(appSettings)
         }
     }
 
-    func openURL(url: NSURL) {
+    func openURL(_ url: URL) {
         do {
             let application = try BaseKeyboardContainerViewController.sharedApplication(self)
-            application.performSelector(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), withObject: url)
+            application.perform(#selector(KeyboardMediaItemPackPickerViewController.openURL(_:)), with: url)
         }
         catch {
 
@@ -116,27 +117,27 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     func togglePack() {
         let packsVC = KeyboardMediaItemPackPickerViewController(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
         packsVC.delegate = self
-        presentViewControllerWithCustomTransitionAnimator(packsVC, direction: .Left, duration: 0.2)
+        presentViewControllerWithCustomTransitionAnimator(packsVC, direction: .left, duration: 0.2)
     }
 
-    func keyboardMediaItemPackPickerViewControllerDidSelectPack(packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
-        collectionView?.setContentOffset(CGPointZero, animated: true)
+    func keyboardMediaItemPackPickerViewControllerDidSelectPack(_ packPicker: KeyboardMediaItemPackPickerViewController, pack: PackMediaItem) {
+        collectionView?.setContentOffset(CGPoint.zero, animated: true)
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
     
-    override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
-        collectionView?.setContentOffset(CGPointZero, animated: true)
+    override func categoriesCollectionViewControllerDidSwitchCategory(_ CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
+        collectionView?.setContentOffset(CGPoint.zero, animated: true)
         SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
-            return CGSizeZero
+            return CGSize.zero
         }
         
-        let screenWidth = UIScreen.mainScreen().bounds.width
-        let screenHeight = UIScreen.mainScreen().bounds.height
+        let screenWidth = UIScreen.main().bounds.width
+        let screenHeight = UIScreen.main().bounds.height
         
         switch group.type {
         case .Gif:
@@ -149,18 +150,18 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             }
 
             let height = width * (4/7)
-            return CGSizeMake(width, height)
+            return CGSize(width: width, height: height)
         case .Quote:
-            return CGSizeMake(screenWidth, 75)
+            return CGSize(width: screenWidth, height: 75)
         default:
-            return CGSizeZero
+            return CGSize.zero
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
             // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
+            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, for: indexPath) as? MediaItemsSectionHeaderView {
 
                 guard let packsService = viewModel as? PacksService, let pack = packsService.pack,
                     let mediaItemTitleText = pack.name, let category =  viewModel.currentCategory else {
@@ -182,7 +183,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         return UICollectionReusableView()
     }
     
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
             return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
         }
@@ -190,54 +191,54 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
             return
         }
 
         if !isFullAccessEnabled {
-            if type == .Keyboard {
-                NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+            if type == .keyboard {
+                NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: SwitchKeyboardEvent), object: nil)
             }
             return
         }
         
         switch type {
-        case .Keyboard:
-            NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
+        case .keyboard:
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: SwitchKeyboardEvent), object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
-        case .Gifs:
+        case .gifs:
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {
-                collectionView?.setContentOffset(CGPointZero, animated: true)
+                collectionView?.setContentOffset(CGPoint.zero, animated: true)
                 packViewModel.typeFilter = .Gif
                 self.tabBar.lastSelectedTab = item
             } else {
                 packViewModel.typeFilter = .Quote
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
             }
-        case .Quotes:
+        case .quotes:
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) {
-                 collectionView?.setContentOffset(CGPointZero, animated: true)
+                 collectionView?.setContentOffset(CGPoint.zero, animated: true)
                 packViewModel.typeFilter = .Quote
                 self.tabBar.lastSelectedTab = item
             } else {
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
                 packViewModel.typeFilter = .Gif
             }
-        case .Categories:
+        case .categories:
             toggleCategoryViewController()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
-        case .Packs:
+        case .packs:
             togglePack()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
-        case .Delete:
+        case .delete:
            textProcessor?.deleteBackward()
            
            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         }
     }
 
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    override func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         if isFullAccessEnabled {
             super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
         }

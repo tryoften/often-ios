@@ -14,21 +14,21 @@ class TwitterEmptyStateView: EmptyStateView {
         let description = "Get lyric suggestions & a sweet profile pic"
         let image = UIImage(named: "twitteremptystate")!
         
-        super.init(state: .NoTwitter)
+        super.init(state: .noTwitter)
         
         titleLabel.text = title
         descriptionLabel.text = description
         imageView.image = image
         
         primaryButton.backgroundColor = TwitterButtonColor
-        primaryButton.setTitle("connect twitter".uppercaseString, forState: .Normal)
-        primaryButton.hidden = false
+        primaryButton.setTitle("connect twitter".uppercased(), for: UIControlState())
+        primaryButton.isHidden = false
         
-        closeButton.hidden = false
-        closeButton.userInteractionEnabled = true
+        closeButton.isHidden = false
+        closeButton.isUserInteractionEnabled = true
         
-        imageView.contentMode = .ScaleAspectFill
-        imageSize = .Medium
+        imageView.contentMode = .scaleAspectFill
+        imageSize = .medium
         
         addAdditionalLayouts()
     }

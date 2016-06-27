@@ -15,7 +15,7 @@ class ContainerNavigationController: UINavigationController, UINavigationControl
         self.pushViewController(rootViewController, animated: false)
     }
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -25,24 +25,24 @@ class ContainerNavigationController: UINavigationController, UINavigationControl
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.translucent = false
+        navigationBar.isTranslucent = false
 
-        let backNavImage = StyleKit.imageOfBackarrow(frame: CGRectMake(0, 0, 22, 22), color: WhiteColor, scale: 0.5, selected: false, rotate: 0)
+        let backNavImage = StyleKit.imageOfBackarrow(frame: CGRect(x: 0, y: 0, width: 22, height: 22), color: WhiteColor, scale: 0.5, selected: false, rotate: 0)
 
         UITextField.appearance().font = UIFont(name: "OpenSans-Semibold", size: 12)
 
         let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.barTintColor = UIColor.whiteColor()
+        navBarAppearance.barTintColor = UIColor.white()
         navBarAppearance.backIndicatorImage = backNavImage
         navBarAppearance.backIndicatorTransitionMaskImage = backNavImage
-        navBarAppearance.tintColor = UIColor.whiteColor()
-        navBarAppearance.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        navBarAppearance.barStyle = .Black
+        navBarAppearance.tintColor = UIColor.white()
+        navBarAppearance.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navBarAppearance.barStyle = .black
         navBarAppearance.shadowImage = UIImage()
-        navBarAppearance.backgroundColor = UIColor.clearColor()
-        navBarAppearance.translucent = true
+        navBarAppearance.backgroundColor = UIColor.clear()
+        navBarAppearance.isTranslucent = true
 
-        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), forBarMetrics: .Default)
+        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -60), for: .default)
         
         if let font = UIFont(name: "Montserrat-Regular", size: 12) {
             UINavigationBar.appearance().titleTextAttributes = [
@@ -53,7 +53,7 @@ class ContainerNavigationController: UINavigationController, UINavigationControl
         view.layer.zPosition = 1000
     }
 
-    func navigationController(navigationController: UINavigationController, interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return nil
     }
 }

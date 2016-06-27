@@ -15,7 +15,7 @@ class AnimatedLoaderView: UIView {
     override init(frame: CGRect) {
         loaderImageView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         loaderImageView.translatesAutoresizingMaskIntoConstraints = false
-        loaderImageView.contentMode = .ScaleAspectFill
+        loaderImageView.contentMode = .scaleAspectFill
         loaderImageView.contentScaleFactor = 2.5
         
         super.init(frame: frame)

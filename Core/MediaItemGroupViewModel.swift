@@ -13,23 +13,23 @@ class MediaItemGroupViewModel: BaseViewModel {
     weak var delegate: MediaItemGroupViewModelDelegate?
     var mediaItemGroups: [MediaItemGroup]
 
-    override init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String?) {
+    override init(baseRef: FIRDatabaseReference?, path: String?) {
         mediaItemGroups = []
         
         super.init(baseRef: baseRef, path: path)
     }
 
-    override func fetchData(completion: ((Bool) -> Void)? = nil) {
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            if let data = snapshot.value as? NSArray {
-                self.mediaItemGroups = MediaItemGroup.modelsFromDictionaryArray(data)
-                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
-                completion?(true)
-            }
-        })
+    override func fetchData(_ completion: ((Bool) -> Void)? = nil) {
+//        ref.observe(.value, with: { snapshot in
+//            if let data = snapshot.value as? NSArray {
+//                self.mediaItemGroups = MediaItemGroup.modelsFromDictionaryArray(data)
+//                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+//                completion?(true)
+//            }
+//        })
     }
 
-    func groupAtIndex(index: Int) -> MediaItemGroup? {
+    func groupAtIndex(_ index: Int) -> MediaItemGroup? {
         if index < mediaItemGroups.count {
             return mediaItemGroups[index]
         }
@@ -39,5 +39,5 @@ class MediaItemGroupViewModel: BaseViewModel {
 }
 
 protocol MediaItemGroupViewModelDelegate: class {
-    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup])
+    func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup])
 }

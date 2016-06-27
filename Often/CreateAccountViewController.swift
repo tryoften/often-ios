@@ -35,25 +35,25 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         createAccountView.passwordTextField.delegate = self
         createAccountView.emailTextField.delegate = self
         
-        createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupFacebookButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupTwitterButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
+        createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", for: .touchUpInside)
+        createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", for: .touchUpInside)
+        createAccountView.signupButton.addTarget(self, action: "didTapButton:", for: .touchUpInside)
+        createAccountView.signupFacebookButton.addTarget(self, action: "didTapButton:", for: .touchUpInside)
+        createAccountView.signupTwitterButton.addTarget(self, action: "didTapButton:", for: .touchUpInside)
+        createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", for: .touchUpInside)
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true;
     }
     
-    func didTapCancelButton(sender: UIButton) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+    func didTapCancelButton(_ sender: UIButton) {
+        UIApplication.shared().sendAction("resignFirstResponder", to: nil, from: nil, for: nil)
 
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
         
-    func didTapSignupButton(sender: UIButton) {
+    func didTapSignupButton(_ sender: UIButton) {
         viewModel.userAuthData.username = createAccountView.usernameTextField.text!
         viewModel.userAuthData.email = createAccountView.emailTextField.text!
         viewModel.userAuthData.password = createAccountView.passwordTextField.text!
@@ -62,18 +62,18 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
 
     }
     
-    func didTapTermsOfUseButton(sender: UIButton) {
-        self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
+    func didTapTermsOfUseButton(_ sender: UIButton) {
+        self.present(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
         
     }
     
     func createKeyboardInstallationWalkthroughViewController() {
         let keyboardInstallationWalkthrough = InstallationWalkthroughViewContoller(viewModel: self.viewModel)
-        self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
+        self.present(keyboardInstallationWalkthrough, animated: true, completion: nil)
 
     }
 
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         let characterCount = createAccountView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             createAccountView.signupButton.backgroundColor = UIColor(fromHexString: "#152036")
@@ -95,11 +95,11 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         view.addConstraints(constraints)
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIApplication.shared().sendAction("resignFirstResponder", to: nil, from: nil, for: nil)
     }
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == createAccountView.usernameTextField {
             createAccountView.emailTextField.becomeFirstResponder()
             
@@ -112,7 +112,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
         return true
     }
 
-    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+    override func loginViewModelDidLoginUser(_ userProfileViewModel: LoginViewModel, user: User?) {
         super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
         createKeyboardInstallationWalkthroughViewController()
     }

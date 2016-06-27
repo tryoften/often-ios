@@ -12,13 +12,13 @@ import Foundation
 /// Provides in-memory storage for image responses.
 public protocol ImageMemoryCaching {
     /// Returns the cached response for the specified key.
-    func responseForKey(key: ImageRequestKey) -> ImageCachedResponse?
+    func responseForKey(_ key: ImageRequestKey) -> ImageCachedResponse?
 
     /// Stores the cached response for the specified key.
-    func setResponse(response: ImageCachedResponse, forKey key: ImageRequestKey)
+    func setResponse(_ response: ImageCachedResponse, forKey key: ImageRequestKey)
 
     /// Removes the cached response for the specified key.
-    func removeResponseForKey(key: ImageRequestKey)
+    func removeResponseForKey(_ key: ImageRequestKey)
     
     /// Clears the receiver's storage.
     func clear()
@@ -43,26 +43,26 @@ public class ImageCachedResponse {
 public class ImageMemoryCache: ImageMemoryCaching {
     deinit {
         #if os(iOS) || os(tvOS)
-            NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+            NotificationCenter.default().removeObserver(self, name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
         #endif
     }
     
     // MARK: Configuring Cache
     
     /// The internal memory cache.
-    public let cache: NSCache
+    public let cache: Cache<AnyObject, AnyObject>
 
     /// Initializes the receiver with a given memory cache.
-    public init(cache: NSCache) {
+    public init(cache: Cache<AnyObject, AnyObject>) {
         self.cache = cache
         #if os(iOS) || os(tvOS)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ImageMemoryCache.didReceiveMemoryWarning(_:)), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+            NotificationCenter.default().addObserver(self, selector: #selector(ImageMemoryCache.didReceiveMemoryWarning(_:)), name: NSNotification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
         #endif
     }
 
     /// Initializes cache with the recommended cache total limit.
     public convenience init() {
-        let cache = NSCache()
+        let cache = Cache<AnyObject, AnyObject>()
         cache.totalCostLimit = ImageMemoryCache.recommendedCostLimit()
         #if os(OSX)
             cache.countLimit = 100
@@ -72,7 +72,7 @@ public class ImageMemoryCache: ImageMemoryCaching {
     
     /// Returns recommended cost limit in bytes.
     public class func recommendedCostLimit() -> Int {
-        let physicalMemory = NSProcessInfo.processInfo().physicalMemory
+        let physicalMemory = ProcessInfo.processInfo().physicalMemory
         let ratio = physicalMemory <= (1024 * 1024 * 512 /* 512 Mb */) ? 0.1 : 0.2
         let limit = physicalMemory / UInt64(1 / ratio)
         return limit > UInt64(Int.max) ? Int.max : Int(limit)
@@ -81,18 +81,18 @@ public class ImageMemoryCache: ImageMemoryCaching {
     // MARK: Managing Cached Responses
 
     /// Returns the cached response for the specified key.
-    public func responseForKey(key: ImageRequestKey) -> ImageCachedResponse? {
-        return cache.objectForKey(key) as? ImageCachedResponse
+    public func responseForKey(_ key: ImageRequestKey) -> ImageCachedResponse? {
+        return cache.object(forKey: key) as? ImageCachedResponse
     }
 
     /// Stores the cached response for the specified key.
-    public func setResponse(response: ImageCachedResponse, forKey key: ImageRequestKey) {
+    public func setResponse(_ response: ImageCachedResponse, forKey key: ImageRequestKey) {
         cache.setObject(response, forKey: key, cost: costFor(response.image))
     }
 
     /// Removes the cached response for the specified key.
-    public func removeResponseForKey(key: ImageRequestKey) {
-        cache.removeObjectForKey(key)
+    public func removeResponseForKey(_ key: ImageRequestKey) {
+        cache.removeObject(forKey: key)
     }
     
     /// Removes all cached images.
@@ -103,15 +103,15 @@ public class ImageMemoryCache: ImageMemoryCaching {
     // MARK: Subclassing Hooks
     
     /// Returns cost for the given image by approximating its bitmap size in bytes in memory.
-    public func costFor(image: Image) -> Int {
+    public func costFor(_ image: Image) -> Int {
         #if os(OSX)
             return 1
         #else
-            return CGImageGetBytesPerRow(image.CGImage!) * CGImageGetHeight(image.CGImage!)
+            return image.cgImage!.bytesPerRow * image.cgImage!.height
         #endif
     }
     
-    @objc private func didReceiveMemoryWarning(notification: NSNotification) {
+    @objc private func didReceiveMemoryWarning(_ notification: Notification) {
         cache.removeAllObjects()
     }
 }

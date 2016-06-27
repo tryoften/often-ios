@@ -20,7 +20,7 @@ class SkipSignupViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
 
-        skipSignupView.oftenAccountButton.addTarget(self, action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
+        skipSignupView.oftenAccountButton.addTarget(self, action: "didTapCreateAccountButton:", for: .touchUpInside)
         
         view.addSubview(skipSignupView)
         
@@ -42,7 +42,7 @@ class SkipSignupViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-       func didTapCreateAccountButton(sender: UIButton) {
+       func didTapCreateAccountButton(_ sender: UIButton) {
         viewModel.sessionManager.logout()
 
         SessionManagerFlags.defaultManagerFlags.userIsAnonymous = false
@@ -52,9 +52,9 @@ class SkipSignupViewController: UIViewController {
 
         let loginViewModel = LoginViewModel(sessionManager: SessionManager.defaultManager)
         let vc = LoginViewController(viewModel: loginViewModel)
-        vc.loginView.launchScreenLoader.hidden = true
+        vc.loginView.launchScreenLoader.isHidden = true
         
-        presentViewController(vc, animated: true, completion: nil)
+        present(vc, animated: true, completion: nil)
 
     }
 

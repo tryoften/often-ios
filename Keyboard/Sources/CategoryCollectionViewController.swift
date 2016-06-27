@@ -36,7 +36,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         dismissalView.translatesAutoresizingMaskIntoConstraints = false
         dismissalView.backgroundColor = ClearColor
 
-        categoriesCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoryCollectionViewController.provideCollectionViewLayout())
+        categoriesCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: CategoryCollectionViewController.provideCollectionViewLayout())
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         categoriesCollectionView.backgroundColor = VeryLightGray
         categoriesCollectionView.showsHorizontalScrollIndicator = false
@@ -62,16 +62,16 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        categoriesCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
+        categoriesCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
         cancelBarView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(CategoryCollectionViewController.cancelButtonDidTap)))
-        cancelBarView.cancelButton.addTarget(self, action: #selector(CategoryCollectionViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        cancelBarView.cancelButton.addTarget(self, action: #selector(CategoryCollectionViewController.cancelButtonDidTap), for: .touchUpInside)
         dismissalView.addGestureRecognizer(UITapGestureRecognizer(target: self, action:  #selector(CategoryCollectionViewController.cancelButtonDidTap)))
     }
 
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let viewLayout = UICollectionViewFlowLayout()
-        viewLayout.scrollDirection = .Horizontal
-        viewLayout.itemSize = CGSizeMake(113, 60)
+        viewLayout.scrollDirection = .horizontal
+        viewLayout.itemSize = CGSize(width: 113, height: 60)
         viewLayout.minimumInteritemSpacing = 3
         viewLayout.minimumLineSpacing = 3
         viewLayout.sectionInset = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
@@ -79,7 +79,7 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
     }
 
     func setupLayout() {
-        view.addConstraints([
+        let constraints = [
             categoriesCollectionView.al_left == cancelBarView.al_right,
             categoriesCollectionView.al_right == view.al_right,
             categoriesCollectionView.al_bottom == view.al_bottom,
@@ -94,28 +94,30 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             dismissalView.al_left == view.al_left,
             dismissalView.al_right == view.al_right,
             dismissalView.al_bottom == view.al_bottom
-            ])
+        ]
+
+        view.addConstraints(constraints)
     }
 
     func cancelButtonDidTap() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     // MARK: UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CategoryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? CategoryCollectionViewCell else {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCellReuseIdentifier, for: indexPath) as? CategoryCollectionViewCell else {
             return UICollectionViewCell()
         }
 
-        if indexPath.row < categories.count {
-            let category = categories[indexPath.row]
+        if (indexPath as NSIndexPath).row < categories.count {
+            let category = categories[(indexPath as NSIndexPath).row]
             cell.title = category.name
 
-            if categories[indexPath.row].id == Category.all.id {
+            if categories[(indexPath as NSIndexPath).row].id == Category.all.id {
                 if let image = viewModel.pack?.smallImageURL {
                     cell.backgroundImageView.nk_setImageWith(image)
                 }
@@ -128,19 +130,19 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
         }
 
 
-        if viewModel.currentCategory == categories[indexPath.row] {
-            cell.selected = true
+        if viewModel.currentCategory == categories[(indexPath as NSIndexPath).row] {
+            cell.isSelected = true
         } else {
-            cell.selected = false
+            cell.isSelected = false
         }
 
 
         return cell
     }
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row < categories.count {
-            let category = categories[indexPath.row]
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).row < categories.count {
+            let category = categories[(indexPath as NSIndexPath).row]
 
             viewModel.applyFilter(category)
 
@@ -149,13 +151,13 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
                 "category_id": category.id
             ]
 
-            SEGAnalytics.sharedAnalytics().track("keyboard:categorySelected", properties: data)
-            delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: indexPath.row)
-            dismissViewControllerAnimated(true, completion: nil)
+            SEGAnalytics.shared().track("keyboard:categorySelected", properties: data)
+            delegate?.categoriesCollectionViewControllerDidSwitchCategory(self, category: category, categoryIndex: (indexPath as NSIndexPath).row)
+            dismiss(animated: true, completion: nil)
         }
     }
 }
 
 protocol CategoriesCollectionViewControllerDelegate: class {
-    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int)
+    func categoriesCollectionViewControllerDidSwitchCategory(_ CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int)
 }

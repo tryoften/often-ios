@@ -33,28 +33,28 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
         signinView.emailTextField.delegate = self
         signinView.passwordTextField.delegate = self
         
-        signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
-        signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        signinView.signinButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        signinView.signinFacebookButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
-        signinView.signinTwitterButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
+        signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", for: .touchUpInside)
+        signinView.signinButton.addTarget(self, action: "didTapSigninButton:", for: .touchUpInside)
+        signinView.signinButton.addTarget(self, action: "didTapButton:", for: .touchUpInside)
+        signinView.signinFacebookButton.addTarget(self, action:"didTapButton:", for: .touchUpInside)
+        signinView.signinTwitterButton.addTarget(self, action:"didTapButton:", for: .touchUpInside)
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
     
-    func didTapSigninButton(sender: UIButton) {
+    func didTapSigninButton(_ sender: UIButton) {
         viewModel.userAuthData.email = signinView.emailTextField.text!
         viewModel.userAuthData.password = signinView.passwordTextField.text!
         viewModel.userAuthData.isNewUser = false
 
     }
 
-    func didTapcancelButton(sender: UIButton) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+    func didTapcancelButton(_ sender: UIButton) {
+        UIApplication.shared().sendAction("resignFirstResponder", to: nil, from: nil, for: nil)
 
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     
@@ -71,10 +71,10 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     func createProfileViewController() {
         viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
         
-        presentViewController(RootViewController(), animated: true, completion: nil)
+        present(RootViewController(), animated: true, completion: nil)
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         let characterCount = signinView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
             signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
@@ -86,11 +86,11 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     }
 
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIApplication.shared().sendAction("resignFirstResponder", to: nil, from: nil, for: nil)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == signinView.emailTextField {
             signinView.passwordTextField.becomeFirstResponder()
             
@@ -100,7 +100,7 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
         return true
     }
 
-    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+    override func loginViewModelDidLoginUser(_ userProfileViewModel: LoginViewModel, user: User?) {
         super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
         
         createProfileViewController()

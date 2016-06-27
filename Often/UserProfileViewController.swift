@@ -29,7 +29,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         }
         
         collectionView?.backgroundColor = VeryLightGray
-        collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
+        collectionView?.register(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,15 +37,15 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenWidth = UIScreen.main().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSize(width: screenWidth, height: 64)
+        flowLayout.parallaxHeaderReferenceSize = CGSize(width: screenWidth, height: 270)
+        flowLayout.itemSize = CGSize(width: screenWidth / 2 - 16.5, height: 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -60,23 +60,23 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
+            collectionView.register(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
                 withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+        UIApplication.shared().setStatusBarHidden(true, with: .none)
         if let navigationBar = navigationController?.navigationBar {
-            navigationBar.hidden = true
+            navigationBar.isHidden = true
         }
     }
 
@@ -85,22 +85,22 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+        return .lightContent
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.mediaItems.count
     }
 
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
     
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, for: indexPath) as? UserProfileHeaderView else {
                     return UICollectionReusableView()
             }
             
@@ -111,36 +111,36 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             
             return headerView!
         } else {
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell else {
              return PackProfileCollectionViewCell()
         }
         
-        cell.addedBadgeView.hidden = true
-        cell.primaryButton.tag = indexPath.row
-        cell.primaryButton.hidden = false
+        cell.addedBadgeView.isHidden = true
+        cell.primaryButton.tag = (indexPath as NSIndexPath).row
+        cell.primaryButton.isHidden = false
         
         if viewModel.mediaItems.count == 1 {
-            cell.primaryButton.hidden = true
+            cell.primaryButton.isHidden = true
         }
         
-        cell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
+        cell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), for: .touchUpInside)
 
 
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem , let id = pack.pack_id else {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let pack = viewModel.mediaItems[(indexPath as NSIndexPath).row] as? PackMediaItem , let id = pack.pack_id else {
             return
         }
 
         let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
-        navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.isHidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }
 
@@ -150,13 +150,13 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
             headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
-            if let imageURL = NSURL(string: user.profileImageLarge) {
+            if let imageURL = URL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
         }
     }
 
-    func didTapRemovePackButton(button: UIButton?) {
+    func didTapRemovePackButton(_ button: UIButton?) {
         guard let button = button else {
             return
         }
@@ -171,8 +171,8 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
                 let AlertVC = PushNotificationAlertViewController()
                 AlertVC.transitioningDelegate = self
-                AlertVC.modalPresentationStyle = .Custom
-                presentViewController(AlertVC, animated: true, completion: nil)
+                AlertVC.modalPresentationStyle = .custom
+                present(AlertVC, animated: true, completion: nil)
 
             }
         }
@@ -180,22 +180,22 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
     // Empty States button actions
     func didTapSettingsButton() {
-        if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
-            UIApplication.sharedApplication().openURL(appSettings)
+        if let appSettings = URL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
+            UIApplication.shared().openURL(appSettings)
         }
     }
 
 
-    override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+    override func showEmptyStateViewForState(_ state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)
         viewDidLayoutSubviews()
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 9.0 as CGFloat
     }
 
-    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
         reloadUserData()
     }

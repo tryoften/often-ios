@@ -31,14 +31,14 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         return 80.0
     }
     
-    init(viewModel: MediaItemGroupViewModel = MediaItemGroupViewModel(path: "featured/packs")) {
+    init(viewModel: MediaItemGroupViewModel = MediaItemGroupViewModel(baseRef: nil, path: "featured/packs")) {
         self.viewModel = viewModel
 
-        collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout(UIScreen.mainScreen().bounds.width - (self.dynamicType.padding * 2), padding: self.dynamicType.padding))
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: BrowseCollectionViewFlowLayout.provideCollectionFlowLayout(UIScreen.main().bounds.width - (self.dynamicType.padding * 2), padding: self.dynamicType.padding))
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.clipsToBounds = false
 
-        itemWidth = UIScreen.mainScreen().bounds.width - (self.dynamicType.padding * 2)
+        itemWidth = UIScreen.main().bounds.width - (self.dynamicType.padding * 2)
         width = itemWidth + (self.dynamicType.padding / 2)
         currentPage = 0
 
@@ -46,26 +46,26 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         subtitleLabel = UILabel()
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
         subtitleLabel.numberOfLines = 2
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
+        premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor!, frame: CGRect(x: 0, y: 0, width: 25, height: 25)))
         premiumIcon.translatesAutoresizingMaskIntoConstraints = false
-        premiumIcon.hidden = true
+        premiumIcon.isHidden = true
 
         topBorderView = UIView()
         topBorderView.translatesAutoresizingMaskIntoConstraints = false
         topBorderView.backgroundColor = LightGrey
 
-        scrollView = UIScrollView(frame: CGRectMake(0, 0, width, width))
-        scrollView.pagingEnabled = true
-        scrollView.hidden = true
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: width, height: width))
+        scrollView.isPagingEnabled = true
+        scrollView.isHidden = true
 
         super.init(nibName: nil, bundle: nil)
 
 
-        view.backgroundColor = UIColor.clearColor()
+        view.backgroundColor = UIColor.clear()
 
         viewModel.delegate = self
         scrollView.delegate = self
@@ -95,35 +95,35 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     }
 
     func setupLayout() {
-        view.addConstraints([
-            collectionView.al_top == view.al_top + 15,
-            collectionView.al_left == view.al_left,
-            collectionView.al_width == view.al_width,
-            collectionView.al_height == 260,
-
-            titleLabel.al_top == collectionView.al_bottom,
-            titleLabel.al_centerX == view.al_centerX,
-
-            premiumIcon.al_centerY == titleLabel.al_centerY,
-            premiumIcon.al_left == titleLabel.al_right + 5,
-
-            subtitleLabel.al_top == titleLabel.al_bottom + 5,
-            subtitleLabel.al_centerX == view.al_centerX,
-            subtitleLabel.al_left == view.al_left + 52,
-            subtitleLabel.al_right == view.al_right - 52,
-            subtitleLabel.al_height == 40,
-
-            topBorderView.al_left == view.al_left,
-            topBorderView.al_right == view.al_right,
-            topBorderView.al_top == view.al_top,
-            topBorderView.al_height == 0.5
-        ])
+//        view.addConstraints([
+//            collectionView.al_top == view.al_top + 15,
+//            collectionView.al_left == view.al_left,
+//            collectionView.al_width == view.al_width,
+//            collectionView.al_height == 260,
+//
+//            titleLabel.al_top == collectionView.al_bottom,
+//            titleLabel.al_centerX == view.al_centerX,
+//
+//            premiumIcon.al_centerY == titleLabel.al_centerY,
+//            premiumIcon.al_left == titleLabel.al_right + 5,
+//
+//            subtitleLabel.al_top == titleLabel.al_bottom + 5,
+//            subtitleLabel.al_centerX == view.al_centerX,
+//            subtitleLabel.al_left == view.al_left + 52,
+//            subtitleLabel.al_right == view.al_right - 52,
+//            subtitleLabel.al_height == 40,
+//
+//            topBorderView.al_left == view.al_left,
+//            topBorderView.al_right == view.al_right,
+//            topBorderView.al_top == view.al_top,
+//            topBorderView.al_height == 0.5
+//        ])
     }
 
     class BrowseCollectionViewFlowLayout: UICollectionViewFlowLayout {
-        class func provideCollectionFlowLayout(itemWidth: CGFloat, padding: CGFloat) -> UICollectionViewFlowLayout {
+        class func provideCollectionFlowLayout(_ itemWidth: CGFloat, padding: CGFloat) -> UICollectionViewFlowLayout {
             let viewLayout = BrowseCollectionViewFlowLayout()
-            viewLayout.scrollDirection = .Horizontal
+            viewLayout.scrollDirection = .horizontal
             viewLayout.minimumInteritemSpacing = padding / 2
             viewLayout.minimumLineSpacing = padding / 2
             viewLayout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0.0, right: padding)
@@ -135,14 +135,14 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenWidth = UIScreen.main().bounds.width
         collectionView.alwaysBounceHorizontal = false
         collectionView.contentInset = UIEdgeInsetsMake(0, (self.view.frame.size.width - screenWidth) / 2, 0, (self.view.frame.size.width - screenWidth) / 2)
-        collectionView.panGestureRecognizer.enabled = false
+        collectionView.panGestureRecognizer.isEnabled = false
         collectionView.addGestureRecognizer(scrollView.panGestureRecognizer)
         collectionView.backgroundColor = BrowseHeaderCollectionViewControllerBackground
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.registerClass(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: BrowsePackHeaderViewIdentifier)
+        collectionView.register(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: BrowsePackHeaderViewIdentifier)
 
     }
 
@@ -155,13 +155,13 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         return Int(floor((scrollView.contentOffset.x + (0.5 * width)) / width))
     }
 
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if currentPage != getCurrentPage() {
             currentPage = getCurrentPage()
         }
     }
 
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         var contentOffset: CGPoint = scrollView.contentOffset
 
         if scrollView == self.scrollView {
@@ -173,13 +173,13 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     }
 
     func updatePackMetaData() {
-        let centerPoint = CGPointMake(collectionView.frame.size.width / 2 + scrollView.contentOffset.x, collectionView.frame.size.height / 2 + scrollView.contentOffset.y)
-        if let indexPathOfCentralCell = collectionView.indexPathForItemAtPoint(centerPoint), let group = viewModel.groupAtIndex(indexPathOfCentralCell.section), let pack = group.items[indexPathOfCentralCell.row] as? PackMediaItem {
+        let centerPoint = CGPoint(x: collectionView.frame.size.width / 2 + scrollView.contentOffset.x, y: collectionView.frame.size.height / 2 + scrollView.contentOffset.y)
+        if let indexPathOfCentralCell = collectionView.indexPathForItem(at: centerPoint), let group = viewModel.groupAtIndex((indexPathOfCentralCell as NSIndexPath).section), let pack = group.items[(indexPathOfCentralCell as NSIndexPath).row] as? PackMediaItem {
             if let title = pack.name {
                 titleLabel.setTextWith(UIFont(name: "Montserrat", size: 16.0)!,
                                        letterSpacing: 1.0,
-                                       color: BlackColor,
-                                       text: title.uppercaseString)
+                                       color: BlackColor!,
+                                       text: title.uppercased())
             }
 
             if let subtitle = pack.description {
@@ -190,31 +190,31 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
                                           text: subtitle)
             }
 
-            premiumIcon.hidden = !pack.premium
+            premiumIcon.isHidden = !pack.premium
         }
         
         
     }
 
     // MARK: UICollectionViewDataSource
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let group = viewModel.groupAtIndex(section) else {
             return 0
         }
 
-        scrollView.contentSize = CGSizeMake(width * CGFloat(group.items.count), width)
+        scrollView.contentSize = CGSize(width: width * CGFloat(group.items.count), height: width)
 
         return group.items.count
     }
 
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowsePackHeaderViewIdentifier, forIndexPath: indexPath) as? BrowsePackHeaderCollectionViewCell, let group = viewModel.groupAtIndex(indexPath.section) else {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BrowsePackHeaderViewIdentifier, for: indexPath) as? BrowsePackHeaderCollectionViewCell, let group = viewModel.groupAtIndex((indexPath as NSIndexPath).section) else {
             return UICollectionViewCell()
         }
 
         switch group.type {
         case .Pack:
-            guard let pack = group.items[indexPath.row] as? PackMediaItem else {
+            guard let pack = group.items[(indexPath as NSIndexPath).row] as? PackMediaItem else {
                 return BrowsePackHeaderCollectionViewCell()
             }
 
@@ -229,17 +229,17 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     }
 
 
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let group = viewModel.groupAtIndex(indexPath.section), let pack = group.items[indexPath.row] as? PackMediaItem, let Id = pack.pack_id else {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let group = viewModel.groupAtIndex((indexPath as NSIndexPath).section), let pack = group.items[(indexPath as NSIndexPath).row] as? PackMediaItem, let Id = pack.pack_id else {
             return
         }
 
         let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: Id), textProcessor: nil)
-        navigationController?.navigationBar.hidden = false
+        navigationController?.navigationBar.isHidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }
 
-    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView.reloadData()
         updatePackMetaData()
     }

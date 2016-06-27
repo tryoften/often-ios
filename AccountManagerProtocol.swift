@@ -17,32 +17,32 @@ protocol AccountManagerProtocol {
     var currentUser: User? { get }
 
     init (firebase: FIRDatabaseReference)
-    func login(userData: UserAuthData?, completion: (results: ResultType) -> Void)
+    func login(_ userData: UserAuthData?, completion: (results: ResultType) -> Void)
     func logout()
 }
 
 enum AccountManagerType {
-    case Email
-    case Facebook
-    case Twitter
-    case Anonymous
+    case email
+    case facebook
+    case twitter
+    case anonymous
 }
 
 let AccountManagerTypes: [AccountManagerType: AccountManager.Type] = [
-    .Email: EmailAccountManager.self,
-    .Facebook: FacebookAccountManager.self,
-    .Twitter: TwitterAccountManager.self,
-    .Anonymous: AnonymousAccountManager.self
+    .email: EmailAccountManager.self,
+    .facebook: FacebookAccountManager.self,
+    .twitter: TwitterAccountManager.self,
+    .anonymous: AnonymousAccountManager.self
 ]
 
 enum ResultType {
-    case Success(r: Bool)
-    case Error(e: ErrorType)
-    case SystemError(e: NSError)
+    case success(r: Bool)
+    case error(e: ErrorProtocol)
+    case systemError(e: NSError)
 }
 
 protocol AccountManagerDelegate: class {
-    func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User)
-    func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User)
-    func accountManagerNoUserFound(accountManager: AccountManagerProtocol)
+    func accountManagerUserDidLogin(_ accountManager: AccountManagerProtocol, user: User)
+    func accountManagerUserDidLogout(_ accountManager: AccountManagerProtocol, user: User)
+    func accountManagerNoUserFound(_ accountManager: AccountManagerProtocol)
 }

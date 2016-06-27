@@ -18,7 +18,7 @@ class KeyboardViewModel: NSObject {
         _ = ParseConfig.defaultConfig
         
         let configuration = SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey)
-        Analytics.setupWithConfiguration(configuration)
+        Analytics.setup(with: configuration)
         
         super.init()
         
@@ -26,10 +26,10 @@ class KeyboardViewModel: NSObject {
             return
         }
         print("User authenticated: ", userId)
-        Analytics.sharedAnalytics().identify(userId)
+        Analytics.shared().identify(userId)
     }
     
-    func logTextSendEvent(mediaItem: MediaItem) {
+    func logTextSendEvent(_ mediaItem: MediaItem) {
         guard let userId = sessionManagerFlags.userId else {
             print("User Id not found")
             return
@@ -49,7 +49,7 @@ class KeyboardViewModel: NSObject {
         let count = SessionManagerFlags.defaultManagerFlags.userMessageCount
         SessionManagerFlags.defaultManagerFlags.userMessageCount = count + 1
 
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaItem.toDictionary()))
+        Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.addRecent), additionalProperties: AnalyticsAdditonalProperties.mediaItem(mediaItem.toDictionary()))
 
         FIRDatabase.database().reference().child("queues/user/tasks").childByAutoId().setValue(data)
     }

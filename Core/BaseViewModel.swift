@@ -10,8 +10,8 @@ import Foundation
 import Firebase
 
 class BaseViewModel {
-    let baseRef: FIRDatabaseReference
-    var ref: FIRDatabaseReference
+    let baseRef: FIRDatabaseReference?
+//    var ref: FIRDatabaseReference
     var path: String?
     var isDataLoaded: Bool
 
@@ -20,10 +20,10 @@ class BaseViewModel {
     private var userId: String
     private var userRef: FIRDatabaseReference?
 
-    init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String? = nil) {
+    init(baseRef: FIRDatabaseReference?, path: String? = nil) {
         self.baseRef = baseRef
         self.path = path
-        ref = path != nil ? baseRef.child(path!) : baseRef
+//        ref = path != nil ? baseRef.child(path!) : baseRef
         isDataLoaded = false
         userId = ""
     }
@@ -31,7 +31,7 @@ class BaseViewModel {
     /**
      Fetches data for current view model
      */
-    func fetchData(completion: ((Bool) -> Void)? = nil) {
+    func fetchData(_ completion: ((Bool) -> Void)? = nil) {
     }
 
     /**
@@ -43,28 +43,28 @@ class BaseViewModel {
      read more about try/catch with async closures
      http://appventure.me/2015/06/19/swift-try-catch-asynchronous-closures/
      */
-    func setupUser(completion: (() throws -> User) -> ()) throws {
+    func setupUser(_ completion: (() throws -> User) -> ()) throws {
         guard let userId = sessionManagerFlags.userId else {
-            throw MediaItemsViewModelError.NoUser
+            throw MediaItemsViewModelError.noUser
         }
 
         if !sessionManagerFlags.openSession {
-            throw MediaItemsViewModelError.NoUser
+            throw MediaItemsViewModelError.noUser
         }
 
     #if KEYBOARD
         self.userId = userId
 
-        userRef = ref.child("users/\(userId)")
+//        userRef = ref.child("users/\(userId)")
         userRef?.keepSynced(true)
 
-        userRef?.observeEventType(.Value, withBlock: { snapshot in
+        userRef?.observe(.value, with: { snapshot in
             if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
                 self.currentUser = User()
-                self.currentUser?.setValuesForKeysWithDictionary(value)
+                self.currentUser?.setValuesForKeys(value)
                 completion({ return self.currentUser! })
             } else {
-                completion({ throw MediaItemsViewModelError.NoUser })
+                completion({ throw MediaItemsViewModelError.noUser })
             }
         })
     #else
@@ -72,7 +72,7 @@ class BaseViewModel {
         if let user = currentUser {
             completion({ return user })
         } else {
-            completion({ throw MediaItemsViewModelError.NoUser })
+            completion({ throw MediaItemsViewModelError.noUser })
         }
     #endif
     }

@@ -15,12 +15,12 @@ class GifCellOverlayView : UIView {
     override init(frame: CGRect) {
         primaryTextLabel = UILabel()
         primaryTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        primaryTextLabel.textAlignment = .Center
+        primaryTextLabel.textAlignment = .center
         primaryTextLabel.numberOfLines = 2
         primaryTextLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 10.0)!,
                                      letterSpacing: 1.0,
-                                     color: BlackColor,
-                                     text: "Copied!\nNow Paste".uppercaseString)
+                                     color: BlackColor!,
+                                     text: "Copied!\nNow Paste".uppercased())
 
         loaderView = UIImageView(image: UIImage.animatedImageNamed("oftenloader", duration: 1.1))
         loaderView.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ class GifCellOverlayView : UIView {
         addSubview(primaryTextLabel)
 
         setupLayout()
-        backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.8)
+        backgroundColor = UIColor.white().withAlphaComponent(0.8)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,13 +58,13 @@ class GifCellOverlayView : UIView {
 
     func startLoader() {
         reset()
-        UIView.animateWithDuration(0.3) {
+        UIView.animate(withDuration: 0.3) {
             self.loaderView.alpha = 1.0
         }
     }
 
     func showSuccessMessage() {
-        UIView.animateWithDuration(0.3) {
+        UIView.animate(withDuration: 0.3) {
             self.loaderView.alpha = 0
             self.primaryTextLabel.alpha = 1.0
         }

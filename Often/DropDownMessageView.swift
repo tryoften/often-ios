@@ -20,14 +20,14 @@ class DropDownMessageView: UIView {
         textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.textColor = WhiteColor
-        textLabel.textAlignment = .Center
+        textLabel.textAlignment = .center
         textLabel.font = UIFont(name: "Montserrat", size: 13.0)
         
         text = ""
         
         super.init(frame: frame)
         
-        backgroundColor = UIColor(fromHexString: "#E95769").colorWithAlphaComponent(0.9)
+        backgroundColor = UIColor(fromHexString: "#E95769").withAlphaComponent(0.9)
         addSubview(textLabel)
         setupLayout()
     }

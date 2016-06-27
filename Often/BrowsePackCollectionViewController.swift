@@ -17,18 +17,18 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     var screenWidth: CGFloat
     
     init(viewModel: PacksViewModel) {
-        screenWidth = UIScreen.mainScreen().bounds.width
+        screenWidth = UIScreen.main().bounds.width
         
         reachabilityView = DropDownMessageView()
-        reachabilityView.text = "no internet connection".uppercaseString
-        reachabilityView.frame = CGRectMake(0, -35, screenWidth, 35)
+        reachabilityView.text = "no internet connection".uppercased()
+        reachabilityView.frame = CGRect(x: 0, y: -35, width: screenWidth, height: 35)
         
         super.init(collectionViewLayout: BrowsePackCollectionViewController.getLayout(),
                    collectionType: .Packs,
                    viewModel: viewModel)
 
-        let brandLabel = UILabel(frame: CGRectMake(0, 0, 64, 20))
-        brandLabel.textAlignment = .Center
+        let brandLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 64, height: 20))
+        brandLabel.textAlignment = .center
         brandLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 15)!,
                                letterSpacing: 2.0,
                                color: UIColor.oftBlackColor(),
@@ -40,16 +40,16 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             self?.collectionView?.reloadData()
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
         
         view.addSubview(reachabilityView)
         startMonitoring()
     }
     
-    func didClickPackLink(notification: NSNotification) {
-        if let id = notification.userInfo!["packid"] as? String {
+    func didClickPackLink(_ notification: Foundation.Notification) {
+        if let id = (notification as NSNotification).userInfo!["packid"] as? String {
             let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
-            navigationController?.navigationBar.hidden = false
+            navigationController?.navigationBar.isHidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
     }
@@ -60,17 +60,17 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         if let collectionView = collectionView {
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(BrowsePackHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
-            collectionView.registerClass(BrowsePackSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
+            collectionView.register(BrowsePackHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: "header")
+            collectionView.register(BrowsePackSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "section-header")
         }
     }
 
     class func getLayout() -> UICollectionViewLayout {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenWidth = UIScreen.main().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSize(width: screenWidth, height: 0)
+        flowLayout.parallaxHeaderReferenceSize = CGSize(width: screenWidth, height: 370)
+        flowLayout.itemSize = CGSize(width: screenWidth / 2 - 16.5, height: 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -81,7 +81,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
 
     deinit {
         packServiceListener = nil
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -97,22 +97,22 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         return false
     }
     
-    override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        navigationController?.navigationBar.translucent = false
-        navigationController?.navigationBar.barStyle = .Default
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared().setStatusBarHidden(false, with: .none)
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barStyle = .default
         navigationController?.navigationBar.tintColor = WhiteColor
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateReachabilityView()
     }
 
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == CSStickyHeaderParallaxHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "header", forIndexPath: indexPath) as? BrowsePackHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? BrowsePackHeaderView else {
                 return UICollectionViewCell()
             }
             
@@ -122,7 +122,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             }
             return headerView!
         } else if kind == UICollectionElementKindSectionHeader {
-            guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: "section-header", forIndexPath: indexPath) as? BrowsePackSectionHeaderView else {
+            guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "section-header", for: indexPath) as? BrowsePackSectionHeaderView else {
                 return UICollectionViewCell()
             }
             
@@ -134,44 +134,44 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         return UICollectionReusableView()
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
 
         if collectionType == .Packs {
-            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
+            let result = viewModel.mediaItemGroupItemsForIndex((indexPath as NSIndexPath).section)[(indexPath as NSIndexPath).row]
             guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
                 return
             }
 
             let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
-            navigationController?.navigationBar.hidden = false
+            navigationController?.navigationBar.isHidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 9.0 as CGFloat
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0.0 as CGFloat
     }
     
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        return CGSizeMake(screenWidth, 35.0)
+    override func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let screenWidth = UIScreen.main().bounds.size.width
+        return CGSize(width: screenWidth, height: 35.0)
         
     }
     
     //MARK: ConnectivityObservable
     func updateReachabilityView() {
         if isNetworkReachable {
-            UIView.animateWithDuration(0.3, animations: {
-                self.reachabilityView.frame = CGRectMake(0, -35, self.screenWidth, 35)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.reachabilityView.frame = CGRect(x: 0, y: -35, width: self.screenWidth, height: 35)
             })
         } else {
-            UIView.animateWithDuration(0.3, animations: {
-                self.reachabilityView.frame = CGRectMake(0, 0, self.screenWidth, 35)
+            UIView.animate(withDuration: 0.3, animations: {
+                self.reachabilityView.frame = CGRect(x: 0, y: 0, width: self.screenWidth, height: 35)
             })
         }
     }

@@ -1,5 +1,6 @@
 
-func fuzzySearch(var originalString: String, var stringToSearch: String, caseSensitive: Bool = true) -> Bool {
+func fuzzySearch(_ originalString: String, stringToSearch: String, caseSensitive: Bool = true) -> Bool {
+    var originalString = originalString, stringToSearch = stringToSearch
 
     if originalString.characters.count == 0 || stringToSearch.characters.count == 0 {
         return false
@@ -10,17 +11,17 @@ func fuzzySearch(var originalString: String, var stringToSearch: String, caseSen
     }
 
     if caseSensitive {
-        originalString = originalString.lowercaseString
-        stringToSearch = stringToSearch.lowercaseString
+        originalString = originalString.lowercased()
+        stringToSearch = stringToSearch.lowercased()
     }
 
     var searchIndex: Int = 0
 
     for charOut in originalString.characters {
-        for (indexIn, charIn) in stringToSearch.characters.enumerate() {
+        for (indexIn, charIn) in stringToSearch.characters.enumerated() {
             if indexIn == searchIndex {
                 if charOut == charIn{
-                    searchIndex++
+                    searchIndex += 1
                     if searchIndex == stringToSearch.characters.count {
                         return true
                     } else {

@@ -15,10 +15,10 @@ class KeyboardMediaItemPackHeaderView: UICollectionViewCell {
     override init(frame: CGRect) {
 
         recentButton = UIButton()
-        recentButton.setTitle("recents".uppercaseString, forState: .Normal)
+        recentButton.setTitle("recents".uppercased(), for: UIControlState())
 
         addPacks = UIButton()
-        addPacks.setTitle("+ add packs".uppercaseString, forState: .Normal)
+        addPacks.setTitle("+ add packs".uppercased(), for: UIControlState())
 
         super.init(frame: frame)
         backgroundColor = ClearColor
@@ -26,12 +26,12 @@ class KeyboardMediaItemPackHeaderView: UICollectionViewCell {
         for button in [recentButton, addPacks] {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
-            button.setTitleColor(BlackColor , forState: .Normal)
+            button.setTitleColor(BlackColor , for: UIControlState())
             button.backgroundColor = WhiteColor
-            button.layer.shadowOffset = CGSizeMake(0, 1)
+            button.layer.shadowOffset = CGSize(width: 0, height: 1)
             button.layer.shadowRadius = 2
             button.layer.cornerRadius = 2
-            button.layer.shadowColor = UIColor.blackColor().CGColor
+            button.layer.shadowColor = UIColor.black().cgColor
             button.layer.shadowOpacity = 0.14
             button.layer.shadowRadius = 1
 

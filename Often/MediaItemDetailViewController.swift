@@ -30,7 +30,7 @@ class MediaItemDetailViewController: UIViewController {
 
         view.addSubview(dismissalView)
         view.addSubview(mediaItemDetailView)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemDetailViewController.dismissView), name: "TextBufferDidClear", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MediaItemDetailViewController.dismissView), name: "TextBufferDidClear", object: nil)
 
         setupLayout()
     }
@@ -59,47 +59,47 @@ class MediaItemDetailViewController: UIViewController {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
 
     func dismissView() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
     func insertText() {
-        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: item)
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemInserted"), object: item)
         textProcessor?.insertText(item.getInsertableText())
 
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+        Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
     }
 
     func removeText() {
-        NSNotificationCenter.defaultCenter().postNotificationName("mediaItemRemoved", object: item)
-        for var i = 0, len = item.getInsertableText().utf16.count; i < len; i++ {
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemRemoved"), object: item)
+        for _ in 0..<item.getInsertableText().utf16.count {
             textProcessor?.deleteBackward()
         }
 
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+        Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
     }
 
-    func insertButtonDidTap(sender: UIButton) {
-        sender.selected = !sender.selected
+    func insertButtonDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
 
-        if sender.selected {
+        if sender.isSelected {
             removeText()
         } else {
             insertText()
         }
     }
     
-    func copyButtonDidTap(sender: UIButton) {
-        sender.selected = !sender.selected
+    func copyButtonDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
         
-        if sender.selected {
-            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: item)
-            UIPasteboard.generalPasteboard().string = item.getInsertableText()
+        if sender.isSelected {
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemInserted"), object: item)
+            UIPasteboard.general().string = item.getInsertableText()
             
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
+            Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
             
         #if !(KEYBOARD)
             let shareObjects = [item.getInsertableText()]
@@ -108,14 +108,14 @@ class MediaItemDetailViewController: UIViewController {
             activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
             
             activityVC.popoverPresentationController?.sourceView = sender
-            self.presentViewController(activityVC, animated: true, completion: nil)
+            self.present(activityVC, animated: true, completion: nil)
         #endif
         }
     }
 
-    func favoriteButtonDidTap(sender: UIButton) {
-        sender.selected = !sender.selected
-        dismissViewControllerAnimated(true, completion: nil)
+    func favoriteButtonDidTap(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        dismiss(animated: true, completion: nil)
     }
 
     func setupDetailView() {
@@ -136,20 +136,20 @@ class MediaItemDetailViewController: UIViewController {
         }
 
         if let category = item.category {
-            mediaItemDetailView.mediaItemCategoryButton.setTitle(category.name.uppercaseString, forState: .Normal)
+            mediaItemDetailView.mediaItemCategoryButton.setTitle(category.name.uppercased(), for: UIControlState())
         } else {
-            mediaItemDetailView.mediaItemCategoryButton.setTitle(Category.all.name.uppercaseString, forState: .Normal)
+            mediaItemDetailView.mediaItemCategoryButton.setTitle(Category.all.name.uppercased(), for: UIControlState())
         }
         
-        mediaItemDetailView.cancelButton.addTarget(self, action: #selector(MediaItemDetailViewController.dismissView), forControlEvents: .TouchUpInside)
-        mediaItemDetailView.insertButton.addTarget(self, action: #selector(MediaItemDetailViewController.insertButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        mediaItemDetailView.copyButton.addTarget(self, action: #selector(MediaItemDetailViewController.copyButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        mediaItemDetailView.cancelButton.addTarget(self, action: #selector(MediaItemDetailViewController.dismissView), for: .touchUpInside)
+        mediaItemDetailView.insertButton.addTarget(self, action: #selector(MediaItemDetailViewController.insertButtonDidTap(_:)), for: .touchUpInside)
+        mediaItemDetailView.copyButton.addTarget(self, action: #selector(MediaItemDetailViewController.copyButtonDidTap(_:)), for: .touchUpInside)
 
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.addTarget(self, action: #selector(MediaItemDetailViewController.dismissView))
 
         dismissalView.addGestureRecognizer(tapRecognizer)
-        dismissalView.userInteractionEnabled = true
+        dismissalView.isUserInteractionEnabled = true
 
         if let imageURL = item.smallImageURL {
             self.mediaItemDetailView.mediaItemImage.nk_setImageWith(imageURL)

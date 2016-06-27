@@ -20,7 +20,7 @@ class BrowsePackSectionHeaderView: UICollectionReusableView {
         leftLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9.0)!,
                               letterSpacing: 1.0,
                               color: UIColor.oftDarkGrey74Color(),
-                              text: "all packs".uppercaseString)
+                              text: "all packs".uppercased())
         
         rightLabel = UILabel()
         rightLabel.translatesAutoresizingMaskIntoConstraints = false

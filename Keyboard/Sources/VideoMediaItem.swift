@@ -13,7 +13,7 @@ class VideoMediaItem: MediaItem {
     var link: String = ""
     var owner: String = ""
     var description: String = ""
-    var date: NSDate?
+    var date: Date?
     var viewCount: Int?
     var likeCount: Int?
     
@@ -38,11 +38,11 @@ class VideoMediaItem: MediaItem {
             self.description = description
         }
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         
         if let dateString = data["published"] as? String,
-            let date = dateFormatter.dateFromString(dateString) {
+            let date = dateFormatter.date(from: dateString) {
                 self.date = date
         }
         

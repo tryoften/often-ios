@@ -54,7 +54,7 @@ class ImageManagerTest: XCTestCase {
 
     func testThatTaskChangesStateOnCallersThreadWhenCompleted() {
         let expectation = self.expectation()
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+        DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
             let task = self.manager.taskWith(defaultURL)
             XCTAssertEqual(task.state, ImageTaskState.Suspended)
             task.completion { _ in
@@ -199,8 +199,8 @@ class ImageManagerTest: XCTestCase {
     }
     
     func testThatDataTasksWithDifferentCachePolicyAreNotReused() {
-        let request1 = ImageRequest(URLRequest: NSURLRequest(URL: defaultURL, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 0))
-        let request2 = ImageRequest(URLRequest: NSURLRequest(URL: defaultURL, cachePolicy: .ReturnCacheDataDontLoad, timeoutInterval: 0))
+        let request1 = ImageRequest(URLRequest: URLRequest(URL: defaultURL, cachePolicy: .UseProtocolCachePolicy, timeoutInterval: 0))
+        let request2 = ImageRequest(URLRequest: URLRequest(URL: defaultURL, cachePolicy: .ReturnCacheDataDontLoad, timeoutInterval: 0))
         
         self.expect { fulfill in
             self.manager.taskWith(request1) { _ in
@@ -330,7 +330,7 @@ class ImageManagerTest: XCTestCase {
 
         // More than 1 image task!
         self.manager.taskWith(defaultURL, completion: nil).resume()
-        self.manager.taskWith(NSURL(string: "http://test2.com")!, completion: nil).resume()
+        self.manager.taskWith(URL(string: "http://test2.com")!, completion: nil).resume()
         var callbackCount = 0
         self.expectNotification(MockURLSessionDataTaskDidCancelNotification) { _ in
             callbackCount += 1
@@ -345,8 +345,8 @@ class ImageManagerTest: XCTestCase {
     func testThatGetImageTasksMethodReturnsCorrectTasks() {
         self.mockSessionManager.enabled = false
         
-        let task1 = self.manager.taskWith(NSURL(string: "http://test1.com")!, completion: nil)
-        let task2 = self.manager.taskWith(NSURL(string: "http://test2.com")!, completion: nil)
+        let task1 = self.manager.taskWith(URL(string: "http://test1.com")!, completion: nil)
+        let task2 = self.manager.taskWith(URL(string: "http://test2.com")!, completion: nil)
         
         task1.resume()
         

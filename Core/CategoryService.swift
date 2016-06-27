@@ -17,7 +17,7 @@ class CategoryService {
 
     init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference()) {
         ref = baseRef.child("categories")
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observe(.value, with: { snapshot in
             var newCategories = [Category]()
             if let data = snapshot.value as? [String: AnyObject] {
 
@@ -28,13 +28,13 @@ class CategoryService {
                             newCategories.append(category)
                     }
                 }
-                self.categories = newCategories.sort { $0.name < $1.name }
+                self.categories = newCategories.sorted { $0.name < $1.name }
                 self.didUpdateCategories.emit(self.categories!)
             }
         })
     }
 
-    func assignCategory(lyric: LyricMediaItem, category: Category) {
+    func assignCategory(_ lyric: LyricMediaItem, category: Category) {
         guard let userId = SessionManagerFlags.defaultManagerFlags.userId else {
             return
         }

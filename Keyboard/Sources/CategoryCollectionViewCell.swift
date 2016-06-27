@@ -19,50 +19,50 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var title: String? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
+                NSKernAttributeName: NSNumber(value: 1.0),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 11.0)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()
             ]
-            let attributedString = NSAttributedString(string: title!.uppercaseString, attributes: attributes)
+            let attributedString = AttributedString(string: title!.uppercased(), attributes: attributes)
             titleLabel.attributedText = attributedString
         }
     }
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet {
-            if selected {
-                highlightColorBorder.hidden = false
+            if isSelected {
+                highlightColorBorder.isHidden = false
             } else {
-                highlightColorBorder.hidden = true
+                highlightColorBorder.isHidden = true
             }
         }
     }
 
     override init(frame: CGRect) {
         backgroundImageView = UIImageView()
-        backgroundImageView.contentMode = .ScaleAspectFill
+        backgroundImageView.contentMode = .scaleAspectFill
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
 
         tintView = UIImageView()
         tintView.translatesAutoresizingMaskIntoConstraints = false
-        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
+        tintView.backgroundColor = UIColor.black().withAlphaComponent(0.6)
 
         titleLabel = UILabel()
         titleLabel.textColor = CategoryCollectionViewCellTitleLabelTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = CategoryCollectionViewCellTitleFont
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
 
         subtitleLabel = UILabel()
         subtitleLabel.textColor = CategoryCollectionViewCellSubtitleTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = CategoryCollectionViewCellSubtitleFont
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
 
-        highlightColorBorder = UIView(frame: CGRectZero)
+        highlightColorBorder = UIView(frame: CGRect.zero)
         highlightColorBorder.translatesAutoresizingMaskIntoConstraints = false
         highlightColorBorder.backgroundColor = UIColor.oftGreenblueColor()
-        highlightColorBorder.hidden = true
+        highlightColorBorder.isHidden = true
 
         super.init(frame: frame)
         backgroundColor = CategoryCollectionViewCellBackgroundColor
@@ -79,7 +79,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
 
     convenience required init?(coder aDecoder: NSCoder) {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
 
     func setupLayout() {

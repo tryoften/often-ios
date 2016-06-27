@@ -6,9 +6,9 @@
 import Foundation
 import Firebase
 
-enum MediaItemsViewModelError: ErrorType {
-    case NoUser
-    case FetchingCollectionDataFailed
+enum MediaItemsViewModelError: ErrorProtocol {
+    case noUser
+    case fetchingCollectionDataFailed
 }
 
 /// fetches recents for current user and keeps them up to date
@@ -23,11 +23,11 @@ class MediaItemsViewModel: BaseViewModel {
     internal var collectionEndpoint: FIRDatabaseReference
     private var collectionType: MediaItemsCollectionType
     
-    var userState: UserState = .NonEmpty
+    var userState: UserState = .nonEmpty
     var hasSeenTwitter: Bool = true
     
     var shouldShowEmptyStateViewOrData: Bool {
-        return !(userState == .NoTwitter || userState == .NoKeyboard) || hasSeenTwitter
+        return !(userState == .noTwitter || userState == .noKeyboard) || hasSeenTwitter
     }
     
     init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), collectionType aCollectionType: MediaItemsCollectionType) {
@@ -41,16 +41,16 @@ class MediaItemsViewModel: BaseViewModel {
         super.init(baseRef: baseRef, path: nil)
     }
     
-    func fetchCollection(completion: ((Bool) -> Void)? = nil) {
-        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+    func fetchCollection(_ completion: ((Bool) -> Void)? = nil) {
+        collectionEndpoint.observe(.value, with: { snapshot in
+            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosBackground).async {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
                     self.mediaItems = self.processMediaItemsCollectionData(data)
                 }
 
                 let mediaItemGroups = self.generateMediaItemGroups()
-                dispatch_async(dispatch_get_main_queue()) {
+                DispatchQueue.main.async {
                     self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: self.collectionType, groups: mediaItemGroups)
                     completion?(true)
                 }
@@ -62,7 +62,7 @@ class MediaItemsViewModel: BaseViewModel {
         return []
     }
 
-    func mediaItemGroupItemsForIndex(index: Int) -> [MediaItem] {
+    func mediaItemGroupItemsForIndex(_ index: Int) -> [MediaItem] {
         let groups = mediaItemGroups
 
         if index > groups.count {
@@ -76,7 +76,7 @@ class MediaItemsViewModel: BaseViewModel {
         return []
     }
     
-    func leftSectionHeaderTitle(index: Int) -> String {
+    func leftSectionHeaderTitle(_ index: Int) -> String {
         return sectionHeaderTitle()
     }
     
@@ -89,11 +89,11 @@ class MediaItemsViewModel: BaseViewModel {
         return headerTitle
     }
     
-    func rightSectionHeaderTitle(indexPath: NSIndexPath) -> String {
+    func rightSectionHeaderTitle(_ indexPath: IndexPath) -> String {
         return ""
     }
 
-    func sectionForSectionIndexTitle(title: String) -> NSInteger? {
+    func sectionForSectionIndexTitle(_ title: String) -> NSInteger? {
         guard let index = sectionIndex[title] else {
             return nil
         }
@@ -101,11 +101,11 @@ class MediaItemsViewModel: BaseViewModel {
         return index
     }
 
-    func sectionHeaderImageURL(indexPath: NSIndexPath) -> NSURL? {
+    func sectionHeaderImageURL(_ indexPath: IndexPath) -> URL? {
         return nil
     }
     
-    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+    private func processMediaItemsCollectionData(_ data: [String: AnyObject]) -> [MediaItem] {
         var links: [MediaItem] = []
         var ids = [String]()
         
@@ -131,8 +131,8 @@ enum MediaItemsCollectionType: String {
 }
 
 protocol MediaItemsViewModelDelegate: class {
-    func mediaLinksViewModelDidAuthUser(mediaLinksViewModel: MediaItemsViewModel, user: User)
-    func mediaLinksViewModelDidCreateMediaItemGroups(mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup])
-    func mediaLinksViewModelDidFailLoadingMediaItems(mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError)
+    func mediaLinksViewModelDidAuthUser(_ mediaLinksViewModel: MediaItemsViewModel, user: User)
+    func mediaLinksViewModelDidCreateMediaItemGroups(_ mediaLinksViewModel: MediaItemsViewModel, collectionType: MediaItemsCollectionType, groups: [MediaItemGroup])
+    func mediaLinksViewModelDidFailLoadingMediaItems(_ mediaLinksViewModel: MediaItemsViewModel, error: MediaItemsViewModelError)
 }
 

@@ -11,8 +11,8 @@ import Foundation
 struct Category: Equatable {
     let id: String
     let name: String
-    var smallImageURL: NSURL?
-    var largeImageURL: NSURL?
+    var smallImageURL: URL?
+    var largeImageURL: URL?
     static var all = Category(id: "all", name: "All", smallImageURL: nil, largeImageURL: nil)
 
     func toDictionary() -> [String: AnyObject] {
@@ -22,7 +22,7 @@ struct Category: Equatable {
         ]
     }
 
-    static func modelsFromDictionary(dictionary: NSDictionary) -> [Category] {
+    static func modelsFromDictionary(_ dictionary: NSDictionary) -> [Category] {
         var models: [Category] = []
         for (_, categoryData) in dictionary  {
             if let itemData = categoryData as? NSDictionary,
@@ -30,11 +30,11 @@ struct Category: Equatable {
                 var category = Category(id: id, name: name, smallImageURL: nil, largeImageURL: nil)
 
                 if let imageData = itemData["image"] as? NSDictionary, smallImage = imageData["small_url"] as? String {
-                    category.smallImageURL = NSURL(string: smallImage)
+                    category.smallImageURL = URL(string: smallImage)
                 }
 
                 if let imageData = itemData["image"] as? NSDictionary, largeImage = imageData["large_url"] as? String {
-                    category.largeImageURL = NSURL(string: largeImage)
+                    category.largeImageURL = URL(string: largeImage)
                 }
 
 

@@ -26,7 +26,7 @@ class HUDProgressView: PKHUDImageView {
     override init(image: UIImage?) {
         super.init(image: image)
         
-        imageView.contentMode = .ScaleAspectFill
+        imageView.contentMode = .scaleAspectFill
         imageView.alpha = 1.0
         imageView.translatesAutoresizingMaskIntoConstraints = false
         setupLayout()

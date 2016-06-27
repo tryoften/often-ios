@@ -47,7 +47,7 @@ class LoginView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = titleString
         titleLabel.textColor = SignupViewTitleLabelFontColor
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.attributedText = title
         
         subtitleLabel = UILabel()
@@ -56,12 +56,12 @@ class LoginView: UIView {
         subtitleLabel.text = subtitleString
         subtitleLabel.attributedText = subtitle
         subtitleLabel.numberOfLines = 2
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
         subtitleLabel.alpha = 0.54
         
         scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.pagingEnabled = true
+        scrollView.isPagingEnabled = true
         scrollView.backgroundColor = UIColor(fromHexString: "#ffffff")
         scrollView.showsHorizontalScrollIndicator = false
         
@@ -74,22 +74,22 @@ class LoginView: UIView {
         createAccountButton = UIButton()
         createAccountButton.translatesAutoresizingMaskIntoConstraints = false
         createAccountButton.backgroundColor = SignupViewCreateAccountButtonColor
-        createAccountButton.setTitle("sign up".uppercaseString, forState: .Normal)
+        createAccountButton.setTitle("sign up".uppercased(), for: UIControlState())
         createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
-        createAccountButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
+        createAccountButton.setTitleColor(UIColor.white() , for: UIControlState())
         createAccountButton.layer.cornerRadius = 0
         createAccountButton.clipsToBounds = true
         
         skipButton = LoginButton.AnonymousButton()
-        skipButton.setTitle("skip".uppercaseString, forState: .Normal)
-        skipButton.setTitleColor(UIColor(fromHexString: "#202020") , forState: .Normal)
+        skipButton.setTitle("skip".uppercased(), for: UIControlState())
+        skipButton.setTitleColor(UIColor(fromHexString: "#202020") , for: UIControlState())
         skipButton.alpha = 0.54
         
         signinButton = UIButton()
         signinButton.translatesAutoresizingMaskIntoConstraints = false
-        signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
+        signinButton.setTitle("sign in".uppercased(), for: UIControlState())
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        signinButton.setTitleColor(UIColor(fromHexString: "#202020")  , forState: .Normal)
+        signinButton.setTitleColor(UIColor(fromHexString: "#202020")  , for: UIControlState())
         signinButton.alpha = 0.54
         
         var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
@@ -103,7 +103,7 @@ class LoginView: UIView {
         }
         
         launchScreenLoader = UIImageView(image: splashImage)
-        launchScreenLoader.contentMode = .ScaleAspectFit
+        launchScreenLoader.contentMode = .scaleAspectFit
         launchScreenLoader.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
@@ -127,62 +127,62 @@ class LoginView: UIView {
     }
     
     func setupLayout() {
-        var constraints = [
-            skipButton.al_left == al_left + 25,
-            skipButton.al_top == al_top + 25,
-            skipButton.al_height == 25,
-            skipButton.al_width == 49.6,
-            
-            signinButton.al_centerY == skipButton.al_centerY,
-            signinButton.al_right == al_right - 25,
-            signinButton.al_height == skipButton.al_height,
-            signinButton.al_width == skipButton.al_width,
-            
-            scrollView.al_top == skipButton.al_bottom,
-            scrollView.al_left == al_left + 20,
-            scrollView.al_right == al_right - 20,
-            scrollView.al_bottom == titleLabel.al_top,
-            
-            titleLabel.al_bottom == subtitleLabel.al_top - 10,
-            titleLabel.al_left == al_left,
-            titleLabel.al_right == al_right,
-            titleLabel.al_height == 16.5,
-            
-            subtitleLabel.al_bottom == pageControl.al_top - 18.5,
-            subtitleLabel.al_left == al_left + 45,
-            subtitleLabel.al_right == al_right - 45,
-            subtitleLabel.al_height == 42,
-            
-            pageControl.al_bottom == createAccountButton.al_top - 34,
-            pageControl.al_centerX == al_centerX,
-            pageControl.al_height == 2,
-            pageControl.al_width == 40,
-            
-            createAccountButton.al_bottom == al_bottom,
-            createAccountButton.al_left == al_left,
-            createAccountButton.al_right == al_right,
-            createAccountButton.al_height == 55,
-            
-            launchScreenLoader.al_bottom == al_bottom,
-            launchScreenLoader.al_top == al_top,
-            launchScreenLoader.al_left == al_left,
-            launchScreenLoader.al_right == al_right,
-            launchScreenLoader.al_centerX == al_centerX,
-            launchScreenLoader.al_centerY == al_centerY,
-        ]
-        
-        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            constraints += [
-                skipButton.al_bottom == al_bottom - 10,
-                scrollView.al_bottom == pageControl.al_top - 18,
-            ]
-        } else {
-            constraints += [
-                skipButton.al_bottom == al_bottom - 30,
-                scrollView.al_bottom == pageControl.al_top - 3,
-            ]
-        }
-        
-        addConstraints(constraints)
+//        var constraints = [
+//            skipButton.al_left == al_left + 25,
+//            skipButton.al_top == al_top + 25,
+//            skipButton.al_height == 25,
+//            skipButton.al_width == 49.6,
+//            
+//            signinButton.al_centerY == skipButton.al_centerY,
+//            signinButton.al_right == al_right - 25,
+//            signinButton.al_height == skipButton.al_height,
+//            signinButton.al_width == skipButton.al_width,
+//            
+//            scrollView.al_top == skipButton.al_bottom,
+//            scrollView.al_left == al_left + 20,
+//            scrollView.al_right == al_right - 20,
+//            scrollView.al_bottom == titleLabel.al_top,
+//            
+//            titleLabel.al_bottom == subtitleLabel.al_top - 10,
+//            titleLabel.al_left == al_left,
+//            titleLabel.al_right == al_right,
+//            titleLabel.al_height == 16.5,
+//            
+//            subtitleLabel.al_bottom == pageControl.al_top - 18.5,
+//            subtitleLabel.al_left == al_left + 45,
+//            subtitleLabel.al_right == al_right - 45,
+//            subtitleLabel.al_height == 42,
+//            
+//            pageControl.al_bottom == createAccountButton.al_top - 34,
+//            pageControl.al_centerX == al_centerX,
+//            pageControl.al_height == 2,
+//            pageControl.al_width == 40,
+//            
+//            createAccountButton.al_bottom == al_bottom,
+//            createAccountButton.al_left == al_left,
+//            createAccountButton.al_right == al_right,
+//            createAccountButton.al_height == 55,
+//            
+//            launchScreenLoader.al_bottom == al_bottom,
+//            launchScreenLoader.al_top == al_top,
+//            launchScreenLoader.al_left == al_left,
+//            launchScreenLoader.al_right == al_right,
+//            launchScreenLoader.al_centerX == al_centerX,
+//            launchScreenLoader.al_centerY == al_centerY,
+//        ]
+//        
+//        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
+//            constraints += [
+//                skipButton.al_bottom == al_bottom - 10,
+//                scrollView.al_bottom == pageControl.al_top - 18,
+//            ]
+//        } else {
+//            constraints += [
+//                skipButton.al_bottom == al_bottom - 30,
+//                scrollView.al_bottom == pageControl.al_top - 3,
+//            ]
+//        }
+//        
+//        addConstraints(constraints)
     }
 }

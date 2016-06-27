@@ -9,39 +9,39 @@
 import Foundation
 
 enum FadeInTransitionDirection {
-    case Up
-    case Down
-    case Left
-    case Right
-    case None
+    case up
+    case down
+    case left
+    case right
+    case none
 }
 
 class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private let presenting: Bool
     private let fadeInTransitionDirection: FadeInTransitionDirection
-    private let duration: NSTimeInterval
+    private let duration: TimeInterval
 
-    init(presenting: Bool, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
+    init(presenting: Bool, direction: FadeInTransitionDirection = .none, duration: TimeInterval = 0.15) {
         self.presenting = presenting
         self.duration = duration
         fadeInTransitionDirection = direction
     }
     
-    @objc func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    @objc func transitionDuration(_ transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
     }
 
-    @objc func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey),
-            let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
+    @objc func animateTransition(_ transitionContext: UIViewControllerContextTransitioning) {
+        guard let fromViewController = transitionContext.viewController(forKey: UITransitionContextFromViewControllerKey),
+            let toViewController = transitionContext.viewController(forKey: UITransitionContextToViewControllerKey) else {
                 return
         }
         
         let transitionContextContainerView = transitionContext.containerView()
-        let lastViewControllerFrame = CGRectMake(fromViewController.view.bounds.origin.x, fromViewController.view.bounds.origin.y,  fromViewController.view.bounds.width, fromViewController.view.bounds.height)
+        let lastViewControllerFrame = CGRect(x: fromViewController.view.bounds.origin.x, y: fromViewController.view.bounds.origin.y,  width: fromViewController.view.bounds.width, height: fromViewController.view.bounds.height)
         let tintView = UIView(frame: lastViewControllerFrame)
 
-        tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.54)
+        tintView.backgroundColor = UIColor.black().withAlphaComponent(0.54)
 
         if presenting {
             transitionContextContainerView.addSubview(tintView)
@@ -52,44 +52,44 @@ class FadeInTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
 
 
             switch fadeInTransitionDirection {
-            case .Up:
+            case .up:
                 toViewController.view.frame.origin.y += lastViewControllerFrame.height
-            case .Down:
+            case .down:
                 toViewController.view.frame.origin.y -= lastViewControllerFrame.height
-            case .Left:
+            case .left:
                 toViewController.view.frame.origin.x += lastViewControllerFrame.width
-            case .Right:
+            case .right:
                 toViewController.view.frame.origin.x -= lastViewControllerFrame.width
-            case .None:
+            case .none:
                 break
             }
             
         }
         
-        UIView.animateWithDuration(transitionDuration(transitionContext), delay: 0.0, options: .CurveEaseIn, animations: {
+        UIView.animate(withDuration: transitionDuration(transitionContext), delay: 0.0, options: .curveEaseIn, animations: {
             if self.presenting {
-                fromViewController.view.userInteractionEnabled = false
-                fromViewController.view.tintAdjustmentMode = .Normal
+                fromViewController.view.isUserInteractionEnabled = false
+                fromViewController.view.tintAdjustmentMode = .normal
                 toViewController.view.alpha = 1
                 tintView.alpha = 1
 
                 switch self.fadeInTransitionDirection {
-                case .Up:
+                case .up:
                     toViewController.view.frame.origin.y -= lastViewControllerFrame.height
-                case .Down:
+                case .down:
                     toViewController.view.frame.origin.y += lastViewControllerFrame.height
-                case .Left:
+                case .left:
                     toViewController.view.frame.origin.x -= lastViewControllerFrame.width
-                case .Right:
+                case .right:
                     toViewController.view.frame.origin.x += lastViewControllerFrame.width
-                case .None:
+                case .none:
                     break
                 }
                 
             } else {
                 transitionContextContainerView.alpha = 0
-                toViewController.view.userInteractionEnabled = true
-                toViewController.view.tintAdjustmentMode = .Automatic
+                toViewController.view.isUserInteractionEnabled = true
+                toViewController.view.tintAdjustmentMode = .automatic
                 fromViewController.view.alpha = 0
             }
 

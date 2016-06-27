@@ -20,7 +20,7 @@ class PackMediaItem: MediaItem {
     var availableMediaType: [MediaType: Int] = [:]
     var published: Bool = false
     var featured: Bool = false
-    var publishedTime: NSDate = NSDate(timeIntervalSince1970: 0)
+    var publishedTime: Date = Date(timeIntervalSince1970: 0)
     var isFavorites: Bool = false
     var isRecents: Bool = false
     var shareLink: String?
@@ -43,12 +43,12 @@ class PackMediaItem: MediaItem {
 
         if let images = data["image"] as? NSDictionary,
             let small = images["small_url"] as? String {
-            self.smallImageURL = NSURL(string: small)
+            self.smallImageURL = URL(string: small)
         }
 
         if let images = data["image"] as? NSDictionary,
             let large = images["large_url"] as? String {
-            self.largeImageURL = NSURL(string: large)
+            self.largeImageURL = URL(string: large)
         }
         
         if let items = data["items"] as? NSArray,
@@ -94,11 +94,11 @@ class PackMediaItem: MediaItem {
             self.featured = featured
         }
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
         if let publishedTime = data["publishedTime"] as? String,
-            let date = dateFormatter.dateFromString(publishedTime) {
+            let date = dateFormatter.date(from: publishedTime) {
             self.publishedTime = date
         }
 
@@ -117,9 +117,9 @@ class PackMediaItem: MediaItem {
                 return "Free"
             }
 
-            let formatter = NSNumberFormatter()
-            formatter.numberStyle = .CurrencyStyle
-            return formatter.stringFromNumber(NSNumber(double: price))!
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            return formatter.string(from: NSNumber(value: price))!
         }
         
         return "Download"

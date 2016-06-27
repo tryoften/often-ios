@@ -14,14 +14,14 @@ class KeyboardCancelBar: UIView {
     override init(frame: CGRect) {
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.setImage(StyleKit.imageOfCancelbutton(), forState: .Normal)
+        cancelButton.setImage(StyleKit.imageOfCancelbutton(), for: UIControlState())
 
 
         super.init(frame: frame)
         backgroundColor = WhiteColor
-        layer.shadowOffset = CGSizeMake(0.5, 0)
+        layer.shadowOffset = CGSize(width: 0.5, height: 0)
         layer.shadowRadius = 0.5
-        layer.shadowColor = UIColor.blackColor().CGColor
+        layer.shadowColor = UIColor.black().cgColor
         layer.shadowOpacity = 0.10
 
         addSubview(cancelButton)

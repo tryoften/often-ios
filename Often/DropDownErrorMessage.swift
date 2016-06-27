@@ -14,20 +14,20 @@ class DropDownErrorMessage: UIButton {
     weak var delegate: DropDownErrorMessageDelegate?
     private var isShowing: Bool = false
     private let dropDownErrorViewHeight: CGFloat = 90
-    private var animationDuration: NSTimeInterval = 0.3
-    private var dropDownDuration: NSTimeInterval = 1.3
+    private var animationDuration: TimeInterval = 0.3
+    private var dropDownDuration: TimeInterval = 1.3
     
     override init(frame: CGRect) {
         errorMessageTitleLabel = UILabel()
         errorMessageTitleLabel.font = ErrorMessageFont
         errorMessageTitleLabel.textColor = ErrorMessageFontColor
-        errorMessageTitleLabel.textAlignment = .Center
+        errorMessageTitleLabel.textAlignment = .center
         errorMessageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         errorMessageSubtitle = UILabel()
         errorMessageSubtitle.font = UIFont(name: "OpenSans", size: 11)
         errorMessageSubtitle.textColor = ErrorMessageFontColor
-        errorMessageSubtitle.textAlignment = .Center
+        errorMessageSubtitle.textAlignment = .center
         errorMessageSubtitle.translatesAutoresizingMaskIntoConstraints = false
         super.init(frame: frame)
         
@@ -35,9 +35,9 @@ class DropDownErrorMessage: UIButton {
         addSubview(errorMessageSubtitle)
         setupLayout()
         
-        self.addTarget(self, action: "hideView:", forControlEvents: .TouchUpInside)
+        self.addTarget(self, action: "hideView:", for: .touchUpInside)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dismissAlertView", name: "DismissAllNotification", object: nil)
+        NotificationCenter.default().addObserver(self, selector: "dismissAlertView", name: "DismissAllNotification", object: nil)
         
     }
     
@@ -47,7 +47,7 @@ class DropDownErrorMessage: UIButton {
     
 
      deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
     func setupLayout() {
@@ -65,77 +65,77 @@ class DropDownErrorMessage: UIButton {
     }
     
     
-    func viewWasTapped(alertView: UIButton) {
+    func viewWasTapped(_ alertView: UIButton) {
         self.delegate?.dropdownAlertWasTapped(self)
         self.hideView(self)
     }
     
-    func hideView(alertView: UIButton) {
-            UIView.animateWithDuration(animationDuration, animations: {
+    func hideView(_ alertView: UIButton) {
+            UIView.animate(withDuration: animationDuration, animations: {
                 var frame: CGRect = alertView.frame
                 frame.origin.y = -self.dropDownErrorViewHeight
                 alertView.frame = frame
-                self.performSelector("removeView:", withObject: alertView, afterDelay: 0.3)
+                self.perform("removeView:", with: alertView, afterDelay: 0.3)
             })
     }
     
     func dismissAllAlert() {
-        NSNotificationCenter.defaultCenter().postNotificationName("DismissAllNotification", object: nil)
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "DismissAllNotification"), object: nil)
     }
     
-    func setMessage(message: String, errorBackgroundColor: UIColor) {
-    DropDownErrorMessage(frame: CGRectMake(0, -dropDownErrorViewHeight, UIScreen.mainScreen().bounds.size.width, dropDownErrorViewHeight)).setErrorMessage(message, errorBackgroundColor: errorBackgroundColor)
+    func setMessage(_ message: String, errorBackgroundColor: UIColor) {
+    DropDownErrorMessage(frame: CGRect(x: 0, y: -dropDownErrorViewHeight, width: UIScreen.main().bounds.size.width, height: dropDownErrorViewHeight)).setErrorMessage(message, errorBackgroundColor: errorBackgroundColor)
     }
     
-    func setMessage(title: String, subtitle: String, duration: NSTimeInterval, errorBackgroundColor: UIColor) {
-        DropDownErrorMessage(frame: CGRectMake(0, -dropDownErrorViewHeight, UIScreen.mainScreen().bounds.size.width, dropDownErrorViewHeight)).setErrorMessage(title, duration: duration, subtitle: subtitle,  errorBackgroundColor: errorBackgroundColor)
+    func setMessage(_ title: String, subtitle: String, duration: TimeInterval, errorBackgroundColor: UIColor) {
+        DropDownErrorMessage(frame: CGRect(x: 0, y: -dropDownErrorViewHeight, width: UIScreen.main().bounds.size.width, height: dropDownErrorViewHeight)).setErrorMessage(title, duration: duration, subtitle: subtitle,  errorBackgroundColor: errorBackgroundColor)
     }
     
     func dismissAlertView() {
         self.hideView(self)
     }
     
-    func removeView(alertView: UIButton) {
+    func removeView(_ alertView: UIButton) {
             alertView.removeFromSuperview()
             isShowing = false
             delegate?.dropdownAlertWasDismissed(true)
     }
     
-    private func setErrorMessage(title: String, duration: NSTimeInterval, subtitle: String, errorBackgroundColor: UIColor) {
+    private func setErrorMessage(_ title: String, duration: TimeInterval, subtitle: String, errorBackgroundColor: UIColor) {
         dropDownDuration = duration
         errorMessageSubtitle.text = subtitle
         
         setErrorMessage(title, errorBackgroundColor: errorBackgroundColor)
     }
     
-    private func setErrorMessage(message: String, errorBackgroundColor: UIColor) {
+    private func setErrorMessage(_ message: String, errorBackgroundColor: UIColor) {
         errorMessageTitleLabel.text = message
         self.backgroundColor = errorBackgroundColor
         
         
-        let frontToBackWindows = UIApplication.sharedApplication().windows.reverse()
+        let frontToBackWindows = UIApplication.shared().windows.reversed()
         for window in frontToBackWindows {
-            if !window.hidden {
+            if !window.isHidden {
                 window.addSubview(self)
             }
         }
         
         isShowing = true
         
-        UIView.animateWithDuration(animationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: [], animations: {
+        UIView.animate(withDuration: animationDuration, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.0, options: [], animations: {
             var frame: CGRect = self.frame
             frame.origin.y = -10
             self.frame = frame
             }, completion: nil)
 
         
-        self.performSelector("viewWasTapped:", withObject: self, afterDelay: dropDownDuration)
+        self.perform("viewWasTapped:", with: self, afterDelay: dropDownDuration)
         
     }
     
 }
 
 protocol DropDownErrorMessageDelegate: class {
-    func dropdownAlertWasDismissed(bool: Bool)
-    func dropdownAlertWasTapped(alert: DropDownErrorMessage)
+    func dropdownAlertWasDismissed(_ bool: Bool)
+    func dropdownAlertWasTapped(_ alert: DropDownErrorMessage)
 }

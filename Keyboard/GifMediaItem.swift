@@ -27,15 +27,15 @@ class GifMediaItem: MediaItem {
         giphy_id = data["tags"] as? String
         
         if let imageData = data["image"] as? NSDictionary, smallImage = imageData["small_url"] as? String {
-            smallImageURL = NSURL(string: smallImage)
+            smallImageURL = URL(string: smallImage)
         }
         
         if let imageData = data["image"] as? NSDictionary, smallImage = imageData["medium_url"] as? String {
-            mediumImageURL = NSURL(string: smallImage)
+            mediumImageURL = URL(string: smallImage)
         }
         
         if let imageData = data["image"] as? NSDictionary, largeImage = imageData["large_url"] as? String {
-            largeImageURL = NSURL(string: largeImage)
+            largeImageURL = URL(string: largeImage)
         }
     }
     

@@ -20,15 +20,16 @@ class FacebookAccountManager: AccountManager {
     ]
 
 
-    override func openSession(completion: (results: ResultType) -> Void) {
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            let accessTokenData = FBSDKAccessToken.currentAccessToken().tokenString
+    override func openSession(_ completion: (results: ResultType) -> Void) {
+        if FBSDKAccessToken.current() != nil {
+            let accessTokenData = FBSDKAccessToken.current().tokenString
 
             if accessTokenData != nil {
-                let credential = FIRFacebookAuthProvider.credentialWithAccessToken(accessTokenData)
-                FIRAuth.auth()?.signInWithCredential(credential, completion: { (user, err) in
+                let credential = FIRFacebookAuthProvider.credential(withAccessToken: accessTokenData!)
+
+                FIRAuth.auth()?.signIn(with: credential, completion: { (user, err) in
                     if err != nil {
-                        completion(results: ResultType.SystemError(e: err!))
+                        completion(results: ResultType.systemError(e: err!))
                     } else {
                         if let user = user {
                             self.fetchUserData(user, completion: completion)
@@ -38,24 +39,24 @@ class FacebookAccountManager: AccountManager {
                 })
             }
         } else {
-            completion(results: ResultType.Error(e: AccountManagerError.MissingUserData))
+            completion(results: ResultType.error(e: AccountManagerError.missingUserData))
         }
 
         sessionManagerFlags.openSession = true
     }
 
-    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
+    override func login(_ userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isNetworkReachable else {
-            completion(results: ResultType.Error(e: AccountManagerError.NotConnectedOnline))
+            completion(results: ResultType.error(e: AccountManagerError.notConnectedOnline))
             return
         }
 
         let fbLogin = FBSDKLoginManager()
 
-        fbLogin.logInWithReadPermissions(loginPermissions) { result, error -> Void in
+        fbLogin.logIn(withReadPermissions: loginPermissions) { result, error -> Void in
             if error == nil {
-                if result.isCancelled  {
-                    completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                if ((result?.isCancelled) != nil)  {
+                    completion(results: ResultType.error(e: AccountManagerError.returnedEmptyUserObject))
 
                 } else {
                     self.openSession(completion)
@@ -63,26 +64,26 @@ class FacebookAccountManager: AccountManager {
                 }
             } else {
                 self.logout()
-                completion(results: ResultType.SystemError(e: error!))
+                completion(results: ResultType.systemError(e: error!))
             }
         }
 
     }
     
-    override func fetchUserData(authData: FIRUser, completion: AccountManagerResultCallback) {
+    override func fetchUserData(_ authData: FIRUser, completion: AccountManagerResultCallback) {
         userRef = firebase.child("users/\(authData.uid)")
         sessionManagerFlags.userId = authData.uid
 
-        if FBSDKAccessToken.currentAccessToken() != nil {
-            print("Token is available : \(FBSDKAccessToken.currentAccessToken().tokenString)")
+        if FBSDKAccessToken.current() != nil {
+            print("Token is available : \(FBSDKAccessToken.current().tokenString)")
 
             let request = FBSDKGraphRequest(graphPath: "me", parameters: requestPermissions)
 
-            request.startWithCompletionHandler({ (connection, result, error) -> Void in
+            request?.start(completionHandler: { (connection, result, error) -> Void in
                 if error == nil {
                     guard let data = (result as? NSDictionary)?.mutableCopy() as? [String : AnyObject],
                         let userId = data["id"] as? String else {
-                            completion(results: ResultType.Error(e: AccountManagerError.MissingUserData))
+                            completion(results: ResultType.error(e: AccountManagerError.missingUserData))
                             return
                     }
 
@@ -95,16 +96,16 @@ class FacebookAccountManager: AccountManager {
                     userData["backgroundImage"] = "user-profile-bg-1"
 
                     self.currentUser = User()
-                    self.currentUser?.setValuesForKeysWithDictionary(userData)
+                    self.currentUser?.setValuesForKeys(userData)
                     self.userRef?.updateChildValues(userData)
 
                     if let user = self.currentUser {
-                        completion(results: ResultType.Success(r: true))
+                        completion(results: ResultType.success(r: true))
                         self.delegate?.accountManagerUserDidLogin(self, user: user)
                     }
                     self.initiateUserWithPacks()
                 } else {
-                    completion(results: ResultType.SystemError(e: error!))
+                    completion(results: ResultType.systemError(e: error!))
                 }
             })
         }

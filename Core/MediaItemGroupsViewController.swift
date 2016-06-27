@@ -21,7 +21,7 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         self.textProcessor = textProcessor
 
         collectionView?.backgroundColor = VeryLightGray
-        collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+        collectionView?.register(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
 
         automaticallyAdjustsScrollViewInsets = false
         extendedLayoutIncludesOpaqueBars = false
@@ -47,15 +47,15 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         } catch _ {}
     }
 
-    internal func groupAtIndex(index: Int) -> MediaItemGroup? {
+    internal func groupAtIndex(_ index: Int) -> MediaItemGroup? {
         return viewModel.groupAtIndex(index)
     }
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return viewModel.mediaItemGroups.count
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let group = groupAtIndex(section) else {
             return 1
         }
@@ -68,27 +68,27 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        let baseSize = CGSizeMake(screenWidth, 115)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = UIScreen.main().bounds.size.width
+        let baseSize = CGSize(width: screenWidth, height: 115)
 
-        guard let group = groupAtIndex(indexPath.section) else {
+        guard let group = groupAtIndex((indexPath as NSIndexPath).section) else {
             return baseSize
         }
 
         switch group.type {
         case .Lyric:
-            return CGSizeMake(screenWidth, 125)
+            return CGSize(width: screenWidth, height: 125)
         case .Artist:
-            return CGSizeMake(screenWidth, 230)
+            return CGSize(width: screenWidth, height: 230)
         case .Track:
-            return CGSizeMake(screenWidth - 20, 74)
+            return CGSize(width: screenWidth - 20, height: 74)
         default:
             return baseSize
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         guard let group = groupAtIndex(section) else {
             return UIEdgeInsetsZero
         }
@@ -101,17 +101,17 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
-        return CGSizeMake(screenWidth, 36)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        let screenWidth = UIScreen.main().bounds.size.width
+        return CGSize(width: screenWidth, height: 36)
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        showNavigationBar(true)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        showNavigationBar(true)
 
-        guard let group = groupAtIndex(indexPath.section),
+        guard let group = groupAtIndex((indexPath as NSIndexPath).section),
             let viewModel = viewModel as? BrowseViewModel,
-            let item = group.items[indexPath.row] as? MediaItem else {
+            let item = group.items[(indexPath as NSIndexPath).row] as? MediaItem else {
                 return
         }
 
@@ -125,19 +125,19 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         }
     }
 
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView,
-            let group = groupAtIndex(indexPath.section) else {
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, for: indexPath) as? MediaItemsSectionHeaderView,
+            let group = groupAtIndex((indexPath as NSIndexPath).section) else {
                 return UICollectionReusableView()
         }
 
-        cell.topSeperator.hidden = indexPath.section == 0
+        cell.topSeperator.isHidden = (indexPath as NSIndexPath).section == 0
         cell.leftText = group.title
 
         return cell
     }
 
-    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+    func mediaItemGroupViewModelDataDidLoad(_ viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         displayedData = true
         collectionView?.reloadData()
     }

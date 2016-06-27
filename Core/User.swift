@@ -26,7 +26,7 @@ class User: NSObject {
     var pushNotificationStatus: Bool = false
     var firebasePushNotificationToken: String = ""
 
-    override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
+    override func setValuesForKeys(_ keyedValues: [String : AnyObject]) {
 
         if let nameString = keyedValues["displayName"] as? String {
             name = nameString

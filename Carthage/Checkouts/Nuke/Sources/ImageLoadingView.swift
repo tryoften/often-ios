@@ -39,20 +39,20 @@ public protocol ImageLoadingView: class {
     func nk_cancelLoading()
     
     /// Loads and displays an image for the given request. Cancels previously started requests.
-    func nk_setImageWith(request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask
+    func nk_setImageWith(_ request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask
     
     /// Gets called when the task that is currently associated with the view completes.
-    func nk_imageTask(task: ImageTask, didFinishWithResponse response: ImageResponse, options: ImageViewLoadingOptions)
+    func nk_imageTask(_ task: ImageTask, didFinishWithResponse response: ImageResponse, options: ImageViewLoadingOptions)
 }
 
 public extension ImageLoadingView {
     /// Loads and displays an image for the given URL. Cancels previously started requests.
-    public func nk_setImageWith(URL: NSURL) -> ImageTask {
+    public func nk_setImageWith(_ URL: Foundation.URL) -> ImageTask {
         return nk_setImageWith(ImageRequest(URL: URL))
     }
     
     /// Loads and displays an image for the given request. Cancels previously started requests.
-    public func nk_setImageWith(request: ImageRequest) -> ImageTask {
+    public func nk_setImageWith(_ request: ImageRequest) -> ImageTask {
         return nk_setImageWith(request, options: ImageViewLoadingOptions())
     }
 }
@@ -63,7 +63,7 @@ public extension ImageLoadingView {
 /// View that can display images.
 public protocol ImageDisplayingView: class {
     /// Displays a given image.
-    func nk_displayImage(image: Image?)
+    func nk_displayImage(_ image: Image?)
 
 }
 
@@ -79,7 +79,7 @@ public extension ImageLoadingView {
     }
 
     /// Loads and displays an image for the given request. Cancels previously started requests.
-    public func nk_setImageWith(request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask {
+    public func nk_setImageWith(_ request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask {
         return nk_imageLoadingController.setImageWith(request, options: options)
     }
 
@@ -109,13 +109,13 @@ private struct AssociatedKeys {
 public extension ImageLoadingView where Self: ImageDisplayingView, Self: View {
     
     /// Default implementation that displays the image and runs animations if necessary.
-    public func nk_imageTask(task: ImageTask, didFinishWithResponse response: ImageResponse, options: ImageViewLoadingOptions) {
+    public func nk_imageTask(_ task: ImageTask, didFinishWithResponse response: ImageResponse, options: ImageViewLoadingOptions) {
         if let handler = options.handler {
             handler(self, task, response, options)
             return
         }
         switch response {
-        case let .Success(image, info):
+        case let .success(image, info):
             nk_displayImage(image)
             if options.animated && !info.isFastResponse {
                 if let animations = options.animations {
@@ -126,7 +126,7 @@ public extension ImageLoadingView where Self: ImageDisplayingView, Self: View {
                     animation.fromValue = 0
                     animation.toValue = 1
                     let layer: CALayer? = self.layer // Make compiler happy
-                    layer?.addAnimation(animation, forKey: "imageTransition")
+                    layer?.add(animation, forKey: "imageTransition")
                 }
             }
         default: return
@@ -140,7 +140,7 @@ public extension ImageLoadingView where Self: ImageDisplayingView, Self: View {
 #if os(iOS) || os(tvOS)
     extension UIImageView: ImageDisplayingView, ImageLoadingView {
         /// Displays a given image.
-        public func nk_displayImage(image: Image?) {
+        public func nk_displayImage(_ image: Image?) {
             self.image = image
         }
     }
@@ -183,19 +183,19 @@ public class ImageViewLoadingController {
         if let task = imageTask {
             imageTask = nil
             // Cancel task after delay to allow new tasks to subscribe to the existing NSURLSessionTask.
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async(execute: {
                 task.cancel()
-            }
+            })
         }
     }
     
     /// Creates a task, subscribes to it and resumes it.
-    public func setImageWith(request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask {
+    public func setImageWith(_ request: ImageRequest, options: ImageViewLoadingOptions) -> ImageTask {
         return setImageWith(manager.taskWith(request), options: options)
     }
     
     /// Subscribes for a given task and resumes it.
-    public func setImageWith(task: ImageTask, options: ImageViewLoadingOptions) -> ImageTask {
+    public func setImageWith(_ task: ImageTask, options: ImageViewLoadingOptions) -> ImageTask {
         cancelLoading()
         imageTask = task
         task.completion { [weak self, weak task] in

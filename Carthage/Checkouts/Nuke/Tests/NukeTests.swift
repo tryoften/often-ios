@@ -9,4 +9,4 @@
 import Nuke
 import XCTest
 
-let defaultURL = NSURL(string: "http://test.com")!
+let defaultURL = URL(string: "http://test.com")!

@@ -15,7 +15,7 @@ class ViewSpacerWithText: UIView {
 
      init(title: String) {
         orLabel = UILabel()
-        orLabel.textAlignment = .Center
+        orLabel.textAlignment = .center
         orLabel.font = UIFont(name: "OpenSans-Italic", size: 10)
         orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
         orLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -30,8 +30,8 @@ class ViewSpacerWithText: UIView {
         orSpacerTwo.translatesAutoresizingMaskIntoConstraints = false
         orSpacerTwo.backgroundColor = UIColor(fromHexString: "#D8D8D8")
 
-        super.init(frame: CGRectZero)
-        backgroundColor = UIColor.clearColor()
+        super.init(frame: CGRect.zero)
+        backgroundColor = UIColor.clear()
 
         addSubview(orSpacerOne)
         addSubview(orSpacerTwo)
@@ -45,22 +45,22 @@ class ViewSpacerWithText: UIView {
     }
 
     func setupLayout() {
-        addConstraints([
-            orLabel.al_top == al_top + 5,
-            orLabel.al_width == 70,
-            orLabel.al_centerX == al_centerX,
-            orLabel.al_bottom == al_bottom,
-
-            orSpacerOne.al_centerY == orLabel.al_centerY,
-            orSpacerOne.al_right == orLabel.al_left,
-            orSpacerOne.al_left == al_left,
-            orSpacerOne.al_height == 1,
-
-            orSpacerTwo.al_centerY == orLabel.al_centerY,
-            orSpacerTwo.al_right == al_right,
-            orSpacerTwo.al_left == orLabel.al_right,
-            orSpacerTwo.al_height == 1
-        ])
+//        addConstraints([
+//            orLabel.al_top == al_top + 5,
+//            orLabel.al_width == 70,
+//            orLabel.al_centerX == al_centerX,
+//            orLabel.al_bottom == al_bottom,
+//
+//            orSpacerOne.al_centerY == orLabel.al_centerY,
+//            orSpacerOne.al_right == orLabel.al_left,
+//            orSpacerOne.al_left == al_left,
+//            orSpacerOne.al_height == 1,
+//
+//            orSpacerTwo.al_centerY == orLabel.al_centerY,
+//            orSpacerTwo.al_right == al_right,
+//            orSpacerTwo.al_left == orLabel.al_right,
+//            orSpacerTwo.al_height == 1
+//        ])
     }
 
 }

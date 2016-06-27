@@ -27,7 +27,7 @@ class TrackMediaItem: MediaItem {
     var time_modified: Int?
     var formattedCreatedDate: String {
         if let created = created {
-            return created.timeAgoSinceNow()
+            return (created as NSDate).timeAgoSinceNow()
         }
         return ""
     }
@@ -79,14 +79,14 @@ class TrackMediaItem: MediaItem {
         }
         
         if let created = data["created"] as? String {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss ZZZZ"
-            self.created = dateFormatter.dateFromString(created)
+            self.created = dateFormatter.date(from: created)
         }
 
         if let lyrics = data["lyrics"] as? NSDictionary,
             let lyricModels = LyricMediaItem.modelsFromDictionaryArray(lyrics.allValues) as? [LyricMediaItem] {
-                self.lyrics = lyricModels.sort { $0.index < $1.index }
+                self.lyrics = lyricModels.sorted { $0.index < $1.index }
         }
 
         if let artist_name = data["artist_name"] as? String {
@@ -128,7 +128,7 @@ class TrackMediaItem: MediaItem {
     
     func formattedPlays() -> String {
         if let plays = plays {
-            let formattedNum = NSNumber(integer: plays).descriptionWithLocale(NSLocale.currentLocale())
+            let formattedNum = NSNumber(value: plays).description(withLocale: Locale.current())
             return "\(formattedNum) Plays"
         }
         return "No Plays"

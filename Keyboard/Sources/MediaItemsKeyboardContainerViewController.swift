@@ -15,10 +15,11 @@ import Firebase
 class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewController,
     UIScrollViewDelegate,
     TextProcessingManagerDelegate {
+
     var viewModel: KeyboardViewModel?
     var mediaItem: MediaItem?
     var orientationChangeListener: Listener?
-    var viewModelsLoaded: dispatch_once_t = 0
+    var viewModelsLoaded: Int = 0
     var packsVC: KeyboardBrowsePackItemViewController?
 
     override init(extraHeight: CGFloat) {
@@ -30,21 +31,18 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
 
         self.view.backgroundColor =  UIColor(fromHexString: "#E9E9E9")
 
-        dispatch_once(&MediaItemsKeyboardContainerViewController.oncePredicate) {
-            
         #if !(KEYBOARD_DEBUG)
             FIRApp.configure()
             FIRDatabase.database().persistenceEnabled = true
         #endif
-            delay(0.5) {
+        delay(0.5) {
             #if !(KEYBOARD_DEBUG)
                 Fabric.sharedSDK().debug = true
-                Fabric.with([Crashlytics.startWithAPIKey(FabricAPIKey)])
+                Fabric.with([Crashlytics.start(withAPIKey: FabricAPIKey)])
                 Flurry.startSession(FlurryClientKey)
             #endif
-                self.setupImageManager()
-                self.viewModel = KeyboardViewModel()
-            }
+            self.setupImageManager()
+            self.viewModel = KeyboardViewModel()
         }
 
         self.textProcessor = TextProcessingManager(textDocumentProxy: self.textDocumentProxy)
@@ -64,7 +62,6 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         self.viewModel = nil
         self.textProcessor = nil
         self.packsVC = nil
-        PacksService.defaultInstance
     }
 
     func setupImageManager() {
@@ -77,17 +74,17 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let center = NSNotificationCenter.defaultCenter()
+        let center = NotificationCenter.default()
         center.addObserver(self, selector:  #selector(MediaItemsKeyboardContainerViewController.switchKeyboard), name: SwitchKeyboardEvent, object: nil)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didInsertMediaItem(_:)), name: "mediaItemInserted", object: nil)
+        NotificationCenter.default().addObserver(self, selector: #selector(MediaItemsKeyboardContainerViewController.didRemoveMediaItem), name: "mediaItemRemoved", object: nil)
 
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if view.bounds == CGRectZero {
+        if view.bounds == CGRect.zero {
             return
         }
 
@@ -96,14 +93,14 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
         }
     }
 
-    func resizeKeyboard(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
+    func resizeKeyboard(_ notification: Foundation.Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo,
             _ = userInfo["height"] as? CGFloat else {
                 return
         }
     }
     
-    func didInsertMediaItem(notification: NSNotification) {
+    func didInsertMediaItem(_ notification: Foundation.Notification) {
         if let item = notification.object as? MediaItem {
             mediaItem = item
         }
@@ -114,12 +111,12 @@ class MediaItemsKeyboardContainerViewController: BaseKeyboardContainerViewContro
     }
 
     //MARK: TextProcessingManagerDelegate
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager) {}
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String) {
+    func textProcessingManagerDidChangeText(_ textProcessingManager: TextProcessingManager) {}
+    func textProcessingManagerDidClearTextBuffer(_ textProcessingManager: TextProcessingManager, text: String) {
         if let item = mediaItem {
             viewModel?.logTextSendEvent(item)
             mediaItem = nil
         }
-        NSNotificationCenter.defaultCenter().postNotificationName("TextBufferDidClear", object: nil, userInfo: nil)
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "TextBufferDidClear"), object: nil, userInfo: nil)
     }
 }

@@ -34,26 +34,26 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         settingSwitch = UISwitch()
         
         switch cellType {
-        case .Default:
+        case .default:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             disclosureIndicator = UIImageView()
             disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
-            disclosureIndicator.contentMode = .ScaleAspectFit
+            disclosureIndicator.contentMode = .scaleAspectFit
             disclosureIndicator.image = UIImage(named: "disclosureindicator")
             
-        case .Nondisclosure:
+        case .nondisclosure:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
             secondaryTextField.translatesAutoresizingMaskIntoConstraints = false
             secondaryTextField.textColor = SettingsViewCellSecondaryTextColor
             secondaryTextField.font = UIFont(name: "OpenSans", size: 14.0)
-            secondaryTextField.returnKeyType = .Done
-            secondaryTextField.userInteractionEnabled = false // no name changes yet
+            secondaryTextField.returnKeyType = .done
+            secondaryTextField.isUserInteractionEnabled = false // no name changes yet
             
-        case .Detailed:
+        case .detailed:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
             
@@ -64,42 +64,42 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
             
             disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
             disclosureIndicator.image = UIImage(named: "disclosureindicator")
-            disclosureIndicator.contentMode = .ScaleAspectFit
+            disclosureIndicator.contentMode = .scaleAspectFit
             
-        case .Switch:
+        case .switch:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
         
             settingSwitch.translatesAutoresizingMaskIntoConstraints = false
-            settingSwitch.transform = CGAffineTransformMakeScale(0.75, 0.75)
-        case .Logout:
+            settingSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        case .logout:
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             titleLabel.font = UIFont(name: "OpenSans", size: 14.0)
-            titleLabel.textColor = UIColor.redColor()
+            titleLabel.textColor = UIColor.red()
         }
         
-        super.init(style: .Default, reuseIdentifier: "SettingsCell")
+        super.init(style: .default, reuseIdentifier: "SettingsCell")
         
         switch cellType {
-        case .Default:
+        case .default:
             addSubview(titleLabel)
             addSubview(disclosureIndicator)
             break
-        case .Nondisclosure:
+        case .nondisclosure:
             secondaryTextField.delegate = self
             addSubview(titleLabel)
             addSubview(secondaryTextField)
             break
-        case .Detailed:
+        case .detailed:
             addSubview(titleLabel)
             addSubview(secondaryTextLabel)
             addSubview(disclosureIndicator)
             break
-        case .Switch:
+        case .switch:
             addSubview(titleLabel)
             addSubview(settingSwitch)
             break
-        case .Logout:
+        case .logout:
             addSubview(titleLabel)
             break
         }
@@ -118,14 +118,14 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
     //MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let newName = textField.text {
             delegate?.didFinishEditingName(newName)
         }
@@ -136,7 +136,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     func setupLayout() {
         switch cellType {
-        case .Default:
+        case .default:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
@@ -147,7 +147,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 disclosureIndicator.al_height == 16
             ])
             break
-        case .Nondisclosure:
+        case .nondisclosure:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
@@ -156,22 +156,22 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 secondaryTextField.al_centerY == al_centerY
             ])
             break
-        case .Detailed:
-            addConstraints([
-                titleLabel.al_left == al_left + 15,
-                titleLabel.al_centerY == al_centerY,
-                
-                secondaryTextLabel.al_width == 125,
-                secondaryTextLabel.al_right == disclosureIndicator.al_left - 10,
-                secondaryTextLabel.al_centerY == al_centerY,
-                
-                disclosureIndicator.al_right == al_right - 10,
-                disclosureIndicator.al_centerY == al_centerY,
-                disclosureIndicator.al_width == 16,
-                disclosureIndicator.al_height == 16
-            ])
+        case .detailed:
+//            addConstraints([
+//                titleLabel.al_left == al_left + 15,
+//                titleLabel.al_centerY == al_centerY,
+//                
+//                secondaryTextLabel.al_width == 125,
+//                secondaryTextLabel.al_right == disclosureIndicator.al_left - 10,
+//                secondaryTextLabel.al_centerY == al_centerY,
+//                
+//                disclosureIndicator.al_right == al_right - 10,
+//                disclosureIndicator.al_centerY == al_centerY,
+//                disclosureIndicator.al_width == 16,
+//                disclosureIndicator.al_height == 16
+//            ])
             break
-        case .Switch:
+        case .switch:
             addConstraints([
                 titleLabel.al_left == al_left + 15,
                 titleLabel.al_centerY == al_centerY,
@@ -180,7 +180,7 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
                 settingSwitch.al_centerY == al_centerY
             ])
             break
-        case .Logout:
+        case .logout:
             addConstraints([
                 titleLabel.al_centerX == al_centerX,
                 titleLabel.al_centerY == al_centerY
@@ -191,14 +191,14 @@ class UserProfileSettingsTableViewCell: UITableViewCell, UITextFieldDelegate {
 }
 
 enum SettingsCellType {
-    case Default
-    case Nondisclosure
-    case Detailed
-    case Switch
-    case Logout
+    case `default`
+    case nondisclosure
+    case detailed
+    case `switch`
+    case logout
 }
 
 
 protocol TableViewCellDelegate {
-    func didFinishEditingName(newName: String)
+    func didFinishEditingName(_ newName: String)
 }

@@ -25,7 +25,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         super.init(viewModel: viewModel)
         self.textProcessor = textProcessor
 
-        collectionView?.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
+        collectionView?.register(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
         setupHudView()
     }
 
@@ -41,11 +41,11 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         HUDMaskView?.frame = view.bounds
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadPackData()
     }
@@ -54,7 +54,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func groupAtIndex(index: Int) -> MediaItemGroup? {
+    internal func groupAtIndex(_ index: Int) -> MediaItemGroup? {
         if index > viewModel.mediaItemGroups.count {
             return nil
         }
@@ -62,9 +62,9 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
     
     func hideMaskView() {
-        UIView.animateWithDuration(0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.HUDMaskView?.alpha = 0.0
-            self.HUDMaskView?.hidden = true
+            self.HUDMaskView?.isHidden = true
             }, completion: nil)
     }
     
@@ -73,10 +73,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return
         }
 
-        maskView.hidden = false
+        maskView.isHidden = false
         maskView.alpha = 0
         
-        UIView.animateWithDuration(0.1, animations: {
+        UIView.animate(withDuration: 0.1, animations: {
             maskView.alpha = 1.0
         }, completion: nil)
     }
@@ -91,51 +91,51 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         HUDMaskView = UIView()
         HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
-        HUDMaskView?.hidden = true
-        HUDMaskView?.userInteractionEnabled = true
+        HUDMaskView?.isHidden = true
+        HUDMaskView?.isUserInteractionEnabled = true
         HUDMaskView?.addGestureRecognizer(hudRecognizer)
 
         view.addSubview(HUDMaskView!)
     }
 
     // MARK: UICollectionViewDataSource
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return 0
         }
         return group.items.count
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if packViewModel.typeFilter == .Gif {
             return 7.0
         }
         return 0.0
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if packViewModel.typeFilter == .Gif {
             return 7.0
         }
         return 0.0
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
             return UICollectionViewCell()
         }
         
         switch group.type {
         case .Gif:
-            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: gifCellReuseIdentifier, for: indexPath) as? GifCollectionViewCell else {
                 return UICollectionViewCell()
             }
 
-            guard let gif = group.items[indexPath.row] as? GifMediaItem else {
+            guard let gif = group.items[(indexPath as NSIndexPath).row] as? GifMediaItem else {
                 return cell
             }
 
@@ -148,8 +148,8 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return cell
         case .Quote:
             let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
-            cell.style = .Cell
-            cell.type = .NoMetadata
+            cell.style = .cell
+            cell.type = .noMetadata
             return cell
         default:
             return UICollectionViewCell()
@@ -157,24 +157,24 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
-            return CGSizeZero
+            return CGSize.zero
         }
         
         switch group.type {
         case .Gif:
-            let width = UIScreen.mainScreen().bounds.width/2 - 12.5
+            let width = UIScreen.main().bounds.width/2 - 12.5
             let height = width * (4/7)
-            return CGSizeMake(width, height)
+            return CGSize(width: width, height: height)
         case .Quote:
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 75)
+            return CGSize(width: UIScreen.main().bounds.width, height: 75)
         default:
-            return CGSizeZero
+            return CGSize.zero
         }
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
             return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 9.0, right: 9.0)
         }
@@ -195,19 +195,19 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
 
         let categoriesVC = CategoryCollectionViewController(viewModel: packViewModel, categories: pack.categories)
         categoriesVC.delegate = self
-        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
+        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .left, duration: 0.25)
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        super.collectionView(collectionView, didSelectItemAt: indexPath)
         
         for cell in collectionView.visibleCells() {
-            if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPathForCell(cell) != indexPath {
+            if let cell = cell as? BaseMediaItemCollectionViewCell where collectionView.indexPath(for: cell) != indexPath {
                 cell.overlayVisible = false
             }
         }
 
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
+        if let cell = collectionView.cellForItem(at: indexPath) as? GifCollectionViewCell {
             #if KEYBOARD
             cell.overlayVisible = !cell.overlayVisible
             #endif
@@ -215,5 +215,5 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         }
     }
         
-    func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
+    func categoriesCollectionViewControllerDidSwitchCategory(_ CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {}
 }

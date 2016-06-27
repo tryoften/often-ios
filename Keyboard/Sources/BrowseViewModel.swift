@@ -14,10 +14,10 @@ class BrowseViewModel: MediaItemGroupViewModel {
     var currentCategory: Category?
     
     init(path: String = "trending") {
-        super.init(baseRef: FIRDatabase.database().reference(), path: path)
+        super.init(baseRef: nil, path: path)
     }
 
-    func applyFilter(filter: Category) {
+    func applyFilter(_ filter: Category) {
         currentCategory = filter
         
         for group in mediaItemGroups {

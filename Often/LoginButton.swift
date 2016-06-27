@@ -14,12 +14,12 @@ class LoginButton: UIButton {
     init(type: AccountManagerType, title: String) {
         self.type = type
 
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
 
         translatesAutoresizingMaskIntoConstraints = false
-        setTitle(title.uppercaseString, forState: .Normal)
+        setTitle(title.uppercased(), for: UIControlState())
         titleLabel?.font = UIFont(name: "Montserrat", size: 11)
-        setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        setTitleColor(UIColor.white(), for: UIControlState())
         layer.cornerRadius = 4.0
         clipsToBounds = true
     }
@@ -29,24 +29,24 @@ class LoginButton: UIButton {
     }
 
     class func FacebookButton() -> LoginButton {
-        let button = LoginButton(type: .Facebook, title: "Facebook")
+        let button = LoginButton(type: .facebook, title: "Facebook")
         button.backgroundColor = FacebookButtonNormalBackgroundColor
         return button
     }
 
     class func TwitterButton() -> LoginButton {
-        let button = LoginButton(type: .Twitter, title: "twitter")
+        let button = LoginButton(type: .twitter, title: "twitter")
         button.backgroundColor = CreateAccountViewSignupTwitterButtonColor
         return button
     }
 
     class func AnonymousButton() -> LoginButton {
-        let button = LoginButton(type: .Anonymous, title: "skip")
+        let button = LoginButton(type: .anonymous, title: "skip")
         return button
     }
 
     class func EmailButton() -> LoginButton {
-        let button = LoginButton(type: .Email, title: "sign up")
+        let button = LoginButton(type: .email, title: "sign up")
         button.backgroundColor = UIColor(fromHexString: "#D8D8D8")!
         return button
     }

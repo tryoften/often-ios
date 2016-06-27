@@ -16,15 +16,15 @@ class ShareBarButton: UIButton {
         textLabel.font = UIFont(name: "Montserrat", size: 12.0)
         textLabel.textColor = WhiteColor
         textLabel.text = "SHARE"
-        textLabel.textAlignment = .Center
+        textLabel.textAlignment = .center
         textLabel.backgroundColor = ClearColor
-        textLabel.frame = CGRectMake(0, 0, 100, 30)
+        textLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         
         super.init(frame: frame)
         
-        setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
+        setImage(StyleKit.imageOfShare(color: WhiteColor), for: UIControlState())
         imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0)
-        self.frame = CGRectMake(0, 0, 100, 30)
+        self.frame = CGRect(x: 0, y: 0, width: 100, height: 30)
         
         addSubview(textLabel)
     }

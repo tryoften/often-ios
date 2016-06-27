@@ -10,6 +10,6 @@ import Foundation
 
 class TermsOfUseViewController: SettingsWebViewController {
     override func closeTapped() {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

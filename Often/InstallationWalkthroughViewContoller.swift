@@ -26,9 +26,9 @@ class InstallationWalkthroughViewContoller: UIViewController {
 
         completionView = KeyboardWalkthroughSuccessMessageView()
         completionView.translatesAutoresizingMaskIntoConstraints = false
-        completionView.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+        completionView.backgroundColor = UIColor.white().withAlphaComponent(0.9)
 
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.alpha = 0.72
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
         if inAppSetting {
 
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeLoader", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default().addObserver(self, selector: "removeLoader", name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
 
         view.addSubview(installView)
 
@@ -58,27 +58,27 @@ class InstallationWalkthroughViewContoller: UIViewController {
         super.viewDidLoad()
 
         if inAppSetting {
-            installView.settingButton.setTitle("dismiss".uppercaseString, forState: .Normal)
+            installView.settingButton.setTitle("dismiss".uppercased(), for: UIControlState())
 
         }
         
-        installView.settingButton.addTarget(self, action: "settingsButtonDidTap:", forControlEvents: .TouchUpInside)
-        completionView.finishedButton.addTarget(self, action: "finishedButtonDidTap:", forControlEvents: .TouchUpInside)
+        installView.settingButton.addTarget(self, action: "settingsButtonDidTap:", for: .touchUpInside)
+        completionView.finishedButton.addTarget(self, action: "finishedButtonDidTap:", for: .touchUpInside)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func settingsButtonDidTap(sender: UIButton) {
+    func settingsButtonDidTap(_ sender: UIButton) {
         if inAppSetting {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
         } else {
             showLoader()
 
             let appSettingsString = "prefs:root=General&path=Keyboard/KEYBOARDS"
-            if let appSettings = NSURL(string: appSettingsString) {
-                UIApplication.sharedApplication().openURL(appSettings)
+            if let appSettings = URL(string: appSettingsString) {
+                UIApplication.shared().openURL(appSettings)
             }
         }
     }
@@ -90,7 +90,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
             return
         }
         loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.9)
+        loader.backgroundColor = UIColor.white().withAlphaComponent(0.9)
 
         view.addSubview(blurEffectView)
         view.addSubview(loader)
@@ -126,12 +126,12 @@ class InstallationWalkthroughViewContoller: UIViewController {
     }
 
 
-    func finishedButtonDidTap(sender: UIButton) {
+    func finishedButtonDidTap(_ sender: UIButton) {
         PKHUD.sharedHUD.contentView = HUDProgressView()
         PKHUD.sharedHUD.show()
 
         viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
-        presentViewController(RootViewController(), animated: true, completion: nil)
+        present(RootViewController(), animated: true, completion: nil)
 
     }
 

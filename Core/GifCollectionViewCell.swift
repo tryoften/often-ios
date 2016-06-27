@@ -22,7 +22,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     override var overlayVisible: Bool {
         didSet {
             if overlayVisible {
-                overlayView.hidden = false
+                overlayView.isHidden = false
                 overlayView.startLoader()
 
                 delay(2.5) {
@@ -30,10 +30,10 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
                     self.overlayView.reset()
                 }
             } else {
-                UIView.animateWithDuration(0.2, animations: {
+                UIView.animate(withDuration: 0.2, animations: {
                     self.overlayView.alpha = 0.0
                     }, completion: { done in
-                        self.overlayView.hidden = true
+                        self.overlayView.isHidden = true
                         self.overlayView.alpha = 1.0
                 })
             }
@@ -45,7 +45,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         backgroundImageView = FLAnimatedImageView()
         
         overlayView = GifCellOverlayView()
-        overlayView.hidden = true
+        overlayView.isHidden = true
         overlayView.translatesAutoresizingMaskIntoConstraints = false
 
         progressView = UIProgressView()
@@ -69,7 +69,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     }
     
     convenience required init?(coder aDecoder: NSCoder) {
-        self.init(frame: CGRectZero)
+        self.init(frame: CGRect.zero)
     }
     
     func setupLayout() {
@@ -98,24 +98,24 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     }
     
     func reset() {
-        overlayView.hidden = true
+        overlayView.isHidden = true
     }
 
     internal override func prepareForReuse() {
         super.prepareForReuse()
 
-        overlayView.hidden = true
+        overlayView.isHidden = true
         backgroundImageView.nk_displayImage(nil)
         backgroundImageView.nk_cancelLoading()
         progressView.progress = 0
         progressView.alpha = 1
     }
 
-    func setImageWith(URL: NSURL) {
+    func setImageWith(_ URL: Foundation.URL) {
         self.setImageWith(ImageRequest(URL: URL))
     }
 
-    func setImageWith(request: ImageRequest) {
+    func setImageWith(_ request: ImageRequest) {
         let task = self.backgroundImageView.nk_setImageWith(request)
         task.progressHandler = { [weak self, weak task] _ in
             guard let task = task where task == self?.backgroundImageView.nk_imageTask else {
@@ -126,12 +126,12 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
 
             if task.progress.fractionCompleted == 1 {
 
-                UIView.animateWithDuration(0.2) {
+                UIView.animate(withDuration: 0.2) {
                     self?.progressView.alpha = 0
                 }
             }
         }
-        if task.state == .Completed {
+        if task.state == .completed {
             progressView.alpha = 0
         }                               
     }

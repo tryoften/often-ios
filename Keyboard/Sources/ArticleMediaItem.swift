@@ -11,7 +11,7 @@ import Foundation
 class ArticleMediaItem: MediaItem {
     var title: String
     var link: String
-    var date: NSDate?
+    var date: Date?
     var author: String?
     var description: String?
     var summary: String?
@@ -30,9 +30,9 @@ class ArticleMediaItem: MediaItem {
         self.summary = data["summary"] as? String
 
         if let date = data["date"] as? String {
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-            self.date = dateFormatter.dateFromString(date)
+            self.date = dateFormatter.date(from: date)
         }
 
         super.init(data: data)

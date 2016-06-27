@@ -17,7 +17,7 @@ class KeyboardBrowseNavigationBar: UIView {
     var rightDetailLabel: UILabel
     var moreOptionsButton: UIButton
     var bottomSeperator: UIView
-    var imageURL: NSURL? {
+    var imageURL: URL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
                 thumbnailImageButton.imageView?.nk_setImageWith(url)
@@ -29,11 +29,11 @@ class KeyboardBrowseNavigationBar: UIView {
             if self.shouldDisplayOptions == false {
                 rightDetailLabel.alpha = 1
                 moreOptionsButton.alpha = 0
-                moreOptionsButton.userInteractionEnabled = false
+                moreOptionsButton.isUserInteractionEnabled = false
             } else {
                 rightDetailLabel.alpha = 0
                 moreOptionsButton.alpha = 1
-                moreOptionsButton.userInteractionEnabled = true
+                moreOptionsButton.isUserInteractionEnabled = true
             }
         }
     }
@@ -46,10 +46,10 @@ class KeyboardBrowseNavigationBar: UIView {
         thumbnailImageButton = UIButton()
         thumbnailImageButton.translatesAutoresizingMaskIntoConstraints = false
         thumbnailImageButton.layer.cornerRadius = 3.0
-        thumbnailImageButton.contentMode = .ScaleAspectFill
+        thumbnailImageButton.contentMode = .scaleAspectFill
         thumbnailImageButton.clipsToBounds = true
         thumbnailImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 36.0, 0.0, 0.0)
-        thumbnailImageButton.setImage(UIImage(named: "placeholder"), forState: .Normal)
+        thumbnailImageButton.setImage(UIImage(named: "placeholder"), for: UIControlState())
         thumbnailImageButton.imageView?.layer.cornerRadius = 3.0
         
         titleLabel = UILabel()
@@ -69,9 +69,9 @@ class KeyboardBrowseNavigationBar: UIView {
         rightDetailLabel.alpha = 0.0
 
         moreOptionsButton = UIButton()
-        moreOptionsButton.hidden = true
+        moreOptionsButton.isHidden = true
         moreOptionsButton.translatesAutoresizingMaskIntoConstraints = false
-        moreOptionsButton.setImage(UIImage(named: "more"), forState: .Normal)
+        moreOptionsButton.setImage(UIImage(named: "more"), for: UIControlState())
         moreOptionsButton.contentEdgeInsets = UIEdgeInsetsMake(0.0, 7.0, 0.0, 7.0)
         
         bottomSeperator = UIView()
@@ -81,8 +81,8 @@ class KeyboardBrowseNavigationBar: UIView {
         
         backgroundColor = WhiteColor
         
-        thumbnailImageButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.backSelected), forControlEvents: .TouchUpInside)
-        moreOptionsButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.showOptions), forControlEvents: .TouchUpInside)
+        thumbnailImageButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.backSelected), for: .touchUpInside)
+        moreOptionsButton.addTarget(self, action: #selector(KeyboardBrowseNavigationBar.showOptions), for: .touchUpInside)
         
         addSubview(backArrowView)
         addSubview(thumbnailImageButton)
@@ -102,7 +102,7 @@ class KeyboardBrowseNavigationBar: UIView {
             return
         }
         
-        bottomSeperator.frame = CGRectMake(0, CGRectGetHeight(frame) - 0.6, CGRectGetWidth(frame), 0.6)
+        bottomSeperator.frame = CGRect(x: 0, y: frame.height - 0.6, width: frame.width, height: 0.6)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -118,31 +118,43 @@ class KeyboardBrowseNavigationBar: UIView {
     }
     
     func setupLayout() {
-        addConstraints([
+        var constraints = [
             backArrowView.al_left == al_left + 12,
             backArrowView.al_centerY == al_centerY,
             backArrowView.al_width == 9,
-            backArrowView.al_height == 12,
-            
+            backArrowView.al_height == 12
+        ]
+
+        constraints += [
             thumbnailImageButton.al_left == al_left,
             thumbnailImageButton.al_centerY == al_centerY,
             thumbnailImageButton.al_top == al_top + 10,
             thumbnailImageButton.al_bottom == al_bottom - 10,
-            thumbnailImageButton.al_width == thumbnailImageButton.al_height + 36,
-            
+            thumbnailImageButton.al_width == thumbnailImageButton.al_height + 36
+        ]
+
+        constraints += [
             titleLabel.al_left == thumbnailImageButton.al_right + 12,
-            titleLabel.al_bottom == thumbnailImageButton.al_centerY,
-            
+            titleLabel.al_bottom == thumbnailImageButton.al_centerY
+        ]
+
+        constraints += [
             subtitleLabel.al_left == titleLabel.al_left,
-            subtitleLabel.al_top == thumbnailImageButton.al_centerY,
-            
+            subtitleLabel.al_top == thumbnailImageButton.al_centerY
+        ]
+
+        constraints += [
             rightDetailLabel.al_right == al_right - 10,
-            rightDetailLabel.al_centerY == al_centerY,
-            
+            rightDetailLabel.al_centerY == al_centerY
+        ]
+
+        constraints += [
             moreOptionsButton.al_right == al_right - 12,
             moreOptionsButton.al_centerY == al_centerY,
             moreOptionsButton.al_width == 18,
             moreOptionsButton.al_height == 18
-        ])
+        ]
+
+        addConstraints(constraints)
     }
 }

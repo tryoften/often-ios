@@ -37,7 +37,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         delay(0.3) {
             self.showAlert()
@@ -45,7 +45,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.Fade
+        return UIStatusBarAnimation.fade
     }
 
     func showAlert() {
@@ -54,8 +54,8 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             let AlertVC = AlertViewController()
 
             AlertVC.transitioningDelegate = self
-            AlertVC.modalPresentationStyle = .Custom
-            presentViewController(AlertVC, animated: true, completion: nil)
+            AlertVC.modalPresentationStyle = .custom
+            present(AlertVC, animated: true, completion: nil)
         }
     }
 
@@ -64,11 +64,11 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         tabBar.backgroundColor = WhiteColor
         tabBar.shadowImage = UIImage()
         tabBar.backgroundImage = UIImage()
-        tabBar.translucent = false
+        tabBar.isTranslucent = false
         tabBar.tintColor = BlackColor
-        tabBar.layer.shadowOffset = CGSizeMake(0, 0)
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         tabBar.layer.shadowOpacity = 0.8
-        tabBar.layer.shadowColor = DarkGrey.CGColor
+        tabBar.layer.shadowColor = DarkGrey?.cgColor
         tabBar.layer.shadowRadius = 4
     }
 
@@ -107,11 +107,11 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         selectedIndex = 0
     }
 
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresentedController presented: UIViewController, presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return FadeInTransitionAnimator(presenting: true)
     }
 
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissedController dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: false)
 
         return animator

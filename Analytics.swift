@@ -23,7 +23,7 @@ struct AnalyticsProperties {
         method = methodName
         className = fileNameFromFilepath(classFile)
         deviceType = Diagnostics.platformString().desciption
-        systemVersion = UIDevice.currentDevice().systemVersion
+        systemVersion = UIDevice.current().systemVersion
         userID = ""
         source = "App"
         
@@ -35,9 +35,9 @@ struct AnalyticsProperties {
             self.userID = userID
         }
 
-        let eventIDString = eventName.stringByReplacingOccurrencesOfString(" ", withString: "_", options: .LiteralSearch, range: nil)
+        let eventIDString = eventName.replacingOccurrences(of: " ", with: "_", options: .literalSearch, range: nil)
 
-        eventID = eventIDString.lowercaseString
+        eventID = eventIDString.lowercased()
     }
 
     func toDictionary() -> [String: AnyObject] {
@@ -52,9 +52,9 @@ struct AnalyticsProperties {
     }
 }
 
-func fileNameFromFilepath(filepath: String) -> String {
-    if let url = NSURL(string: filepath), let pathComponent = url.lastPathComponent {
-        return (pathComponent as NSString).stringByDeletingPathExtension
+func fileNameFromFilepath(_ filepath: String) -> String {
+    if let url = URL(string: filepath), let pathComponent = url.lastPathComponent {
+        return (pathComponent as NSString).deletingPathExtension
     }
     return ""
 }
@@ -73,7 +73,7 @@ struct AnalyticsEvent {
 
 class AnalyticsAdditonalProperties: NSDictionary {
 
-    class func navigate(to: String, itemID: String, itemIndex: String, itemType: String) -> NSDictionary {
+    class func navigate(_ to: String, itemID: String, itemIndex: String, itemType: String) -> NSDictionary {
         return [
             "navigate": to,
             "item_id": itemID,
@@ -81,13 +81,13 @@ class AnalyticsAdditonalProperties: NSDictionary {
         ]
     }
 
-    class func mediaItem(mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
+    class func mediaItem(_ mediaItemDictionary: [String: AnyObject]) -> NSDictionary {
         return [
             "media_item": mediaItemDictionary,
         ]
     }
 
-    class func sendQuery(query: String, type: String) -> NSDictionary {
+    class func sendQuery(_ query: String, type: String) -> NSDictionary {
         return [
             "query": query,
             "type": type
@@ -97,11 +97,11 @@ class AnalyticsAdditonalProperties: NSDictionary {
 
 class Analytics: SEGAnalytics {
 
-    func track(properties: AnalyticsProperties) {
+    func track(_ properties: AnalyticsProperties) {
         track(properties.event, properties: properties.toDictionary() as [NSObject : AnyObject])
     }
 
-    func track(properties: AnalyticsProperties, additionalProperties: NSDictionary) {
+    func track(_ properties: AnalyticsProperties, additionalProperties: NSDictionary) {
         var allProperties = properties.toDictionary()
 
         for (key, value) in additionalProperties {

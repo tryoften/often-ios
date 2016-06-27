@@ -10,17 +10,18 @@ import Foundation
 import Firebase
 import FirebaseMessaging
 import FirebaseInstanceID
-
+import Alamofire
 
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
-    let userRef: FIRDatabaseReference
+//    let userRef: FIRDatabaseReference
     let userId: String
     let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
+    let collectionURL: String
 
-    internal var collectionEndpoint: FIRDatabaseReference
-    private var subscriptionsRef: FIRDatabaseReference!
+//    internal var collectionEndpoint: FIRDatabaseReference
+//    private var subscriptionsRef: FIRDatabaseReference!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
     private(set) var recentsPack: PackMediaItem?
@@ -41,8 +42,11 @@ class PacksService: PackItemViewModel {
         }
         
         mediaItems = []
-        userRef = FIRDatabase.database().reference().child("users/\(userId)")
-        collectionEndpoint = userRef.child("packs")
+//        userRef = FIRDatabase.database().reference().child("users/\(userId)")
+//        collectionEndpoint = userRef.child("packs")
+
+        collectionURL = "\(BaseURL)users/\(userId)/packs.json"
+
 
         super.init(packId: "")
 
@@ -63,26 +67,41 @@ class PacksService: PackItemViewModel {
         } catch _ {
         }
 
-        subscriptionsRef = userRef.child("subscriptions")
-        subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
-        subscriptionsRef.keepSynced(true)
+//        subscriptionsRef = userRef.child("subscriptions")
+//        subscriptionsRef.observe(.value, with: self.onSubscriptionsChanged)
+//        subscriptionsRef.keepSynced(true)
     }
 
-     func fetchCollection(completion: ((Bool) -> Void)? = nil) {
-        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
-                self.isDataLoaded = true
-                if let data = snapshot.value as? [String: AnyObject] {
-                    self.mediaItems = self.processMediaItemsCollectionData(data)
-                }
-                dispatch_async(dispatch_get_main_queue()) {
+     func fetchCollection(_ completion: ((Bool) -> Void)? = nil) {
+//        collectionEndpoint.observe(.value, with: { snapshot in
+//            DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosBackground).async {
+//                self.isDataLoaded = true
+//                if let data = snapshot.value as? [String: AnyObject] {
+//                    self.mediaItems = self.processMediaItemsCollectionData(data)
+//                }
+//                DispatchQueue.main.async {
+//                    completion?(true)
+//                }
+//            }
+//        })
+
+        Alamofire.request(.GET, collectionURL)
+            .validate()
+            .responseJSON { response in
+                print(response.request)  // original URL request
+                print(response.response) // URL response
+                print(response.data)     // server data
+                print(response.result)   // result of response serialization
+
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                    self.mediaItems = self.processMediaItemsCollectionData(JSON as! [String : AnyObject])
                     completion?(true)
                 }
-            }
-        })
+        }
     }
 
-    func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
+    func generatePacksGroup(_ items: [MediaItem]) -> [MediaItemGroup] {
         let group = MediaItemGroup(dictionary: [
             "id": "packs",
             "title": "Packs",
@@ -93,7 +112,7 @@ class PacksService: PackItemViewModel {
         return [group]
     }
 
-    override func fetchData(completion: ((Bool) -> Void)? = nil) {
+    override func fetchData(_ completion: ((Bool) -> Void)? = nil) {
         fetchCollection { [weak self] done in
             if let packs = self?.mediaItems as? [PackMediaItem] {
                 self?.populateCurrentPack()
@@ -111,31 +130,31 @@ class PacksService: PackItemViewModel {
         return []
     }
 
-    func addPack(pack: PackMediaItem) {
+    func addPack(_ pack: PackMediaItem) {
         sendTask("add", result: pack)
 
-        FIRMessaging.messaging().subscribeToTopic("/topics/\(pack.id)")
+        FIRMessaging.messaging().subscribe(toTopic: "/topics/\(pack.id)")
 
-        let currentInstallation = PFInstallation.currentInstallation()
+        let currentInstallation = PFInstallation.current()
         currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
         currentInstallation.saveInBackground()
     }
 
-    func removePack(pack: PackMediaItem) {
+    func removePack(_ pack: PackMediaItem) {
         sendTask("remove", result: pack)
 
-        FIRMessaging.messaging().unsubscribeFromTopic("/topics/\(pack.id)")
+        FIRMessaging.messaging().unsubscribe(fromTopic: "/topics/\(pack.id)")
 
-        let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.removeObject("p\(pack.id)", forKey: "channels")
+        let currentInstallation = PFInstallation.current()
+        currentInstallation.remove("p\(pack.id)", forKey: "channels")
         currentInstallation.saveInBackground()
     }
 
-    func checkPack(result: MediaItem) -> Bool {
+    func checkPack(_ result: MediaItem) -> Bool {
         return ids.contains(result.id)
     }
 
-    func getPackForId(packId: String) -> PackMediaItem? {
+    func getPackForId(_ packId: String) -> PackMediaItem? {
         guard let packs = mediaItems as? [PackMediaItem] else {
             return nil
         }
@@ -155,14 +174,14 @@ class PacksService: PackItemViewModel {
         return nil
     }
 
-    func switchCurrentPack(packId: String)  {
+    func switchCurrentPack(_ packId: String)  {
         self.packId = packId
         SessionManagerFlags.defaultManagerFlags.lastPack = packId
         currentCategory = Category.all
         fetchData()
     }
 
-    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+    private func processMediaItemsCollectionData(_ data: [String: AnyObject]) -> [MediaItem] {
         var items: [PackMediaItem] = []
         ids.removeAll()
 
@@ -182,7 +201,7 @@ class PacksService: PackItemViewModel {
         return items
     }
 
-    private func sendTask(task: String, result: MediaItem) {
+    private func sendTask(_ task: String, result: MediaItem) {
         guard let userId = currentUser?.id else {
             return
         }
@@ -200,12 +219,12 @@ class PacksService: PackItemViewModel {
 
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
-        let ref = collectionEndpoint.child("\(result.id)")
-        if task == "add" {
-            ref.setValue(result.toDictionary())
-        } else if task == "remove" {
-            ref.removeValue()
-        }
+//        let ref = collectionEndpoint.child("\(result.id)")
+//        if task == "add" {
+//            ref.setValue(result.toDictionary())
+//        } else if task == "remove" {
+//            ref.removeValue()
+//        }
 
         fetchData()
     }
@@ -243,7 +262,7 @@ class PacksService: PackItemViewModel {
 
     }
 
-    private func onSubscriptionsChanged(snapshot: FIRDataSnapshot!) {
+    private func onSubscriptionsChanged(_ snapshot: FIRDataSnapshot!) {
         var subscriptions = [PackSubscription]()
         if let data = snapshot.value as? [String: AnyObject] {
             for (_, item) in data {

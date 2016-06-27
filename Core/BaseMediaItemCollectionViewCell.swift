@@ -28,8 +28,8 @@ class BaseMediaItemCollectionViewCell: UICollectionViewCell {
 }
 
 protocol MediaItemsCollectionViewCellDelegate: class {
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: BaseMediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: BaseMediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: BaseMediaItemCollectionViewCell, selected: Bool)
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: BaseMediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleCancelButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleCopyButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool)
+    func mediaLinkCollectionViewCellDidToggleInsertButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool)
 }

@@ -9,12 +9,12 @@
 import UIKit
 
 enum ContainerNavigationBarHeight: CGFloat {
-    case Normal = 44.0
-    case Large = 60.0
+    case normal = 44.0
+    case large = 60.0
 }
 
 class ContainerNavigationBar: UINavigationBar {
-    var height: ContainerNavigationBarHeight = .Normal {
+    var height: ContainerNavigationBarHeight = .normal {
         didSet {
             layoutIfNeeded()
         }
@@ -37,8 +37,8 @@ class ContainerNavigationBar: UINavigationBar {
         }
     }
 
-    override func sizeThatFits(size: CGSize) -> CGSize {
-        return CGSizeMake(CGRectGetWidth(UIScreen.mainScreen().bounds), height.rawValue)
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        return CGSize(width: UIScreen.main().bounds.width, height: height.rawValue)
     }
 
     required init?(coder aDecoder: NSCoder) {

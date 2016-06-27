@@ -24,20 +24,20 @@ class PushNotificationAlertViewController: AlertViewController {
         super.viewDidLoad()
 
         if let alertView = alertView as? PushNotifcationAlertView {
-            alertView.declineButton.addTarget(self, action: #selector(PushNotificationAlertViewController.didTapDeclineButton(_:)), forControlEvents: .TouchUpInside)
-            alertView.actionButton.addTarget(self, action: #selector(PushNotificationAlertViewController.didTapActionButton(_:)), forControlEvents: .TouchUpInside)
+            alertView.declineButton.addTarget(self, action: #selector(PushNotificationAlertViewController.didTapDeclineButton(_:)), for: .touchUpInside)
+            alertView.actionButton.addTarget(self, action: #selector(PushNotificationAlertViewController.didTapActionButton(_:)), for: .touchUpInside)
         }
     }
 
-     func didTapDeclineButton(sender: UIButton) {
+     func didTapDeclineButton(_ sender: UIButton) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(false)
 
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 
-    func didTapActionButton(sender: UIButton) {
+    func didTapActionButton(_ sender: UIButton) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(true)
 
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

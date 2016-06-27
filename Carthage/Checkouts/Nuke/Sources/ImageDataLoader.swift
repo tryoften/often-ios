@@ -7,7 +7,7 @@ import Foundation
 // MARK: - ImageDataLoading
 
 /// Data loading completion closure.
-public typealias ImageDataLoadingCompletion = (data: NSData?, response: NSURLResponse?, error: ErrorType?) -> Void
+public typealias ImageDataLoadingCompletion = (data: Data?, response: URLResponse?, error: ErrorProtocol?) -> Void
 
 /// Data loading progress closure.
 public typealias ImageDataLoadingProgress = (completed: Int64, total: Int64) -> Void
@@ -15,7 +15,7 @@ public typealias ImageDataLoadingProgress = (completed: Int64, total: Int64) -> 
 /// Performs loading of image data.
 public protocol ImageDataLoading {
     /// Creates task with a given request. Task is resumed by the object calling the method.
-    func taskWith(request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> NSURLSessionTask
+    func taskWith(_ request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> URLSessionTask
 
     /// Invalidates the receiver.
     func invalidate()
@@ -28,28 +28,28 @@ public protocol ImageDataLoading {
 // MARK: - ImageDataLoader
 
 /// Provides basic networking using NSURLSession.
-public class ImageDataLoader: NSObject, NSURLSessionDataDelegate, ImageDataLoading {
-    public private(set) var session: NSURLSession!
-    private var handlers = [NSURLSessionTask: DataTaskHandler]()
-    private var lock = NSRecursiveLock()
+public class ImageDataLoader: NSObject, URLSessionDataDelegate, ImageDataLoading {
+    public private(set) var session: Foundation.URLSession!
+    private var handlers = [URLSessionTask: DataTaskHandler]()
+    private var lock = RecursiveLock()
 
     /// Initialzies data loader by creating a session with a given session configuration.
-    public init(sessionConfiguration: NSURLSessionConfiguration) {
+    public init(sessionConfiguration: URLSessionConfiguration) {
         super.init()
-        self.session = NSURLSession(configuration: sessionConfiguration, delegate: self, delegateQueue: nil)
+        self.session = Foundation.URLSession(configuration: sessionConfiguration, delegate: self, delegateQueue: nil)
     }
 
     /// Initializes the receiver with a default NSURLSession configuration and NSURLCache with memory capacity set to 0, disk capacity set to 200 Mb.
     public convenience override init() {
-        let conf = NSURLSessionConfiguration.defaultSessionConfiguration()
-        conf.URLCache = NSURLCache(memoryCapacity: 0, diskCapacity: (200 * 1024 * 1024), diskPath: "com.github.kean.nuke-cache")
+        let conf = URLSessionConfiguration.default()
+        conf.urlCache = URLCache(memoryCapacity: 0, diskCapacity: (200 * 1024 * 1024), diskPath: "com.github.kean.nuke-cache")
         self.init(sessionConfiguration: conf)
     }
     
     // MARK: ImageDataLoading
 
     /// Creates task for the given request.
-    public func taskWith(request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> NSURLSessionTask {
+    public func taskWith(_ request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> URLSessionTask {
         let task = taskWith(request)
         lock.lock()
         handlers[task] = DataTaskHandler(progress: progress, completion: completion)
@@ -58,8 +58,8 @@ public class ImageDataLoader: NSObject, NSURLSessionDataDelegate, ImageDataLoadi
     }
     
     /// Factory method for creating session tasks for given image requests.
-    public func taskWith(request: ImageRequest) -> NSURLSessionTask {
-        return session.dataTaskWithRequest(request.URLRequest)
+    public func taskWith(_ request: ImageRequest) -> URLSessionTask {
+        return session.dataTask(with: request.URLRequest)
     }
 
     /// Invalidates the instance of NSURLSession class that the receiver was initialized with.
@@ -69,24 +69,24 @@ public class ImageDataLoader: NSObject, NSURLSessionDataDelegate, ImageDataLoadi
 
     /// Removes all cached images from the instance of NSURLCache class from the NSURLSession configuration.
     public func removeAllCachedImages() {
-        session.configuration.URLCache?.removeAllCachedResponses()
+        session.configuration.urlCache?.removeAllCachedResponses()
     }
     
     // MARK: NSURLSessionDataDelegate
     
-    public func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+    public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         lock.lock()
         if let handler = handlers[dataTask] {
-            handler.data.appendData(data)
+            handler.data.append(data)
             handler.progress(completed: dataTask.countOfBytesReceived, total: dataTask.countOfBytesExpectedToReceive)
         }
         lock.unlock()
     }
     
-    public func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: NSError?) {
         lock.lock()
         if let handler = handlers[task] {
-            handler.completion(data: handler.data, response: task.response, error: error)
+            handler.completion(data: handler.data as Data, response: task.response, error: error)
             handlers[task] = nil
         }
         lock.unlock()

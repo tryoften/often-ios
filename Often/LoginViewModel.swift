@@ -31,14 +31,14 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
         self.sessionManager.delegate = nil
     }
 
-    func login(accountType: AccountManagerType, completion: (results: ResultType) -> Void) throws {
+    func login(_ accountType: AccountManagerType, completion: (results: ResultType) -> Void) throws {
         guard isNetworkReachable else {
-            completion(results: ResultType.Error(e: SignupError.NotConnectedOnline))
-            throw SignupError.NotConnectedOnline
+            completion(results: ResultType.error(e: SignupError.notConnectedOnline))
+            throw SignupError.notConnectedOnline
         }
 
         guard let accountManager = AccountManagerTypes[accountType] else {
-            throw AccountManagerError.MissingUserData
+            throw AccountManagerError.missingUserData
         }
 
         isNewUser = true
@@ -55,25 +55,25 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
 
     }
 
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.login))
+    func sessionManagerDidLoginUser(_ sessionManager: SessionManager, user: User) {
+        Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.login))
         delegate?.loginViewModelDidLoginUser(self, user: user)
 
     }
 
-    func sessionManagerNoUserFound(sessionManager: SessionManager) {
+    func sessionManagerNoUserFound(_ sessionManager: SessionManager) {
         delegate?.loginViewModelNoUserFound(self)
     }
 }
 
-enum SignupError: ErrorType {
-    case EmailNotVaild
-    case PasswordNotVaild
-    case NotConnectedOnline
-    case TimeOut
+enum SignupError: ErrorProtocol {
+    case emailNotVaild
+    case passwordNotVaild
+    case notConnectedOnline
+    case timeOut
 }
 
 protocol LoginViewModelDelegate: class {
-    func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?)
-    func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel)
+    func loginViewModelDidLoginUser(_ userProfileViewModel: LoginViewModel, user: User?)
+    func loginViewModelNoUserFound(_ userProfileViewModel: LoginViewModel)
 }

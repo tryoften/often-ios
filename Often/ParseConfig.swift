@@ -14,8 +14,8 @@ class ParseConfig {
     init() {
 #if !DEBUG
         Parse.setApplicationId(ParseAppID, clientKey: ParseClientKey)
-        PFConfig.getConfigInBackgroundWithBlock { (config, error) in
-            if let newAppStoreLink = PFConfig.currentConfig().objectForKey("AppStoreLink") as? String {
+        PFConfig.getInBackground { (config, error) in
+            if let newAppStoreLink = PFConfig.current().object(forKey: "AppStoreLink") as? String {
                 AppStoreLink = newAppStoreLink
             }
         }

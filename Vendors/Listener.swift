@@ -1,5 +1,5 @@
 
-public func += (inout storage: [Listener], listener: Listener) {
+public func += (storage: inout [Listener], listener: Listener) {
   storage.append(listener)
 }
 
@@ -17,7 +17,7 @@ public class Listener {
   
   weak var target: AnyObject!
   
-  let handler: Any! -> Void
+  let handler: (Any!) -> Void
   
   let once: Bool
   
@@ -29,12 +29,12 @@ public class Listener {
   
   func stopListening () {}
   
-  func trigger (data: Any!) {
+  func trigger (_ data: Any!) {
     handler(data)
     if once { isListening = false }
   }
   
-  init (_ target: AnyObject!, _ handler: Any! -> Void, _ once: Bool) {
+  init (_ target: AnyObject!, _ handler: (Any!) -> Void, _ once: Bool) {
 
     targetID = (target as? String) ?? getHash(target)
 

@@ -19,8 +19,8 @@ class BrowsePackHeaderView: UICollectionReusableView {
 
         let gradient: CAGradientLayer = CAGradientLayer()
         gradient.frame = bounds
-        gradient.colors = [UIColor.oftWhiteColor().CGColor, UIColor.oftWhiteThreeColor().CGColor]
-        layer.insertSublayer(gradient, atIndex: 0)
+        gradient.colors = [UIColor.oftWhiteColor().cgColor, UIColor.oftWhiteThreeColor().cgColor]
+        layer.insertSublayer(gradient, at: 0)
 
         clipsToBounds = true
 
@@ -28,11 +28,11 @@ class BrowsePackHeaderView: UICollectionReusableView {
         setupLayout()
     }
 
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
 
-            UIView.animateWithDuration(0.3) {
+            UIView.animate(withDuration: 0.3) {
                 if progressiveness <= 0.95 {
                     let val = max(progressiveness - 0.25, 0.2)
                     self.browsePicker.view.alpha = val

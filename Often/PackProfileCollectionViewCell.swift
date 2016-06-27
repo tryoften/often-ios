@@ -19,9 +19,9 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
 
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.backgroundColor = UIColor.oftWhiteThreeColor()
-        primaryButton.setTitle("remove".uppercaseString, forState: .Normal)
+        primaryButton.setTitle("remove".uppercased(), for: UIControlState())
         primaryButton.titleLabel?.font = UIFont(name: "Montserrat", size: 8)
-        primaryButton.setTitleColor(BlackColor, forState: .Normal)
+        primaryButton.setTitleColor(BlackColor, for: UIControlState())
         
         addSubview(primaryButton)
         

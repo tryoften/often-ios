@@ -250,6 +250,21 @@
 		69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D112691CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift */; };
 		69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D1126A1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift */; };
 		6AB1C982854FA7C50E5467BE /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52540E013637B4BC8B916636 /* libPods-Keyboard.a */; };
+		810207861D218E26008E559A /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
+		810207871D218E26008E559A /* Oswald-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A71B1A653100EA1925 /* Oswald-Light.ttf */; };
+		810207881D218E26008E559A /* Oswald-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A81B1A653100EA1925 /* Oswald-Regular.ttf */; };
+		810207891D218E26008E559A /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
+		8102078A1D218E26008E559A /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1891B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf */; };
+		8102078B1D218E26008E559A /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18A1B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf */; };
+		8102078C1D218E26008E559A /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18B1B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf */; };
+		8102078D1D218E26008E559A /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18C1B1A5D3700EA1925 /* OpenSans-Italic.ttf */; };
+		8102078E1D218E26008E559A /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18D1B1A5D3700EA1925 /* OpenSans-Light.ttf */; };
+		8102078F1D218E26008E559A /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf */; };
+		810207901D218E26008E559A /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB18F1B1A5D3700EA1925 /* OpenSans-Regular.ttf */; };
+		810207911D218E26008E559A /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1901B1A5D3700EA1925 /* OpenSans-Semibold.ttf */; };
+		810207921D218E26008E559A /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
+		810207931D218E26008E559A /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
+		810207941D218E26008E559A /* Montserrat-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69B549071CB348ED00C3D1BC /* Montserrat-SemiBold.otf */; };
 		810703711BFD05AC00FDBF57 /* ParseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */; };
 		810B04F31C43181800BA731B /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B04F11C43181800BA731B /* BrowseViewModel.swift */; };
 		810B04F41C43181800BA731B /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B04F11C43181800BA731B /* BrowseViewModel.swift */; };
@@ -783,6 +798,7 @@
 		8183D8C21D1878A900D11180 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		8183D8C31D1878B800D11180 /* MediaItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55AC21C8A264600363AB0 /* MediaItemDetailView.swift */; };
 		8183D8C41D187DF300D11180 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C080E11CC557F3009DA5E8 /* Alamofire.framework */; };
+		8183D8C51D188F6B00D11180 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 813324221C24A4F80084918B /* NJKScrollFullScreen.m */; };
 		8192A7D11C62410300B25AC6 /* ChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C61C62410300B25AC6 /* ChangeListener.swift */; };
 		8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C71C62410300B25AC6 /* Emitter.swift */; };
 		8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C91C62410300B25AC6 /* EmitterListener.swift */; };
@@ -2651,6 +2667,7 @@
 					8180E6071A142157007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = VPYJKM228K;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -2676,6 +2693,7 @@
 					8180E6301A142199007FA1CF = {
 						CreatedOnToolsVersion = 6.1;
 						DevelopmentTeam = VPYJKM228K;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
@@ -2693,6 +2711,7 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = VPYJKM228K;
 						DevelopmentTeamName = "Project Surf, Inc";
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					81DA3E9B1C24BE85006822D3 = {
@@ -2956,8 +2975,23 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				810207941D218E26008E559A /* Montserrat-SemiBold.otf in Resources */,
+				810207931D218E26008E559A /* Montserrat-Regular.ttf in Resources */,
+				810207881D218E26008E559A /* Oswald-Regular.ttf in Resources */,
+				810207921D218E26008E559A /* OpenSans-SemiboldItalic.ttf in Resources */,
+				8102078C1D218E26008E559A /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				8102078F1D218E26008E559A /* OpenSans-LightItalic.ttf in Resources */,
 				819D65A51D1339660053E5AD /* Assets.xcassets in Resources */,
+				8102078D1D218E26008E559A /* OpenSans-Italic.ttf in Resources */,
+				810207891D218E26008E559A /* OpenSans-Bold.ttf in Resources */,
+				8102078B1D218E26008E559A /* OpenSans-ExtraBold.ttf in Resources */,
+				8102078A1D218E26008E559A /* OpenSans-BoldItalic.ttf in Resources */,
 				819D65A31D1339660053E5AD /* MainInterface.storyboard in Resources */,
+				810207861D218E26008E559A /* Oswald-Bold.ttf in Resources */,
+				8102078E1D218E26008E559A /* OpenSans-Light.ttf in Resources */,
+				810207901D218E26008E559A /* OpenSans-Regular.ttf in Resources */,
+				810207911D218E26008E559A /* OpenSans-Semibold.ttf in Resources */,
+				810207871D218E26008E559A /* Oswald-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3839,6 +3873,7 @@
 				8183D8871D1872A000D11180 /* GifMediaItem.swift in Sources */,
 				8183D8B41D18767300D11180 /* UILabel+AttributeText.swift in Sources */,
 				8183D8661D18718600D11180 /* Listener.swift in Sources */,
+				8183D8C51D188F6B00D11180 /* NJKScrollFullScreen.m in Sources */,
 				8183D8851D1872A000D11180 /* PackMediaItem.swift in Sources */,
 				8183D86C1D18721800D11180 /* Event.swift in Sources */,
 				8183D8991D1874EA00D11180 /* BaseMediaItemCollectionViewCell.swift in Sources */,
@@ -4177,6 +4212,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -4222,6 +4258,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -4578,6 +4615,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Production;
@@ -4660,6 +4698,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Production;
@@ -4838,6 +4877,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Crashlytics;
@@ -4881,6 +4921,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Crashlytics;
@@ -4974,6 +5015,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -5016,6 +5058,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -5042,13 +5085,13 @@
 				INFOPLIST_FILE = "Often (iMessage)/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				OTHER_SWIFT_FLAGS = "-DKEYBOARD";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryoften.often.Often--iMessage-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -5077,13 +5120,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DKEYBOARD";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryoften.often.Often--iMessage-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Crashlytics;
@@ -5113,13 +5156,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DKEYBOARD";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryoften.often.Often--iMessage-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Production;
@@ -5148,13 +5191,13 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_SWIFT_FLAGS = "-DKEYBOARD";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tryoften.often.Often--iMessage-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

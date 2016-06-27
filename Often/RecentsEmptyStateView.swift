@@ -14,14 +14,14 @@ class RecentsEmptyStateView: EmptyStateView {
         let description = "See all your recently shared lyrics here"
         let image = UIImage(named: "recentsemptystate")!
         
-        super.init(state: .NoRecents)
+        super.init(state: .noRecents)
         
         titleLabel.text = title
         descriptionLabel.text = description
         imageView.image = image
         
-        imageView.contentMode = .ScaleAspectFill
-        imageSize = .Medium
+        imageView.contentMode = .scaleAspectFill
+        imageSize = .medium
         
         addAdditionalLayouts()
     }

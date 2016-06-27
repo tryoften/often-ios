@@ -10,8 +10,8 @@ import Foundation
 
 class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     var loginView: LoginView
-    var screenWidth = UIScreen.mainScreen().bounds.width
-    var screenHeight = UIScreen.mainScreen().bounds.height
+    var screenWidth = UIScreen.main().bounds.width
+    var screenHeight = UIScreen.main().bounds.height
     var pageWidth: CGFloat
     var pagesScrollViewSize: CGSize
     var pageCount: Int
@@ -19,8 +19,8 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     var pageImages: [UIImage]
     var pageTitle: [String]
     var pagesubTitle: [String]
-    var scrollTimer: NSTimer?
-    var launchScreenLoaderTimer: NSTimer?
+    var scrollTimer: Timer?
+    var launchScreenLoaderTimer: Timer?
     
     var currentPage: Int {
         return Int(floor((loginView.scrollView.contentOffset.x * 2.0 + pageWidth) / (pageWidth * 2.0)))
@@ -65,8 +65,8 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         setupLayout()
 
 
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(7.0, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
-        launchScreenLoaderTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
+        scrollTimer = Timer.scheduledTimer(timeInterval: 7.0, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        launchScreenLoaderTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: "userDataTimeOut", userInfo: nil, repeats: true)
     }
 
     override func viewDidLoad() {
@@ -76,14 +76,14 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
 
         viewModel.delegate = self
 
-        loginView.createAccountButton.addTarget(self,  action: "didTapCreateAccountButton:", forControlEvents: .TouchUpInside)
-        loginView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        loginView.skipButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+        loginView.createAccountButton.addTarget(self,  action: "didTapCreateAccountButton:", for: .touchUpInside)
+        loginView.signinButton.addTarget(self, action: "didTapSigninButton:", for: .touchUpInside)
+        loginView.skipButton.addTarget(self, action: "didTapButton:", for: .touchUpInside)
         setupPages()
         loadVisiblePages()
 
         if viewModel.sessionManager.sessionManagerFlags.isUserLoggedIn {
-            loginView.launchScreenLoader.hidden = false
+            loginView.launchScreenLoader.isHidden = false
         }
     }
     
@@ -102,15 +102,15 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         }
     }
     
-    func loadPage(page: Int) {
+    func loadPage(_ page: Int) {
         let imageView = UIImageView()
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = pageImages[page]
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .scaleAspectFit
         
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
         }
 
         
@@ -126,7 +126,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         pageViews.append(imageView)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let titleString = pageTitle[currentPage]
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
@@ -147,13 +147,13 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         loginView.pageControl.currentPage = currentPage
         loginView.titleLabel.text = titleString
         loginView.titleLabel.attributedText = title
-        loginView.titleLabel.textAlignment = .Center
+        loginView.titleLabel.textAlignment = .center
         loginView.subtitleLabel.text = subtitleString
         loginView.subtitleLabel.attributedText = subtitle
-        loginView.subtitleLabel.textAlignment = .Center
+        loginView.subtitleLabel.textAlignment = .center
         
         scrollTimer?.invalidate()
-        scrollTimer = NSTimer.scheduledTimerWithTimeInterval(5.5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
+        scrollTimer = Timer.scheduledTimer(timeInterval: 5.5, target: self, selector: "scrollToNextPage", userInfo: nil, repeats: true)
     }
     
 
@@ -165,18 +165,18 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
             height: pagesScrollViewSize.height)
     }
     
-    func didTapCreateAccountButton(sender: UIButton) {
+    func didTapCreateAccountButton(_ sender: UIButton) {
         scrollTimer?.invalidate()
 
         let createAccount = CreateAccountViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
-        presentViewController(createAccount, animated: true, completion: nil)
+        present(createAccount, animated: true, completion: nil)
     }
     
-    func didTapSigninButton(sender: UIButton) {
+    func didTapSigninButton(_ sender: UIButton) {
         scrollTimer?.invalidate()
 
         let signinAccount = SigninViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
-        presentViewController(signinAccount, animated: true, completion: nil)
+        present(signinAccount, animated: true, completion: nil)
     }
 
 
@@ -197,15 +197,15 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
 
     func userDataTimeOut() {
         launchScreenLoaderTimer?.invalidate()
-        loginView.launchScreenLoader.hidden = true
+        loginView.launchScreenLoader.isHidden = true
     }
 
-    override func loginViewModelNoUserFound(userProfileViewModel: LoginViewModel) {
+    override func loginViewModelNoUserFound(_ userProfileViewModel: LoginViewModel) {
         launchScreenLoaderTimer?.invalidate()
-        loginView.launchScreenLoader.hidden = true
+        loginView.launchScreenLoader.isHidden = true
     }
 
-    override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
+    override func loginViewModelDidLoginUser(_ userProfileViewModel: LoginViewModel, user: User?) {
         super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
 
         scrollTimer?.invalidate()
@@ -220,6 +220,6 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
             mainController = RootViewController()
         }
 
-        presentViewController(mainController, animated: true, completion: nil)
+        present(mainController, animated: true, completion: nil)
     }
 }

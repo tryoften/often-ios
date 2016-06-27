@@ -23,13 +23,13 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
 
     override init(frame: CGRect) {
         characterImageView = UIImageView()
-        characterImageView.contentMode = .ScaleAspectFill
+        characterImageView.contentMode = .scaleAspectFill
         characterImageView.translatesAutoresizingMaskIntoConstraints = false
         characterImageView.image = UIImage(named: "completestatecharacter")
 
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.alpha = 0.90
@@ -37,7 +37,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
 
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
         subtitleLabel.font = UIFont(name: "OpenSans", size: 13)
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
@@ -46,9 +46,9 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
 
         finishedButton = UIButton()
         finishedButton.translatesAutoresizingMaskIntoConstraints = false
-        finishedButton.setTitle("finish".uppercaseString, forState: .Normal)
+        finishedButton.setTitle("finish".uppercased(), for: UIControlState())
         finishedButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        finishedButton.setTitleColor(WhiteColor , forState: .Normal)
+        finishedButton.setTitleColor(WhiteColor , for: UIControlState())
         finishedButton.backgroundColor = TealColor
         finishedButton.layer.cornerRadius = 20
         finishedButton.clipsToBounds = true
@@ -69,29 +69,29 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
     }
 
     func setupLayout() {
-        addConstraints([
-            characterImageView.al_height == 120,
-            characterImageView.al_width == 120,
-            characterImageView.al_centerX == al_centerX,
-            characterImageView.al_bottom == titleLabel.al_top - 12,
-
-            titleLabel.al_centerY == al_centerY,
-            titleLabel.al_centerX == al_centerX,
-            titleLabel.al_left == al_left,
-            titleLabel.al_right == al_right,
-            titleLabel.al_height == 36,
-
-            subtitleLabel.al_top == titleLabel.al_bottom,
-            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_height == 40,
-
-            finishedButton.al_centerX == al_centerX,
-            finishedButton.al_left == al_left + 100,
-            finishedButton.al_right == al_right - 100,
-            finishedButton.al_height == 40,
-            finishedButton.al_top == subtitleLabel.al_bottom + 20
-
-            ])
+//        addConstraints([
+//            characterImageView.al_height == 120,
+//            characterImageView.al_width == 120,
+//            characterImageView.al_centerX == al_centerX,
+//            characterImageView.al_bottom == titleLabel.al_top - 12,
+//
+//            titleLabel.al_centerY == al_centerY,
+//            titleLabel.al_centerX == al_centerX,
+//            titleLabel.al_left == al_left,
+//            titleLabel.al_right == al_right,
+//            titleLabel.al_height == 36,
+//
+//            subtitleLabel.al_top == titleLabel.al_bottom,
+//            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+//            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
+//            subtitleLabel.al_height == 40,
+//
+//            finishedButton.al_centerX == al_centerX,
+//            finishedButton.al_left == al_left + 100,
+//            finishedButton.al_right == al_right - 100,
+//            finishedButton.al_height == 40,
+//            finishedButton.al_top == subtitleLabel.al_bottom + 20
+//
+//            ])
     }
 }

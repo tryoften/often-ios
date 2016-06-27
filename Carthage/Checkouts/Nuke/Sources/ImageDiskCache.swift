@@ -11,10 +11,10 @@ import Foundation
 */
 public protocol ImageDiskCaching {
     /// Stores data for the given task.
-    func setData(data: NSData, response: NSURLResponse, forTask task: ImageTask)
+    func setData(_ data: Data, response: URLResponse, forTask task: ImageTask)
     
     /// Returns data for the given task.
-    func dataFor(task: ImageTask) -> NSData?
+    func dataFor(_ task: ImageTask) -> Data?
     
     /// Clears the receiver's storage.
     func removeAllCachedImages()

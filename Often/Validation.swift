@@ -8,31 +8,31 @@
 
 import Foundation
 
-func PhoneIsValid(testStr: String) -> Bool {
+func PhoneIsValid(_ testStr: String) -> Bool {
     let phoneRegEx = "\\d{3}-\\d{3}-\\d{4}"
-    let phoneTest = NSPredicate(format:"SELF MATCHES %@", phoneRegEx)
-    return phoneTest.evaluateWithObject(testStr)
+    let phoneTest = Predicate(format:"SELF MATCHES %@", phoneRegEx)
+    return phoneTest.evaluate(with: testStr)
 }
 
-func EmailIsValid(testStr: String) -> Bool {
+func EmailIsValid(_ testStr: String) -> Bool {
     let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-    let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-    return emailTest.evaluateWithObject(testStr)
+    let emailTest = Predicate(format:"SELF MATCHES %@", emailRegEx)
+    return emailTest.evaluate(with: testStr)
 }
 
-func NameIsValid(testStr: String) -> Bool {
+func NameIsValid(_ testStr: String) -> Bool {
     return testStr.characters.count >= 1
 }
 
-func PasswordIsValid(passwordStr: String) -> Bool {
+func PasswordIsValid(_ passwordStr: String) -> Bool {
     return passwordStr.characters.count >= 1
 }
 
-func arePasswordMatchingValid(passwordStrOne:String,passwordStrTwo:String) -> Bool {
+func arePasswordMatchingValid(_ passwordStrOne:String,passwordStrTwo:String) -> Bool {
     return (passwordStrOne == passwordStrTwo)
 }
 
-func ArtistsSelectedListIsValid(artistList: [String]) -> Bool {
+func ArtistsSelectedListIsValid(_ artistList: [String]) -> Bool {
     return !artistList.isEmpty
 }
     

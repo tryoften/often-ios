@@ -61,18 +61,18 @@ class AlertViewController: UIViewController {
     }
 
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.Fade
+        return UIStatusBarAnimation.fade
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+        return .lightContent
     }
 
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         view.addSubview(alertView)
@@ -83,11 +83,11 @@ class AlertViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        alertView.actionButton.addTarget(self, action: #selector(AlertViewController.dismissView), forControlEvents: .TouchUpInside)
+        alertView.actionButton.addTarget(self, action: #selector(AlertViewController.dismissView), for: .touchUpInside)
     }
 
     func dismissView() {
         SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough = false
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -24,28 +24,28 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     var leftText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.25),
+                NSKernAttributeName: NSNumber(value: 1.25),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
                 NSForegroundColorAttributeName: UIColor.oftBlack74Color()
             ]
-            let attributedString = NSAttributedString(string: leftText!.uppercaseString, attributes: attributes)
+            let attributedString = AttributedString(string: leftText!.uppercased(), attributes: attributes)
             leftLabel.attributedText = attributedString
         }
     }
     var rightText: String? {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1),
+                NSKernAttributeName: NSNumber(value: 1),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
                 NSForegroundColorAttributeName: UIColor.oftBlack74Color()
             ]
-            let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
+            let attributedString = AttributedString(string: rightText!.uppercased(), attributes: attributes)
             rightLabel.attributedText = attributedString
-            rightLabel.textAlignment = .Right
+            rightLabel.textAlignment = .right
         }
     }
     
-    var artistImageURL: NSURL? {
+    var artistImageURL: URL? {
         didSet {
             if let _ = artistImageURL {
                 artistImageView.nk_setImageWith(artistImageURL!)
@@ -65,8 +65,8 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
 
         rightLabel = UILabel()
-        rightLabel.textAlignment = .Right
-        rightLabel.lineBreakMode = .ByTruncatingHead
+        rightLabel.textAlignment = .right
+        rightLabel.lineBreakMode = .byTruncatingHead
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
 
         topSeperator = UIView()
@@ -79,7 +79,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         
         artistImageView = UIImageView()
         artistImageView.translatesAutoresizingMaskIntoConstraints = false
-        artistImageView.contentMode = .ScaleAspectFill
+        artistImageView.contentMode = .scaleAspectFill
         artistImageView.layer.cornerRadius = 2.0
         artistImageView.clipsToBounds = true
 
@@ -109,39 +109,51 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     }
 
     func setupLayout() {
-        addConstraints([
+        var constraints = [
             artistView.al_left == al_left,
             artistView.al_top == al_top,
             artistView.al_bottom == al_bottom,
-            artistView.al_right <= al_centerX,
-            
+            artistView.al_right <= al_centerX
+        ]
+
+        constraints += [
             artistImageView.al_left == artistView.al_left + contentEdgeInsets.left,
             artistImageView.al_top == artistView.al_top + contentEdgeInsets.top,
             artistImageView.al_height == 18,
-            artistImageViewWidthConstraint,
-            
+            artistImageViewWidthConstraint
+        ]
+
+        constraints += [
             leftHeaderLabelLeftPaddingConstraint!,
             leftLabel.al_left == artistImageView.al_right + 6,
             leftLabel.al_centerY == artistImageView.al_centerY,
             leftLabel.al_height == 16,
             leftLabel.al_right == artistView.al_right,
-            leftLabel.al_width >= al_width / 3 - 20,
+            leftLabel.al_width >= al_width / 3 - 20
+        ]
 
+        constraints += [
             rightLabel.al_right == al_right - 10,
             rightLabel.al_left == leftLabel.al_right + 10,
             rightLabel.al_height == leftLabel.al_height,
-            rightLabel.al_centerY == leftLabel.al_centerY,
+            rightLabel.al_centerY == leftLabel.al_centerY
+        ]
 
+        constraints += [
             topSeperator.al_top == al_top,
             topSeperator.al_left == al_left,
             topSeperator.al_width == al_width,
-            topSeperator.al_height == 0.6,
+            topSeperator.al_height == 0.6
+        ]
 
+        constraints += [
             bottomSeperator.al_bottom == al_bottom,
             bottomSeperator.al_left == al_left,
             bottomSeperator.al_width == al_width,
             bottomSeperator.al_height == 0.6,
-        ])
+        ]
+
+        addConstraints(constraints)
     }
 
     override func prepareForReuse() {

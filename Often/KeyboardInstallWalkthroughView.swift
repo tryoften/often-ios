@@ -116,22 +116,22 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
     override init(frame: CGRect) {
-        let filePath = NSBundle.mainBundle().pathForResource("OftenInstallGIF", ofType: "gif")
-        let gif = NSData(contentsOfFile: filePath!)
+        let filePath = Bundle.main().pathForResource("OftenInstallGIF", ofType: "gif")
+        let gif = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
         
         backgroundView = UIImageView()
-        backgroundView.contentMode = .ScaleAspectFit
+        backgroundView.contentMode = .scaleAspectFit
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
         backgroundView.image = UIImage(named: "installbackground")
 
         stilliphoneImageView = UIImageView()
-        stilliphoneImageView.contentMode = .ScaleAspectFit
+        stilliphoneImageView.contentMode = .scaleAspectFit
         stilliphoneImageView.translatesAutoresizingMaskIntoConstraints = false
         stilliphoneImageView.image = UIImage(named: "installdevice")
 
         iphoneGifView = UIWebView()
-        iphoneGifView.loadData(gif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
-        iphoneGifView.userInteractionEnabled = false
+        iphoneGifView.load(gif!, mimeType: "image/gif", textEncodingName: String(), baseURL: URL(string: "")!)
+        iphoneGifView.isUserInteractionEnabled = false
         iphoneGifView.scalesPageToFit = true
         iphoneGifView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -139,14 +139,14 @@ class KeyboardInstallWalkthroughView: UIView {
         subView = UIView()
         subView.translatesAutoresizingMaskIntoConstraints = false
         subView.backgroundColor = WhiteColor
-        subView.layer.shadowOffset = CGSizeMake(0, 0)
+        subView.layer.shadowOffset = CGSize(width: 0, height: 0)
         subView.layer.shadowOpacity = 0.8
-        subView.layer.shadowColor = DarkGrey.CGColor
+        subView.layer.shadowColor = DarkGrey?.cgColor
         subView.layer.shadowRadius = 4
 
 
         titleLabel = UILabel()
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.font = UIFont(name: "Montserrat", size: 18)
         titleLabel.textColor = WalkthroughTitleFontColor
         titleLabel.alpha = 0.90
@@ -154,7 +154,7 @@ class KeyboardInstallWalkthroughView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         subtitleLabel = UILabel()
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
         subtitleLabel.font = UIFont(name: "OpenSans", size: 12)
         subtitleLabel.alpha = 0.54
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
@@ -164,9 +164,9 @@ class KeyboardInstallWalkthroughView: UIView {
 
         settingButton = UIButton()
         settingButton.translatesAutoresizingMaskIntoConstraints = false
-        settingButton.setTitle("go to settings".uppercaseString, forState: .Normal)
+        settingButton.setTitle("go to settings".uppercased(), for: UIControlState())
         settingButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
-        settingButton.setTitleColor(WhiteColor , forState: .Normal)
+        settingButton.setTitleColor(WhiteColor , for: UIControlState())
         settingButton.backgroundColor = TealColor
         settingButton.layer.cornerRadius = 20
         settingButton.clipsToBounds = true
@@ -190,41 +190,41 @@ class KeyboardInstallWalkthroughView: UIView {
     }
 
      func setupLayout() {
-        addConstraints([
-            backgroundView.al_top == al_top,
-            backgroundView.al_bottom == al_bottom,
-            backgroundView.al_left == al_left,
-            backgroundView.al_right == al_right,
-
-            stilliphoneImageView.al_top == al_top - stilliphoneImageViewTopMargin,
-            stilliphoneImageView.al_left == al_left + stilliphoneImageViewLeftAndRightMargin,
-            stilliphoneImageView.al_right == al_right - stilliphoneImageViewLeftAndRightMargin,
-            stilliphoneImageView.al_bottom == al_bottom + stilliphoneImageViewBottonMargin,
-
-            iphoneGifView.al_top == stilliphoneImageView.al_top + iphoneGifViewTopMargin,
-            iphoneGifView.al_left == stilliphoneImageView.al_left + iphoneGifViewLeftMargin,
-            iphoneGifView.al_right == stilliphoneImageView.al_right - iphoneGifViewRightMargin,
-            iphoneGifView.al_bottom == stilliphoneImageView.al_bottom - iphoneGifViewBottomMargin,
-
-            subView.al_bottom == al_bottom,
-            subView.al_left == al_left,
-            subView.al_right == al_right,
-            subView.al_top == al_centerY + subViewTopMargin,
-
-            titleLabel.al_bottom == subtitleLabel.al_top,
-            titleLabel.al_left == al_left,
-            titleLabel.al_right == al_right,
-            titleLabel.al_height == 36,
-
-            subtitleLabel.al_centerY == subView.al_centerY - 16,
-            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
-            subtitleLabel.al_height == 40,
-
-            settingButton.al_height == 40,
-            settingButton.al_left == al_left + 100,
-            settingButton.al_right == al_right - 100,
-            settingButton.al_top == subtitleLabel.al_bottom + 15
-            ])
+//        addConstraints([
+//            backgroundView.al_top == al_top,
+//            backgroundView.al_bottom == al_bottom,
+//            backgroundView.al_left == al_left,
+//            backgroundView.al_right == al_right,
+//
+//            stilliphoneImageView.al_top == al_top - stilliphoneImageViewTopMargin,
+//            stilliphoneImageView.al_left == al_left + stilliphoneImageViewLeftAndRightMargin,
+//            stilliphoneImageView.al_right == al_right - stilliphoneImageViewLeftAndRightMargin,
+//            stilliphoneImageView.al_bottom == al_bottom + stilliphoneImageViewBottonMargin,
+//
+//            iphoneGifView.al_top == stilliphoneImageView.al_top + iphoneGifViewTopMargin,
+//            iphoneGifView.al_left == stilliphoneImageView.al_left + iphoneGifViewLeftMargin,
+//            iphoneGifView.al_right == stilliphoneImageView.al_right - iphoneGifViewRightMargin,
+//            iphoneGifView.al_bottom == stilliphoneImageView.al_bottom - iphoneGifViewBottomMargin,
+//
+//            subView.al_bottom == al_bottom,
+//            subView.al_left == al_left,
+//            subView.al_right == al_right,
+//            subView.al_top == al_centerY + subViewTopMargin,
+//
+//            titleLabel.al_bottom == subtitleLabel.al_top,
+//            titleLabel.al_left == al_left,
+//            titleLabel.al_right == al_right,
+//            titleLabel.al_height == 36,
+//
+//            subtitleLabel.al_centerY == subView.al_centerY - 16,
+//            subtitleLabel.al_left == al_left + subtitleLabelLeftAndRightMargin,
+//            subtitleLabel.al_right == al_right - subtitleLabelLeftAndRightMargin,
+//            subtitleLabel.al_height == 40,
+//
+//            settingButton.al_height == 40,
+//            settingButton.al_left == al_left + 100,
+//            settingButton.al_right == al_right - 100,
+//            settingButton.al_top == subtitleLabel.al_bottom + 15
+//            ])
     }
 }

@@ -11,7 +11,7 @@ import Foundation
 class SessionManagerFlags {
     static let defaultManagerFlags = SessionManagerFlags()
     
-    private var userDefaults: NSUserDefaults
+    private var userDefaults: UserDefaults
     
     struct SessionManagerPropertyKey {
         static var userID = "userID"
@@ -33,7 +33,7 @@ class SessionManagerFlags {
 
     var userNotificationSettings: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.userNotificationSettings)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.userNotificationSettings)
         }
 
         set(value) {
@@ -43,7 +43,7 @@ class SessionManagerFlags {
     
     var hasSeenKeyboardGeneralToolTips: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.keyboardGeneralToolTips)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.keyboardGeneralToolTips)
         }
         
         set(value) {
@@ -53,17 +53,17 @@ class SessionManagerFlags {
     
     var hasSeenKeyboardSearchBarToolTips: Bool {
         get {
-            return NSUserDefaults.standardUserDefaults().boolForKey(SessionManagerPropertyKey.keyboardSearchBarToolTips)
+            return UserDefaults.standard().bool(forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
         }
         
         set(value) {
-            NSUserDefaults.standardUserDefaults().setBool(value, forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
+            UserDefaults.standard().set(value, forKey: SessionManagerPropertyKey.keyboardSearchBarToolTips)
         }
     }
     
     var userHasOpenedKeyboard: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.keyboardOpen)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.keyboardOpen)
         }
         
         set(value) {
@@ -73,7 +73,7 @@ class SessionManagerFlags {
 
     var userSeenKeyboardInstallWalkthrough: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.keyboardInstallWalkthrough)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.keyboardInstallWalkthrough)
         }
 
         set(value) {
@@ -83,7 +83,7 @@ class SessionManagerFlags {
     
     var userMessageCount: Int {
         get {
-            return userDefaults.integerForKey(SessionManagerPropertyKey.messageSentCount)
+            return userDefaults.integer(forKey: SessionManagerPropertyKey.messageSentCount)
         }
         
         set(value) {
@@ -93,7 +93,7 @@ class SessionManagerFlags {
 
     var userHasSeenPushNotificationView: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.userHasSeenPushNotificationView)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.userHasSeenPushNotificationView)
         }
 
         set(value) {
@@ -103,7 +103,7 @@ class SessionManagerFlags {
 
     var pushNotificationShownCount: Int {
         get {
-            return userDefaults.integerForKey(SessionManagerPropertyKey.pushNotificationShownCount)
+            return userDefaults.integer(forKey: SessionManagerPropertyKey.pushNotificationShownCount)
         }
 
         set(value) {
@@ -114,7 +114,7 @@ class SessionManagerFlags {
     
     var isKeyboardInstalled: Bool {
         get {
-            guard let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] else {
+            guard let keyboards = UserDefaults.standard().dictionaryRepresentation()["AppleKeyboards"] as? [String] else {
                 return false
             }
             
@@ -128,7 +128,7 @@ class SessionManagerFlags {
     
     var openSession: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.openSession)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.openSession)
         }
         
         set(value) {
@@ -138,7 +138,7 @@ class SessionManagerFlags {
     
     var userId: String? {
         get {
-            return userDefaults.stringForKey(SessionManagerPropertyKey.userID)
+            return userDefaults.string(forKey: SessionManagerPropertyKey.userID)
         }
         
         set(value) {
@@ -148,37 +148,37 @@ class SessionManagerFlags {
 
     var lastPack: String? {
         get {
-            return  NSUserDefaults.standardUserDefaults().objectForKey(SessionManagerPropertyKey.lastPack) as? String
+            return  UserDefaults.standard().object(forKey: SessionManagerPropertyKey.lastPack) as? String
         }
 
         set(value) {
-             NSUserDefaults.standardUserDefaults().setObject(value, forKey: SessionManagerPropertyKey.lastPack)
+             UserDefaults.standard().set(value, forKey: SessionManagerPropertyKey.lastPack)
         }
     }
 
     var lastFilterType: String? {
         get {
-            return  NSUserDefaults.standardUserDefaults().objectForKey(SessionManagerPropertyKey.lastFilterType) as? String
+            return  UserDefaults.standard().object(forKey: SessionManagerPropertyKey.lastFilterType) as? String
         }
 
         set(value) {
-            NSUserDefaults.standardUserDefaults().setObject(value, forKey: SessionManagerPropertyKey.lastFilterType)
+            UserDefaults.standard().set(value, forKey: SessionManagerPropertyKey.lastFilterType)
         }
     }
 
     var lastCategoryIndex: Int {
         get {
-            return  NSUserDefaults.standardUserDefaults().integerForKey(SessionManagerPropertyKey.lastCategory)
+            return  UserDefaults.standard().integer(forKey: SessionManagerPropertyKey.lastCategory)
         }
 
         set(value) {
-            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: SessionManagerPropertyKey.lastCategory)
+            UserDefaults.standard().set(value, forKey: SessionManagerPropertyKey.lastCategory)
         }
     }
     
     var userIsAnonymous: Bool {
         get {
-            return userDefaults.boolForKey(SessionManagerPropertyKey.anonymousUser)
+            return userDefaults.bool(forKey: SessionManagerPropertyKey.anonymousUser)
         }
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.anonymousUser)
@@ -190,10 +190,10 @@ class SessionManagerFlags {
     }
     
     init() {
-        userDefaults = NSUserDefaults(suiteName: AppSuiteName)!
+        userDefaults = UserDefaults(suiteName: AppSuiteName)!
     }
     
-    func setValueToUserDefaults(value: AnyObject?, forKey: String) {
+    func setValueToUserDefaults(_ value: AnyObject?, forKey: String) {
         userDefaults.setValue(value, forKey: forKey)
         userDefaults.synchronize()
     }

@@ -39,7 +39,7 @@ class MediaItemGroup: Equatable {
      - parameter array:  NSArray from JSON dictionary.
      - returns: Array of MediaItemGroup Instances.
      */
-    class func modelsFromDictionaryArray(array: NSArray) -> [MediaItemGroup] {
+    class func modelsFromDictionaryArray(_ array: NSArray) -> [MediaItemGroup] {
         var models: [MediaItemGroup] = []
         for item in array {
             if let data = item as? NSDictionary {
@@ -83,7 +83,7 @@ class MediaItemGroup: Equatable {
         
     }
     
-    func filterMediaItems(category: Category) {
+    func filterMediaItems(_ category: Category) {
         filteredItems = []
         currentFilterCategory = category
         
@@ -98,7 +98,7 @@ class MediaItemGroup: Equatable {
     }
     
     
-    private func shouldFilterMediaItem(category: Category, item: MediaItem) -> Bool {
+    private func shouldFilterMediaItem(_ category: Category, item: MediaItem) -> Bool {
         guard let itemCategory = item.category else {
             if category.id == Category.all.id {
                 return false

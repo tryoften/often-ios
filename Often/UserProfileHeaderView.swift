@@ -19,22 +19,22 @@ class UserProfileHeaderView: UICollectionReusableView {
     var offsetValue: CGFloat
 
     static var preferredSize: CGSize {
-        return CGSizeMake(
-            UIScreen.mainScreen().bounds.size.width,
-            UIScreen.mainScreen().bounds.size.height / 2 - 10
+        return CGSize(
+            width: UIScreen.main().bounds.size.width,
+            height: UIScreen.main().bounds.size.height / 2 - 10
         )
     }
 
     var sharedText: String {
         didSet {
             let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
+                NSKernAttributeName: NSNumber(value: 1.0),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
                 NSForegroundColorAttributeName: UIColor.oftBlack54Color()
             ]
 
-            shareCountLabel.attributedText = NSMutableAttributedString(string: sharedText.uppercaseString, attributes: attributes)
-            shareCountLabel.textAlignment = .Center
+            shareCountLabel.attributedText = NSMutableAttributedString(string: sharedText.uppercased(), attributes: attributes)
+            shareCountLabel.textAlignment = .center
         }
     }
 
@@ -80,7 +80,7 @@ class UserProfileHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         collapseProfileImageView = UIImageView()
         collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
-        collapseProfileImageView.contentMode = .ScaleAspectFit
+        collapseProfileImageView.contentMode = .scaleAspectFit
         collapseProfileImageView.image = UIImage(named: "userprofileplaceholder")
         collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         collapseProfileImageView.layer.borderWidth = 2
@@ -89,7 +89,7 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         userProfilePlaceholder = UIImageView()
         userProfilePlaceholder.translatesAutoresizingMaskIntoConstraints = false
-        userProfilePlaceholder.contentMode = .ScaleAspectFit
+        userProfilePlaceholder.contentMode = .scaleAspectFit
         userProfilePlaceholder.image = UIImage(named: "userprofileplaceholder")
         userProfilePlaceholder.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         userProfilePlaceholder.layer.borderWidth = 2
@@ -97,14 +97,14 @@ class UserProfileHeaderView: UICollectionReusableView {
 
         profileImageView = UIImageView()
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.contentMode = .ScaleAspectFit
+        profileImageView.contentMode = .scaleAspectFit
         profileImageView.image = UIImage(named: "userprofileplaceholder")
         profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
         profileImageView.layer.borderWidth = 2
         profileImageView.clipsToBounds = true
 
         coverPhotoView = UIImageView()
-        coverPhotoView.contentMode = .ScaleAspectFill
+        coverPhotoView.contentMode = .scaleAspectFill
         coverPhotoView.translatesAutoresizingMaskIntoConstraints = false
         coverPhotoView.image = UIImage(named: "user-profile-bg-1")
         coverPhotoView.clipsToBounds = true
@@ -119,17 +119,17 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseNameLabel.font = UIFont(name: "Montserrat", size: 12.0)
         collapseNameLabel.textColor = WhiteColor
         collapseNameLabel.alpha = 0
-        collapseNameLabel.textAlignment = .Right
+        collapseNameLabel.textAlignment = .right
 
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = UIFont(name: "Montserrat", size: 18.0)
-        nameLabel.textAlignment = .Center
+        nameLabel.textAlignment = .center
         
         shareCountLabel = UILabel()
         shareCountLabel.translatesAutoresizingMaskIntoConstraints = false
         shareCountLabel.font = UIFont(name: "OpenSans", size: 12.5)
-        shareCountLabel.textAlignment = .Center
+        shareCountLabel.textAlignment = .center
         shareCountLabel.numberOfLines = 3
         shareCountLabel.alpha = 0.54
 
@@ -161,7 +161,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func applyLayoutAttributes(layoutAttributes: UICollectionViewLayoutAttributes) {
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         
         if let attributes = layoutAttributes as? CSStickyHeaderFlowLayoutAttributes {
             let progressiveness = attributes.progressiveness
@@ -197,46 +197,46 @@ class UserProfileHeaderView: UICollectionReusableView {
     func setupLayout() {
         coverPhotoBottonMarginConstraint = coverPhotoView.al_bottom == al_centerY - coverPhotoBottonMargin
 
-        addConstraints([
-            collapseProfileImageView.al_top >= al_top + 28,
-            collapseProfileImageView.al_left == al_left + 18,
-            collapseProfileImageView.al_height == collapseProfileImageViewWidth,
-            collapseProfileImageView.al_width == collapseProfileImageViewWidth,
-
-            collapseNameLabel.al_top >= al_top + 28,
-            collapseNameLabel.al_left == collapseProfileImageView.al_right,
-            collapseNameLabel.al_right == al_right - 18,
-            collapseNameLabel.al_height == 30,
-
-            profileImageView.al_bottom == nameLabel.al_top - 9,
-            profileImageView.al_centerX == al_centerX,
-            profileImageView.al_width == profileImageViewWidth,
-            profileImageView.al_height == profileImageView.al_width,
-
-            userProfilePlaceholder.al_bottom == profileImageView.al_bottom,
-            userProfilePlaceholder.al_centerX == profileImageView.al_centerX,
-            userProfilePlaceholder.al_width == profileImageViewWidth,
-            userProfilePlaceholder.al_height == profileImageView.al_width,
-
-            coverPhotoView.al_width == al_width,
-            coverPhotoBottonMarginConstraint!,
-            coverPhotoView.al_left == al_left,
-            coverPhotoView.al_top == al_top,
-            coverPhotoView.al_height >= 64,
-
-            coverPhotoTintView.al_width == coverPhotoView.al_width,
-            coverPhotoTintView.al_bottom == coverPhotoView.al_bottom,
-            coverPhotoTintView.al_left == coverPhotoView.al_left,
-            coverPhotoTintView.al_top == coverPhotoView.al_top,
-            
-            nameLabel.al_bottom == al_bottom - nameLabelHeightTopMargin,
-            nameLabel.al_centerX == al_centerX,
-            nameLabel.al_height == 25,
-            
-            shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin,
-            shareCountLabel.al_centerX == al_centerX,
-            shareCountLabel.al_width == 250,
-        ])
+//        addConstraints([
+//            collapseProfileImageView.al_top >= al_top + 28,
+//            collapseProfileImageView.al_left == al_left + 18,
+//            collapseProfileImageView.al_height == collapseProfileImageViewWidth,
+//            collapseProfileImageView.al_width == collapseProfileImageViewWidth,
+//
+//            collapseNameLabel.al_top >= al_top + 28,
+//            collapseNameLabel.al_left == collapseProfileImageView.al_right,
+//            collapseNameLabel.al_right == al_right - 18,
+//            collapseNameLabel.al_height == 30,
+//
+//            profileImageView.al_bottom == nameLabel.al_top - 9,
+//            profileImageView.al_centerX == al_centerX,
+//            profileImageView.al_width == profileImageViewWidth,
+//            profileImageView.al_height == profileImageView.al_width,
+//
+//            userProfilePlaceholder.al_bottom == profileImageView.al_bottom,
+//            userProfilePlaceholder.al_centerX == profileImageView.al_centerX,
+//            userProfilePlaceholder.al_width == profileImageViewWidth,
+//            userProfilePlaceholder.al_height == profileImageView.al_width,
+//
+//            coverPhotoView.al_width == al_width,
+//            coverPhotoBottonMarginConstraint!,
+//            coverPhotoView.al_left == al_left,
+//            coverPhotoView.al_top == al_top,
+//            coverPhotoView.al_height >= 64,
+//
+//            coverPhotoTintView.al_width == coverPhotoView.al_width,
+//            coverPhotoTintView.al_bottom == coverPhotoView.al_bottom,
+//            coverPhotoTintView.al_left == coverPhotoView.al_left,
+//            coverPhotoTintView.al_top == coverPhotoView.al_top,
+//            
+//            nameLabel.al_bottom == al_bottom - nameLabelHeightTopMargin,
+//            nameLabel.al_centerX == al_centerX,
+//            nameLabel.al_height == 25,
+//            
+//            shareCountLabel.al_top == nameLabel.al_bottom + shareTextTopMargin,
+//            shareCountLabel.al_centerX == al_centerX,
+//            shareCountLabel.al_width == 250,
+//        ])
     }
 
 }

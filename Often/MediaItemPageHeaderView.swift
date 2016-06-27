@@ -15,7 +15,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     var titleLabel: UILabel
     var subtitleLabel: UILabel
 
-    var imageURL: NSURL? {
+    var imageURL: URL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
                 coverPhoto.nk_setImageWith(url)
@@ -27,8 +27,8 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
     var title: String = "" {
         didSet {
-            titleLabel.attributedText = NSAttributedString(string: title.uppercaseString, attributes: [
-                NSKernAttributeName: NSNumber(float: 1.7),
+            titleLabel.attributedText = AttributedString(string: title.uppercased(), attributes: [
+                NSKernAttributeName: NSNumber(value: 1.7),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 18.0)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()
             ])
@@ -37,8 +37,8 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
     var subtitle: String = "" {
         didSet {
-            subtitleLabel.attributedText = NSAttributedString(string: subtitle, attributes: [
-                NSKernAttributeName: NSNumber(float: 0.6),
+            subtitleLabel.attributedText = AttributedString(string: subtitle, attributes: [
+                NSKernAttributeName: NSNumber(value: 0.6),
                 NSFontAttributeName: UIFont(name: "OpenSans", size: 12)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()
             ])
@@ -46,11 +46,11 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     }
 
     override init(frame: CGRect) {
-        screenWidth = UIScreen.mainScreen().bounds.width
+        screenWidth = UIScreen.main().bounds.width
 
         coverPhoto = UIImageView()
         coverPhoto.translatesAutoresizingMaskIntoConstraints = false
-        coverPhoto.contentMode = .ScaleAspectFill
+        coverPhoto.contentMode = .scaleAspectFill
 
         coverPhotoTintView = UIView()
         coverPhotoTintView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,14 +60,14 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         titleLabel.textColor = TrendingHeaderViewNameLabelTextColor
-        titleLabel.lineBreakMode = .ByTruncatingTail
-        titleLabel.textAlignment = .Center
+        titleLabel.lineBreakMode = .byTruncatingTail
+        titleLabel.textAlignment = .center
         
         subtitleLabel = UILabel()
         subtitleLabel.font = TrendingHeaderViewSongTitleLabelTextFont
         subtitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subtitleLabel.textAlignment = .Center
+        subtitleLabel.textAlignment = .center
         subtitleLabel.alpha = 0.74
 
         super.init(frame: frame)

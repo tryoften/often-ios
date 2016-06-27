@@ -9,50 +9,50 @@
 import Foundation
 
 enum BrowsePackDownloadButtonState {
-    case Bought
-    case InTrial
-    case Added
-    case NotAdded
+    case bought
+    case inTrial
+    case added
+    case notAdded
 }
 
 class BrowsePackDownloadButton: UIButton {
     var pack: PackMediaItem? = nil
-    var packState: BrowsePackDownloadButtonState = .NotAdded {
+    var packState: BrowsePackDownloadButtonState = .notAdded {
         didSet {
             switch packState {
-            case .Added:
-                selected = true
-            case .NotAdded:
-                selected = false
+            case .added:
+                isSelected = true
+            case .notAdded:
+                isSelected = false
             default: break
             }
         }
     }
 
-    var title: String = "Download".uppercaseString {
+    var title: String = "Download".uppercased() {
         didSet {
-            let text = NSAttributedString(string: title, attributes: [
-                NSKernAttributeName: NSNumber(float: 1.0),
+            let text = AttributedString(string: title, attributes: [
+                NSKernAttributeName: NSNumber(value: 1.0),
                 NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
                 NSForegroundColorAttributeName: textColor
             ])
             
-            setAttributedTitle(text, forState: .Normal)
-            setAttributedTitle(text, forState: .Selected)
+            setAttributedTitle(text, for: UIControlState())
+            setAttributedTitle(text, for: .selected)
         }
     }
 
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet {
-            UIView.animateWithDuration(0.3) {
-                if self.selected {
+            UIView.animate(withDuration: 0.3) {
+                if self.isSelected {
                     self.backgroundColor = WhiteColor
-                    self.textColor = BlackColor
-                    self.title = "Remove".uppercaseString
+                    self.textColor = BlackColor!
+                    self.title = "Remove".uppercased()
                 } else {
                     self.backgroundColor = TealColor
                     self.textColor = UIColor.oftWhiteColor()
-                    self.title = "Download".uppercaseString
+                    self.title = "Download".uppercased()
                 }
             }
         }
@@ -61,15 +61,15 @@ class BrowsePackDownloadButton: UIButton {
     private var textColor: UIColor = UIColor.oftWhiteColor()
 
     init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         
         backgroundColor = TealColor
         contentEdgeInsets = UIEdgeInsetsMake(0, 18, 0, 18)
         layer.cornerRadius = 15
         layer.shadowRadius = 2
         layer.shadowOpacity = 0.2
-        layer.shadowColor = MediumLightGrey.CGColor
-        layer.shadowOffset = CGSizeMake(0, 2)
+        layer.shadowColor = MediumLightGrey?.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
     }
     
     required init?(coder aDecoder: NSCoder) {

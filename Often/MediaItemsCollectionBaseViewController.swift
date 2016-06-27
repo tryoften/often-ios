@@ -27,15 +27,15 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return false
     }
 
-    internal var cellsAnimated: [NSIndexPath: Bool]
-    internal var loaderTimeoutTimer: NSTimer?
+    internal var cellsAnimated: [IndexPath: Bool]
+    internal var loaderTimeoutTimer: Timer?
 
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         cellsAnimated = [:]
 
         super.init(collectionViewLayout: layout)
-        collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
-        collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
+        collectionView?.register(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
+        collectionView?.register(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
 
     deinit {
@@ -52,7 +52,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         loaderView?.frame = view.bounds
     }
 
-    func requestData(animated: Bool = false) {
+    func requestData(_ animated: Bool = false) {
         showLoaderIfNeeded()
     }
 
@@ -60,7 +60,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         if !isDataLoaded {
             showLoadingView()
         } else {
-            collectionView?.hidden = false
+            collectionView?.isHidden = false
         }
     }
 
@@ -72,7 +72,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         loaderView = AnimatedLoaderView(frame: view.bounds)
         view.addSubview(loaderView!)
 
-        loaderTimeoutTimer = NSTimer.scheduledTimerWithTimeInterval(5.0,
+        loaderTimeoutTimer = Timer.scheduledTimer(timeInterval: 5.0,
             target: self,
             selector: #selector(MediaItemsCollectionBaseViewController.timeoutLoader),
             userInfo: nil,
@@ -84,10 +84,10 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             return
         }
 
-        UIView.animateWithDuration(0.3, delay: 1.0, options: [], animations: {
+        UIView.animate(withDuration: 0.3, delay: 1.0, options: [], animations: {
             loaderView.alpha = 0.0
         }, completion: { done in
-            loaderView.hidden = true
+            loaderView.isHidden = true
             loaderView.removeFromSuperview()
             self.loaderView = nil
         })
@@ -99,22 +99,22 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         hideLoadingView()
     }
 
-    func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
+    func showEmptyStateViewForState(_ state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         if let oldStateView = emptyStateView where oldStateView.state == state {
             return
         }
 
-        collectionView?.scrollEnabled = false
+        collectionView?.isScrollEnabled = false
         emptyStateView?.removeFromSuperview()
         emptyStateView = EmptyStateView.emptyStateViewForUserState(state)
-        emptyStateView?.closeButton.addTarget(self, action: #selector(MediaItemsCollectionBaseViewController.didTapEmptyStateViewCloseButton), forControlEvents: .TouchUpInside)
+        emptyStateView?.closeButton.addTarget(self, action: #selector(MediaItemsCollectionBaseViewController.didTapEmptyStateViewCloseButton), for: .touchUpInside)
         
 
         if let emptyStateView = emptyStateView {
             emptyStateView.alpha = 0.0
             view.addSubview(emptyStateView)
 
-            UIView.animateWithDuration(animated ? 0.3 : 0.0) {
+            UIView.animate(withDuration: animated ? 0.3 : 0.0) {
                 emptyStateView.alpha = 1.0
             }
 
@@ -124,17 +124,17 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
 
     func didTapEmptyStateViewCloseButton() {
-        UIView.animateWithDuration(0.4) {
+        UIView.animate(withDuration: 0.4) {
             self.emptyStateView?.alpha = 0
         }
 
         hideEmptyStateView()
     }
 
-    func hideEmptyStateView(animated: Bool = false) {
-        collectionView?.scrollEnabled = true
+    func hideEmptyStateView(_ animated: Bool = false) {
+        collectionView?.isScrollEnabled = true
 
-        UIView.animateWithDuration(animated ? 0.3 : 0.0, animations: {
+        UIView.animate(withDuration: animated ? 0.3 : 0.0, animations: {
             self.emptyStateView?.alpha = 0.0
         }, completion: { done in
             self.emptyStateView?.removeFromSuperview()
@@ -142,17 +142,17 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         })
     }
 
-    func parsePackItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView, animated: Bool = false) -> BrowseMediaItemCollectionViewCell {
+    func parsePackItemData(_ items: [MediaItem]?, indexPath: IndexPath, collectionView: UICollectionView, animated: Bool = false) -> BrowseMediaItemCollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(BrowseMediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? BrowseMediaItemCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier, for: indexPath) as? BrowseMediaItemCollectionViewCell else {
             return BrowseMediaItemCollectionViewCell()
         }
         
-        if indexPath.row >= items?.count {
+        if (indexPath as NSIndexPath).row >= items?.count {
             return cell
         }
 
-        guard let result = items?[indexPath.row], pack = result as? PackMediaItem else {
+        guard let result = items?[(indexPath as NSIndexPath).row], pack = result as? PackMediaItem else {
             return cell
         }
         
@@ -160,28 +160,28 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.imageView.nk_setImageWith(imageURL)
         }
         
-        cell.style = .MainApp
+        cell.style = .mainApp
         cell.titleLabel.text = pack.name
         cell.itemCount = pack.items_count
-        cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
+        cell.addedBadgeView.isHidden = !PacksService.defaultInstance.checkPack(pack)
         cell.layer.shouldRasterize = true
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.rasterizationScale = UIScreen.main().scale
 
         return cell
         
     }
     
-    func parseMediaItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
+    func parseMediaItemData(_ items: [MediaItem]?, indexPath: IndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
         
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier, for: indexPath) as? MediaItemCollectionViewCell else {
             return MediaItemCollectionViewCell()
         }
 
-        if indexPath.row >= items?.count {
+        if (indexPath as NSIndexPath).row >= items?.count {
             return cell
         }
         
-        guard let result = items?[indexPath.row] else {
+        guard let result = items?[(indexPath as NSIndexPath).row] else {
             return cell
         }
         
@@ -209,15 +209,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             if let likeCount = video.likeCount {
                 cell.centerMetadataLabel.text = "\(Double(likeCount).suffixNumber) likes"
             }
-            
-            cell.rightMetadataLabel.text = video.date?.timeAgoSinceNow()
         case .Lyric:
             let lyric = (result as! LyricMediaItem)
             cell.leftHeaderLabel.text = lyric.artist_name
             cell.rightHeaderLabel.text = lyric.track_title
             cell.mainTextLabel.text = lyric.text
-            cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
-            cell.mainTextLabel.textAlignment = .Center
+            cell.mainTextLabel.textAlignment = .center
             cell.showImageView = false
             cell.avatarImageURL =  lyric.smallImageURL
         case .Quote:
@@ -225,8 +222,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             cell.leftHeaderLabel.text = quote.owner_name
             cell.rightHeaderLabel.text = quote.origin_name
             cell.mainTextLabel.text = quote.text
-            cell.leftMetadataLabel.text = quote.created?.timeAgoSinceNow()
-            cell.mainTextLabel.textAlignment = .Center
+            cell.mainTextLabel.textAlignment = .center
             cell.showImageView = false
             cell.avatarImageURL =  quote.smallImageURL
         default:
@@ -234,9 +230,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
 
 
-        cell.bottomSeperator.hidden = false
+        cell.bottomSeperator.isHidden = false
         cell.layer.shouldRasterize = true
-        cell.layer.rasterizationScale = UIScreen.mainScreen().scale
+        cell.layer.rasterizationScale = UIScreen.main().scale
         cell.mediaLink = result
         cell.contentImageView.image = nil
         cell.delegate = self
@@ -244,36 +240,36 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return cell
     }
 
-    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell else {
+    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MediaItemCollectionViewCell else {
                 return
         }
 
     }
 
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell,
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? MediaItemCollectionViewCell,
             let result = cell.mediaLink  else {
                 return
         }
 
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         #if !(KEYBOARD)
-            vc.mediaItemDetailView.style = .Copy
+            vc.mediaItemDetailView.style = .copy
         #endif
         vc.insertText()
 
         presentViewControllerWithCustomTransitionAnimator(vc)
     }
 
-    func animateCell(cell: UICollectionViewCell, indexPath: NSIndexPath) {
+    func animateCell(_ cell: UICollectionViewCell, indexPath: IndexPath) {
         if cellsAnimated[indexPath] != true {
             cell.alpha = 0.0
 
             let finalFrame = cell.frame
-            cell.frame = CGRectMake(finalFrame.origin.x, finalFrame.origin.y + 1000.0, finalFrame.size.width, finalFrame.size.height)
+            cell.frame = CGRect(x: finalFrame.origin.x, y: finalFrame.origin.y + 1000.0, width: finalFrame.size.width, height: finalFrame.size.height)
 
-            UIView.animateWithDuration(0.3, delay: 0.02 * Double(indexPath.row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.02 * Double((indexPath as NSIndexPath).row), usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: [], animations: {
                 cell.alpha = 1.0
                 cell.frame = finalFrame
             }, completion: nil)
@@ -283,7 +279,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
     }
     
     // MediaItemCollectionViewCellDelegate
-    func mediaLinkCollectionViewCellDidToggleFavoriteButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleFavoriteButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
@@ -292,84 +288,84 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.overlayVisible = false
     }
     
-    func mediaLinkCollectionViewCellDidToggleCancelButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCancelButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         cell.overlayVisible = false
     }
     
-    func mediaLinkCollectionViewCellDidToggleInsertButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleInsertButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
 
         if selected {
-            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemInserted"), object: cell.mediaLink)
             self.textProcessor?.insertText(result.getInsertableText())
 
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+            Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         } else {
-            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemRemoved", object: cell.mediaLink)
-            for var i = 0, len = result.getInsertableText().utf16.count; i < len; i++ {
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemRemoved"), object: cell.mediaLink)
+            for _ in 0..<result.getInsertableText().utf16.count {
                 textProcessor?.deleteBackward()
             }
 
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+            Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.removedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
         }
     }
     
-    func mediaLinkCollectionViewCellDidToggleCopyButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
+    func mediaLinkCollectionViewCellDidToggleCopyButton(_ cell: BaseMediaItemCollectionViewCell, selected: Bool) {
         guard let result = cell.mediaLink else {
             return
         }
         
         if selected {
-            NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: "mediaItemInserted"), object: cell.mediaLink)
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 // Copy this data to pasteboard
                 Nuke.taskWith(url) {
                     if let image = $0.image as? AnimatedImage, let data = image.data {
-                        UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                        UIPasteboard.general().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
                 }.resume()
                 
             } else {
-                UIPasteboard.generalPasteboard().string = result.getInsertableText()
+                UIPasteboard.general().string = result.getInsertableText()
             }
 
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+            Analytics.shared().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
 
         #if !(KEYBOARD)
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 Nuke.taskWith(url) {
                     if let image = $0.image as? AnimatedImage, let data = image.data {
-                        UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                        UIPasteboard.general().setData(data, forPasteboardType: "com.compuserve.gif")
                         let shareObjects = [data]
                         
                         let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
                         activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
                         
                         activityVC.popoverPresentationController?.sourceView = self.view
-                        self.presentViewController(activityVC, animated: true, completion: nil)
+                        self.present(activityVC, animated: true, completion: nil)
                     }
                     }.resume()
                 
             } else {
-                UIPasteboard.generalPasteboard().string = result.getInsertableText()
+                UIPasteboard.general().string = result.getInsertableText()
             }
             
         #endif
         }
     }
 
-    func presentViewControllerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
+    func presentViewControllerWithCustomTransitionAnimator(_ presentingController: UIViewController, direction: FadeInTransitionDirection = .none, duration: TimeInterval = 0.15) {
         transitionAnimator = FadeInTransitionAnimator(presenting: true, direction: direction, duration: duration)
         presentingController.transitioningDelegate = self
-        presentingController.modalPresentationStyle = .Custom
-        presentViewController(presentingController, animated: true, completion: nil)
+        presentingController.modalPresentationStyle = .custom
+        present(presentingController, animated: true, completion: nil)
     }
 
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresentedController presented: UIViewController, presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let animator = transitionAnimator {
             return animator
         } else {
@@ -377,7 +373,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
     }
 
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissedController dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: false)
 
         return animator

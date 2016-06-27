@@ -12,28 +12,28 @@ import Foundation
 /// An option for how to resize the image to the target size.
 public enum ImageContentMode {
     /// Scales the image so that it completely fills the target size. Maintains image aspect ratio. Images are not clipped.
-    case AspectFill
+    case aspectFill
     
     /// Scales the image so that its larger dimension fits the target size. Maintains image aspect ratio.
-    case AspectFit
+    case aspectFit
 }
 
 /// Defines constants that can be used to modify the way ImageManager interacts with the memory cache.
 public enum ImageRequestMemoryCachePolicy {
     /// Return memory cached image corresponding the request. If there is no existing image in the memory cache, the image manager continues with the request.
-    case ReturnCachedImageElseLoad
+    case returnCachedImageElseLoad
     
     /// Reload using ignoring memory cached images. Doesn't affect on-disk caching.
-    case ReloadIgnoringCachedImage
+    case reloadIgnoringCachedImage
 }
 
 /// Size to pass when requesting the original image available for a request (image won't be resized).
-public let ImageMaximumSize = CGSizeMake(CGFloat.max, CGFloat.max)
+public let ImageMaximumSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
 
 /// Encapsulates image request parameters.
 public struct ImageRequest {
     /// The URL request that the image request was created with.
-    public var URLRequest: NSURLRequest
+    public var URLRequest: Foundation.URLRequest
     
     /**
      Target size in pixels. The loaded image is resized to the given target size respecting the given content mode and maintaining aspect ratio. Default value is ImageMaximumSize.
@@ -43,13 +43,13 @@ public struct ImageRequest {
     public var targetSize: CGSize = ImageMaximumSize
     
     /// An option for how to resize the image to the target size. Default value is .AspectFill. See ImageContentMode enum for more info.
-    public var contentMode: ImageContentMode = .AspectFill
+    public var contentMode: ImageContentMode = .aspectFill
     
     /// Specifies whether loaded image should be stored into memory cache. Default value is true.
     public var memoryCacheStorageAllowed = true
     
     /// The request memory cachce policy. Default value is .ReturnCachedImageElseLoad.
-    public var memoryCachePolicy = ImageRequestMemoryCachePolicy.ReturnCachedImageElseLoad
+    public var memoryCachePolicy = ImageRequestMemoryCachePolicy.returnCachedImageElseLoad
     
     /// Default value is true.
     public var shouldDecompressImage = true
@@ -71,8 +71,8 @@ public struct ImageRequest {
      - parameter targetSize: Target size in pixels. Default value is ImageMaximumSize. See targetSize property for more info.
      - parameter contentMode: An option for how to resize the image to the target size. Default value is .AspectFill. See ImageContentMode enum for more info.
      */
-    public init(URL: NSURL, targetSize: CGSize = ImageMaximumSize, contentMode: ImageContentMode = .AspectFill) {
-        self.URLRequest = NSURLRequest(URL: URL)
+    public init(URL: Foundation.URL, targetSize: CGSize = ImageMaximumSize, contentMode: ImageContentMode = .aspectFill) {
+        self.URLRequest = Foundation.URLRequest(url: URL)
         self.targetSize = targetSize
         self.contentMode = contentMode
     }
@@ -83,7 +83,7 @@ public struct ImageRequest {
      - parameter targetSize: Target size in pixels. Default value is ImageMaximumSize. See targetSize property for more info.
      - parameter contentMode: An option for how to resize the image to the target size. Default value is .AspectFill. See ImageContentMode enum for more info.
      */
-    public init(URLRequest: NSURLRequest, targetSize: CGSize = ImageMaximumSize, contentMode: ImageContentMode = .AspectFill) {
+    public init(URLRequest: Foundation.URLRequest, targetSize: CGSize = ImageMaximumSize, contentMode: ImageContentMode = .aspectFill) {
         self.URLRequest = URLRequest
         self.targetSize = targetSize
         self.contentMode = contentMode

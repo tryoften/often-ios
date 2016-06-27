@@ -11,10 +11,10 @@ import Firebase
 
 class AnonymousAccountManager: AccountManager {
 
-  override func openSession(completion: (results: ResultType) -> Void) {
-        FIRAuth.auth()!.signInAnonymouslyWithCompletion { (user, err) in
+  override func openSession(_ completion: (results: ResultType) -> Void) {
+        FIRAuth.auth()!.signInAnonymously { (user, err) in
             if err != nil {
-                completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                completion(results: ResultType.error(e: AccountManagerError.returnedEmptyUserObject))
             } else {
                 if let user = user {
                     self.fetchUserData(user, completion: completion)
@@ -26,28 +26,28 @@ class AnonymousAccountManager: AccountManager {
         sessionManagerFlags.userIsAnonymous = true
     }
     
-    override func login(userData: UserAuthData?, completion: AccountManagerResultCallback)  {
-        PFAnonymousUtils.logInWithBlock(handleParseUser(completion))
+    override func login(_ userData: UserAuthData?, completion: AccountManagerResultCallback)  {
+        PFAnonymousUtils.logIn(handleParseUser(completion))
         initiateUserWithPacks()
     }
 
-    override func fetchUserData(user: FIRUser, completion: AccountManagerResultCallback) {
+    override func fetchUserData(_ user: FIRUser, completion: AccountManagerResultCallback) {
         userRef = firebase.child("users/\(user.uid)")
         sessionManagerFlags.userId = user.uid
         
         var data = [String : AnyObject]()
 
-        if let parseCurrentUser = PFUser.currentUser() {
+        if let parseCurrentUser = PFUser.current() {
             data["id"] = user.uid
             data["parseId"] = parseCurrentUser.objectId
             data["isAnonymous"] = true
 
             currentUser = User()
-            currentUser?.setValuesForKeysWithDictionary(data)
+            currentUser?.setValuesForKeys(data)
 
             if let user = self.currentUser {
                 self.userRef?.updateChildValues(data)
-                completion(results: ResultType.Success(r: true))
+                completion(results: ResultType.success(r: true))
                 delegate?.accountManagerUserDidLogin(self, user: user)
             }
 

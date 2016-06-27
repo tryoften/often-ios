@@ -18,7 +18,7 @@ public class AlamofireImageDataLoader: ImageDataLoading {
      
      - warning: The receiver sets of the Alamofire.Manager startRequestsImmediately to false.
      */
-    public init(manager: Alamofire.Manager = Alamofire.Manager.sharedInstance) {
+    public required init(manager: Alamofire.Manager = Alamofire.Manager.sharedInstance) {
         manager.startRequestsImmediately = false
         self.manager = manager
     }
@@ -28,7 +28,7 @@ public class AlamofireImageDataLoader: ImageDataLoading {
 
      - warning: The receiver sets of the Alamofire.Manager startRequestsImmediately to false.
      */
-    public convenience init(configuration: NSURLSessionConfiguration) {
+    public convenience init(configuration: URLSessionConfiguration) {
         self.init(manager: Alamofire.Manager(configuration: configuration))
     }
     
@@ -36,7 +36,7 @@ public class AlamofireImageDataLoader: ImageDataLoading {
 
     /** Creates a request using Alamofire.Manager and returns an NSURLSessionTask which is managed by Alamofire.Manager.
      */
-    public func taskWith(request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> NSURLSessionTask {
+    public func taskWith(_ request: ImageRequest, progress: ImageDataLoadingProgress, completion: ImageDataLoadingCompletion) -> URLSessionTask {
         let task = self.manager.request(request.URLRequest).response { (_, response, data, error) -> Void in
             completion(data: data, response: response, error: error)
         }.progress { (_, totalBytesReceived, totalBytesExpected) -> Void in
@@ -54,6 +54,6 @@ public class AlamofireImageDataLoader: ImageDataLoading {
     /** Removes all cached responses from NSURLSession's URL cache.
      */
     public func removeAllCachedImages() {
-        self.manager.session.configuration.URLCache?.removeAllCachedResponses()
+        self.manager.session.configuration.urlCache?.removeAllCachedResponses()
     }
 }

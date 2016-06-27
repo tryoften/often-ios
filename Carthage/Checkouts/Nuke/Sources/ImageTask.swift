@@ -12,7 +12,7 @@ import Foundation
  - Completed -> []
 */
 public enum ImageTaskState {
-    case Suspended, Running, Cancelled, Completed
+    case suspended, running, cancelled, completed
 }
 
 /// ImageTask completion block, gets called when task is either completed or cancelled.
@@ -65,7 +65,7 @@ public class ImageTask: Hashable {
      
      The closure is called even if it is added to the already completed or cancelled task.
      */
-    public func completion(completion: ImageTaskCompletion) -> Self { fatalError("Abstract method") }
+    public func completion(_ completion: ImageTaskCompletion) -> Self { fatalError("Abstract method") }
     
     
     // MARK: Obraining Task Progress
@@ -80,7 +80,7 @@ public class ImageTask: Hashable {
     // MARK: Controlling Task State
     
     /// The current state of the task.
-    public internal(set) var state: ImageTaskState = .Suspended
+    public internal(set) var state: ImageTaskState = .suspended
     
     /// Resumes the task if suspended. Resume methods are nestable.
     public func resume() -> Self { fatalError("Abstract method") }

@@ -11,7 +11,7 @@ import Foundation
 class PackItemViewModel: BrowseViewModel {
     var packId: String {
         didSet {
-            ref = baseRef.childByAppendingPath("packs/\(packId)")
+//            ref = baseRef.child(byAppendingPath: "packs/\(packId)")
         }
     }
     
@@ -36,15 +36,15 @@ class PackItemViewModel: BrowseViewModel {
         super.init(path: "packs/\(packId)")
     }
     
-    override func fetchData(completion: ((Bool) -> Void)? = nil) {
-        ref.observeEventType(.Value, withBlock: { snapshot in
-            if let data = snapshot.value as? NSDictionary {
-                self.pack = PackMediaItem(data: data)                
-                self.mediaItemGroups = self.pack!.getMediaItemGroups()
-                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
-                completion?(true)
-            }
-        })
+    override func fetchData(_ completion: ((Bool) -> Void)? = nil) {
+//        ref.observe(.value, with: { snapshot in
+//            if let data = snapshot.value as? NSDictionary {
+//                self.pack = PackMediaItem(data: data)                
+//                self.mediaItemGroups = self.pack!.getMediaItemGroups()
+//                self.delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
+//                completion?(true)
+//            }
+//        })
     }
 
     func getMediaItemGroupForCurrentType() -> MediaItemGroup? {
@@ -56,7 +56,7 @@ class PackItemViewModel: BrowseViewModel {
         return nil
     }
 
-    func doesCurrentPackContainType(type: MediaType) -> Bool {
+    func doesCurrentPackContainType(_ type: MediaType) -> Bool {
         guard let pack = pack, let _ = pack.availableMediaType[type] else {
             return false
         }
@@ -87,7 +87,7 @@ class PackItemViewModel: BrowseViewModel {
         }
     }
 
-    func doesCurrentPackContainTypeForCategory(type: MediaType) -> Bool {
+    func doesCurrentPackContainTypeForCategory(_ type: MediaType) -> Bool {
         for group in mediaItemGroups {
             if group.type == type {
                 if group.items.isEmpty {

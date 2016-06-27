@@ -16,7 +16,7 @@ public class StyleKit : NSObject {
 
     //// Drawing Methods
 
-    public class func drawBackspace(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
+    public class func drawBackspace(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -25,20 +25,20 @@ public class StyleKit : NSObject {
 
 
         //// Icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.14286 * frame.width, frame.minY + 0.20000 * frame.height)
-        CGContextScaleCTM(context, 0.5, 0.5)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.14286 * frame.width, y: frame.minY + 0.20000 * frame.height)
+        context.scale(x: 0.5, y: 0.5)
 
-        CGContextSetBlendMode(context, .Multiply)
-        CGContextBeginTransparencyLayer(context, nil)
+        context.setBlendMode(.multiply)
+        context.beginTransparencyLayer(auxiliaryInfo: nil)
 
 
         //// arrow-icon
         //// head Drawing
         let headPath = UIBezierPath()
-        headPath.moveToPoint(CGPoint(x: 22.95, y: 33.31))
-        headPath.addLineToPoint(CGPoint(x: 9.75, y: 20.28))
-        headPath.addLineToPoint(CGPoint(x: 22.6, y: 7.97))
+        headPath.move(to: CGPoint(x: 22.95, y: 33.31))
+        headPath.addLine(to: CGPoint(x: 9.75, y: 20.28))
+        headPath.addLine(to: CGPoint(x: 22.6, y: 7.97))
         headPath.miterLimit = 4;
 
         headPath.usesEvenOddFillRule = true;
@@ -50,8 +50,8 @@ public class StyleKit : NSObject {
 
         //// tail Drawing
         let tailPath = UIBezierPath()
-        tailPath.moveToPoint(CGPoint(x: 9.71, y: 20.43))
-        tailPath.addLineToPoint(CGPoint(x: 47.94, y: 20.4))
+        tailPath.move(to: CGPoint(x: 9.71, y: 20.43))
+        tailPath.addLine(to: CGPoint(x: 47.94, y: 20.4))
         tailPath.miterLimit = 4;
 
         tailPath.usesEvenOddFillRule = true;
@@ -69,12 +69,12 @@ public class StyleKit : NSObject {
         barPath.fill()
 
 
-        CGContextEndTransparencyLayer(context)
+        context.endTransparencyLayer()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawArrowup(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
+    public class func drawArrowup(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -83,17 +83,17 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.48571 * frame.width, frame.minY + 0.49335 * frame.height)
-        CGContextScaleCTM(context, 0.5, 0.5)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.48571 * frame.width, y: frame.minY + 0.49335 * frame.height)
+        context.scale(x: 0.5, y: 0.5)
 
 
 
         //// head Drawing
         let headPath = UIBezierPath()
-        headPath.moveToPoint(CGPoint(x: -12.67, y: -5.88))
-        headPath.addLineToPoint(CGPoint(x: 0.36, y: -19.07))
-        headPath.addLineToPoint(CGPoint(x: 12.67, y: -6.22))
+        headPath.move(to: CGPoint(x: -12.67, y: -5.88))
+        headPath.addLine(to: CGPoint(x: 0.36, y: -19.07))
+        headPath.addLine(to: CGPoint(x: 12.67, y: -6.22))
         headPath.miterLimit = 4;
 
         headPath.usesEvenOddFillRule = true;
@@ -105,8 +105,8 @@ public class StyleKit : NSObject {
 
         //// tail Drawing
         let tailPath = UIBezierPath()
-        tailPath.moveToPoint(CGPoint(x: 0.21, y: -19.11))
-        tailPath.addLineToPoint(CGPoint(x: 0.24, y: 19.11))
+        tailPath.move(to: CGPoint(x: 0.21, y: -19.11))
+        tailPath.addLine(to: CGPoint(x: 0.24, y: 19.11))
         tailPath.miterLimit = 4;
 
         tailPath.usesEvenOddFillRule = true;
@@ -117,24 +117,24 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSearch(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawSearch(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// search
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.57045 * frame.width, frame.minY + 0.58812 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.57045 * frame.width, y: frame.minY + 0.58812 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-82 Drawing
         let path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPoint(x: 1.45, y: 1.32))
-        path82Path.addLineToPoint(CGPoint(x: 8.97, y: 10.58))
+        path82Path.move(to: CGPoint(x: 1.45, y: 1.32))
+        path82Path.addLine(to: CGPoint(x: 8.97, y: 10.58))
         path82Path.miterLimit = 4;
 
         path82Path.usesEvenOddFillRule = true;
@@ -145,29 +145,29 @@ public class StyleKit : NSObject {
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: -13.97, y: -15.58, width: 19, height: 18))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: -13.97, y: -15.58, width: 19, height: 18))
         color.setStroke()
         oval77Path.lineWidth = 3
         oval77Path.stroke()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawArrowheadup(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, borderWidth: CGFloat = 2) {
+    public class func drawArrowheadup(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, borderWidth: CGFloat = 2) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// head Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.48860 * frame.width, frame.minY + 0.47676 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.48860 * frame.width, y: frame.minY + 0.47676 * frame.height)
+        context.scale(x: scale, y: scale)
 
         let headPath = UIBezierPath()
-        headPath.moveToPoint(CGPoint(x: -10.9, y: 5.31))
-        headPath.addLineToPoint(CGPoint(x: -0, y: -5.31))
-        headPath.addLineToPoint(CGPoint(x: 10.9, y: 5.29))
+        headPath.move(to: CGPoint(x: -10.9, y: 5.31))
+        headPath.addLine(to: CGPoint(x: -0, y: -5.31))
+        headPath.addLine(to: CGPoint(x: 10.9, y: 5.29))
         headPath.miterLimit = 4;
 
         headPath.usesEvenOddFillRule = true;
@@ -176,29 +176,29 @@ public class StyleKit : NSObject {
         headPath.lineWidth = borderWidth
         headPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawShare(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
+    public class func drawShare(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// share
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 13.16, 10.3)
-        CGContextScaleCTM(context, 0.5, 0.5)
+        context.saveGState()
+        context.translate(x: 13.16, y: 10.3)
+        context.scale(x: 0.5, y: 0.5)
 
 
 
         //// square Drawing
         let squarePath = UIBezierPath()
-        squarePath.moveToPoint(CGPoint(x: 7.79, y: 15.53))
-        squarePath.addLineToPoint(CGPoint(x: 15.39, y: 15.45))
-        squarePath.addLineToPoint(CGPoint(x: 15.39, y: 30.11))
-        squarePath.addLineToPoint(CGPoint(x: 0.73, y: 30.11))
-        squarePath.addLineToPoint(CGPoint(x: 0.73, y: 15.45))
-        squarePath.addLineToPoint(CGPoint(x: 7.79, y: 15.53))
-        squarePath.closePath()
+        squarePath.move(to: CGPoint(x: 7.79, y: 15.53))
+        squarePath.addLine(to: CGPoint(x: 15.39, y: 15.45))
+        squarePath.addLine(to: CGPoint(x: 15.39, y: 30.11))
+        squarePath.addLine(to: CGPoint(x: 0.73, y: 30.11))
+        squarePath.addLine(to: CGPoint(x: 0.73, y: 15.45))
+        squarePath.addLine(to: CGPoint(x: 7.79, y: 15.53))
+        squarePath.close()
         squarePath.miterLimit = 4;
 
         squarePath.usesEvenOddFillRule = true;
@@ -210,8 +210,8 @@ public class StyleKit : NSObject {
 
         //// line Drawing
         let linePath = UIBezierPath()
-        linePath.moveToPoint(CGPoint(x: 8.08, y: 1.15))
-        linePath.addLineToPoint(CGPoint(x: 8.01, y: 15.97))
+        linePath.move(to: CGPoint(x: 8.08, y: 1.15))
+        linePath.addLine(to: CGPoint(x: 8.01, y: 15.97))
         linePath.miterLimit = 4;
 
         linePath.usesEvenOddFillRule = true;
@@ -223,9 +223,9 @@ public class StyleKit : NSObject {
 
         //// head Drawing
         let headPath = UIBezierPath()
-        headPath.moveToPoint(CGPoint(x: 0, y: 8.08))
-        headPath.addLineToPoint(CGPoint(x: 7.99, y: 0))
-        headPath.addLineToPoint(CGPoint(x: 15.98, y: 8.07))
+        headPath.move(to: CGPoint(x: 0, y: 8.08))
+        headPath.addLine(to: CGPoint(x: 7.99, y: 0))
+        headPath.addLine(to: CGPoint(x: 15.98, y: 8.07))
         headPath.miterLimit = 4;
 
         headPath.usesEvenOddFillRule = true;
@@ -236,31 +236,31 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawClose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawClose(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// close
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.48651 * frame.width, frame.minY + 0.48646 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.48651 * frame.width, y: frame.minY + 0.48646 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// rightBar Drawing
-        CGContextSaveGState(context)
+        context.saveGState()
 
         let rightBarPath = UIBezierPath()
-        rightBarPath.moveToPoint(CGPoint(x: 15.97, y: -11.31))
-        rightBarPath.addLineToPoint(CGPoint(x: 11.98, y: -15.08))
-        rightBarPath.addLineToPoint(CGPoint(x: -15.97, y: 11.31))
-        rightBarPath.addLineToPoint(CGPoint(x: -11.98, y: 15.08))
-        rightBarPath.addLineToPoint(CGPoint(x: 15.97, y: -11.31))
-        rightBarPath.addLineToPoint(CGPoint(x: 15.97, y: -11.31))
-        rightBarPath.closePath()
+        rightBarPath.move(to: CGPoint(x: 15.97, y: -11.31))
+        rightBarPath.addLine(to: CGPoint(x: 11.98, y: -15.08))
+        rightBarPath.addLine(to: CGPoint(x: -15.97, y: 11.31))
+        rightBarPath.addLine(to: CGPoint(x: -11.98, y: 15.08))
+        rightBarPath.addLine(to: CGPoint(x: 15.97, y: -11.31))
+        rightBarPath.addLine(to: CGPoint(x: 15.97, y: -11.31))
+        rightBarPath.close()
         rightBarPath.miterLimit = 4;
 
         rightBarPath.usesEvenOddFillRule = true;
@@ -268,20 +268,20 @@ public class StyleKit : NSObject {
         color.setFill()
         rightBarPath.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// leftBar Drawing
-        CGContextSaveGState(context)
+        context.saveGState()
 
         let leftBarPath = UIBezierPath()
-        leftBarPath.moveToPoint(CGPoint(x: -15.97, y: -11.31))
-        leftBarPath.addLineToPoint(CGPoint(x: -11.98, y: -15.08))
-        leftBarPath.addLineToPoint(CGPoint(x: 15.97, y: 11.31))
-        leftBarPath.addLineToPoint(CGPoint(x: 11.98, y: 15.08))
-        leftBarPath.addLineToPoint(CGPoint(x: -15.97, y: -11.31))
-        leftBarPath.addLineToPoint(CGPoint(x: -15.97, y: -11.31))
-        leftBarPath.closePath()
+        leftBarPath.move(to: CGPoint(x: -15.97, y: -11.31))
+        leftBarPath.addLine(to: CGPoint(x: -11.98, y: -15.08))
+        leftBarPath.addLine(to: CGPoint(x: 15.97, y: 11.31))
+        leftBarPath.addLine(to: CGPoint(x: 11.98, y: 15.08))
+        leftBarPath.addLine(to: CGPoint(x: -15.97, y: -11.31))
+        leftBarPath.addLine(to: CGPoint(x: -15.97, y: -11.31))
+        leftBarPath.close()
         leftBarPath.miterLimit = 4;
 
         leftBarPath.usesEvenOddFillRule = true;
@@ -289,33 +289,33 @@ public class StyleKit : NSObject {
         color.setFill()
         leftBarPath.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawButtonclose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawButtonclose(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// close 2
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.51429 * frame.width, frame.minY + 0.50159 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.51429 * frame.width, y: frame.minY + 0.50159 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Rectangle-406 Drawing
         let rectangle406Path = UIBezierPath()
-        rectangle406Path.moveToPoint(CGPoint(x: -7.99, y: -5.66))
-        rectangle406Path.addLineToPoint(CGPoint(x: -5.99, y: -7.54))
-        rectangle406Path.addLineToPoint(CGPoint(x: 7.99, y: 5.66))
-        rectangle406Path.addLineToPoint(CGPoint(x: 5.99, y: 7.54))
-        rectangle406Path.addLineToPoint(CGPoint(x: -7.99, y: -5.66))
-        rectangle406Path.addLineToPoint(CGPoint(x: -7.99, y: -5.66))
-        rectangle406Path.closePath()
+        rectangle406Path.move(to: CGPoint(x: -7.99, y: -5.66))
+        rectangle406Path.addLine(to: CGPoint(x: -5.99, y: -7.54))
+        rectangle406Path.addLine(to: CGPoint(x: 7.99, y: 5.66))
+        rectangle406Path.addLine(to: CGPoint(x: 5.99, y: 7.54))
+        rectangle406Path.addLine(to: CGPoint(x: -7.99, y: -5.66))
+        rectangle406Path.addLine(to: CGPoint(x: -7.99, y: -5.66))
+        rectangle406Path.close()
         rectangle406Path.miterLimit = 4;
 
         rectangle406Path.usesEvenOddFillRule = true;
@@ -326,13 +326,13 @@ public class StyleKit : NSObject {
 
         //// Rectangle-407 Drawing
         let rectangle407Path = UIBezierPath()
-        rectangle407Path.moveToPoint(CGPoint(x: 7.99, y: -5.66))
-        rectangle407Path.addLineToPoint(CGPoint(x: 5.99, y: -7.54))
-        rectangle407Path.addLineToPoint(CGPoint(x: -7.99, y: 5.66))
-        rectangle407Path.addLineToPoint(CGPoint(x: -5.99, y: 7.54))
-        rectangle407Path.addLineToPoint(CGPoint(x: 7.99, y: -5.66))
-        rectangle407Path.addLineToPoint(CGPoint(x: 7.99, y: -5.66))
-        rectangle407Path.closePath()
+        rectangle407Path.move(to: CGPoint(x: 7.99, y: -5.66))
+        rectangle407Path.addLine(to: CGPoint(x: 5.99, y: -7.54))
+        rectangle407Path.addLine(to: CGPoint(x: -7.99, y: 5.66))
+        rectangle407Path.addLine(to: CGPoint(x: -5.99, y: 7.54))
+        rectangle407Path.addLine(to: CGPoint(x: 7.99, y: -5.66))
+        rectangle407Path.addLine(to: CGPoint(x: 7.99, y: -5.66))
+        rectangle407Path.close()
         rectangle407Path.miterLimit = 4;
 
         rectangle407Path.usesEvenOddFillRule = true;
@@ -342,10 +342,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
+    public class func drawFavorite(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -355,7 +355,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
         let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
 
@@ -370,13 +370,13 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.scale(x: scale, y: scale)
 
 
 
         //// circle Drawing
-        let circlePath = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 11.5, y: frame.minY + 8, width: 80.5, height: 80.5))
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 11.5, y: frame.minY + 8, width: 80.5, height: 80.5))
         favoritedFillColor.setFill()
         circlePath.fill()
         favoritedStrokeColor.setStroke()
@@ -386,23 +386,23 @@ public class StyleKit : NSObject {
 
         //// star Drawing
         let starPath = UIBezierPath()
-        starPath.moveToPoint(CGPoint(x: 51.92, y: 54.5))
-        starPath.addLineToPoint(CGPoint(x: 42.6, y: 61))
-        starPath.addLineToPoint(CGPoint(x: 45.88, y: 50.11))
-        starPath.addLineToPoint(CGPoint(x: frame.minX + 36.83, y: frame.minY + 43.24))
-        starPath.addLineToPoint(CGPoint(x: frame.minX + 48.19, y: frame.minY + 43))
-        starPath.addLineToPoint(CGPoint(x: 51.92, y: 32.26))
-        starPath.addLineToPoint(CGPoint(x: 55.65, y: 43))
-        starPath.addLineToPoint(CGPoint(x: 67, y: 43.24))
-        starPath.addLineToPoint(CGPoint(x: 57.95, y: 50.11))
-        starPath.addLineToPoint(CGPoint(x: 61.24, y: 61))
-        starPath.addLineToPoint(CGPoint(x: 51.92, y: 54.5))
-        starPath.closePath()
+        starPath.move(to: CGPoint(x: 51.92, y: 54.5))
+        starPath.addLine(to: CGPoint(x: 42.6, y: 61))
+        starPath.addLine(to: CGPoint(x: 45.88, y: 50.11))
+        starPath.addLine(to: CGPoint(x: frame.minX + 36.83, y: frame.minY + 43.24))
+        starPath.addLine(to: CGPoint(x: frame.minX + 48.19, y: frame.minY + 43))
+        starPath.addLine(to: CGPoint(x: 51.92, y: 32.26))
+        starPath.addLine(to: CGPoint(x: 55.65, y: 43))
+        starPath.addLine(to: CGPoint(x: 67, y: 43.24))
+        starPath.addLine(to: CGPoint(x: 57.95, y: 50.11))
+        starPath.addLine(to: CGPoint(x: 61.24, y: 61))
+        starPath.addLine(to: CGPoint(x: 51.92, y: 54.5))
+        starPath.close()
         starPath.miterLimit = 4;
 
-        starPath.lineCapStyle = .Round;
+        starPath.lineCapStyle = .round;
 
-        starPath.lineJoinStyle = .Round;
+        starPath.lineJoinStyle = .round;
 
         starPath.usesEvenOddFillRule = true;
 
@@ -414,10 +414,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawFavoritedstate(frame frame: CGRect = CGRect(x: 0, y: 0, width: 62, height: 62), scale: CGFloat = 0.5) {
+    public class func drawFavoritedstate(frame: CGRect = CGRect(x: 0, y: 0, width: 62, height: 62), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -429,22 +429,22 @@ public class StyleKit : NSObject {
             favoriteIconColorBrightnessComponent: CGFloat = 1
         favoriteIconColor.getHue(&favoriteIconColorHueComponent, saturation: &favoriteIconColorSaturationComponent, brightness: &favoriteIconColorBrightnessComponent, alpha: nil)
 
-        let fillColor2 = UIColor(hue: favoriteIconColorHueComponent, saturation: 0, brightness: favoriteIconColorBrightnessComponent, alpha: CGColorGetAlpha(favoriteIconColor.CGColor))
+        let fillColor2 = UIColor(hue: favoriteIconColorHueComponent, saturation: 0, brightness: favoriteIconColorBrightnessComponent, alpha: favoriteIconColor.cgColor.alpha)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 62, frame.minY + 62)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 62, y: frame.minY + 62)
+        context.scale(x: scale, y: scale)
 
 
 
         //// triangle Drawing
         let trianglePath = UIBezierPath()
-        trianglePath.moveToPoint(CGPoint(x: 0, y: -62))
-        trianglePath.addLineToPoint(CGPoint(x: -0, y: -0))
-        trianglePath.addLineToPoint(CGPoint(x: -62, y: 0))
-        trianglePath.addLineToPoint(CGPoint(x: 0, y: -62))
-        trianglePath.closePath()
+        trianglePath.move(to: CGPoint(x: 0, y: -62))
+        trianglePath.addLine(to: CGPoint(x: -0, y: -0))
+        trianglePath.addLine(to: CGPoint(x: -62, y: 0))
+        trianglePath.addLine(to: CGPoint(x: 0, y: -62))
+        trianglePath.close()
         trianglePath.miterLimit = 4;
 
         trianglePath.usesEvenOddFillRule = true;
@@ -455,26 +455,26 @@ public class StyleKit : NSObject {
 
         //// star Drawing
         let starPath = UIBezierPath()
-        starPath.moveToPoint(CGPoint(x: -18.75, y: -30.85))
-        starPath.addLineToPoint(CGPoint(x: -16.1, y: -23.19))
-        starPath.addLineToPoint(CGPoint(x: -8, y: -23.04))
-        starPath.addLineToPoint(CGPoint(x: -14.47, y: -18.16))
-        starPath.addLineToPoint(CGPoint(x: -12.11, y: -10.41))
-        starPath.addLineToPoint(CGPoint(x: -18.75, y: -15.05))
-        starPath.addLineToPoint(CGPoint(x: -25.39, y: -10.41))
-        starPath.addLineToPoint(CGPoint(x: -23.03, y: -18.16))
-        starPath.addLineToPoint(CGPoint(x: -29.5, y: -23.04))
-        starPath.addLineToPoint(CGPoint(x: -21.4, y: -23.19))
-        starPath.closePath()
+        starPath.move(to: CGPoint(x: -18.75, y: -30.85))
+        starPath.addLine(to: CGPoint(x: -16.1, y: -23.19))
+        starPath.addLine(to: CGPoint(x: -8, y: -23.04))
+        starPath.addLine(to: CGPoint(x: -14.47, y: -18.16))
+        starPath.addLine(to: CGPoint(x: -12.11, y: -10.41))
+        starPath.addLine(to: CGPoint(x: -18.75, y: -15.05))
+        starPath.addLine(to: CGPoint(x: -25.39, y: -10.41))
+        starPath.addLine(to: CGPoint(x: -23.03, y: -18.16))
+        starPath.addLine(to: CGPoint(x: -29.5, y: -23.04))
+        starPath.addLine(to: CGPoint(x: -21.4, y: -23.19))
+        starPath.close()
         fillColor2.setFill()
         starPath.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawRefresharrow(frame frame: CGRect = CGRect(x: 4, y: 2, width: 22, height: 26), scale: CGFloat = 0.5) {
+    public class func drawRefresharrow(frame: CGRect = CGRect(x: 4, y: 2, width: 22, height: 26), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -486,12 +486,12 @@ public class StyleKit : NSObject {
             favoriteIconColorBrightnessComponent: CGFloat = 1
         favoriteIconColor.getHue(&favoriteIconColorHueComponent, saturation: &favoriteIconColorSaturationComponent, brightness: &favoriteIconColorBrightnessComponent, alpha: nil)
 
-        let fillColor2 = UIColor(hue: favoriteIconColorHueComponent, saturation: 0, brightness: favoriteIconColorBrightnessComponent, alpha: CGColorGetAlpha(favoriteIconColor.CGColor))
+        let fillColor2 = UIColor(hue: favoriteIconColorHueComponent, saturation: 0, brightness: favoriteIconColorBrightnessComponent, alpha: favoriteIconColor.cgColor.alpha)
 
         //// arrow
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.52273 * frame.width, frame.minY + 0.50962 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.52273 * frame.width, y: frame.minY + 0.50962 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -503,9 +503,9 @@ public class StyleKit : NSObject {
 
         //// Path-319 Drawing
         let path319Path = UIBezierPath()
-        path319Path.moveToPoint(CGPoint(x: -9, y: -2.5))
-        path319Path.addLineToPoint(CGPoint(x: 0, y: -11.5))
-        path319Path.addLineToPoint(CGPoint(x: 9, y: -2.5))
+        path319Path.move(to: CGPoint(x: -9, y: -2.5))
+        path319Path.addLine(to: CGPoint(x: 0, y: -11.5))
+        path319Path.addLine(to: CGPoint(x: 9, y: -2.5))
         path319Path.miterLimit = 4;
 
         path319Path.usesEvenOddFillRule = true;
@@ -516,10 +516,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawTrash(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -529,7 +529,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -542,14 +542,14 @@ public class StyleKit : NSObject {
 
 
         //// delete
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 4)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 4)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-86 Drawing
-        let oval86Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
+        let oval86Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         oval86Path.fill()
         strokeColor.setStroke()
@@ -559,17 +559,17 @@ public class StyleKit : NSObject {
 
         //// Path-924 Drawing
         let path924Path = UIBezierPath()
-        path924Path.moveToPoint(CGPoint(x: frame.minX + 25, y: frame.minY + 33.59))
-        path924Path.addLineToPoint(CGPoint(x: 31.97, y: 60.62))
-        path924Path.addLineToPoint(CGPoint(x: 52, y: 60.62))
-        path924Path.addLineToPoint(CGPoint(x: 58, y: 33.59))
-        path924Path.addLineToPoint(CGPoint(x: frame.minX + 25, y: frame.minY + 33.59))
-        path924Path.closePath()
+        path924Path.move(to: CGPoint(x: frame.minX + 25, y: frame.minY + 33.59))
+        path924Path.addLine(to: CGPoint(x: 31.97, y: 60.62))
+        path924Path.addLine(to: CGPoint(x: 52, y: 60.62))
+        path924Path.addLine(to: CGPoint(x: 58, y: 33.59))
+        path924Path.addLine(to: CGPoint(x: frame.minX + 25, y: frame.minY + 33.59))
+        path924Path.close()
         path924Path.miterLimit = 4;
 
-        path924Path.lineCapStyle = .Round;
+        path924Path.lineCapStyle = .round;
 
-        path924Path.lineJoinStyle = .Round;
+        path924Path.lineJoinStyle = .round;
 
         path924Path.usesEvenOddFillRule = true;
 
@@ -582,11 +582,11 @@ public class StyleKit : NSObject {
 
         //// Path-925 Drawing
         let path925Path = UIBezierPath()
-        path925Path.moveToPoint(CGPoint(x: frame.minX + 27, y: frame.minY + 25.5))
-        path925Path.addLineToPoint(CGPoint(x: 55, y: 25.5))
+        path925Path.move(to: CGPoint(x: frame.minX + 27, y: frame.minY + 25.5))
+        path925Path.addLine(to: CGPoint(x: 55, y: 25.5))
         path925Path.miterLimit = 4;
 
-        path925Path.lineCapStyle = .Round;
+        path925Path.lineCapStyle = .round;
 
         path925Path.usesEvenOddFillRule = true;
 
@@ -596,10 +596,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawClipboard(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -609,7 +609,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -622,14 +622,14 @@ public class StyleKit : NSObject {
 
 
         //// copy
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 4)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 4)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-86 Drawing
-        let oval86Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
+        let oval86Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         oval86Path.fill()
         strokeColor.setStroke()
@@ -639,22 +639,22 @@ public class StyleKit : NSObject {
 
         //// Path-926 Drawing
         let path926Path = UIBezierPath()
-        path926Path.moveToPoint(CGPoint(x: 52.48, y: 44.61))
-        path926Path.addLineToPoint(CGPoint(x: 52.48, y: 28.39))
-        path926Path.addCurveToPoint(CGPoint(x: frame.minX + 42.46, y: frame.minY + 19), controlPoint1: CGPoint(x: 52.48, y: 28.39), controlPoint2: CGPoint(x: frame.minX + 53.34, y: frame.minY + 19))
-        path926Path.addCurveToPoint(CGPoint(x: frame.minX + 32, y: frame.minY + 28.39), controlPoint1: CGPoint(x: frame.minX + 31.57, y: frame.minY + 19), controlPoint2: CGPoint(x: frame.minX + 32, y: frame.minY + 28.39))
-        path926Path.addLineToPoint(CGPoint(x: 32, y: 56.56))
-        path926Path.addCurveToPoint(CGPoint(x: 38.83, y: 63.38), controlPoint1: CGPoint(x: 32, y: 56.56), controlPoint2: CGPoint(x: 31.86, y: 63.38))
-        path926Path.addCurveToPoint(CGPoint(x: 45.94, y: 56.56), controlPoint1: CGPoint(x: 45.8, y: 63.38), controlPoint2: CGPoint(x: 45.94, y: 56.56))
-        path926Path.addLineToPoint(CGPoint(x: frame.minX + 45.94, y: frame.minY + 31.8))
-        path926Path.addCurveToPoint(CGPoint(x: frame.minX + 42.46, y: frame.minY + 27.54), controlPoint1: CGPoint(x: frame.minX + 45.94, y: frame.minY + 31.8), controlPoint2: CGPoint(x: frame.minX + 46.51, y: frame.minY + 27.54))
-        path926Path.addCurveToPoint(CGPoint(x: frame.minX + 38.83, y: frame.minY + 31.8), controlPoint1: CGPoint(x: frame.minX + 38.4, y: frame.minY + 27.54), controlPoint2: CGPoint(x: frame.minX + 38.83, y: frame.minY + 31.8))
-        path926Path.addLineToPoint(CGPoint(x: 38.83, y: 54.85))
+        path926Path.move(to: CGPoint(x: 52.48, y: 44.61))
+        path926Path.addLine(to: CGPoint(x: 52.48, y: 28.39))
+        path926Path.addCurve(to: CGPoint(x: frame.minX + 42.46, y: frame.minY + 19), controlPoint1: CGPoint(x: 52.48, y: 28.39), controlPoint2: CGPoint(x: frame.minX + 53.34, y: frame.minY + 19))
+        path926Path.addCurve(to: CGPoint(x: frame.minX + 32, y: frame.minY + 28.39), controlPoint1: CGPoint(x: frame.minX + 31.57, y: frame.minY + 19), controlPoint2: CGPoint(x: frame.minX + 32, y: frame.minY + 28.39))
+        path926Path.addLine(to: CGPoint(x: 32, y: 56.56))
+        path926Path.addCurve(to: CGPoint(x: 38.83, y: 63.38), controlPoint1: CGPoint(x: 32, y: 56.56), controlPoint2: CGPoint(x: 31.86, y: 63.38))
+        path926Path.addCurve(to: CGPoint(x: 45.94, y: 56.56), controlPoint1: CGPoint(x: 45.8, y: 63.38), controlPoint2: CGPoint(x: 45.94, y: 56.56))
+        path926Path.addLine(to: CGPoint(x: frame.minX + 45.94, y: frame.minY + 31.8))
+        path926Path.addCurve(to: CGPoint(x: frame.minX + 42.46, y: frame.minY + 27.54), controlPoint1: CGPoint(x: frame.minX + 45.94, y: frame.minY + 31.8), controlPoint2: CGPoint(x: frame.minX + 46.51, y: frame.minY + 27.54))
+        path926Path.addCurve(to: CGPoint(x: frame.minX + 38.83, y: frame.minY + 31.8), controlPoint1: CGPoint(x: frame.minX + 38.4, y: frame.minY + 27.54), controlPoint2: CGPoint(x: frame.minX + 38.83, y: frame.minY + 31.8))
+        path926Path.addLine(to: CGPoint(x: 38.83, y: 54.85))
         path926Path.miterLimit = 4;
 
-        path926Path.lineCapStyle = .Round;
+        path926Path.lineCapStyle = .round;
 
-        path926Path.lineJoinStyle = .Round;
+        path926Path.lineJoinStyle = .round;
 
         path926Path.usesEvenOddFillRule = true;
 
@@ -666,10 +666,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCheckmark(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -679,7 +679,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -692,14 +692,14 @@ public class StyleKit : NSObject {
 
 
         //// shape
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 5.75, 4.75)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 5.75, y: 4.75)
+        context.scale(x: scale, y: scale)
 
 
 
         //// circle Drawing
-        let circlePath = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         circlePath.fill()
         strokeColor.setStroke()
@@ -709,14 +709,14 @@ public class StyleKit : NSObject {
 
         //// check Drawing
         let checkPath = UIBezierPath()
-        checkPath.moveToPoint(CGPoint(x: frame.minX + 25, y: frame.minY + 43))
-        checkPath.addLineToPoint(CGPoint(x: 35.5, y: 53.5))
-        checkPath.addLineToPoint(CGPoint(x: 58.5, y: 27.5))
+        checkPath.move(to: CGPoint(x: frame.minX + 25, y: frame.minY + 43))
+        checkPath.addLine(to: CGPoint(x: 35.5, y: 53.5))
+        checkPath.addLine(to: CGPoint(x: 58.5, y: 27.5))
         checkPath.miterLimit = 4;
 
-        checkPath.lineCapStyle = .Round;
+        checkPath.lineCapStyle = .round;
 
-        checkPath.lineJoinStyle = .Round;
+        checkPath.lineJoinStyle = .round;
 
         checkPath.usesEvenOddFillRule = true;
 
@@ -726,10 +726,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCancel(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -739,7 +739,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -752,14 +752,14 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 4)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 4)
+        context.scale(x: scale, y: scale)
 
 
 
         //// circle Drawing
-        let circlePath = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         circlePath.fill()
         strokeColor.setStroke()
@@ -769,24 +769,24 @@ public class StyleKit : NSObject {
 
         //// cancelIcon Drawing
         let cancelIconPath = UIBezierPath()
-        cancelIconPath.moveToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 31.6, y: frame.minY + 28.77))
-        cancelIconPath.addCurveToPoint(CGPoint(x: frame.minX + 28.77, y: frame.minY + 28.77), controlPoint1: CGPoint(x: frame.minX + 30.82, y: frame.minY + 27.99), controlPoint2: CGPoint(x: frame.minX + 29.55, y: frame.minY + 27.99))
-        cancelIconPath.addCurveToPoint(CGPoint(x: frame.minX + 28.77, y: frame.minY + 31.6), controlPoint1: CGPoint(x: frame.minX + 27.99, y: frame.minY + 29.56), controlPoint2: CGPoint(x: frame.minX + 27.99, y: frame.minY + 30.82))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 38.67, y: frame.minY + 41.5))
-        cancelIconPath.addLineToPoint(CGPoint(x: 28.77, y: 51.4))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 28.77, y: 54.23), controlPoint1: CGPoint(x: 27.99, y: 52.18), controlPoint2: CGPoint(x: 27.99, y: 53.44))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 31.6, y: 54.23), controlPoint1: CGPoint(x: 29.55, y: 55.01), controlPoint2: CGPoint(x: 30.82, y: 55.01))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 44.33))
-        cancelIconPath.addLineToPoint(CGPoint(x: 51.4, y: 54.23))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 54.23), controlPoint1: CGPoint(x: 52.18, y: 55.01), controlPoint2: CGPoint(x: 53.45, y: 55.01))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 51.4), controlPoint1: CGPoint(x: 55.01, y: 53.44), controlPoint2: CGPoint(x: 55.01, y: 52.18))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 44.33, y: frame.minY + 41.5))
-        cancelIconPath.addLineToPoint(CGPoint(x: 54.23, y: 31.6))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 28.77), controlPoint1: CGPoint(x: 55.01, y: 30.82), controlPoint2: CGPoint(x: 55.01, y: 29.56))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 51.4, y: 28.77), controlPoint1: CGPoint(x: 53.45, y: 27.99), controlPoint2: CGPoint(x: 52.18, y: 27.99))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
-        cancelIconPath.closePath()
+        cancelIconPath.move(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 31.6, y: frame.minY + 28.77))
+        cancelIconPath.addCurve(to: CGPoint(x: frame.minX + 28.77, y: frame.minY + 28.77), controlPoint1: CGPoint(x: frame.minX + 30.82, y: frame.minY + 27.99), controlPoint2: CGPoint(x: frame.minX + 29.55, y: frame.minY + 27.99))
+        cancelIconPath.addCurve(to: CGPoint(x: frame.minX + 28.77, y: frame.minY + 31.6), controlPoint1: CGPoint(x: frame.minX + 27.99, y: frame.minY + 29.56), controlPoint2: CGPoint(x: frame.minX + 27.99, y: frame.minY + 30.82))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 38.67, y: frame.minY + 41.5))
+        cancelIconPath.addLine(to: CGPoint(x: 28.77, y: 51.4))
+        cancelIconPath.addCurve(to: CGPoint(x: 28.77, y: 54.23), controlPoint1: CGPoint(x: 27.99, y: 52.18), controlPoint2: CGPoint(x: 27.99, y: 53.44))
+        cancelIconPath.addCurve(to: CGPoint(x: 31.6, y: 54.23), controlPoint1: CGPoint(x: 29.55, y: 55.01), controlPoint2: CGPoint(x: 30.82, y: 55.01))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 44.33))
+        cancelIconPath.addLine(to: CGPoint(x: 51.4, y: 54.23))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 54.23), controlPoint1: CGPoint(x: 52.18, y: 55.01), controlPoint2: CGPoint(x: 53.45, y: 55.01))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 51.4), controlPoint1: CGPoint(x: 55.01, y: 53.44), controlPoint2: CGPoint(x: 55.01, y: 52.18))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 44.33, y: frame.minY + 41.5))
+        cancelIconPath.addLine(to: CGPoint(x: 54.23, y: 31.6))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 28.77), controlPoint1: CGPoint(x: 55.01, y: 30.82), controlPoint2: CGPoint(x: 55.01, y: 29.56))
+        cancelIconPath.addCurve(to: CGPoint(x: 51.4, y: 28.77), controlPoint1: CGPoint(x: 53.45, y: 27.99), controlPoint2: CGPoint(x: 52.18, y: 27.99))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
+        cancelIconPath.close()
         cancelIconPath.miterLimit = 4;
 
         cancelIconPath.usesEvenOddFillRule = true;
@@ -796,10 +796,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawInsert(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -809,7 +809,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -822,14 +822,14 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-86 Drawing
-        let oval86Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
+        let oval86Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 1.5, y: frame.minY + 1.5, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         oval86Path.fill()
         strokeColor.setStroke()
@@ -839,14 +839,14 @@ public class StyleKit : NSObject {
 
         //// path-1 Drawing
         let path1Path = UIBezierPath()
-        path1Path.moveToPoint(CGPoint(x: frame.minX + 30.71, y: frame.minY + 40.93))
-        path1Path.addLineToPoint(CGPoint(x: frame.minX + 41.52, y: frame.minY + 29.93))
-        path1Path.addLineToPoint(CGPoint(x: 51.73, y: 40.64))
+        path1Path.move(to: CGPoint(x: frame.minX + 30.71, y: frame.minY + 40.93))
+        path1Path.addLine(to: CGPoint(x: frame.minX + 41.52, y: frame.minY + 29.93))
+        path1Path.addLine(to: CGPoint(x: 51.73, y: 40.64))
         path1Path.miterLimit = 4;
 
-        path1Path.lineCapStyle = .Round;
+        path1Path.lineCapStyle = .round;
 
-        path1Path.lineJoinStyle = .Round;
+        path1Path.lineJoinStyle = .round;
 
         path1Path.usesEvenOddFillRule = true;
 
@@ -857,13 +857,13 @@ public class StyleKit : NSObject {
 
         //// Path- 2 Drawing
         let path2Path = UIBezierPath()
-        path2Path.moveToPoint(CGPoint(x: frame.minX + 41.39, y: frame.minY + 29.89))
-        path2Path.addLineToPoint(CGPoint(x: 41.41, y: 61.61))
+        path2Path.move(to: CGPoint(x: frame.minX + 41.39, y: frame.minY + 29.89))
+        path2Path.addLine(to: CGPoint(x: 41.41, y: 61.61))
         path2Path.miterLimit = 4;
 
-        path2Path.lineCapStyle = .Round;
+        path2Path.lineCapStyle = .round;
 
-        path2Path.lineJoinStyle = .Round;
+        path2Path.lineJoinStyle = .round;
 
         path2Path.usesEvenOddFillRule = true;
 
@@ -874,11 +874,11 @@ public class StyleKit : NSObject {
 
         //// Path-106 Drawing
         let path106Path = UIBezierPath()
-        path106Path.moveToPoint(CGPoint(x: frame.minX + 29, y: frame.minY + 23))
-        path106Path.addLineToPoint(CGPoint(x: 54, y: 23))
+        path106Path.move(to: CGPoint(x: frame.minX + 29, y: frame.minY + 23))
+        path106Path.addLine(to: CGPoint(x: 54, y: 23))
         path106Path.miterLimit = 4;
 
-        path106Path.lineCapStyle = .Round;
+        path106Path.lineCapStyle = .round;
 
         path106Path.usesEvenOddFillRule = true;
 
@@ -888,17 +888,17 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawKeyboard(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawKeyboard(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// Icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 18, frame.minY + 17.75)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 18, y: frame.minY + 17.75)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -933,10 +933,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawUndo(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -946,7 +946,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -955,14 +955,14 @@ public class StyleKit : NSObject {
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 5.5, 4.5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 5.5, y: 4.5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-86 Drawing
-        let oval86Path = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: 80.5, height: 80.5))
+        let oval86Path = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 80.5, height: 80.5))
         selectedFillColor.setFill()
         oval86Path.fill()
         strokeColor.setStroke()
@@ -972,14 +972,14 @@ public class StyleKit : NSObject {
 
         //// Path-931 Drawing
         let path931Path = UIBezierPath()
-        path931Path.moveToPoint(CGPoint(x: 28.25, y: 26.64))
-        path931Path.addLineToPoint(CGPoint(x: 18.89, y: 36.12))
-        path931Path.addLineToPoint(CGPoint(x: 28.25, y: 44.36))
+        path931Path.move(to: CGPoint(x: 28.25, y: 26.64))
+        path931Path.addLine(to: CGPoint(x: 18.89, y: 36.12))
+        path931Path.addLine(to: CGPoint(x: 28.25, y: 44.36))
         path931Path.miterLimit = 4;
 
-        path931Path.lineCapStyle = .Round;
+        path931Path.lineCapStyle = .round;
 
-        path931Path.lineJoinStyle = .Round;
+        path931Path.lineJoinStyle = .round;
 
         path931Path.usesEvenOddFillRule = true;
 
@@ -990,16 +990,16 @@ public class StyleKit : NSObject {
 
         //// Path-145 Drawing
         let path145Path = UIBezierPath()
-        path145Path.moveToPoint(CGPoint(x: 42.5, y: 51.5))
-        path145Path.addLineToPoint(CGPoint(x: 54.5, y: 51.5))
-        path145Path.addCurveToPoint(CGPoint(x: 62.5, y: 43.5), controlPoint1: CGPoint(x: 54.5, y: 51.5), controlPoint2: CGPoint(x: 62.5, y: 51.21))
-        path145Path.addCurveToPoint(CGPoint(x: 54.5, y: 35.5), controlPoint1: CGPoint(x: 62.5, y: 35.79), controlPoint2: CGPoint(x: 54.5, y: 35.5))
-        path145Path.addLineToPoint(CGPoint(x: 19.5, y: 35.5))
+        path145Path.move(to: CGPoint(x: 42.5, y: 51.5))
+        path145Path.addLine(to: CGPoint(x: 54.5, y: 51.5))
+        path145Path.addCurve(to: CGPoint(x: 62.5, y: 43.5), controlPoint1: CGPoint(x: 54.5, y: 51.5), controlPoint2: CGPoint(x: 62.5, y: 51.21))
+        path145Path.addCurve(to: CGPoint(x: 54.5, y: 35.5), controlPoint1: CGPoint(x: 62.5, y: 35.79), controlPoint2: CGPoint(x: 54.5, y: 35.5))
+        path145Path.addLine(to: CGPoint(x: 19.5, y: 35.5))
         path145Path.miterLimit = 4;
 
-        path145Path.lineCapStyle = .Round;
+        path145Path.lineCapStyle = .round;
 
-        path145Path.lineJoinStyle = .Round;
+        path145Path.lineJoinStyle = .round;
 
         path145Path.usesEvenOddFillRule = true;
 
@@ -1009,10 +1009,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawClosebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
+    public class func drawClosebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1021,38 +1021,38 @@ public class StyleKit : NSObject {
         let fillColor7 = UIColor(red: 0.383, green: 0.383, blue: 0.387, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: -35, y: -35, width: 70, height: 70))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: -35, y: -35, width: 70, height: 70))
         fillColor6.setFill()
         oval77Path.fill()
 
 
         //// Rectangle-614 Drawing
         let rectangle614Path = UIBezierPath()
-        rectangle614Path.moveToPoint(CGPoint(x: 2.83, y: -1))
-        rectangle614Path.addLineToPoint(CGPoint(x: 10.61, y: -8.78))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 10.61, y: -11.61), controlPoint1: CGPoint(x: 11.39, y: -9.56), controlPoint2: CGPoint(x: 11.39, y: -10.83))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 7.78, y: -11.61), controlPoint1: CGPoint(x: 9.82, y: -12.39), controlPoint2: CGPoint(x: 8.56, y: -12.39))
-        rectangle614Path.addLineToPoint(CGPoint(x: 0, y: -3.83))
-        rectangle614Path.addLineToPoint(CGPoint(x: -7.78, y: -11.61))
-        rectangle614Path.addCurveToPoint(CGPoint(x: -10.61, y: -11.61), controlPoint1: CGPoint(x: -8.56, y: -12.39), controlPoint2: CGPoint(x: -9.83, y: -12.39))
-        rectangle614Path.addCurveToPoint(CGPoint(x: -10.61, y: -8.78), controlPoint1: CGPoint(x: -11.39, y: -10.82), controlPoint2: CGPoint(x: -11.39, y: -9.56))
-        rectangle614Path.addLineToPoint(CGPoint(x: -2.83, y: -1))
-        rectangle614Path.addLineToPoint(CGPoint(x: -10.61, y: 6.78))
-        rectangle614Path.addCurveToPoint(CGPoint(x: -10.61, y: 9.61), controlPoint1: CGPoint(x: -11.39, y: 7.56), controlPoint2: CGPoint(x: -11.39, y: 8.83))
-        rectangle614Path.addCurveToPoint(CGPoint(x: -7.78, y: 9.61), controlPoint1: CGPoint(x: -9.82, y: 10.39), controlPoint2: CGPoint(x: -8.56, y: 10.39))
-        rectangle614Path.addLineToPoint(CGPoint(x: 0, y: 1.83))
-        rectangle614Path.addLineToPoint(CGPoint(x: 7.78, y: 9.61))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 10.61, y: 9.61), controlPoint1: CGPoint(x: 8.56, y: 10.39), controlPoint2: CGPoint(x: 9.83, y: 10.39))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 10.61, y: 6.78), controlPoint1: CGPoint(x: 11.39, y: 8.82), controlPoint2: CGPoint(x: 11.39, y: 7.56))
-        rectangle614Path.addLineToPoint(CGPoint(x: 2.83, y: -1))
-        rectangle614Path.closePath()
+        rectangle614Path.move(to: CGPoint(x: 2.83, y: -1))
+        rectangle614Path.addLine(to: CGPoint(x: 10.61, y: -8.78))
+        rectangle614Path.addCurve(to: CGPoint(x: 10.61, y: -11.61), controlPoint1: CGPoint(x: 11.39, y: -9.56), controlPoint2: CGPoint(x: 11.39, y: -10.83))
+        rectangle614Path.addCurve(to: CGPoint(x: 7.78, y: -11.61), controlPoint1: CGPoint(x: 9.82, y: -12.39), controlPoint2: CGPoint(x: 8.56, y: -12.39))
+        rectangle614Path.addLine(to: CGPoint(x: 0, y: -3.83))
+        rectangle614Path.addLine(to: CGPoint(x: -7.78, y: -11.61))
+        rectangle614Path.addCurve(to: CGPoint(x: -10.61, y: -11.61), controlPoint1: CGPoint(x: -8.56, y: -12.39), controlPoint2: CGPoint(x: -9.83, y: -12.39))
+        rectangle614Path.addCurve(to: CGPoint(x: -10.61, y: -8.78), controlPoint1: CGPoint(x: -11.39, y: -10.82), controlPoint2: CGPoint(x: -11.39, y: -9.56))
+        rectangle614Path.addLine(to: CGPoint(x: -2.83, y: -1))
+        rectangle614Path.addLine(to: CGPoint(x: -10.61, y: 6.78))
+        rectangle614Path.addCurve(to: CGPoint(x: -10.61, y: 9.61), controlPoint1: CGPoint(x: -11.39, y: 7.56), controlPoint2: CGPoint(x: -11.39, y: 8.83))
+        rectangle614Path.addCurve(to: CGPoint(x: -7.78, y: 9.61), controlPoint1: CGPoint(x: -9.82, y: 10.39), controlPoint2: CGPoint(x: -8.56, y: 10.39))
+        rectangle614Path.addLine(to: CGPoint(x: 0, y: 1.83))
+        rectangle614Path.addLine(to: CGPoint(x: 7.78, y: 9.61))
+        rectangle614Path.addCurve(to: CGPoint(x: 10.61, y: 9.61), controlPoint1: CGPoint(x: 8.56, y: 10.39), controlPoint2: CGPoint(x: 9.83, y: 10.39))
+        rectangle614Path.addCurve(to: CGPoint(x: 10.61, y: 6.78), controlPoint1: CGPoint(x: 11.39, y: 8.82), controlPoint2: CGPoint(x: 11.39, y: 7.56))
+        rectangle614Path.addLine(to: CGPoint(x: 2.83, y: -1))
+        rectangle614Path.close()
         rectangle614Path.miterLimit = 4;
 
         rectangle614Path.usesEvenOddFillRule = true;
@@ -1062,24 +1062,24 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSearchbaricon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawSearchbaricon(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 16.75, frame.minY + 16.5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 16.75, y: frame.minY + 16.5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-82 Drawing
         let path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPoint(x: 8.04, y: 9.66))
-        path82Path.addLineToPoint(CGPoint(x: 14.24, y: 16.32))
+        path82Path.move(to: CGPoint(x: 8.04, y: 9.66))
+        path82Path.addLine(to: CGPoint(x: 14.24, y: 16.32))
         path82Path.miterLimit = 4;
 
         path82Path.usesEvenOddFillRule = true;
@@ -1090,24 +1090,24 @@ public class StyleKit : NSObject {
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: -11.5, y: -9, width: 24, height: 20))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: -11.5, y: -9, width: 24, height: 20))
         color.setStroke()
         oval77Path.lineWidth = 3
         oval77Path.stroke()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSharebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawSharebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 18, frame.minY + 17)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 18, y: frame.minY + 17)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -1125,14 +1125,14 @@ public class StyleKit : NSObject {
 
         //// Path-153 Drawing
         let path153Path = UIBezierPath()
-        path153Path.moveToPoint(CGPoint(x: -8, y: 2))
-        path153Path.addLineToPoint(CGPoint(x: 0, y: -6))
-        path153Path.addLineToPoint(CGPoint(x: 8, y: 2))
+        path153Path.move(to: CGPoint(x: -8, y: 2))
+        path153Path.addLine(to: CGPoint(x: 0, y: -6))
+        path153Path.addLine(to: CGPoint(x: 8, y: 2))
         path153Path.miterLimit = 4;
 
-        path153Path.lineCapStyle = .Round;
+        path153Path.lineCapStyle = .round;
 
-        path153Path.lineJoinStyle = .Round;
+        path153Path.lineJoinStyle = .round;
 
         path153Path.usesEvenOddFillRule = true;
 
@@ -1142,10 +1142,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawSettings(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1155,7 +1155,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let mainAppHighlightColor = UIColor(red: 0.692, green: 0.692, blue: 0.692, alpha: 1.000)
 
         //// Variable Declarations
@@ -1166,37 +1166,37 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 11, 7)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 11, y: 7)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Rectangle-351-Copy Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 30, frame.minY + 33)
-        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: frame.minX + 30, y: frame.minY + 33)
+        context.rotate(byAngle: 45 * CGFloat(M_PI) / 180)
 
         let rectangle351CopyPath = UIBezierPath(roundedRect: CGRect(x: -16.62, y: -16.62, width: 33.25, height: 33.25), cornerRadius: 8)
         mainAppStrokeColor.setStroke()
         rectangle351CopyPath.lineWidth = 4
         rectangle351CopyPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// Oval-17 Drawing
-        let oval17Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 23.4, y: frame.minY + 26.4, width: 13.1, height: 13.1))
+        let oval17Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 23.4, y: frame.minY + 26.4, width: 13.1, height: 13.1))
         mainAppStrokeColor.setStroke()
         oval17Path.lineWidth = 4
         oval17Path.stroke()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawTrending(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1206,7 +1206,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let mainAppHighlightColor = UIColor(red: 0.692, green: 0.692, blue: 0.692, alpha: 1.000)
 
         //// Variable Declarations
@@ -1217,54 +1217,54 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 13, 12)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 13, y: 12)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Rectangle-344-Copy Drawing
         let rectangle344CopyPath = UIBezierPath()
-        rectangle344CopyPath.moveToPoint(CGPoint(x: frame.minX + 42, y: frame.minY + 6.83))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 42, y: frame.minY + 36))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 40, y: frame.minY + 38), controlPoint1: CGPoint(x: frame.minX + 42, y: frame.minY + 37.1), controlPoint2: CGPoint(x: frame.minX + 41.11, y: frame.minY + 38))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 38, y: frame.minY + 36), controlPoint1: CGPoint(x: frame.minX + 38.9, y: frame.minY + 38), controlPoint2: CGPoint(x: frame.minX + 38, y: frame.minY + 37.11))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 38, y: frame.minY + 6.83))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 29.75, y: frame.minY + 15.08))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 26.93, y: frame.minY + 15.07), controlPoint1: CGPoint(x: frame.minX + 28.97, y: frame.minY + 15.86), controlPoint2: CGPoint(x: frame.minX + 27.72, y: frame.minY + 15.86))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 26.92, y: frame.minY + 12.25), controlPoint1: CGPoint(x: frame.minX + 26.15, y: frame.minY + 14.29), controlPoint2: CGPoint(x: frame.minX + 26.15, y: frame.minY + 13.02))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 38.25, y: frame.minY + 0.92))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 40, y: frame.minY + 0.37), controlPoint1: CGPoint(x: frame.minX + 38.73, y: frame.minY + 0.45), controlPoint2: CGPoint(x: frame.minX + 39.38, y: frame.minY + 0.26))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 41.75, y: frame.minY + 0.92), controlPoint1: CGPoint(x: frame.minX + 40.62, y: frame.minY + 0.26), controlPoint2: CGPoint(x: frame.minX + 41.27, y: frame.minY + 0.45))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: 53.08, y: 12.25))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: 53.07, y: 15.07), controlPoint1: CGPoint(x: 53.85, y: 13.02), controlPoint2: CGPoint(x: 53.85, y: 14.29))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: 50.25, y: 15.08), controlPoint1: CGPoint(x: 52.28, y: 15.86), controlPoint2: CGPoint(x: 51.03, y: 15.86))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 42, y: frame.minY + 6.83))
-        rectangle344CopyPath.closePath()
-        rectangle344CopyPath.moveToPoint(CGPoint(x: frame.minX, y: frame.minY + 26))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 24), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 24.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 24))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 24, y: frame.minY + 24))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 26, y: frame.minY + 26), controlPoint1: CGPoint(x: frame.minX + 25.11, y: frame.minY + 24), controlPoint2: CGPoint(x: frame.minX + 26, y: frame.minY + 24.89))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 24, y: frame.minY + 28), controlPoint1: CGPoint(x: frame.minX + 26, y: frame.minY + 27.1), controlPoint2: CGPoint(x: frame.minX + 25.11, y: frame.minY + 28))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 28))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX, y: frame.minY + 26), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 28), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 27.11))
-        rectangle344CopyPath.closePath()
-        rectangle344CopyPath.moveToPoint(CGPoint(x: frame.minX, y: frame.minY + 16))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 14), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 14.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 14))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 16, y: frame.minY + 14))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 18, y: frame.minY + 16), controlPoint1: CGPoint(x: frame.minX + 17.11, y: frame.minY + 14), controlPoint2: CGPoint(x: frame.minX + 18, y: frame.minY + 14.89))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 16, y: frame.minY + 18), controlPoint1: CGPoint(x: frame.minX + 18, y: frame.minY + 17.1), controlPoint2: CGPoint(x: frame.minX + 17.11, y: frame.minY + 18))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 18))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX, y: frame.minY + 16), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 18), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 17.11))
-        rectangle344CopyPath.closePath()
-        rectangle344CopyPath.moveToPoint(CGPoint(x: frame.minX, y: frame.minY + 37))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 35), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 35.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 35))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 24, y: frame.minY + 35))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 26, y: frame.minY + 37), controlPoint1: CGPoint(x: frame.minX + 25.11, y: frame.minY + 35), controlPoint2: CGPoint(x: frame.minX + 26, y: frame.minY + 35.89))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX + 24, y: frame.minY + 39), controlPoint1: CGPoint(x: frame.minX + 26, y: frame.minY + 38.1), controlPoint2: CGPoint(x: frame.minX + 25.11, y: frame.minY + 39))
-        rectangle344CopyPath.addLineToPoint(CGPoint(x: frame.minX + 2, y: frame.minY + 39))
-        rectangle344CopyPath.addCurveToPoint(CGPoint(x: frame.minX, y: frame.minY + 37), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 39), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 38.11))
-        rectangle344CopyPath.closePath()
+        rectangle344CopyPath.move(to: CGPoint(x: frame.minX + 42, y: frame.minY + 6.83))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 42, y: frame.minY + 36))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 40, y: frame.minY + 38), controlPoint1: CGPoint(x: frame.minX + 42, y: frame.minY + 37.1), controlPoint2: CGPoint(x: frame.minX + 41.11, y: frame.minY + 38))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 38, y: frame.minY + 36), controlPoint1: CGPoint(x: frame.minX + 38.9, y: frame.minY + 38), controlPoint2: CGPoint(x: frame.minX + 38, y: frame.minY + 37.11))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 38, y: frame.minY + 6.83))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 29.75, y: frame.minY + 15.08))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 26.93, y: frame.minY + 15.07), controlPoint1: CGPoint(x: frame.minX + 28.97, y: frame.minY + 15.86), controlPoint2: CGPoint(x: frame.minX + 27.72, y: frame.minY + 15.86))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 26.92, y: frame.minY + 12.25), controlPoint1: CGPoint(x: frame.minX + 26.15, y: frame.minY + 14.29), controlPoint2: CGPoint(x: frame.minX + 26.15, y: frame.minY + 13.02))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 38.25, y: frame.minY + 0.92))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 40, y: frame.minY + 0.37), controlPoint1: CGPoint(x: frame.minX + 38.73, y: frame.minY + 0.45), controlPoint2: CGPoint(x: frame.minX + 39.38, y: frame.minY + 0.26))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 41.75, y: frame.minY + 0.92), controlPoint1: CGPoint(x: frame.minX + 40.62, y: frame.minY + 0.26), controlPoint2: CGPoint(x: frame.minX + 41.27, y: frame.minY + 0.45))
+        rectangle344CopyPath.addLine(to: CGPoint(x: 53.08, y: 12.25))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: 53.07, y: 15.07), controlPoint1: CGPoint(x: 53.85, y: 13.02), controlPoint2: CGPoint(x: 53.85, y: 14.29))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: 50.25, y: 15.08), controlPoint1: CGPoint(x: 52.28, y: 15.86), controlPoint2: CGPoint(x: 51.03, y: 15.86))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 42, y: frame.minY + 6.83))
+        rectangle344CopyPath.close()
+        rectangle344CopyPath.move(to: CGPoint(x: frame.minX, y: frame.minY + 26))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 2, y: frame.minY + 24), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 24.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 24))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 24, y: frame.minY + 24))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 26, y: frame.minY + 26), controlPoint1: CGPoint(x: frame.minX + 25.11, y: frame.minY + 24), controlPoint2: CGPoint(x: frame.minX + 26, y: frame.minY + 24.89))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 24, y: frame.minY + 28), controlPoint1: CGPoint(x: frame.minX + 26, y: frame.minY + 27.1), controlPoint2: CGPoint(x: frame.minX + 25.11, y: frame.minY + 28))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 2, y: frame.minY + 28))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX, y: frame.minY + 26), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 28), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 27.11))
+        rectangle344CopyPath.close()
+        rectangle344CopyPath.move(to: CGPoint(x: frame.minX, y: frame.minY + 16))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 2, y: frame.minY + 14), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 14.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 14))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 16, y: frame.minY + 14))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 18, y: frame.minY + 16), controlPoint1: CGPoint(x: frame.minX + 17.11, y: frame.minY + 14), controlPoint2: CGPoint(x: frame.minX + 18, y: frame.minY + 14.89))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 16, y: frame.minY + 18), controlPoint1: CGPoint(x: frame.minX + 18, y: frame.minY + 17.1), controlPoint2: CGPoint(x: frame.minX + 17.11, y: frame.minY + 18))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 2, y: frame.minY + 18))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX, y: frame.minY + 16), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 18), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 17.11))
+        rectangle344CopyPath.close()
+        rectangle344CopyPath.move(to: CGPoint(x: frame.minX, y: frame.minY + 37))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 2, y: frame.minY + 35), controlPoint1: CGPoint(x: frame.minX, y: frame.minY + 35.9), controlPoint2: CGPoint(x: frame.minX + 0.89, y: frame.minY + 35))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 24, y: frame.minY + 35))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 26, y: frame.minY + 37), controlPoint1: CGPoint(x: frame.minX + 25.11, y: frame.minY + 35), controlPoint2: CGPoint(x: frame.minX + 26, y: frame.minY + 35.89))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX + 24, y: frame.minY + 39), controlPoint1: CGPoint(x: frame.minX + 26, y: frame.minY + 38.1), controlPoint2: CGPoint(x: frame.minX + 25.11, y: frame.minY + 39))
+        rectangle344CopyPath.addLine(to: CGPoint(x: frame.minX + 2, y: frame.minY + 39))
+        rectangle344CopyPath.addCurve(to: CGPoint(x: frame.minX, y: frame.minY + 37), controlPoint1: CGPoint(x: frame.minX + 0.89, y: frame.minY + 39), controlPoint2: CGPoint(x: frame.minX, y: frame.minY + 38.11))
+        rectangle344CopyPath.close()
         rectangle344CopyPath.miterLimit = 4;
 
         rectangle344CopyPath.usesEvenOddFillRule = true;
@@ -1277,10 +1277,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawProfile(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1290,7 +1290,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let mainAppHighlightColor = UIColor(red: 0.692, green: 0.692, blue: 0.692, alpha: 1.000)
 
         //// Variable Declarations
@@ -1301,14 +1301,14 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 14, 8)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 14, y: 8)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-17 Drawing
-        let oval17Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 13.4, y: frame.minY + 13.4, width: 18.1, height: 18.1))
+        let oval17Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 13.4, y: frame.minY + 13.4, width: 18.1, height: 18.1))
         mainAppStrokeColor.setStroke()
         oval17Path.lineWidth = 4
         oval17Path.stroke()
@@ -1316,14 +1316,14 @@ public class StyleKit : NSObject {
 
         //// Path-152 Drawing
         let path152Path = UIBezierPath()
-        path152Path.moveToPoint(CGPoint(x: 7.21, y: 50.77))
-        path152Path.addCurveToPoint(CGPoint(x: frame.minX + 22.21, y: frame.minY + 38.77), controlPoint1: CGPoint(x: 7.21, y: 50.77), controlPoint2: CGPoint(x: frame.minX + 11.22, y: frame.minY + 38.77))
-        path152Path.addCurveToPoint(CGPoint(x: 37.21, y: 50.77), controlPoint1: CGPoint(x: frame.minX + 33.21, y: frame.minY + 38.77), controlPoint2: CGPoint(x: 37.21, y: 50.77))
+        path152Path.move(to: CGPoint(x: 7.21, y: 50.77))
+        path152Path.addCurve(to: CGPoint(x: frame.minX + 22.21, y: frame.minY + 38.77), controlPoint1: CGPoint(x: 7.21, y: 50.77), controlPoint2: CGPoint(x: frame.minX + 11.22, y: frame.minY + 38.77))
+        path152Path.addCurve(to: CGPoint(x: 37.21, y: 50.77), controlPoint1: CGPoint(x: frame.minX + 33.21, y: frame.minY + 38.77), controlPoint2: CGPoint(x: 37.21, y: 50.77))
         path152Path.miterLimit = 4;
 
-        path152Path.lineCapStyle = .Round;
+        path152Path.lineCapStyle = .round;
 
-        path152Path.lineJoinStyle = .Round;
+        path152Path.lineJoinStyle = .round;
 
         path152Path.usesEvenOddFillRule = true;
 
@@ -1333,10 +1333,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawGlobebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
+    public class func drawGlobebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1346,21 +1346,21 @@ public class StyleKit : NSObject {
         let strokeColor5 = UIColor(red: 0.383, green: 0.383, blue: 0.387, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextRotateCTM(context, 1.19 * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.rotate(byAngle: 1.19 * CGFloat(M_PI) / 180)
+        context.scale(x: scale, y: scale)
 
 
 
         //// circle Drawing
-        let circlePath = UIBezierPath(ovalInRect: CGRect(x: -35, y: -35, width: 70, height: 70))
+        let circlePath = UIBezierPath(ovalIn: CGRect(x: -35, y: -35, width: 70, height: 70))
         fillColor6.setFill()
         circlePath.fill()
 
 
         //// Oval-1 Drawing
-        let oval1Path = UIBezierPath(ovalInRect: CGRect(x: -14.13, y: -16, width: 29.03, height: 30))
+        let oval1Path = UIBezierPath(ovalIn: CGRect(x: -14.13, y: -16, width: 29.03, height: 30))
         strokeColor5.setStroke()
         oval1Path.lineWidth = 2
         oval1Path.stroke()
@@ -1380,15 +1380,15 @@ public class StyleKit : NSObject {
 
         //// Rectangle- 3 Drawing
         let rectangle3Path = UIBezierPath()
-        rectangle3Path.moveToPoint(CGPoint(x: 5.32, y: -15))
-        rectangle3Path.addCurveToPoint(CGPoint(x: 7.26, y: -1), controlPoint1: CGPoint(x: 5.32, y: -15), controlPoint2: CGPoint(x: 7.26, y: -5.58))
-        rectangle3Path.addCurveToPoint(CGPoint(x: 5.32, y: 13), controlPoint1: CGPoint(x: 7.26, y: 3.75), controlPoint2: CGPoint(x: 5.32, y: 13))
-        rectangle3Path.addLineToPoint(CGPoint(x: 7.26, y: 13))
-        rectangle3Path.addCurveToPoint(CGPoint(x: 8.75, y: 6.1), controlPoint1: CGPoint(x: 7.26, y: 13), controlPoint2: CGPoint(x: 8.08, y: 9.74))
-        rectangle3Path.addCurveToPoint(CGPoint(x: 9.58, y: -1), controlPoint1: CGPoint(x: 9.2, y: 3.61), controlPoint2: CGPoint(x: 9.58, y: 0.94))
-        rectangle3Path.addCurveToPoint(CGPoint(x: 7.26, y: -15), controlPoint1: CGPoint(x: 9.58, y: -5.54), controlPoint2: CGPoint(x: 7.26, y: -15))
-        rectangle3Path.addLineToPoint(CGPoint(x: 5.32, y: -15))
-        rectangle3Path.closePath()
+        rectangle3Path.move(to: CGPoint(x: 5.32, y: -15))
+        rectangle3Path.addCurve(to: CGPoint(x: 7.26, y: -1), controlPoint1: CGPoint(x: 5.32, y: -15), controlPoint2: CGPoint(x: 7.26, y: -5.58))
+        rectangle3Path.addCurve(to: CGPoint(x: 5.32, y: 13), controlPoint1: CGPoint(x: 7.26, y: 3.75), controlPoint2: CGPoint(x: 5.32, y: 13))
+        rectangle3Path.addLine(to: CGPoint(x: 7.26, y: 13))
+        rectangle3Path.addCurve(to: CGPoint(x: 8.75, y: 6.1), controlPoint1: CGPoint(x: 7.26, y: 13), controlPoint2: CGPoint(x: 8.08, y: 9.74))
+        rectangle3Path.addCurve(to: CGPoint(x: 9.58, y: -1), controlPoint1: CGPoint(x: 9.2, y: 3.61), controlPoint2: CGPoint(x: 9.58, y: 0.94))
+        rectangle3Path.addCurve(to: CGPoint(x: 7.26, y: -15), controlPoint1: CGPoint(x: 9.58, y: -5.54), controlPoint2: CGPoint(x: 7.26, y: -15))
+        rectangle3Path.addLine(to: CGPoint(x: 5.32, y: -15))
+        rectangle3Path.close()
         rectangle3Path.miterLimit = 4;
 
         rectangle3Path.usesEvenOddFillRule = true;
@@ -1399,15 +1399,15 @@ public class StyleKit : NSObject {
 
         //// Rectangle-12 Drawing
         let rectangle12Path = UIBezierPath()
-        rectangle12Path.moveToPoint(CGPoint(x: -3.97, y: -15))
-        rectangle12Path.addCurveToPoint(CGPoint(x: -5.9, y: -1), controlPoint1: CGPoint(x: -3.97, y: -15), controlPoint2: CGPoint(x: -5.9, y: -5.58))
-        rectangle12Path.addCurveToPoint(CGPoint(x: -3.97, y: 13), controlPoint1: CGPoint(x: -5.9, y: 3.75), controlPoint2: CGPoint(x: -3.97, y: 13))
-        rectangle12Path.addLineToPoint(CGPoint(x: -5.9, y: 13))
-        rectangle12Path.addCurveToPoint(CGPoint(x: -7.39, y: 6.1), controlPoint1: CGPoint(x: -5.9, y: 13), controlPoint2: CGPoint(x: -6.72, y: 9.74))
-        rectangle12Path.addCurveToPoint(CGPoint(x: -8.23, y: -1), controlPoint1: CGPoint(x: -7.84, y: 3.61), controlPoint2: CGPoint(x: -8.23, y: 0.94))
-        rectangle12Path.addCurveToPoint(CGPoint(x: -5.9, y: -15), controlPoint1: CGPoint(x: -8.23, y: -5.54), controlPoint2: CGPoint(x: -5.9, y: -15))
-        rectangle12Path.addLineToPoint(CGPoint(x: -3.97, y: -15))
-        rectangle12Path.closePath()
+        rectangle12Path.move(to: CGPoint(x: -3.97, y: -15))
+        rectangle12Path.addCurve(to: CGPoint(x: -5.9, y: -1), controlPoint1: CGPoint(x: -3.97, y: -15), controlPoint2: CGPoint(x: -5.9, y: -5.58))
+        rectangle12Path.addCurve(to: CGPoint(x: -3.97, y: 13), controlPoint1: CGPoint(x: -5.9, y: 3.75), controlPoint2: CGPoint(x: -3.97, y: 13))
+        rectangle12Path.addLine(to: CGPoint(x: -5.9, y: 13))
+        rectangle12Path.addCurve(to: CGPoint(x: -7.39, y: 6.1), controlPoint1: CGPoint(x: -5.9, y: 13), controlPoint2: CGPoint(x: -6.72, y: 9.74))
+        rectangle12Path.addCurve(to: CGPoint(x: -8.23, y: -1), controlPoint1: CGPoint(x: -7.84, y: 3.61), controlPoint2: CGPoint(x: -8.23, y: 0.94))
+        rectangle12Path.addCurve(to: CGPoint(x: -5.9, y: -15), controlPoint1: CGPoint(x: -8.23, y: -5.54), controlPoint2: CGPoint(x: -5.9, y: -15))
+        rectangle12Path.addLine(to: CGPoint(x: -3.97, y: -15))
+        rectangle12Path.close()
         rectangle12Path.miterLimit = 4;
 
         rectangle12Path.usesEvenOddFillRule = true;
@@ -1417,10 +1417,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSearchtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawSearchtab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1428,21 +1428,21 @@ public class StyleKit : NSObject {
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.52379 * frame.width, frame.minY + 0.51089 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.52379 * frame.width, y: frame.minY + 0.51089 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-82 Drawing
         let path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPoint(x: 6.59, y: 6.58))
-        path82Path.addLineToPoint(CGPoint(x: 13.19, y: 14.54))
+        path82Path.move(to: CGPoint(x: 6.59, y: 6.58))
+        path82Path.addLine(to: CGPoint(x: 13.19, y: 14.54))
         path82Path.miterLimit = 4;
 
-        path82Path.lineCapStyle = .Round;
+        path82Path.lineCapStyle = .round;
 
-        path82Path.lineJoinStyle = .Round;
+        path82Path.lineJoinStyle = .round;
 
         path82Path.usesEvenOddFillRule = true;
 
@@ -1452,17 +1452,17 @@ public class StyleKit : NSObject {
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: -13.19, y: -14.54, width: 23, height: 23))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: -13.19, y: -14.54, width: 23, height: 23))
         strokeColor3.setStroke()
         oval77Path.lineWidth = 3.5
         oval77Path.stroke()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawTrendingtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawTrendingtab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1471,9 +1471,9 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.48000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.48000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -1496,21 +1496,21 @@ public class StyleKit : NSObject {
 
 
         //// Oval-117-Copy Drawing
-        let oval117CopyPath = UIBezierPath(ovalInRect: CGRect(x: -1.35, y: 1.9, width: 12.9, height: 13.1))
+        let oval117CopyPath = UIBezierPath(ovalIn: CGRect(x: -1.35, y: 1.9, width: 12.9, height: 13.1))
         fillColor3.setFill()
         oval117CopyPath.fill()
 
 
         //// Path-118 Drawing
         let path118Path = UIBezierPath()
-        path118Path.moveToPoint(CGPoint(x: 18, y: -15))
-        path118Path.addLineToPoint(CGPoint(x: 9.79, y: -11))
-        path118Path.addLineToPoint(CGPoint(x: 9.79, y: 8.25))
+        path118Path.move(to: CGPoint(x: 18, y: -15))
+        path118Path.addLine(to: CGPoint(x: 9.79, y: -11))
+        path118Path.addLine(to: CGPoint(x: 9.79, y: 8.25))
         path118Path.miterLimit = 4;
 
-        path118Path.lineCapStyle = .Round;
+        path118Path.lineCapStyle = .round;
 
-        path118Path.lineJoinStyle = .Round;
+        path118Path.lineJoinStyle = .round;
 
         path118Path.usesEvenOddFillRule = true;
 
@@ -1520,10 +1520,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawFavoritestab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
+    public class func drawFavoritestab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1533,7 +1533,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let tealColor = UIColor(red: 0.145, green: 0.780, blue: 0.530, alpha: 1.000)
 
         //// Variable Declarations
@@ -1541,28 +1541,28 @@ public class StyleKit : NSObject {
         let favoritedIconColor = favorited ? tealColor : strokeColor
 
         //// star Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.51000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.51000 * frame.height)
+        context.scale(x: scale, y: scale)
 
         let starPath = UIBezierPath()
-        starPath.moveToPoint(CGPoint(x: -0.08, y: 7.5))
-        starPath.addLineToPoint(CGPoint(x: -9.4, y: 14))
-        starPath.addLineToPoint(CGPoint(x: -6.12, y: 3.11))
-        starPath.addLineToPoint(CGPoint(x: -15.17, y: -3.76))
-        starPath.addLineToPoint(CGPoint(x: -3.81, y: -4))
-        starPath.addLineToPoint(CGPoint(x: -0.08, y: -14.74))
-        starPath.addLineToPoint(CGPoint(x: 3.65, y: -4))
-        starPath.addLineToPoint(CGPoint(x: 15, y: -3.76))
-        starPath.addLineToPoint(CGPoint(x: 5.95, y: 3.11))
-        starPath.addLineToPoint(CGPoint(x: 9.24, y: 14))
-        starPath.addLineToPoint(CGPoint(x: -0.08, y: 7.5))
-        starPath.closePath()
+        starPath.move(to: CGPoint(x: -0.08, y: 7.5))
+        starPath.addLine(to: CGPoint(x: -9.4, y: 14))
+        starPath.addLine(to: CGPoint(x: -6.12, y: 3.11))
+        starPath.addLine(to: CGPoint(x: -15.17, y: -3.76))
+        starPath.addLine(to: CGPoint(x: -3.81, y: -4))
+        starPath.addLine(to: CGPoint(x: -0.08, y: -14.74))
+        starPath.addLine(to: CGPoint(x: 3.65, y: -4))
+        starPath.addLine(to: CGPoint(x: 15, y: -3.76))
+        starPath.addLine(to: CGPoint(x: 5.95, y: 3.11))
+        starPath.addLine(to: CGPoint(x: 9.24, y: 14))
+        starPath.addLine(to: CGPoint(x: -0.08, y: 7.5))
+        starPath.close()
         starPath.miterLimit = 4;
 
-        starPath.lineCapStyle = .Round;
+        starPath.lineCapStyle = .round;
 
-        starPath.lineJoinStyle = .Round;
+        starPath.lineJoinStyle = .round;
 
         starPath.usesEvenOddFillRule = true;
 
@@ -1572,10 +1572,10 @@ public class StyleKit : NSObject {
         starPath.lineWidth = 4
         starPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawRecentstab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawRecentstab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1584,14 +1584,14 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: -16, y: -16, width: 32, height: 32))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: -16, y: -16, width: 32, height: 32))
         strokeColor3.setStroke()
         oval77Path.lineWidth = 3.5
         oval77Path.stroke()
@@ -1604,48 +1604,48 @@ public class StyleKit : NSObject {
 
 
         //// Rectangle-1038-Copy Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, -2, 3)
-        CGContextRotateCTM(context, -90 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: -2, y: 3)
+        context.rotate(byAngle: -90 * CGFloat(M_PI) / 180)
 
         let rectangle1038CopyPath = UIBezierPath()
-        rectangle1038CopyPath.moveToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 3.5, y: 1.97), controlPoint1: CGPoint(x: 2.72, y: 0), controlPoint2: CGPoint(x: 3.5, y: 0.88))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 3.5, y: 1.97))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 3.5, y: 1.97))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 3.5, y: 4.5))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 3.5, y: 7.03), controlPoint1: CGPoint(x: 3.5, y: 7.03), controlPoint2: CGPoint(x: 3.5, y: 7.03))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 3.5, y: 7.03))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 1.75, y: 9), controlPoint1: CGPoint(x: 3.5, y: 8.12), controlPoint2: CGPoint(x: 2.72, y: 9))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: 9))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: 9))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: 9))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: 9))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: 9))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 0, y: 7.03), controlPoint1: CGPoint(x: 0.78, y: 9), controlPoint2: CGPoint(x: -0, y: 8.12))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 0, y: 7.03))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 0, y: 7.03))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 0, y: 4.5))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 0, y: 1.97), controlPoint1: CGPoint(x: 0, y: 1.97), controlPoint2: CGPoint(x: 0, y: 1.97))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 0, y: 1.97))
-        rectangle1038CopyPath.addCurveToPoint(CGPoint(x: 1.75, y: -0), controlPoint1: CGPoint(x: 0, y: 0.88), controlPoint2: CGPoint(x: 0.78, y: -0))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.addLineToPoint(CGPoint(x: 1.75, y: -0))
-        rectangle1038CopyPath.closePath()
+        rectangle1038CopyPath.move(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 3.5, y: 1.97), controlPoint1: CGPoint(x: 2.72, y: 0), controlPoint2: CGPoint(x: 3.5, y: 0.88))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 3.5, y: 1.97))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 3.5, y: 1.97))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 3.5, y: 4.5))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 3.5, y: 7.03), controlPoint1: CGPoint(x: 3.5, y: 7.03), controlPoint2: CGPoint(x: 3.5, y: 7.03))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 3.5, y: 7.03))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 1.75, y: 9), controlPoint1: CGPoint(x: 3.5, y: 8.12), controlPoint2: CGPoint(x: 2.72, y: 9))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: 9))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: 9))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: 9))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: 9))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: 9))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 0, y: 7.03), controlPoint1: CGPoint(x: 0.78, y: 9), controlPoint2: CGPoint(x: -0, y: 8.12))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 0, y: 7.03))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 0, y: 7.03))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 0, y: 4.5))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 0, y: 1.97), controlPoint1: CGPoint(x: 0, y: 1.97), controlPoint2: CGPoint(x: 0, y: 1.97))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 0, y: 1.97))
+        rectangle1038CopyPath.addCurve(to: CGPoint(x: 1.75, y: -0), controlPoint1: CGPoint(x: 0, y: 0.88), controlPoint2: CGPoint(x: 0.78, y: -0))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.addLine(to: CGPoint(x: 1.75, y: -0))
+        rectangle1038CopyPath.close()
         fillColor3.setFill()
         rectangle1038CopyPath.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawBackarrow(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, rotate: CGFloat = -90) {
+    public class func drawBackarrow(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, rotate: CGFloat = -90) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1655,26 +1655,26 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// arrow Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50500 * frame.width, frame.minY + 0.49700 * frame.height)
-        CGContextRotateCTM(context, -rotate * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50500 * frame.width, y: frame.minY + 0.49700 * frame.height)
+        context.rotate(byAngle: -rotate * CGFloat(M_PI) / 180)
+        context.scale(x: scale, y: scale)
 
         let arrowPath = UIBezierPath()
-        arrowPath.moveToPoint(CGPoint(x: 6.5, y: 11.7))
-        arrowPath.addLineToPoint(CGPoint(x: -6.5, y: 0))
-        arrowPath.addLineToPoint(CGPoint(x: 6.5, y: -11.7))
+        arrowPath.move(to: CGPoint(x: 6.5, y: 11.7))
+        arrowPath.addLine(to: CGPoint(x: -6.5, y: 0))
+        arrowPath.addLine(to: CGPoint(x: 6.5, y: -11.7))
         arrowPath.miterLimit = 4;
 
-        arrowPath.lineCapStyle = .Round;
+        arrowPath.lineCapStyle = .round;
 
-        arrowPath.lineJoinStyle = .Round;
+        arrowPath.lineJoinStyle = .round;
 
         arrowPath.usesEvenOddFillRule = true;
 
@@ -1682,10 +1682,10 @@ public class StyleKit : NSObject {
         arrowPath.lineWidth = 5
         arrowPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawHotness(scale scale: CGFloat = 0.5) {
+    public class func drawHotness(scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1697,23 +1697,23 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 6, 7)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 6, y: 7)
+        context.scale(x: scale, y: scale)
 
 
 
         //// flames Drawing
         let flamesPath = UIBezierPath()
-        flamesPath.moveToPoint(CGPoint(x: frame.minX + 0.15, y: frame.minY + 18.13))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 8.48, y: frame.minY + 29.26), controlPoint1: CGPoint(x: frame.minX - 1, y: frame.minY + 25.32), controlPoint2: CGPoint(x: frame.minX + 5.16, y: frame.minY + 28.33))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 9.34, y: frame.minY + 18.56), controlPoint1: CGPoint(x: frame.minX + 8.48, y: frame.minY + 29.26), controlPoint2: CGPoint(x: frame.minX + 2.96, y: frame.minY + 23.14))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 18.05, y: frame.minY + 30), controlPoint1: CGPoint(x: frame.minX + 10.58, y: frame.minY + 23.84), controlPoint2: CGPoint(x: frame.minX + 13.73, y: frame.minY + 30))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 21.38, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 22.38, y: frame.minY + 30), controlPoint2: CGPoint(x: frame.minX + 27.11, y: frame.minY + 18.08))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51), controlPoint1: CGPoint(x: frame.minX + 18.82, y: frame.minY + 15.44), controlPoint2: CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 10.96, y: frame.minY), controlPoint1: CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51), controlPoint2: CGPoint(x: frame.minX + 19.5, y: frame.minY + 6.38))
-        flamesPath.addCurveToPoint(CGPoint(x: frame.minX + 0.15, y: frame.minY + 18.13), controlPoint1: CGPoint(x: frame.minX + 8.48, y: frame.minY + 9.19), controlPoint2: CGPoint(x: frame.minX + 1.3, y: frame.minY + 10.94))
-        flamesPath.closePath()
+        flamesPath.move(to: CGPoint(x: frame.minX + 0.15, y: frame.minY + 18.13))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 8.48, y: frame.minY + 29.26), controlPoint1: CGPoint(x: frame.minX - 1, y: frame.minY + 25.32), controlPoint2: CGPoint(x: frame.minX + 5.16, y: frame.minY + 28.33))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 9.34, y: frame.minY + 18.56), controlPoint1: CGPoint(x: frame.minX + 8.48, y: frame.minY + 29.26), controlPoint2: CGPoint(x: frame.minX + 2.96, y: frame.minY + 23.14))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 18.05, y: frame.minY + 30), controlPoint1: CGPoint(x: frame.minX + 10.58, y: frame.minY + 23.84), controlPoint2: CGPoint(x: frame.minX + 13.73, y: frame.minY + 30))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 21.38, y: frame.minY + 10), controlPoint1: CGPoint(x: frame.minX + 22.38, y: frame.minY + 30), controlPoint2: CGPoint(x: frame.minX + 27.11, y: frame.minY + 18.08))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51), controlPoint1: CGPoint(x: frame.minX + 18.82, y: frame.minY + 15.44), controlPoint2: CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 10.96, y: frame.minY), controlPoint1: CGPoint(x: frame.minX + 15.93, y: frame.minY + 16.51), controlPoint2: CGPoint(x: frame.minX + 19.5, y: frame.minY + 6.38))
+        flamesPath.addCurve(to: CGPoint(x: frame.minX + 0.15, y: frame.minY + 18.13), controlPoint1: CGPoint(x: frame.minX + 8.48, y: frame.minY + 9.19), controlPoint2: CGPoint(x: frame.minX + 1.3, y: frame.minY + 10.94))
+        flamesPath.close()
         flamesPath.miterLimit = 4;
 
         flamesPath.usesEvenOddFillRule = true;
@@ -1723,10 +1723,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawMenu(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
+    public class func drawMenu(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1734,9 +1734,9 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 17.3, frame.minY + 17.5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 17.3, y: frame.minY + 17.5)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -1759,10 +1759,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCancelbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCancelbutton(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1775,32 +1775,32 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 4)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 4)
+        context.scale(x: scale, y: scale)
 
 
 
         //// cancelIcon Drawing
         let cancelIconPath = UIBezierPath()
-        cancelIconPath.moveToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 31.6, y: frame.minY + 28.77))
-        cancelIconPath.addCurveToPoint(CGPoint(x: frame.minX + 28.77, y: frame.minY + 28.77), controlPoint1: CGPoint(x: frame.minX + 30.82, y: frame.minY + 27.99), controlPoint2: CGPoint(x: frame.minX + 29.55, y: frame.minY + 27.99))
-        cancelIconPath.addCurveToPoint(CGPoint(x: frame.minX + 28.77, y: frame.minY + 31.6), controlPoint1: CGPoint(x: frame.minX + 27.99, y: frame.minY + 29.56), controlPoint2: CGPoint(x: frame.minX + 27.99, y: frame.minY + 30.82))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 38.67, y: frame.minY + 41.5))
-        cancelIconPath.addLineToPoint(CGPoint(x: 28.77, y: 51.4))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 28.77, y: 54.23), controlPoint1: CGPoint(x: 27.99, y: 52.18), controlPoint2: CGPoint(x: 27.99, y: 53.44))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 31.6, y: 54.23), controlPoint1: CGPoint(x: 29.55, y: 55.01), controlPoint2: CGPoint(x: 30.82, y: 55.01))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 44.33))
-        cancelIconPath.addLineToPoint(CGPoint(x: 51.4, y: 54.23))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 54.23), controlPoint1: CGPoint(x: 52.18, y: 55.01), controlPoint2: CGPoint(x: 53.45, y: 55.01))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 51.4), controlPoint1: CGPoint(x: 55.01, y: 53.44), controlPoint2: CGPoint(x: 55.01, y: 52.18))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 44.33, y: frame.minY + 41.5))
-        cancelIconPath.addLineToPoint(CGPoint(x: 54.23, y: 31.6))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 54.23, y: 28.77), controlPoint1: CGPoint(x: 55.01, y: 30.82), controlPoint2: CGPoint(x: 55.01, y: 29.56))
-        cancelIconPath.addCurveToPoint(CGPoint(x: 51.4, y: 28.77), controlPoint1: CGPoint(x: 53.45, y: 27.99), controlPoint2: CGPoint(x: 52.18, y: 27.99))
-        cancelIconPath.addLineToPoint(CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
-        cancelIconPath.closePath()
+        cancelIconPath.move(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 31.6, y: frame.minY + 28.77))
+        cancelIconPath.addCurve(to: CGPoint(x: frame.minX + 28.77, y: frame.minY + 28.77), controlPoint1: CGPoint(x: frame.minX + 30.82, y: frame.minY + 27.99), controlPoint2: CGPoint(x: frame.minX + 29.55, y: frame.minY + 27.99))
+        cancelIconPath.addCurve(to: CGPoint(x: frame.minX + 28.77, y: frame.minY + 31.6), controlPoint1: CGPoint(x: frame.minX + 27.99, y: frame.minY + 29.56), controlPoint2: CGPoint(x: frame.minX + 27.99, y: frame.minY + 30.82))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 38.67, y: frame.minY + 41.5))
+        cancelIconPath.addLine(to: CGPoint(x: 28.77, y: 51.4))
+        cancelIconPath.addCurve(to: CGPoint(x: 28.77, y: 54.23), controlPoint1: CGPoint(x: 27.99, y: 52.18), controlPoint2: CGPoint(x: 27.99, y: 53.44))
+        cancelIconPath.addCurve(to: CGPoint(x: 31.6, y: 54.23), controlPoint1: CGPoint(x: 29.55, y: 55.01), controlPoint2: CGPoint(x: 30.82, y: 55.01))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 44.33))
+        cancelIconPath.addLine(to: CGPoint(x: 51.4, y: 54.23))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 54.23), controlPoint1: CGPoint(x: 52.18, y: 55.01), controlPoint2: CGPoint(x: 53.45, y: 55.01))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 51.4), controlPoint1: CGPoint(x: 55.01, y: 53.44), controlPoint2: CGPoint(x: 55.01, y: 52.18))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 44.33, y: frame.minY + 41.5))
+        cancelIconPath.addLine(to: CGPoint(x: 54.23, y: 31.6))
+        cancelIconPath.addCurve(to: CGPoint(x: 54.23, y: 28.77), controlPoint1: CGPoint(x: 55.01, y: 30.82), controlPoint2: CGPoint(x: 55.01, y: 29.56))
+        cancelIconPath.addCurve(to: CGPoint(x: 51.4, y: 28.77), controlPoint1: CGPoint(x: 53.45, y: 27.99), controlPoint2: CGPoint(x: 52.18, y: 27.99))
+        cancelIconPath.addLine(to: CGPoint(x: frame.minX + 41.5, y: frame.minY + 38.67))
+        cancelIconPath.close()
         cancelIconPath.miterLimit = 4;
 
         cancelIconPath.usesEvenOddFillRule = true;
@@ -1810,10 +1810,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawInsertbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawInsertbutton(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1826,22 +1826,22 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, 5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 4, y: 5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// path-1 Drawing
         let path1Path = UIBezierPath()
-        path1Path.moveToPoint(CGPoint(x: frame.minX + 30.71, y: frame.minY + 40.93))
-        path1Path.addLineToPoint(CGPoint(x: frame.minX + 41.52, y: frame.minY + 29.93))
-        path1Path.addLineToPoint(CGPoint(x: 51.73, y: 40.64))
+        path1Path.move(to: CGPoint(x: frame.minX + 30.71, y: frame.minY + 40.93))
+        path1Path.addLine(to: CGPoint(x: frame.minX + 41.52, y: frame.minY + 29.93))
+        path1Path.addLine(to: CGPoint(x: 51.73, y: 40.64))
         path1Path.miterLimit = 4;
 
-        path1Path.lineCapStyle = .Round;
+        path1Path.lineCapStyle = .round;
 
-        path1Path.lineJoinStyle = .Round;
+        path1Path.lineJoinStyle = .round;
 
         path1Path.usesEvenOddFillRule = true;
 
@@ -1852,13 +1852,13 @@ public class StyleKit : NSObject {
 
         //// Path- 2 Drawing
         let path2Path = UIBezierPath()
-        path2Path.moveToPoint(CGPoint(x: frame.minX + 41.39, y: frame.minY + 29.89))
-        path2Path.addLineToPoint(CGPoint(x: 41.41, y: 61.61))
+        path2Path.move(to: CGPoint(x: frame.minX + 41.39, y: frame.minY + 29.89))
+        path2Path.addLine(to: CGPoint(x: 41.41, y: 61.61))
         path2Path.miterLimit = 4;
 
-        path2Path.lineCapStyle = .Round;
+        path2Path.lineCapStyle = .round;
 
-        path2Path.lineJoinStyle = .Round;
+        path2Path.lineJoinStyle = .round;
 
         path2Path.usesEvenOddFillRule = true;
 
@@ -1869,11 +1869,11 @@ public class StyleKit : NSObject {
 
         //// Path-106 Drawing
         let path106Path = UIBezierPath()
-        path106Path.moveToPoint(CGPoint(x: frame.minX + 29, y: frame.minY + 23))
-        path106Path.addLineToPoint(CGPoint(x: 54, y: 23))
+        path106Path.move(to: CGPoint(x: frame.minX + 29, y: frame.minY + 23))
+        path106Path.addLine(to: CGPoint(x: 54, y: 23))
         path106Path.miterLimit = 4;
 
-        path106Path.lineCapStyle = .Round;
+        path106Path.lineCapStyle = .round;
 
         path106Path.usesEvenOddFillRule = true;
 
@@ -1883,10 +1883,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawLyricsclosebutton(scale scale: CGFloat = 0.5) {
+    public class func drawLyricsclosebutton(scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1899,38 +1899,38 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 1, 2)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 1, y: 2)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-77 Drawing
-        let oval77Path = UIBezierPath(ovalInRect: CGRect(x: frame.minX + 6, y: frame.minY + 4, width: 56, height: 56))
+        let oval77Path = UIBezierPath(ovalIn: CGRect(x: frame.minX + 6, y: frame.minY + 4, width: 56, height: 56))
         fillColor10.setFill()
         oval77Path.fill()
 
 
         //// Rectangle-614 Drawing
         let rectangle614Path = UIBezierPath()
-        rectangle614Path.moveToPoint(CGPoint(x: 36.23, y: 31.97))
-        rectangle614Path.addLineToPoint(CGPoint(x: 42.46, y: 25.74))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 42.46, y: 23.49), controlPoint1: CGPoint(x: 43.08, y: 25.12), controlPoint2: CGPoint(x: 43.08, y: 24.11))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 40.2, y: 23.48), controlPoint1: CGPoint(x: 41.83, y: 22.86), controlPoint2: CGPoint(x: 40.82, y: 22.86))
-        rectangle614Path.addLineToPoint(CGPoint(x: frame.minX + 33.97, y: frame.minY + 29.71))
-        rectangle614Path.addLineToPoint(CGPoint(x: frame.minX + 27.74, y: frame.minY + 23.48))
-        rectangle614Path.addCurveToPoint(CGPoint(x: frame.minX + 25.49, y: frame.minY + 23.49), controlPoint1: CGPoint(x: frame.minX + 27.12, y: frame.minY + 22.86), controlPoint2: CGPoint(x: frame.minX + 26.11, y: frame.minY + 22.86))
-        rectangle614Path.addCurveToPoint(CGPoint(x: frame.minX + 25.48, y: frame.minY + 25.74), controlPoint1: CGPoint(x: frame.minX + 24.86, y: frame.minY + 24.11), controlPoint2: CGPoint(x: frame.minX + 24.86, y: frame.minY + 25.12))
-        rectangle614Path.addLineToPoint(CGPoint(x: frame.minX + 31.71, y: frame.minY + 31.97))
-        rectangle614Path.addLineToPoint(CGPoint(x: 25.48, y: 38.2))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 25.49, y: 40.46), controlPoint1: CGPoint(x: 24.86, y: 38.82), controlPoint2: CGPoint(x: 24.86, y: 39.83))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 27.74, y: 40.46), controlPoint1: CGPoint(x: 26.11, y: 41.09), controlPoint2: CGPoint(x: 27.12, y: 41.08))
-        rectangle614Path.addLineToPoint(CGPoint(x: frame.minX + 33.97, y: frame.minY + 34.23))
-        rectangle614Path.addLineToPoint(CGPoint(x: 40.2, y: 40.46))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 42.46, y: 40.46), controlPoint1: CGPoint(x: 40.82, y: 41.08), controlPoint2: CGPoint(x: 41.83, y: 41.08))
-        rectangle614Path.addCurveToPoint(CGPoint(x: 42.46, y: 38.2), controlPoint1: CGPoint(x: 43.09, y: 39.83), controlPoint2: CGPoint(x: 43.08, y: 38.82))
-        rectangle614Path.addLineToPoint(CGPoint(x: 36.23, y: 31.97))
-        rectangle614Path.closePath()
+        rectangle614Path.move(to: CGPoint(x: 36.23, y: 31.97))
+        rectangle614Path.addLine(to: CGPoint(x: 42.46, y: 25.74))
+        rectangle614Path.addCurve(to: CGPoint(x: 42.46, y: 23.49), controlPoint1: CGPoint(x: 43.08, y: 25.12), controlPoint2: CGPoint(x: 43.08, y: 24.11))
+        rectangle614Path.addCurve(to: CGPoint(x: 40.2, y: 23.48), controlPoint1: CGPoint(x: 41.83, y: 22.86), controlPoint2: CGPoint(x: 40.82, y: 22.86))
+        rectangle614Path.addLine(to: CGPoint(x: frame.minX + 33.97, y: frame.minY + 29.71))
+        rectangle614Path.addLine(to: CGPoint(x: frame.minX + 27.74, y: frame.minY + 23.48))
+        rectangle614Path.addCurve(to: CGPoint(x: frame.minX + 25.49, y: frame.minY + 23.49), controlPoint1: CGPoint(x: frame.minX + 27.12, y: frame.minY + 22.86), controlPoint2: CGPoint(x: frame.minX + 26.11, y: frame.minY + 22.86))
+        rectangle614Path.addCurve(to: CGPoint(x: frame.minX + 25.48, y: frame.minY + 25.74), controlPoint1: CGPoint(x: frame.minX + 24.86, y: frame.minY + 24.11), controlPoint2: CGPoint(x: frame.minX + 24.86, y: frame.minY + 25.12))
+        rectangle614Path.addLine(to: CGPoint(x: frame.minX + 31.71, y: frame.minY + 31.97))
+        rectangle614Path.addLine(to: CGPoint(x: 25.48, y: 38.2))
+        rectangle614Path.addCurve(to: CGPoint(x: 25.49, y: 40.46), controlPoint1: CGPoint(x: 24.86, y: 38.82), controlPoint2: CGPoint(x: 24.86, y: 39.83))
+        rectangle614Path.addCurve(to: CGPoint(x: 27.74, y: 40.46), controlPoint1: CGPoint(x: 26.11, y: 41.09), controlPoint2: CGPoint(x: 27.12, y: 41.08))
+        rectangle614Path.addLine(to: CGPoint(x: frame.minX + 33.97, y: frame.minY + 34.23))
+        rectangle614Path.addLine(to: CGPoint(x: 40.2, y: 40.46))
+        rectangle614Path.addCurve(to: CGPoint(x: 42.46, y: 40.46), controlPoint1: CGPoint(x: 40.82, y: 41.08), controlPoint2: CGPoint(x: 41.83, y: 41.08))
+        rectangle614Path.addCurve(to: CGPoint(x: 42.46, y: 38.2), controlPoint1: CGPoint(x: 43.09, y: 39.83), controlPoint2: CGPoint(x: 43.08, y: 38.82))
+        rectangle614Path.addLine(to: CGPoint(x: 36.23, y: 31.97))
+        rectangle614Path.close()
         rectangle614Path.miterLimit = 4;
 
         rectangle614Path.usesEvenOddFillRule = true;
@@ -1940,10 +1940,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSnapchat(scale scale: CGFloat = 0.5, snapchatSelect: Bool = false) {
+    public class func drawSnapchat(scale: CGFloat = 0.5, snapchatSelect: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -1960,50 +1960,50 @@ public class StyleKit : NSObject {
 
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 7, 4)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 7, y: 4)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPoint(x: frame.minX + 13.71, y: frame.minY + 21.36))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 14.3, y: frame.minY + 20.75), controlPoint1: CGPoint(x: frame.minX + 14.09, y: frame.minY + 21.4), controlPoint2: CGPoint(x: frame.minX + 14.35, y: frame.minY + 21.13))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 21.96, y: frame.minY + 9), controlPoint1: CGPoint(x: frame.minX + 14.3, y: frame.minY + 20.75), controlPoint2: CGPoint(x: frame.minX + 11.89, y: frame.minY + 9))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 29.49, y: frame.minY + 20.75), controlPoint1: CGPoint(x: frame.minX + 32.04, y: frame.minY + 9), controlPoint2: CGPoint(x: frame.minX + 29.49, y: frame.minY + 20.75))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 30.07, y: frame.minY + 21.36), controlPoint1: CGPoint(x: frame.minX + 29.43, y: frame.minY + 21.13), controlPoint2: CGPoint(x: frame.minX + 29.69, y: frame.minY + 21.4))
-        bezierPath.addLineToPoint(CGPoint(x: frame.minX + 32.4, y: frame.minY + 21.07))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 33.25, y: frame.minY + 21.37), controlPoint1: CGPoint(x: frame.minX + 32.67, y: frame.minY + 21.04), controlPoint2: CGPoint(x: frame.minX + 33.06, y: frame.minY + 21.16))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 33.54, y: frame.minY + 22.53), controlPoint1: CGPoint(x: frame.minX + 33.25, y: frame.minY + 21.37), controlPoint2: CGPoint(x: frame.minX + 33.9, y: frame.minY + 21.79))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75), controlPoint1: CGPoint(x: frame.minX + 33.18, y: frame.minY + 23.27), controlPoint2: CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 32.36, y: frame.minY + 29.37), controlPoint1: CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75), controlPoint2: CGPoint(x: frame.minX + 30.69, y: frame.minY + 27.55))
-        bezierPath.addCurveToPoint(CGPoint(x: 37, y: 32.17), controlPoint1: CGPoint(x: frame.minX + 33.91, y: frame.minY + 31.05), controlPoint2: CGPoint(x: 37, y: 31.48))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 33.88, y: frame.minY + 33.81), controlPoint1: CGPoint(x: 37.01, y: 33.72), controlPoint2: CGPoint(x: frame.minX + 33.88, y: frame.minY + 33.81))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 32.74, y: frame.minY + 34.9), controlPoint1: CGPoint(x: frame.minX + 33.33, y: frame.minY + 33.86), controlPoint2: CGPoint(x: frame.minX + 32.82, y: frame.minY + 34.34))
-        bezierPath.addLineToPoint(CGPoint(x: 32.51, y: 36.48))
-        bezierPath.addCurveToPoint(CGPoint(x: 31.41, y: 37.18), controlPoint1: CGPoint(x: 32.43, y: 37.03), controlPoint2: CGPoint(x: 31.94, y: 37.35))
-        bezierPath.addLineToPoint(CGPoint(x: 32.36, y: 37.48))
-        bezierPath.addCurveToPoint(CGPoint(x: 25.04, y: 39.55), controlPoint1: CGPoint(x: 30.47, y: 36.89), controlPoint2: CGPoint(x: 27.2, y: 37.82))
-        bezierPath.addLineToPoint(CGPoint(x: 24.31, y: 40.14))
-        bezierPath.addCurveToPoint(CGPoint(x: 19.65, y: 40.13), controlPoint1: CGPoint(x: 23.01, y: 41.18), controlPoint2: CGPoint(x: 20.93, y: 41.17))
-        bezierPath.addLineToPoint(CGPoint(x: 18.99, y: 39.58))
-        bezierPath.addCurveToPoint(CGPoint(x: 11.74, y: 37.48), controlPoint1: CGPoint(x: 16.86, y: 37.83), controlPoint2: CGPoint(x: 13, y: 37.08))
-        bezierPath.addLineToPoint(CGPoint(x: 12.7, y: 37.18))
-        bezierPath.addCurveToPoint(CGPoint(x: 11.59, y: 36.48), controlPoint1: CGPoint(x: 12.17, y: 37.34), controlPoint2: CGPoint(x: 11.67, y: 37.04))
-        bezierPath.addLineToPoint(CGPoint(x: frame.minX + 11.34, y: frame.minY + 34.9))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 10.2, y: frame.minY + 33.92), controlPoint1: CGPoint(x: frame.minX + 11.26, y: frame.minY + 34.35), controlPoint2: CGPoint(x: frame.minX + 10.74, y: frame.minY + 33.92))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 7, y: frame.minY + 32.62), controlPoint1: CGPoint(x: frame.minX + 10.2, y: frame.minY + 33.92), controlPoint2: CGPoint(x: frame.minX + 7, y: frame.minY + 34.17))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 11.74, y: frame.minY + 29.21), controlPoint1: CGPoint(x: frame.minX + 7, y: frame.minY + 32), controlPoint2: CGPoint(x: frame.minX + 10.15, y: frame.minY + 31.14))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75), controlPoint1: CGPoint(x: frame.minX + 13.33, y: frame.minY + 27.27), controlPoint2: CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 10.15, y: frame.minY + 22.63), controlPoint1: CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75), controlPoint2: CGPoint(x: frame.minX + 10.64, y: frame.minY + 23.67))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 10.24, y: frame.minY + 21.36), controlPoint1: CGPoint(x: frame.minX + 9.66, y: frame.minY + 21.58), controlPoint2: CGPoint(x: frame.minX + 10.24, y: frame.minY + 21.36))
-        bezierPath.addCurveToPoint(CGPoint(x: frame.minX + 11.1, y: frame.minY + 21.07), controlPoint1: CGPoint(x: frame.minX + 10.44, y: frame.minY + 21.17), controlPoint2: CGPoint(x: frame.minX + 10.82, y: frame.minY + 21.04))
-        bezierPath.addLineToPoint(CGPoint(x: frame.minX + 13.71, y: frame.minY + 21.36))
-        bezierPath.closePath()
+        bezierPath.move(to: CGPoint(x: frame.minX + 13.71, y: frame.minY + 21.36))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 14.3, y: frame.minY + 20.75), controlPoint1: CGPoint(x: frame.minX + 14.09, y: frame.minY + 21.4), controlPoint2: CGPoint(x: frame.minX + 14.35, y: frame.minY + 21.13))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 21.96, y: frame.minY + 9), controlPoint1: CGPoint(x: frame.minX + 14.3, y: frame.minY + 20.75), controlPoint2: CGPoint(x: frame.minX + 11.89, y: frame.minY + 9))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 29.49, y: frame.minY + 20.75), controlPoint1: CGPoint(x: frame.minX + 32.04, y: frame.minY + 9), controlPoint2: CGPoint(x: frame.minX + 29.49, y: frame.minY + 20.75))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 30.07, y: frame.minY + 21.36), controlPoint1: CGPoint(x: frame.minX + 29.43, y: frame.minY + 21.13), controlPoint2: CGPoint(x: frame.minX + 29.69, y: frame.minY + 21.4))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 32.4, y: frame.minY + 21.07))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 33.25, y: frame.minY + 21.37), controlPoint1: CGPoint(x: frame.minX + 32.67, y: frame.minY + 21.04), controlPoint2: CGPoint(x: frame.minX + 33.06, y: frame.minY + 21.16))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 33.54, y: frame.minY + 22.53), controlPoint1: CGPoint(x: frame.minX + 33.25, y: frame.minY + 21.37), controlPoint2: CGPoint(x: frame.minX + 33.9, y: frame.minY + 21.79))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75), controlPoint1: CGPoint(x: frame.minX + 33.18, y: frame.minY + 23.27), controlPoint2: CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 32.36, y: frame.minY + 29.37), controlPoint1: CGPoint(x: frame.minX + 30.39, y: frame.minY + 24.75), controlPoint2: CGPoint(x: frame.minX + 30.69, y: frame.minY + 27.55))
+        bezierPath.addCurve(to: CGPoint(x: 37, y: 32.17), controlPoint1: CGPoint(x: frame.minX + 33.91, y: frame.minY + 31.05), controlPoint2: CGPoint(x: 37, y: 31.48))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 33.88, y: frame.minY + 33.81), controlPoint1: CGPoint(x: 37.01, y: 33.72), controlPoint2: CGPoint(x: frame.minX + 33.88, y: frame.minY + 33.81))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 32.74, y: frame.minY + 34.9), controlPoint1: CGPoint(x: frame.minX + 33.33, y: frame.minY + 33.86), controlPoint2: CGPoint(x: frame.minX + 32.82, y: frame.minY + 34.34))
+        bezierPath.addLine(to: CGPoint(x: 32.51, y: 36.48))
+        bezierPath.addCurve(to: CGPoint(x: 31.41, y: 37.18), controlPoint1: CGPoint(x: 32.43, y: 37.03), controlPoint2: CGPoint(x: 31.94, y: 37.35))
+        bezierPath.addLine(to: CGPoint(x: 32.36, y: 37.48))
+        bezierPath.addCurve(to: CGPoint(x: 25.04, y: 39.55), controlPoint1: CGPoint(x: 30.47, y: 36.89), controlPoint2: CGPoint(x: 27.2, y: 37.82))
+        bezierPath.addLine(to: CGPoint(x: 24.31, y: 40.14))
+        bezierPath.addCurve(to: CGPoint(x: 19.65, y: 40.13), controlPoint1: CGPoint(x: 23.01, y: 41.18), controlPoint2: CGPoint(x: 20.93, y: 41.17))
+        bezierPath.addLine(to: CGPoint(x: 18.99, y: 39.58))
+        bezierPath.addCurve(to: CGPoint(x: 11.74, y: 37.48), controlPoint1: CGPoint(x: 16.86, y: 37.83), controlPoint2: CGPoint(x: 13, y: 37.08))
+        bezierPath.addLine(to: CGPoint(x: 12.7, y: 37.18))
+        bezierPath.addCurve(to: CGPoint(x: 11.59, y: 36.48), controlPoint1: CGPoint(x: 12.17, y: 37.34), controlPoint2: CGPoint(x: 11.67, y: 37.04))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 11.34, y: frame.minY + 34.9))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 10.2, y: frame.minY + 33.92), controlPoint1: CGPoint(x: frame.minX + 11.26, y: frame.minY + 34.35), controlPoint2: CGPoint(x: frame.minX + 10.74, y: frame.minY + 33.92))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 7, y: frame.minY + 32.62), controlPoint1: CGPoint(x: frame.minX + 10.2, y: frame.minY + 33.92), controlPoint2: CGPoint(x: frame.minX + 7, y: frame.minY + 34.17))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 11.74, y: frame.minY + 29.21), controlPoint1: CGPoint(x: frame.minX + 7, y: frame.minY + 32), controlPoint2: CGPoint(x: frame.minX + 10.15, y: frame.minY + 31.14))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75), controlPoint1: CGPoint(x: frame.minX + 13.33, y: frame.minY + 27.27), controlPoint2: CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 10.15, y: frame.minY + 22.63), controlPoint1: CGPoint(x: frame.minX + 13.58, y: frame.minY + 24.75), controlPoint2: CGPoint(x: frame.minX + 10.64, y: frame.minY + 23.67))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 10.24, y: frame.minY + 21.36), controlPoint1: CGPoint(x: frame.minX + 9.66, y: frame.minY + 21.58), controlPoint2: CGPoint(x: frame.minX + 10.24, y: frame.minY + 21.36))
+        bezierPath.addCurve(to: CGPoint(x: frame.minX + 11.1, y: frame.minY + 21.07), controlPoint1: CGPoint(x: frame.minX + 10.44, y: frame.minY + 21.17), controlPoint2: CGPoint(x: frame.minX + 10.82, y: frame.minY + 21.04))
+        bezierPath.addLine(to: CGPoint(x: frame.minX + 13.71, y: frame.minY + 21.36))
+        bezierPath.close()
         bezierPath.miterLimit = 4;
 
-        bezierPath.lineJoinStyle = .Bevel;
+        bezierPath.lineJoinStyle = .bevel;
 
         bezierPath.usesEvenOddFillRule = true;
 
@@ -2015,10 +2015,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawPremium(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+    public class func drawPremium(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2026,55 +2026,55 @@ public class StyleKit : NSObject {
         let white = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50171 * frame.width, frame.minY + 0.51093 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50171 * frame.width, y: frame.minY + 0.51093 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Star-1 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 0.41, -0.51)
-        CGContextRotateCTM(context, -18 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: 0.41, y: -0.51)
+        context.rotate(byAngle: -18 * CGFloat(M_PI) / 180)
 
         let star1Path = UIBezierPath()
-        star1Path.moveToPoint(CGPoint(x: 0, y: -17))
-        star1Path.addLineToPoint(CGPoint(x: 3.89, y: -11.98))
-        star1Path.addLineToPoint(CGPoint(x: 9.99, y: -13.75))
-        star1Path.addLineToPoint(CGPoint(x: 10.19, y: -7.41))
-        star1Path.addLineToPoint(CGPoint(x: 16.17, y: -5.25))
-        star1Path.addLineToPoint(CGPoint(x: 12.6, y: 0))
-        star1Path.addLineToPoint(CGPoint(x: 16.17, y: 5.25))
-        star1Path.addLineToPoint(CGPoint(x: 10.19, y: 7.41))
-        star1Path.addLineToPoint(CGPoint(x: 9.99, y: 13.75))
-        star1Path.addLineToPoint(CGPoint(x: 3.89, y: 11.98))
-        star1Path.addLineToPoint(CGPoint(x: 0, y: 17))
-        star1Path.addLineToPoint(CGPoint(x: -3.89, y: 11.98))
-        star1Path.addLineToPoint(CGPoint(x: -9.99, y: 13.75))
-        star1Path.addLineToPoint(CGPoint(x: -10.19, y: 7.41))
-        star1Path.addLineToPoint(CGPoint(x: -16.17, y: 5.25))
-        star1Path.addLineToPoint(CGPoint(x: -12.6, y: 0))
-        star1Path.addLineToPoint(CGPoint(x: -16.17, y: -5.25))
-        star1Path.addLineToPoint(CGPoint(x: -10.19, y: -7.41))
-        star1Path.addLineToPoint(CGPoint(x: -9.99, y: -13.75))
-        star1Path.addLineToPoint(CGPoint(x: -3.89, y: -11.98))
-        star1Path.closePath()
+        star1Path.move(to: CGPoint(x: 0, y: -17))
+        star1Path.addLine(to: CGPoint(x: 3.89, y: -11.98))
+        star1Path.addLine(to: CGPoint(x: 9.99, y: -13.75))
+        star1Path.addLine(to: CGPoint(x: 10.19, y: -7.41))
+        star1Path.addLine(to: CGPoint(x: 16.17, y: -5.25))
+        star1Path.addLine(to: CGPoint(x: 12.6, y: 0))
+        star1Path.addLine(to: CGPoint(x: 16.17, y: 5.25))
+        star1Path.addLine(to: CGPoint(x: 10.19, y: 7.41))
+        star1Path.addLine(to: CGPoint(x: 9.99, y: 13.75))
+        star1Path.addLine(to: CGPoint(x: 3.89, y: 11.98))
+        star1Path.addLine(to: CGPoint(x: 0, y: 17))
+        star1Path.addLine(to: CGPoint(x: -3.89, y: 11.98))
+        star1Path.addLine(to: CGPoint(x: -9.99, y: 13.75))
+        star1Path.addLine(to: CGPoint(x: -10.19, y: 7.41))
+        star1Path.addLine(to: CGPoint(x: -16.17, y: 5.25))
+        star1Path.addLine(to: CGPoint(x: -12.6, y: 0))
+        star1Path.addLine(to: CGPoint(x: -16.17, y: -5.25))
+        star1Path.addLine(to: CGPoint(x: -10.19, y: -7.41))
+        star1Path.addLine(to: CGPoint(x: -9.99, y: -13.75))
+        star1Path.addLine(to: CGPoint(x: -3.89, y: -11.98))
+        star1Path.close()
         color.setFill()
         star1Path.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// Path-106 Drawing
         let path106Path = UIBezierPath()
-        path106Path.moveToPoint(CGPoint(x: -5.95, y: 0.79))
-        path106Path.addLineToPoint(CGPoint(x: -2.1, y: 4.23))
-        path106Path.addLineToPoint(CGPoint(x: 5.95, y: -4.23))
+        path106Path.move(to: CGPoint(x: -5.95, y: 0.79))
+        path106Path.addLine(to: CGPoint(x: -2.1, y: 4.23))
+        path106Path.addLine(to: CGPoint(x: 5.95, y: -4.23))
         path106Path.miterLimit = 4;
 
-        path106Path.lineCapStyle = .Round;
+        path106Path.lineCapStyle = .round;
 
-        path106Path.lineJoinStyle = .Round;
+        path106Path.lineJoinStyle = .round;
 
         path106Path.usesEvenOddFillRule = true;
 
@@ -2084,10 +2084,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCategoryicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCategoryicon(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2097,15 +2097,15 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let mainAppHighlightColor = UIColor(red: 0.692, green: 0.692, blue: 0.692, alpha: 1.000)
 
         //// Variable Declarations
         let selectedGrayFillColor = selected ? highlightedColor : mainAppHighlightColor
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.scale(x: scale, y: scale)
 
 
 
@@ -2134,10 +2134,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawGlobe(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawGlobe(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2147,21 +2147,21 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50828 * frame.width, frame.minY + 0.50284 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50828 * frame.width, y: frame.minY + 0.50284 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Oval-75 Drawing
-        let oval75Path = UIBezierPath(ovalInRect: CGRect(x: -12.43, y: -12.55, width: 24.85, height: 25.09))
+        let oval75Path = UIBezierPath(ovalIn: CGRect(x: -12.43, y: -12.55, width: 24.85, height: 25.09))
         strokeColor.setStroke()
         oval75Path.lineWidth = 2
         oval75Path.stroke()
@@ -2169,9 +2169,9 @@ public class StyleKit : NSObject {
 
         //// Path-81 Drawing
         let path81Path = UIBezierPath()
-        path81Path.moveToPoint(CGPoint(x: -0.17, y: -12.73))
-        path81Path.addLineToPoint(CGPoint(x: -0.17, y: 9.23))
-        path81Path.addLineToPoint(CGPoint(x: -0.17, y: 12.8))
+        path81Path.move(to: CGPoint(x: -0.17, y: -12.73))
+        path81Path.addLine(to: CGPoint(x: -0.17, y: 9.23))
+        path81Path.addLine(to: CGPoint(x: -0.17, y: 12.8))
         path81Path.miterLimit = 4;
 
         path81Path.usesEvenOddFillRule = true;
@@ -2183,8 +2183,8 @@ public class StyleKit : NSObject {
 
         //// Path-81-Copy Drawing
         let path81CopyPath = UIBezierPath()
-        path81CopyPath.moveToPoint(CGPoint(x: 6.33, y: -11.23))
-        path81CopyPath.addLineToPoint(CGPoint(x: 6.42, y: 10.8))
+        path81CopyPath.move(to: CGPoint(x: 6.33, y: -11.23))
+        path81CopyPath.addLine(to: CGPoint(x: 6.42, y: 10.8))
         path81CopyPath.miterLimit = 4;
 
         path81CopyPath.usesEvenOddFillRule = true;
@@ -2196,9 +2196,9 @@ public class StyleKit : NSObject {
 
         //// Path-81-Copy-2 Drawing
         let path81Copy2Path = UIBezierPath()
-        path81Copy2Path.moveToPoint(CGPoint(x: -6.67, y: -11.2))
-        path81Copy2Path.addLineToPoint(CGPoint(x: -6.67, y: -5.12))
-        path81Copy2Path.addLineToPoint(CGPoint(x: -6.67, y: 10.8))
+        path81Copy2Path.move(to: CGPoint(x: -6.67, y: -11.2))
+        path81Copy2Path.addLine(to: CGPoint(x: -6.67, y: -5.12))
+        path81Copy2Path.addLine(to: CGPoint(x: -6.67, y: 10.8))
         path81Copy2Path.miterLimit = 4;
 
         path81Copy2Path.usesEvenOddFillRule = true;
@@ -2210,8 +2210,8 @@ public class StyleKit : NSObject {
 
         //// Path-82 Drawing
         let path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPoint(x: -12.76, y: -0))
-        path82Path.addLineToPoint(CGPoint(x: 12.47, y: -0))
+        path82Path.move(to: CGPoint(x: -12.76, y: -0))
+        path82Path.addLine(to: CGPoint(x: 12.47, y: -0))
         path82Path.miterLimit = 4;
 
         path82Path.usesEvenOddFillRule = true;
@@ -2222,10 +2222,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawPacktab(frame frame: CGRect = CGRect(x: 19, y: 11, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawPacktab(frame: CGRect = CGRect(x: 19, y: 11, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2233,9 +2233,9 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 18, frame.minY + 19.48)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 18, y: frame.minY + 19.48)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -2267,10 +2267,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawEnterkey(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawEnterkey(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2278,21 +2278,21 @@ public class StyleKit : NSObject {
         let strokeColor9 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 0.540)
 
         //// enter
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 24.81, frame.minY + 24.98)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 24.81, y: frame.minY + 24.98)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-82 Drawing
         let path82Path = UIBezierPath()
-        path82Path.moveToPoint(CGPoint(x: -11.99, y: 0.02))
-        path82Path.addLineToPoint(CGPoint(x: 12.22, y: 0.02))
-        path82Path.addCurveToPoint(CGPoint(x: 16.22, y: -3.99), controlPoint1: CGPoint(x: 14.43, y: 0.02), controlPoint2: CGPoint(x: 16.22, y: -1.77))
-        path82Path.addLineToPoint(CGPoint(x: 16.22, y: -9.86))
+        path82Path.move(to: CGPoint(x: -11.99, y: 0.02))
+        path82Path.addLine(to: CGPoint(x: 12.22, y: 0.02))
+        path82Path.addCurve(to: CGPoint(x: 16.22, y: -3.99), controlPoint1: CGPoint(x: 14.43, y: 0.02), controlPoint2: CGPoint(x: 16.22, y: -1.77))
+        path82Path.addLine(to: CGPoint(x: 16.22, y: -9.86))
         path82Path.miterLimit = 4;
 
-        path82Path.lineCapStyle = .Round;
+        path82Path.lineCapStyle = .round;
 
         path82Path.usesEvenOddFillRule = true;
 
@@ -2303,13 +2303,13 @@ public class StyleKit : NSObject {
 
         //// Path-83 Drawing
         let path83Path = UIBezierPath()
-        path83Path.moveToPoint(CGPoint(x: -3.21, y: -12))
-        path83Path.addLineToPoint(CGPoint(x: -15.91, y: -0.63))
-        path83Path.addCurveToPoint(CGPoint(x: -15.91, y: 0.7), controlPoint1: CGPoint(x: -16.32, y: -0.26), controlPoint2: CGPoint(x: -16.32, y: 0.33))
-        path83Path.addLineToPoint(CGPoint(x: -3.21, y: 12))
+        path83Path.move(to: CGPoint(x: -3.21, y: -12))
+        path83Path.addLine(to: CGPoint(x: -15.91, y: -0.63))
+        path83Path.addCurve(to: CGPoint(x: -15.91, y: 0.7), controlPoint1: CGPoint(x: -16.32, y: -0.26), controlPoint2: CGPoint(x: -16.32, y: 0.33))
+        path83Path.addLine(to: CGPoint(x: -3.21, y: 12))
         path83Path.miterLimit = 4;
 
-        path83Path.lineCapStyle = .Round;
+        path83Path.lineCapStyle = .round;
 
         path83Path.usesEvenOddFillRule = true;
 
@@ -2319,10 +2319,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCheckicon(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawCheckicon(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2335,25 +2335,25 @@ public class StyleKit : NSObject {
 
 
         //// shape
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 17.5, 17.5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: 17.5, y: 17.5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// check Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50714 * frame.width, frame.minY + 0.50000 * frame.height)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50714 * frame.width, y: frame.minY + 0.50000 * frame.height)
 
         let checkPath = UIBezierPath()
-        checkPath.moveToPoint(CGPoint(x: -17.5, y: 1))
-        checkPath.addLineToPoint(CGPoint(x: -5.5, y: 13))
-        checkPath.addLineToPoint(CGPoint(x: 17.5, y: -13))
+        checkPath.move(to: CGPoint(x: -17.5, y: 1))
+        checkPath.addLine(to: CGPoint(x: -5.5, y: 13))
+        checkPath.addLine(to: CGPoint(x: 17.5, y: -13))
         checkPath.miterLimit = 4;
 
-        checkPath.lineCapStyle = .Round;
+        checkPath.lineCapStyle = .round;
 
-        checkPath.lineJoinStyle = .Round;
+        checkPath.lineJoinStyle = .round;
 
         checkPath.usesEvenOddFillRule = true;
 
@@ -2361,14 +2361,14 @@ public class StyleKit : NSObject {
         checkPath.lineWidth = 4
         checkPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawClipboard_button(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawClipboard_button(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2378,7 +2378,7 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
         let noneColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.000)
 
         //// Variable Declarations
@@ -2386,27 +2386,27 @@ public class StyleKit : NSObject {
         let selectedHighlightColor = selected ? UIColor(red: 1, green: 1, blue: 1, alpha: 1) : color
 
         //// Path-926 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50249 * frame.width, frame.minY + 0.49192 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50249 * frame.width, y: frame.minY + 0.49192 * frame.height)
+        context.scale(x: scale, y: scale)
 
         let path926Path = UIBezierPath()
-        path926Path.moveToPoint(CGPoint(x: 10.24, y: 3.41))
-        path926Path.addLineToPoint(CGPoint(x: 10.24, y: -12.8))
-        path926Path.addCurveToPoint(CGPoint(x: 0.21, y: -22.19), controlPoint1: CGPoint(x: 10.24, y: -12.8), controlPoint2: CGPoint(x: 11.09, y: -22.19))
-        path926Path.addCurveToPoint(CGPoint(x: -10.25, y: -12.8), controlPoint1: CGPoint(x: -10.68, y: -22.19), controlPoint2: CGPoint(x: -10.25, y: -12.8))
-        path926Path.addLineToPoint(CGPoint(x: -10.25, y: 15.36))
-        path926Path.addCurveToPoint(CGPoint(x: -3.42, y: 22.19), controlPoint1: CGPoint(x: -10.25, y: 15.36), controlPoint2: CGPoint(x: -10.39, y: 22.19))
-        path926Path.addCurveToPoint(CGPoint(x: 3.69, y: 15.36), controlPoint1: CGPoint(x: 3.55, y: 22.19), controlPoint2: CGPoint(x: 3.69, y: 15.36))
-        path926Path.addLineToPoint(CGPoint(x: 3.69, y: -9.39))
-        path926Path.addCurveToPoint(CGPoint(x: 0.21, y: -13.66), controlPoint1: CGPoint(x: 3.69, y: -9.39), controlPoint2: CGPoint(x: 4.26, y: -13.66))
-        path926Path.addCurveToPoint(CGPoint(x: -3.42, y: -9.39), controlPoint1: CGPoint(x: -3.85, y: -13.66), controlPoint2: CGPoint(x: -3.42, y: -9.39))
-        path926Path.addLineToPoint(CGPoint(x: -3.42, y: 13.66))
+        path926Path.move(to: CGPoint(x: 10.24, y: 3.41))
+        path926Path.addLine(to: CGPoint(x: 10.24, y: -12.8))
+        path926Path.addCurve(to: CGPoint(x: 0.21, y: -22.19), controlPoint1: CGPoint(x: 10.24, y: -12.8), controlPoint2: CGPoint(x: 11.09, y: -22.19))
+        path926Path.addCurve(to: CGPoint(x: -10.25, y: -12.8), controlPoint1: CGPoint(x: -10.68, y: -22.19), controlPoint2: CGPoint(x: -10.25, y: -12.8))
+        path926Path.addLine(to: CGPoint(x: -10.25, y: 15.36))
+        path926Path.addCurve(to: CGPoint(x: -3.42, y: 22.19), controlPoint1: CGPoint(x: -10.25, y: 15.36), controlPoint2: CGPoint(x: -10.39, y: 22.19))
+        path926Path.addCurve(to: CGPoint(x: 3.69, y: 15.36), controlPoint1: CGPoint(x: 3.55, y: 22.19), controlPoint2: CGPoint(x: 3.69, y: 15.36))
+        path926Path.addLine(to: CGPoint(x: 3.69, y: -9.39))
+        path926Path.addCurve(to: CGPoint(x: 0.21, y: -13.66), controlPoint1: CGPoint(x: 3.69, y: -9.39), controlPoint2: CGPoint(x: 4.26, y: -13.66))
+        path926Path.addCurve(to: CGPoint(x: -3.42, y: -9.39), controlPoint1: CGPoint(x: -3.85, y: -13.66), controlPoint2: CGPoint(x: -3.42, y: -9.39))
+        path926Path.addLine(to: CGPoint(x: -3.42, y: 13.66))
         path926Path.miterLimit = 4;
 
-        path926Path.lineCapStyle = .Round;
+        path926Path.lineCapStyle = .round;
 
-        path926Path.lineJoinStyle = .Round;
+        path926Path.lineJoinStyle = .round;
 
         path926Path.usesEvenOddFillRule = true;
 
@@ -2416,10 +2416,10 @@ public class StyleKit : NSObject {
         path926Path.lineWidth = 4
         path926Path.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawThumbslider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 51, height: 50), scale: CGFloat = 0.5) {
+    public class func drawThumbslider(frame: CGRect = CGRect(x: 0, y: 0, width: 51, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2428,32 +2428,32 @@ public class StyleKit : NSObject {
 
         //// Shadow Declarations
         let shadow = NSShadow()
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.19)
+        shadow.shadowColor = UIColor.black().withAlphaComponent(0.19)
         shadow.shadowOffset = CGSize(width: 0.1, height: 4.1)
         shadow.shadowBlurRadius = 8
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, -1, 18.5)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: -1, y: 18.5)
+        context.scale(x: scale, y: scale)
 
 
 
         //// path- Drawing
         let pathPath = UIBezierPath(roundedRect: CGRect(x: 6, y: 0, width: 92, height: 24), cornerRadius: 12)
-        CGContextSaveGState(context)
-        CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, (shadow.shadowColor as! UIColor).CGColor)
+        context.saveGState()
+        context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
         fillColor10.setFill()
         pathPath.fill()
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSlider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 568, height: 39), scale: CGFloat = 0.5) {
+    public class func drawSlider(frame: CGRect = CGRect(x: 0, y: 0, width: 568, height: 39), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2461,9 +2461,9 @@ public class StyleKit : NSObject {
         let fillColor18 = UIColor(red: 0.897, green: 0.897, blue: 0.897, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX, frame.minY + 16)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX, y: frame.minY + 16)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -2474,10 +2474,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCategoryButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawCategoryButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2485,9 +2485,9 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -2528,10 +2528,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawGifsButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawGifsButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2539,27 +2539,27 @@ public class StyleKit : NSObject {
         let textForeground2 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50740 * frame.width, frame.minY + 0.49500 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50740 * frame.width, y: frame.minY + 0.49500 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Label Drawing
         let labelRect = CGRect(x: -24.97, y: -14, width: 49.94, height: 28)
         let labelStyle = NSMutableParagraphStyle()
-        labelStyle.alignment = .Left
+        labelStyle.alignment = .left
 
         let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 21)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
 
-        "GIFS\n".drawInRect(labelRect, withAttributes: labelFontAttributes)
+        "GIFS\n".draw(in: labelRect, withAttributes: labelFontAttributes)
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawQuotesButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawQuotesButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2567,37 +2567,37 @@ public class StyleKit : NSObject {
         let textForeground2 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50817 * frame.width, frame.minY + 0.49000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50817 * frame.width, y: frame.minY + 0.49000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Label Drawing
         let labelRect = CGRect(x: -8.81, y: -13.5, width: 17.23, height: 36)
         let labelStyle = NSMutableParagraphStyle()
-        labelStyle.alignment = .Left
+        labelStyle.alignment = .left
 
         let labelFontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 24)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: labelStyle]
 
-        "A".drawInRect(labelRect, withAttributes: labelFontAttributes)
+        "A".draw(in: labelRect, withAttributes: labelFontAttributes)
 
 
         //// Label 2 Drawing
         let label2Rect = CGRect(x: -20.82, y: -34.5, width: 19.92, height: 69)
         let label2Style = NSMutableParagraphStyle()
-        label2Style.alignment = .Left
+        label2Style.alignment = .left
 
         let label2FontAttributes = [NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 48)!, NSForegroundColorAttributeName: textForeground2, NSParagraphStyleAttributeName: label2Style]
 
-        "“".drawInRect(label2Rect, withAttributes: label2FontAttributes)
+        "“".draw(in: label2Rect, withAttributes: label2FontAttributes)
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawMenuButton(frame frame: CGRect = CGRect(x: 1, y: 0, width: 50, height: 50), selected: Bool = false) {
+    public class func drawMenuButton(frame: CGRect = CGRect(x: 1, y: 0, width: 50, height: 50), selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2610,14 +2610,14 @@ public class StyleKit : NSObject {
         let menuButtonSelected = selected ? tealColor : white
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 25.1, frame.minY + 25.1)
-        CGContextScaleCTM(context, 0.45, 0.45)
+        context.saveGState()
+        context.translate(x: frame.minX + 25.1, y: frame.minY + 25.1)
+        context.scale(x: 0.45, y: 0.45)
 
 
 
         //// path- Drawing
-        let pathPath = UIBezierPath(ovalInRect: CGRect(x: -47, y: -47, width: 94, height: 94))
+        let pathPath = UIBezierPath(ovalIn: CGRect(x: -47, y: -47, width: 94, height: 94))
         fillColor10.setFill()
         pathPath.fill()
         menuButtonSelected.setStroke()
@@ -2626,10 +2626,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCategoriesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawCategoriesMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2638,20 +2638,20 @@ public class StyleKit : NSObject {
         let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-594 Drawing
         let path594Path = UIBezierPath()
-        path594Path.moveToPoint(CGPoint(x: -9, y: 5))
-        path594Path.addCurveToPoint(CGPoint(x: 0, y: 10), controlPoint1: CGPoint(x: -9, y: 5), controlPoint2: CGPoint(x: -6.65, y: 10))
-        path594Path.addCurveToPoint(CGPoint(x: 9, y: 5), controlPoint1: CGPoint(x: 6.65, y: 10), controlPoint2: CGPoint(x: 9, y: 5))
+        path594Path.move(to: CGPoint(x: -9, y: 5))
+        path594Path.addCurve(to: CGPoint(x: 0, y: 10), controlPoint1: CGPoint(x: -9, y: 5), controlPoint2: CGPoint(x: -6.65, y: 10))
+        path594Path.addCurve(to: CGPoint(x: 9, y: 5), controlPoint1: CGPoint(x: 6.65, y: 10), controlPoint2: CGPoint(x: 9, y: 5))
         path594Path.miterLimit = 4;
 
-        path594Path.lineCapStyle = .Round;
+        path594Path.lineCapStyle = .round;
 
         path594Path.usesEvenOddFillRule = true;
 
@@ -2661,22 +2661,22 @@ public class StyleKit : NSObject {
 
 
         //// Oval-370 Drawing
-        let oval370Path = UIBezierPath(ovalInRect: CGRect(x: -10, y: -10, width: 6, height: 6))
+        let oval370Path = UIBezierPath(ovalIn: CGRect(x: -10, y: -10, width: 6, height: 6))
         fillColor3.setFill()
         oval370Path.fill()
 
 
         //// Oval-370-Copy Drawing
-        let oval370CopyPath = UIBezierPath(ovalInRect: CGRect(x: 4, y: -10, width: 6, height: 6))
+        let oval370CopyPath = UIBezierPath(ovalIn: CGRect(x: 4, y: -10, width: 6, height: 6))
         fillColor3.setFill()
         oval370CopyPath.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawPacksMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawPacksMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2686,15 +2686,15 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
@@ -2723,10 +2723,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawQuotesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawQuotesMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2736,30 +2736,30 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Combined-Shape Drawing
         let combinedShapePath = UIBezierPath()
-        combinedShapePath.moveToPoint(CGPoint(x: -6.19, y: -1.13))
-        combinedShapePath.addCurveToPoint(CGPoint(x: -3.47, y: 3.32), controlPoint1: CGPoint(x: -4.57, y: -0.31), controlPoint2: CGPoint(x: -3.47, y: 1.38))
-        combinedShapePath.addCurveToPoint(CGPoint(x: -8.47, y: 8.32), controlPoint1: CGPoint(x: -3.47, y: 6.08), controlPoint2: CGPoint(x: -5.71, y: 8.32))
-        combinedShapePath.addCurveToPoint(CGPoint(x: -13.47, y: 3.32), controlPoint1: CGPoint(x: -11.23, y: 8.32), controlPoint2: CGPoint(x: -13.47, y: 6.08))
-        combinedShapePath.addCurveToPoint(CGPoint(x: -12.67, y: 0.61), controlPoint1: CGPoint(x: -13.47, y: 2.32), controlPoint2: CGPoint(x: -13.17, y: 1.39))
-        combinedShapePath.addCurveToPoint(CGPoint(x: -12.56, y: 0.35), controlPoint1: CGPoint(x: -12.65, y: 0.53), controlPoint2: CGPoint(x: -12.61, y: 0.44))
-        combinedShapePath.addLineToPoint(CGPoint(x: -6.88, y: -9.08))
-        combinedShapePath.addLineToPoint(CGPoint(x: -2.42, y: -9.08))
-        combinedShapePath.addLineToPoint(CGPoint(x: -6.19, y: -1.13))
-        combinedShapePath.closePath()
+        combinedShapePath.move(to: CGPoint(x: -6.19, y: -1.13))
+        combinedShapePath.addCurve(to: CGPoint(x: -3.47, y: 3.32), controlPoint1: CGPoint(x: -4.57, y: -0.31), controlPoint2: CGPoint(x: -3.47, y: 1.38))
+        combinedShapePath.addCurve(to: CGPoint(x: -8.47, y: 8.32), controlPoint1: CGPoint(x: -3.47, y: 6.08), controlPoint2: CGPoint(x: -5.71, y: 8.32))
+        combinedShapePath.addCurve(to: CGPoint(x: -13.47, y: 3.32), controlPoint1: CGPoint(x: -11.23, y: 8.32), controlPoint2: CGPoint(x: -13.47, y: 6.08))
+        combinedShapePath.addCurve(to: CGPoint(x: -12.67, y: 0.61), controlPoint1: CGPoint(x: -13.47, y: 2.32), controlPoint2: CGPoint(x: -13.17, y: 1.39))
+        combinedShapePath.addCurve(to: CGPoint(x: -12.56, y: 0.35), controlPoint1: CGPoint(x: -12.65, y: 0.53), controlPoint2: CGPoint(x: -12.61, y: 0.44))
+        combinedShapePath.addLine(to: CGPoint(x: -6.88, y: -9.08))
+        combinedShapePath.addLine(to: CGPoint(x: -2.42, y: -9.08))
+        combinedShapePath.addLine(to: CGPoint(x: -6.19, y: -1.13))
+        combinedShapePath.close()
         combinedShapePath.miterLimit = 4;
 
         combinedShapePath.usesEvenOddFillRule = true;
@@ -2770,16 +2770,16 @@ public class StyleKit : NSObject {
 
         //// Combined-Shape-Copy Drawing
         let combinedShapeCopyPath = UIBezierPath()
-        combinedShapeCopyPath.moveToPoint(CGPoint(x: 8.81, y: -1.13))
-        combinedShapeCopyPath.addCurveToPoint(CGPoint(x: 11.53, y: 3.32), controlPoint1: CGPoint(x: 10.43, y: -0.31), controlPoint2: CGPoint(x: 11.53, y: 1.38))
-        combinedShapeCopyPath.addCurveToPoint(CGPoint(x: 6.53, y: 8.32), controlPoint1: CGPoint(x: 11.53, y: 6.08), controlPoint2: CGPoint(x: 9.29, y: 8.32))
-        combinedShapeCopyPath.addCurveToPoint(CGPoint(x: 1.53, y: 3.32), controlPoint1: CGPoint(x: 3.77, y: 8.32), controlPoint2: CGPoint(x: 1.53, y: 6.08))
-        combinedShapeCopyPath.addCurveToPoint(CGPoint(x: 2.33, y: 0.61), controlPoint1: CGPoint(x: 1.53, y: 2.32), controlPoint2: CGPoint(x: 1.83, y: 1.39))
-        combinedShapeCopyPath.addCurveToPoint(CGPoint(x: 2.44, y: 0.35), controlPoint1: CGPoint(x: 2.35, y: 0.53), controlPoint2: CGPoint(x: 2.39, y: 0.44))
-        combinedShapeCopyPath.addLineToPoint(CGPoint(x: 8.12, y: -9.08))
-        combinedShapeCopyPath.addLineToPoint(CGPoint(x: 12.58, y: -9.08))
-        combinedShapeCopyPath.addLineToPoint(CGPoint(x: 8.81, y: -1.13))
-        combinedShapeCopyPath.closePath()
+        combinedShapeCopyPath.move(to: CGPoint(x: 8.81, y: -1.13))
+        combinedShapeCopyPath.addCurve(to: CGPoint(x: 11.53, y: 3.32), controlPoint1: CGPoint(x: 10.43, y: -0.31), controlPoint2: CGPoint(x: 11.53, y: 1.38))
+        combinedShapeCopyPath.addCurve(to: CGPoint(x: 6.53, y: 8.32), controlPoint1: CGPoint(x: 11.53, y: 6.08), controlPoint2: CGPoint(x: 9.29, y: 8.32))
+        combinedShapeCopyPath.addCurve(to: CGPoint(x: 1.53, y: 3.32), controlPoint1: CGPoint(x: 3.77, y: 8.32), controlPoint2: CGPoint(x: 1.53, y: 6.08))
+        combinedShapeCopyPath.addCurve(to: CGPoint(x: 2.33, y: 0.61), controlPoint1: CGPoint(x: 1.53, y: 2.32), controlPoint2: CGPoint(x: 1.83, y: 1.39))
+        combinedShapeCopyPath.addCurve(to: CGPoint(x: 2.44, y: 0.35), controlPoint1: CGPoint(x: 2.35, y: 0.53), controlPoint2: CGPoint(x: 2.39, y: 0.44))
+        combinedShapeCopyPath.addLine(to: CGPoint(x: 8.12, y: -9.08))
+        combinedShapeCopyPath.addLine(to: CGPoint(x: 12.58, y: -9.08))
+        combinedShapeCopyPath.addLine(to: CGPoint(x: 8.81, y: -1.13))
+        combinedShapeCopyPath.close()
         combinedShapeCopyPath.miterLimit = 4;
 
         combinedShapeCopyPath.usesEvenOddFillRule = true;
@@ -2789,10 +2789,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawGifMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2802,31 +2802,31 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.51000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.51000 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// path-4 Drawing
         let path4Path = UIBezierPath()
-        path4Path.moveToPoint(CGPoint(x: -12, y: -13.01))
-        path4Path.addCurveToPoint(CGPoint(x: -9.99, y: -15), controlPoint1: CGPoint(x: -12, y: -14.11), controlPoint2: CGPoint(x: -11.1, y: -15))
-        path4Path.addLineToPoint(CGPoint(x: 2, y: -15))
-        path4Path.addLineToPoint(CGPoint(x: 2, y: -5))
-        path4Path.addLineToPoint(CGPoint(x: 12, y: -5))
-        path4Path.addLineToPoint(CGPoint(x: 12, y: 13.01))
-        path4Path.addCurveToPoint(CGPoint(x: 10, y: 15), controlPoint1: CGPoint(x: 12, y: 14.11), controlPoint2: CGPoint(x: 11.1, y: 15))
-        path4Path.addLineToPoint(CGPoint(x: -10, y: 15))
-        path4Path.addCurveToPoint(CGPoint(x: -12, y: 13.01), controlPoint1: CGPoint(x: -11.1, y: 15), controlPoint2: CGPoint(x: -12, y: 14.1))
-        path4Path.addLineToPoint(CGPoint(x: -12, y: -13.01))
-        path4Path.closePath()
+        path4Path.move(to: CGPoint(x: -12, y: -13.01))
+        path4Path.addCurve(to: CGPoint(x: -9.99, y: -15), controlPoint1: CGPoint(x: -12, y: -14.11), controlPoint2: CGPoint(x: -11.1, y: -15))
+        path4Path.addLine(to: CGPoint(x: 2, y: -15))
+        path4Path.addLine(to: CGPoint(x: 2, y: -5))
+        path4Path.addLine(to: CGPoint(x: 12, y: -5))
+        path4Path.addLine(to: CGPoint(x: 12, y: 13.01))
+        path4Path.addCurve(to: CGPoint(x: 10, y: 15), controlPoint1: CGPoint(x: 12, y: 14.11), controlPoint2: CGPoint(x: 11.1, y: 15))
+        path4Path.addLine(to: CGPoint(x: -10, y: 15))
+        path4Path.addCurve(to: CGPoint(x: -12, y: 13.01), controlPoint1: CGPoint(x: -11.1, y: 15), controlPoint2: CGPoint(x: -12, y: 14.1))
+        path4Path.addLine(to: CGPoint(x: -12, y: -13.01))
+        path4Path.close()
         path4Path.miterLimit = 4;
 
         path4Path.usesEvenOddFillRule = true;
@@ -2849,10 +2849,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawHashtagicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawHashtagicon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2862,29 +2862,29 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// Hashtag
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.49918 * frame.width, frame.minY + 0.50605 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.49918 * frame.width, y: frame.minY + 0.50605 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Path-218 Drawing
         let path218Path = UIBezierPath()
-        path218Path.moveToPoint(CGPoint(x: -7.75, y: 11.61))
-        path218Path.addLineToPoint(CGPoint(x: -3.02, y: -11.61))
-        path218Path.addLineToPoint(CGPoint(x: -7.75, y: 11.61))
-        path218Path.closePath()
+        path218Path.move(to: CGPoint(x: -7.75, y: 11.61))
+        path218Path.addLine(to: CGPoint(x: -3.02, y: -11.61))
+        path218Path.addLine(to: CGPoint(x: -7.75, y: 11.61))
+        path218Path.close()
         path218Path.miterLimit = 4;
 
-        path218Path.lineCapStyle = .Round;
+        path218Path.lineCapStyle = .round;
 
-        path218Path.lineJoinStyle = .Round;
+        path218Path.lineJoinStyle = .round;
 
         path218Path.usesEvenOddFillRule = true;
 
@@ -2895,15 +2895,15 @@ public class StyleKit : NSObject {
 
         //// Path-218-Copy Drawing
         let path218CopyPath = UIBezierPath()
-        path218CopyPath.moveToPoint(CGPoint(x: 3.28, y: 11.61))
-        path218CopyPath.addLineToPoint(CGPoint(x: 8.01, y: -11.61))
-        path218CopyPath.addLineToPoint(CGPoint(x: 3.28, y: 11.61))
-        path218CopyPath.closePath()
+        path218CopyPath.move(to: CGPoint(x: 3.28, y: 11.61))
+        path218CopyPath.addLine(to: CGPoint(x: 8.01, y: -11.61))
+        path218CopyPath.addLine(to: CGPoint(x: 3.28, y: 11.61))
+        path218CopyPath.close()
         path218CopyPath.miterLimit = 4;
 
-        path218CopyPath.lineCapStyle = .Round;
+        path218CopyPath.lineCapStyle = .round;
 
-        path218CopyPath.lineJoinStyle = .Round;
+        path218CopyPath.lineJoinStyle = .round;
 
         path218CopyPath.usesEvenOddFillRule = true;
 
@@ -2914,15 +2914,15 @@ public class StyleKit : NSObject {
 
         //// Path-220 Drawing
         let path220Path = UIBezierPath()
-        path220Path.moveToPoint(CGPoint(x: -11.03, y: -4.25))
-        path220Path.addLineToPoint(CGPoint(x: 12.61, y: -4.25))
-        path220Path.addLineToPoint(CGPoint(x: -11.03, y: -4.25))
-        path220Path.closePath()
+        path220Path.move(to: CGPoint(x: -11.03, y: -4.25))
+        path220Path.addLine(to: CGPoint(x: 12.61, y: -4.25))
+        path220Path.addLine(to: CGPoint(x: -11.03, y: -4.25))
+        path220Path.close()
         path220Path.miterLimit = 4;
 
-        path220Path.lineCapStyle = .Round;
+        path220Path.lineCapStyle = .round;
 
-        path220Path.lineJoinStyle = .Round;
+        path220Path.lineJoinStyle = .round;
 
         path220Path.usesEvenOddFillRule = true;
 
@@ -2933,15 +2933,15 @@ public class StyleKit : NSObject {
 
         //// Path-220-Copy Drawing
         let path220CopyPath = UIBezierPath()
-        path220CopyPath.moveToPoint(CGPoint(x: -12.61, y: 4.27))
-        path220CopyPath.addLineToPoint(CGPoint(x: 11.03, y: 4.27))
-        path220CopyPath.addLineToPoint(CGPoint(x: -12.61, y: 4.27))
-        path220CopyPath.closePath()
+        path220CopyPath.move(to: CGPoint(x: -12.61, y: 4.27))
+        path220CopyPath.addLine(to: CGPoint(x: 11.03, y: 4.27))
+        path220CopyPath.addLine(to: CGPoint(x: -12.61, y: 4.27))
+        path220CopyPath.close()
         path220CopyPath.miterLimit = 4;
 
-        path220CopyPath.lineCapStyle = .Round;
+        path220CopyPath.lineCapStyle = .round;
 
-        path220CopyPath.lineJoinStyle = .Round;
+        path220CopyPath.lineJoinStyle = .round;
 
         path220CopyPath.usesEvenOddFillRule = true;
 
@@ -2951,10 +2951,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawShareButtonCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
+    public class func drawShareButtonCanvas(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -2963,17 +2963,17 @@ public class StyleKit : NSObject {
 
         //// Shadow Declarations
         let shadow = NSShadow()
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.19)
+        shadow.shadowColor = UIColor.black().withAlphaComponent(0.19)
         shadow.shadowOffset = CGSize(width: 0.1, height: 4.1)
         shadow.shadowBlurRadius = 8
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50713 * frame.width, frame.minY + 0.49519 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50713 * frame.width, y: frame.minY + 0.49519 * frame.height)
+        context.scale(x: scale, y: scale)
 
-        CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, (shadow.shadowColor as! UIColor).CGColor)
-        CGContextBeginTransparencyLayer(context, nil)
+        context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
+        context.beginTransparencyLayer(auxiliaryInfo: nil)
 
 
         //// Rectangle-660 Drawing
@@ -2986,9 +2986,9 @@ public class StyleKit : NSObject {
 
 
         //// Rectangle-660-Copy Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, -4, -11.31)
-        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: -4, y: -11.31)
+        context.rotate(byAngle: 45 * CGFloat(M_PI) / 180)
 
         let rectangle660CopyPath = UIBezierPath(rect: CGRect(x: -1.65, y: -7.1, width: 3.3, height: 14.2))
         mainAppHighlightColor.setFill()
@@ -2997,13 +2997,13 @@ public class StyleKit : NSObject {
         rectangle660CopyPath.lineWidth = 1
         rectangle660CopyPath.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// Rectangle-660-Copy-2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, -11.31)
-        CGContextRotateCTM(context, -45 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: 4, y: -11.31)
+        context.rotate(byAngle: -45 * CGFloat(M_PI) / 180)
 
         let rectangle660Copy2Path = UIBezierPath(rect: CGRect(x: -1.65, y: -7.1, width: 3.3, height: 14.2))
         mainAppHighlightColor.setFill()
@@ -3012,7 +3012,7 @@ public class StyleKit : NSObject {
         rectangle660Copy2Path.lineWidth = 1
         rectangle660Copy2Path.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// path-2 Drawing
@@ -3022,12 +3022,12 @@ public class StyleKit : NSObject {
         path2Path.stroke()
 
 
-        CGContextEndTransparencyLayer(context)
+        context.endTransparencyLayer()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawShareCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawShareCanvas(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -3037,11 +3037,11 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Shadow Declarations
         let shadow = NSShadow()
-        shadow.shadowColor = UIColor.blackColor().colorWithAlphaComponent(0.19)
+        shadow.shadowColor = UIColor.black().withAlphaComponent(0.19)
         shadow.shadowOffset = CGSize(width: 0.1, height: 4.1)
         shadow.shadowBlurRadius = 8
 
@@ -3049,12 +3049,12 @@ public class StyleKit : NSObject {
         let strokeColor = selected ? highlightedColor : color
 
         //// arrow
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50713 * frame.width, frame.minY + 0.49519 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50713 * frame.width, y: frame.minY + 0.49519 * frame.height)
+        context.scale(x: scale, y: scale)
 
-        CGContextSetShadowWithColor(context, shadow.shadowOffset, shadow.shadowBlurRadius, (shadow.shadowColor as! UIColor).CGColor)
-        CGContextBeginTransparencyLayer(context, nil)
+        context.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
+        context.beginTransparencyLayer(auxiliaryInfo: nil)
 
 
         //// Rectangle-660 Drawing
@@ -3064,27 +3064,27 @@ public class StyleKit : NSObject {
 
 
         //// Rectangle-660-Copy Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, -4, -11.31)
-        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: -4, y: -11.31)
+        context.rotate(byAngle: 45 * CGFloat(M_PI) / 180)
 
         let rectangle660CopyPath = UIBezierPath(rect: CGRect(x: -1.65, y: -7.1, width: 3.3, height: 14.2))
         strokeColor.setFill()
         rectangle660CopyPath.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// Rectangle-660-Copy-2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 4, -11.31)
-        CGContextRotateCTM(context, -45 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: 4, y: -11.31)
+        context.rotate(byAngle: -45 * CGFloat(M_PI) / 180)
 
         let rectangle660Copy2Path = UIBezierPath(rect: CGRect(x: -1.65, y: -7.1, width: 3.3, height: 14.2))
         strokeColor.setFill()
         rectangle660Copy2Path.fill()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// path-2 Drawing
@@ -3094,25 +3094,25 @@ public class StyleKit : NSObject {
         path2Path.stroke()
 
 
-        CGContextEndTransparencyLayer(context)
+        context.endTransparencyLayer()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawCanvas1(frame frame: CGRect = CGRect(x: 102, y: 96, width: 265, height: 276)) {
+    public class func drawCanvas1(frame: CGRect = CGRect(x: 102, y: 96, width: 265, height: 276)) {
         //// Color Declarations
         let fillColor = UIColor(red: 0.072, green: 0.114, blue: 0.222, alpha: 1.000)
 
         //// path Drawing
         let pathPath = UIBezierPath()
-        pathPath.moveToPoint(CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.01428 * frame.height))
-        pathPath.addCurveToPoint(CGPoint(x: frame.minX + 0.01481 * frame.width, y: frame.minY + -0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.00639 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00665 * frame.width, y: frame.minY + -0.00000 * frame.height))
-        pathPath.addLineToPoint(CGPoint(x: frame.minX + 0.98519 * frame.width, y: frame.minY + -0.00000 * frame.height))
-        pathPath.addCurveToPoint(CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.01428 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.99337 * frame.width, y: frame.minY + -0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.00640 * frame.height))
-        pathPath.addLineToPoint(CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.85646 * frame.height))
-        pathPath.addLineToPoint(CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 1.00000 * frame.height))
-        pathPath.addLineToPoint(CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.01428 * frame.height))
-        pathPath.closePath()
+        pathPath.move(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.01428 * frame.height))
+        pathPath.addCurve(to: CGPoint(x: frame.minX + 0.01481 * frame.width, y: frame.minY + -0.00000 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.00639 * frame.height), controlPoint2: CGPoint(x: frame.minX + 0.00665 * frame.width, y: frame.minY + -0.00000 * frame.height))
+        pathPath.addLine(to: CGPoint(x: frame.minX + 0.98519 * frame.width, y: frame.minY + -0.00000 * frame.height))
+        pathPath.addCurve(to: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.01428 * frame.height), controlPoint1: CGPoint(x: frame.minX + 0.99337 * frame.width, y: frame.minY + -0.00000 * frame.height), controlPoint2: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.00640 * frame.height))
+        pathPath.addLine(to: CGPoint(x: frame.minX + 1.00000 * frame.width, y: frame.minY + 0.85646 * frame.height))
+        pathPath.addLine(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 1.00000 * frame.height))
+        pathPath.addLine(to: CGPoint(x: frame.minX + 0.00000 * frame.width, y: frame.minY + 0.01428 * frame.height))
+        pathPath.close()
         pathPath.miterLimit = 4;
 
         pathPath.usesEvenOddFillRule = true;
@@ -3121,7 +3121,7 @@ public class StyleKit : NSObject {
         pathPath.fill()
     }
 
-    public class func drawEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) {
+    public class func drawEmojiSelectedIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -3129,55 +3129,55 @@ public class StyleKit : NSObject {
         let fillColor11 = UIColor(red: 0.888, green: 0.888, blue: 0.888, alpha: 1.000)
 
         //// emoji-nav
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Oval-171 Drawing
-        let oval171Path = UIBezierPath(ovalInRect: CGRect(x: -26, y: -26, width: 52, height: 52))
+        let oval171Path = UIBezierPath(ovalIn: CGRect(x: -26, y: -26, width: 52, height: 52))
         fillColor11.setFill()
         oval171Path.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawAbcIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawAbcIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// label Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
         let labelRect = CGRect(x: -25, y: -14, width: 50, height: 28)
         let labelStyle = NSMutableParagraphStyle()
-        labelStyle.alignment = .Center
+        labelStyle.alignment = .center
 
         let labelFontAttributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue", size: 24)!, NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: labelStyle]
 
-        "ABC".drawInRect(labelRect, withAttributes: labelFontAttributes)
+        "ABC".draw(in: labelRect, withAttributes: labelFontAttributes)
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawRecentIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawRecentIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.52000 * frame.width, frame.minY + 0.54000 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.52000 * frame.width, y: frame.minY + 0.54000 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Oval-99-Copy Drawing
-        let oval99CopyPath = UIBezierPath(ovalInRect: CGRect(x: -16, y: -17, width: 30, height: 30))
+        let oval99CopyPath = UIBezierPath(ovalIn: CGRect(x: -16, y: -17, width: 30, height: 30))
         color.setStroke()
         oval99CopyPath.lineWidth = 2
         oval99CopyPath.stroke()
@@ -3196,29 +3196,29 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawPeopleIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawPeopleIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.50000 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Oval-99 Drawing
-        let oval99Path = UIBezierPath(ovalInRect: CGRect(x: -15, y: -15, width: 30, height: 30))
+        let oval99Path = UIBezierPath(ovalIn: CGRect(x: -15, y: -15, width: 30, height: 30))
         color.setStroke()
         oval99Path.lineWidth = 2
         oval99Path.stroke()
 
 
         //// Oval-107 Drawing
-        let oval107Path = UIBezierPath(ovalInRect: CGRect(x: -6, y: -6, width: 4, height: 4))
+        let oval107Path = UIBezierPath(ovalIn: CGRect(x: -6, y: -6, width: 4, height: 4))
         color.setFill()
         oval107Path.fill()
         color.setStroke()
@@ -3227,7 +3227,7 @@ public class StyleKit : NSObject {
 
 
         //// Oval-107-Copy Drawing
-        let oval107CopyPath = UIBezierPath(ovalInRect: CGRect(x: 2, y: -6, width: 4, height: 4))
+        let oval107CopyPath = UIBezierPath(ovalIn: CGRect(x: 2, y: -6, width: 4, height: 4))
         color.setFill()
         oval107CopyPath.fill()
         color.setStroke()
@@ -3237,14 +3237,14 @@ public class StyleKit : NSObject {
 
         //// Path-93 Drawing
         let path93Path = UIBezierPath()
-        path93Path.moveToPoint(CGPoint(x: -6.84, y: 3.26))
-        path93Path.addCurveToPoint(CGPoint(x: 0.25, y: 6.81), controlPoint1: CGPoint(x: -6.84, y: 3.26), controlPoint2: CGPoint(x: -4.56, y: 6.81))
-        path93Path.addCurveToPoint(CGPoint(x: 6.67, y: 3.26), controlPoint1: CGPoint(x: 5.07, y: 6.81), controlPoint2: CGPoint(x: 6.67, y: 3.26))
+        path93Path.move(to: CGPoint(x: -6.84, y: 3.26))
+        path93Path.addCurve(to: CGPoint(x: 0.25, y: 6.81), controlPoint1: CGPoint(x: -6.84, y: 3.26), controlPoint2: CGPoint(x: -4.56, y: 6.81))
+        path93Path.addCurve(to: CGPoint(x: 6.67, y: 3.26), controlPoint1: CGPoint(x: 5.07, y: 6.81), controlPoint2: CGPoint(x: 6.67, y: 3.26))
         path93Path.miterLimit = 4;
 
-        path93Path.lineCapStyle = .Round;
+        path93Path.lineCapStyle = .round;
 
-        path93Path.lineJoinStyle = .Round;
+        path93Path.lineJoinStyle = .round;
 
         path93Path.usesEvenOddFillRule = true;
 
@@ -3254,17 +3254,17 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawNatureIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawNatureIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50069 * frame.width, frame.minY + 0.49830 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50069 * frame.width, y: frame.minY + 0.49830 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
@@ -3279,16 +3279,16 @@ public class StyleKit : NSObject {
 
         //// Path-94 Drawing
         let path94Path = UIBezierPath()
-        path94Path.moveToPoint(CGPoint(x: 0.15, y: 5.09))
-        path94Path.addLineToPoint(CGPoint(x: -9.5, y: 5.09))
-        path94Path.addLineToPoint(CGPoint(x: -3.63, y: -3.82))
-        path94Path.addLineToPoint(CGPoint(x: -7.02, y: -3.82))
-        path94Path.addLineToPoint(CGPoint(x: -0.28, y: -14.09))
-        path94Path.addLineToPoint(CGPoint(x: 6.94, y: -3.82))
-        path94Path.addLineToPoint(CGPoint(x: 3.47, y: -3.82))
-        path94Path.addLineToPoint(CGPoint(x: 9.5, y: 5.09))
-        path94Path.addLineToPoint(CGPoint(x: 0.15, y: 5.09))
-        path94Path.closePath()
+        path94Path.move(to: CGPoint(x: 0.15, y: 5.09))
+        path94Path.addLine(to: CGPoint(x: -9.5, y: 5.09))
+        path94Path.addLine(to: CGPoint(x: -3.63, y: -3.82))
+        path94Path.addLine(to: CGPoint(x: -7.02, y: -3.82))
+        path94Path.addLine(to: CGPoint(x: -0.28, y: -14.09))
+        path94Path.addLine(to: CGPoint(x: 6.94, y: -3.82))
+        path94Path.addLine(to: CGPoint(x: 3.47, y: -3.82))
+        path94Path.addLine(to: CGPoint(x: 9.5, y: 5.09))
+        path94Path.addLine(to: CGPoint(x: 0.15, y: 5.09))
+        path94Path.close()
         path94Path.miterLimit = 4;
 
         path94Path.usesEvenOddFillRule = true;
@@ -3299,32 +3299,32 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawFoodIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawFoodIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50204 * frame.width, frame.minY + 0.49545 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50204 * frame.width, y: frame.minY + 0.49545 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// martini
         //// Path-95 Drawing
         let path95Path = UIBezierPath()
-        path95Path.moveToPoint(CGPoint(x: -3.47, y: -1.96))
-        path95Path.addLineToPoint(CGPoint(x: -2.79, y: -6.77))
-        path95Path.addLineToPoint(CGPoint(x: -16.09, y: -6.77))
-        path95Path.addLineToPoint(CGPoint(x: -13.09, y: 13.21))
-        path95Path.addLineToPoint(CGPoint(x: -5.96, y: 13.21))
-        path95Path.addLineToPoint(CGPoint(x: -5.64, y: 11.75))
+        path95Path.move(to: CGPoint(x: -3.47, y: -1.96))
+        path95Path.addLine(to: CGPoint(x: -2.79, y: -6.77))
+        path95Path.addLine(to: CGPoint(x: -16.09, y: -6.77))
+        path95Path.addLine(to: CGPoint(x: -13.09, y: 13.21))
+        path95Path.addLine(to: CGPoint(x: -5.96, y: 13.21))
+        path95Path.addLine(to: CGPoint(x: -5.64, y: 11.75))
         path95Path.miterLimit = 4;
 
-        path95Path.lineJoinStyle = .Round;
+        path95Path.lineJoinStyle = .round;
 
         path95Path.usesEvenOddFillRule = true;
 
@@ -3335,9 +3335,9 @@ public class StyleKit : NSObject {
 
         //// Path-97 Drawing
         let path97Path = UIBezierPath()
-        path97Path.moveToPoint(CGPoint(x: -9.26, y: -6.8))
-        path97Path.addLineToPoint(CGPoint(x: -6.85, y: -13.23))
-        path97Path.addLineToPoint(CGPoint(x: -1.74, y: -10.96))
+        path97Path.move(to: CGPoint(x: -9.26, y: -6.8))
+        path97Path.addLine(to: CGPoint(x: -6.85, y: -13.23))
+        path97Path.addLine(to: CGPoint(x: -1.74, y: -10.96))
         path97Path.miterLimit = 4;
 
         path97Path.usesEvenOddFillRule = true;
@@ -3352,11 +3352,11 @@ public class StyleKit : NSObject {
         //// burger
         //// Oval-110-Copy Drawing
         let oval110CopyPath = UIBezierPath()
-        oval110CopyPath.moveToPoint(CGPoint(x: 13.49, y: 6.83))
-        oval110CopyPath.addCurveToPoint(CGPoint(x: 13.49, y: 10.03), controlPoint1: CGPoint(x: 13.49, y: 6.83), controlPoint2: CGPoint(x: 13.49, y: 8.93))
-        oval110CopyPath.addCurveToPoint(CGPoint(x: 2.94, y: 13.23), controlPoint1: CGPoint(x: 13.49, y: 13.23), controlPoint2: CGPoint(x: 8.05, y: 13.23))
-        oval110CopyPath.addCurveToPoint(CGPoint(x: -6.82, y: 10.03), controlPoint1: CGPoint(x: -2.17, y: 13.23), controlPoint2: CGPoint(x: -6.82, y: 13.23))
-        oval110CopyPath.addCurveToPoint(CGPoint(x: -6.27, y: 6.83), controlPoint1: CGPoint(x: -6.82, y: 9.03), controlPoint2: CGPoint(x: -6.98, y: 7.3))
+        oval110CopyPath.move(to: CGPoint(x: 13.49, y: 6.83))
+        oval110CopyPath.addCurve(to: CGPoint(x: 13.49, y: 10.03), controlPoint1: CGPoint(x: 13.49, y: 6.83), controlPoint2: CGPoint(x: 13.49, y: 8.93))
+        oval110CopyPath.addCurve(to: CGPoint(x: 2.94, y: 13.23), controlPoint1: CGPoint(x: 13.49, y: 13.23), controlPoint2: CGPoint(x: 8.05, y: 13.23))
+        oval110CopyPath.addCurve(to: CGPoint(x: -6.82, y: 10.03), controlPoint1: CGPoint(x: -2.17, y: 13.23), controlPoint2: CGPoint(x: -6.82, y: 13.23))
+        oval110CopyPath.addCurve(to: CGPoint(x: -6.27, y: 6.83), controlPoint1: CGPoint(x: -6.82, y: 9.03), controlPoint2: CGPoint(x: -6.98, y: 7.3))
         oval110CopyPath.miterLimit = 4;
 
         oval110CopyPath.usesEvenOddFillRule = true;
@@ -3368,14 +3368,14 @@ public class StyleKit : NSObject {
 
         //// Oval-110 Drawing
         let oval110Path = UIBezierPath()
-        oval110Path.moveToPoint(CGPoint(x: 3.41, y: 4.09))
-        oval110Path.addCurveToPoint(CGPoint(x: 12.16, y: 3.82), controlPoint1: CGPoint(x: 10.14, y: 4.09), controlPoint2: CGPoint(x: 12.16, y: 3.82))
-        oval110Path.addCurveToPoint(CGPoint(x: 13.17, y: 1.33), controlPoint1: CGPoint(x: 13.81, y: 3.69), controlPoint2: CGPoint(x: 14.3, y: 2.55))
-        oval110Path.addCurveToPoint(CGPoint(x: 3.09, y: -3.77), controlPoint1: CGPoint(x: 13.17, y: 1.33), controlPoint2: CGPoint(x: 9.82, y: -3.77))
-        oval110Path.addCurveToPoint(CGPoint(x: -6.58, y: 1.26), controlPoint1: CGPoint(x: -3.65, y: -3.77), controlPoint2: CGPoint(x: -6.58, y: 1.26))
-        oval110Path.addCurveToPoint(CGPoint(x: -5.46, y: 3.81), controlPoint1: CGPoint(x: -7.62, y: 2.54), controlPoint2: CGPoint(x: -7.13, y: 3.7))
-        oval110Path.addCurveToPoint(CGPoint(x: 3.41, y: 4.09), controlPoint1: CGPoint(x: -5.46, y: 3.81), controlPoint2: CGPoint(x: -3.32, y: 4.09))
-        oval110Path.closePath()
+        oval110Path.move(to: CGPoint(x: 3.41, y: 4.09))
+        oval110Path.addCurve(to: CGPoint(x: 12.16, y: 3.82), controlPoint1: CGPoint(x: 10.14, y: 4.09), controlPoint2: CGPoint(x: 12.16, y: 3.82))
+        oval110Path.addCurve(to: CGPoint(x: 13.17, y: 1.33), controlPoint1: CGPoint(x: 13.81, y: 3.69), controlPoint2: CGPoint(x: 14.3, y: 2.55))
+        oval110Path.addCurve(to: CGPoint(x: 3.09, y: -3.77), controlPoint1: CGPoint(x: 13.17, y: 1.33), controlPoint2: CGPoint(x: 9.82, y: -3.77))
+        oval110Path.addCurve(to: CGPoint(x: -6.58, y: 1.26), controlPoint1: CGPoint(x: -3.65, y: -3.77), controlPoint2: CGPoint(x: -6.58, y: 1.26))
+        oval110Path.addCurve(to: CGPoint(x: -5.46, y: 3.81), controlPoint1: CGPoint(x: -7.62, y: 2.54), controlPoint2: CGPoint(x: -7.13, y: 3.7))
+        oval110Path.addCurve(to: CGPoint(x: 3.41, y: 4.09), controlPoint1: CGPoint(x: -5.46, y: 3.81), controlPoint2: CGPoint(x: -3.32, y: 4.09))
+        oval110Path.close()
         oval110Path.miterLimit = 4;
 
         oval110Path.usesEvenOddFillRule = true;
@@ -3387,31 +3387,31 @@ public class StyleKit : NSObject {
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPoint(x: 13.63, y: 4.33))
-        bezierPath.addLineToPoint(CGPoint(x: -6.74, y: 4.33))
-        bezierPath.addLineToPoint(CGPoint(x: 3.73, y: 7.83))
-        bezierPath.addLineToPoint(CGPoint(x: 13.63, y: 4.33))
-        bezierPath.closePath()
-        bezierPath.moveToPoint(CGPoint(x: 14.34, y: 3.39))
-        bezierPath.addCurveToPoint(CGPoint(x: 14.48, y: 3.42), controlPoint1: CGPoint(x: 14.38, y: 3.4), controlPoint2: CGPoint(x: 14.48, y: 3.42))
-        bezierPath.addCurveToPoint(CGPoint(x: 16.09, y: 5.71), controlPoint1: CGPoint(x: 15.44, y: 3.77), controlPoint2: CGPoint(x: 16.09, y: 4.69))
-        bezierPath.addCurveToPoint(CGPoint(x: 16.09, y: 5.85), controlPoint1: CGPoint(x: 16.09, y: 5.85), controlPoint2: CGPoint(x: 16.09, y: 5.85))
-        bezierPath.addLineToPoint(CGPoint(x: 16.09, y: 5.98))
-        bezierPath.addCurveToPoint(CGPoint(x: 14.48, y: 8.27), controlPoint1: CGPoint(x: 16.09, y: 7), controlPoint2: CGPoint(x: 15.44, y: 7.92))
-        bezierPath.addCurveToPoint(CGPoint(x: 12.13, y: 8.46), controlPoint1: CGPoint(x: 13.86, y: 8.46), controlPoint2: CGPoint(x: 13.28, y: 8.46))
-        bezierPath.addLineToPoint(CGPoint(x: 1.6, y: 8.46))
-        bezierPath.addCurveToPoint(CGPoint(x: -7.4, y: 8.29), controlPoint1: CGPoint(x: -6.3, y: 8.46), controlPoint2: CGPoint(x: -6.88, y: 8.46))
-        bezierPath.addLineToPoint(CGPoint(x: -7.5, y: 8.27))
-        bezierPath.addCurveToPoint(CGPoint(x: -9.1, y: 5.98), controlPoint1: CGPoint(x: -8.46, y: 7.92), controlPoint2: CGPoint(x: -9.1, y: 7))
-        bezierPath.addCurveToPoint(CGPoint(x: -9.1, y: 5.85), controlPoint1: CGPoint(x: -9.1, y: 5.85), controlPoint2: CGPoint(x: -9.1, y: 5.85))
-        bezierPath.addLineToPoint(CGPoint(x: -9.1, y: 5.71))
-        bezierPath.addCurveToPoint(CGPoint(x: -7.5, y: 3.42), controlPoint1: CGPoint(x: -9.1, y: 4.69), controlPoint2: CGPoint(x: -8.46, y: 3.77))
-        bezierPath.addCurveToPoint(CGPoint(x: -5.67, y: 3.23), controlPoint1: CGPoint(x: -6.98, y: 3.26), controlPoint2: CGPoint(x: -6.49, y: 3.23))
-        bezierPath.addCurveToPoint(CGPoint(x: -5.15, y: 3.23), controlPoint1: CGPoint(x: -5.51, y: 3.23), controlPoint2: CGPoint(x: -5.34, y: 3.23))
-        bezierPath.addLineToPoint(CGPoint(x: 5.38, y: 3.23))
-        bezierPath.addCurveToPoint(CGPoint(x: 14.38, y: 3.4), controlPoint1: CGPoint(x: 13.28, y: 3.23), controlPoint2: CGPoint(x: 13.86, y: 3.23))
-        bezierPath.addLineToPoint(CGPoint(x: 14.34, y: 3.39))
-        bezierPath.closePath()
+        bezierPath.move(to: CGPoint(x: 13.63, y: 4.33))
+        bezierPath.addLine(to: CGPoint(x: -6.74, y: 4.33))
+        bezierPath.addLine(to: CGPoint(x: 3.73, y: 7.83))
+        bezierPath.addLine(to: CGPoint(x: 13.63, y: 4.33))
+        bezierPath.close()
+        bezierPath.move(to: CGPoint(x: 14.34, y: 3.39))
+        bezierPath.addCurve(to: CGPoint(x: 14.48, y: 3.42), controlPoint1: CGPoint(x: 14.38, y: 3.4), controlPoint2: CGPoint(x: 14.48, y: 3.42))
+        bezierPath.addCurve(to: CGPoint(x: 16.09, y: 5.71), controlPoint1: CGPoint(x: 15.44, y: 3.77), controlPoint2: CGPoint(x: 16.09, y: 4.69))
+        bezierPath.addCurve(to: CGPoint(x: 16.09, y: 5.85), controlPoint1: CGPoint(x: 16.09, y: 5.85), controlPoint2: CGPoint(x: 16.09, y: 5.85))
+        bezierPath.addLine(to: CGPoint(x: 16.09, y: 5.98))
+        bezierPath.addCurve(to: CGPoint(x: 14.48, y: 8.27), controlPoint1: CGPoint(x: 16.09, y: 7), controlPoint2: CGPoint(x: 15.44, y: 7.92))
+        bezierPath.addCurve(to: CGPoint(x: 12.13, y: 8.46), controlPoint1: CGPoint(x: 13.86, y: 8.46), controlPoint2: CGPoint(x: 13.28, y: 8.46))
+        bezierPath.addLine(to: CGPoint(x: 1.6, y: 8.46))
+        bezierPath.addCurve(to: CGPoint(x: -7.4, y: 8.29), controlPoint1: CGPoint(x: -6.3, y: 8.46), controlPoint2: CGPoint(x: -6.88, y: 8.46))
+        bezierPath.addLine(to: CGPoint(x: -7.5, y: 8.27))
+        bezierPath.addCurve(to: CGPoint(x: -9.1, y: 5.98), controlPoint1: CGPoint(x: -8.46, y: 7.92), controlPoint2: CGPoint(x: -9.1, y: 7))
+        bezierPath.addCurve(to: CGPoint(x: -9.1, y: 5.85), controlPoint1: CGPoint(x: -9.1, y: 5.85), controlPoint2: CGPoint(x: -9.1, y: 5.85))
+        bezierPath.addLine(to: CGPoint(x: -9.1, y: 5.71))
+        bezierPath.addCurve(to: CGPoint(x: -7.5, y: 3.42), controlPoint1: CGPoint(x: -9.1, y: 4.69), controlPoint2: CGPoint(x: -8.46, y: 3.77))
+        bezierPath.addCurve(to: CGPoint(x: -5.67, y: 3.23), controlPoint1: CGPoint(x: -6.98, y: 3.26), controlPoint2: CGPoint(x: -6.49, y: 3.23))
+        bezierPath.addCurve(to: CGPoint(x: -5.15, y: 3.23), controlPoint1: CGPoint(x: -5.51, y: 3.23), controlPoint2: CGPoint(x: -5.34, y: 3.23))
+        bezierPath.addLine(to: CGPoint(x: 5.38, y: 3.23))
+        bezierPath.addCurve(to: CGPoint(x: 14.38, y: 3.4), controlPoint1: CGPoint(x: 13.28, y: 3.23), controlPoint2: CGPoint(x: 13.86, y: 3.23))
+        bezierPath.addLine(to: CGPoint(x: 14.34, y: 3.39))
+        bezierPath.close()
         color.setFill()
         bezierPath.fill()
 
@@ -3419,26 +3419,26 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawConfettiIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawConfettiIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50875 * frame.width, frame.minY + 0.49434 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50875 * frame.width, y: frame.minY + 0.49434 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Path-103 Drawing
         let path103Path = UIBezierPath()
-        path103Path.moveToPoint(CGPoint(x: 5.76, y: 6.21))
-        path103Path.addLineToPoint(CGPoint(x: -11.88, y: 14.53))
-        path103Path.addCurveToPoint(CGPoint(x: -13, y: 13.52), controlPoint1: CGPoint(x: -12.88, y: 15), controlPoint2: CGPoint(x: -13.38, y: 14.55))
-        path103Path.addLineToPoint(CGPoint(x: -6.29, y: -4.46))
+        path103Path.move(to: CGPoint(x: 5.76, y: 6.21))
+        path103Path.addLine(to: CGPoint(x: -11.88, y: 14.53))
+        path103Path.addCurve(to: CGPoint(x: -13, y: 13.52), controlPoint1: CGPoint(x: -12.88, y: 15), controlPoint2: CGPoint(x: -13.38, y: 14.55))
+        path103Path.addLine(to: CGPoint(x: -6.29, y: -4.46))
         path103Path.miterLimit = 4;
 
         path103Path.usesEvenOddFillRule = true;
@@ -3449,29 +3449,29 @@ public class StyleKit : NSObject {
 
 
         //// Oval-124 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 1.41, -0.42)
-        CGContextRotateCTM(context, 38 * CGFloat(M_PI) / 180)
+        context.saveGState()
+        context.translate(x: 1.41, y: -0.42)
+        context.rotate(byAngle: 38 * CGFloat(M_PI) / 180)
 
-        let oval124Path = UIBezierPath(ovalInRect: CGRect(x: -9.5, y: -4, width: 19, height: 8))
+        let oval124Path = UIBezierPath(ovalIn: CGRect(x: -9.5, y: -4, width: 19, height: 8))
         color.setStroke()
         oval124Path.lineWidth = 2
         oval124Path.stroke()
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
 
 
         //// Path-104 Drawing
         let path104Path = UIBezierPath()
-        path104Path.moveToPoint(CGPoint(x: -0.75, y: -2.09))
-        path104Path.addLineToPoint(CGPoint(x: -1.14, y: -8.75))
-        path104Path.addCurveToPoint(CGPoint(x: -3.95, y: -10.72), controlPoint1: CGPoint(x: -1.23, y: -10.27), controlPoint2: CGPoint(x: -2.48, y: -11.16))
-        path104Path.addLineToPoint(CGPoint(x: -6.28, y: -10.03))
+        path104Path.move(to: CGPoint(x: -0.75, y: -2.09))
+        path104Path.addLine(to: CGPoint(x: -1.14, y: -8.75))
+        path104Path.addCurve(to: CGPoint(x: -3.95, y: -10.72), controlPoint1: CGPoint(x: -1.23, y: -10.27), controlPoint2: CGPoint(x: -2.48, y: -11.16))
+        path104Path.addLine(to: CGPoint(x: -6.28, y: -10.03))
         path104Path.miterLimit = 4;
 
-        path104Path.lineCapStyle = .Round;
+        path104Path.lineCapStyle = .round;
 
-        path104Path.lineJoinStyle = .Round;
+        path104Path.lineJoinStyle = .round;
 
         path104Path.usesEvenOddFillRule = true;
 
@@ -3482,15 +3482,15 @@ public class StyleKit : NSObject {
 
         //// Path-105 Drawing
         let path105Path = UIBezierPath()
-        path105Path.moveToPoint(CGPoint(x: 3.46, y: 1.12))
-        path105Path.addLineToPoint(CGPoint(x: 6.73, y: -1.05))
-        path105Path.addCurveToPoint(CGPoint(x: 8.95, y: -1.3), controlPoint1: CGPoint(x: 7.31, y: -1.43), controlPoint2: CGPoint(x: 8.3, y: -1.55))
-        path105Path.addLineToPoint(CGPoint(x: 13.61, y: 0.48))
+        path105Path.move(to: CGPoint(x: 3.46, y: 1.12))
+        path105Path.addLine(to: CGPoint(x: 6.73, y: -1.05))
+        path105Path.addCurve(to: CGPoint(x: 8.95, y: -1.3), controlPoint1: CGPoint(x: 7.31, y: -1.43), controlPoint2: CGPoint(x: 8.3, y: -1.55))
+        path105Path.addLine(to: CGPoint(x: 13.61, y: 0.48))
         path105Path.miterLimit = 4;
 
-        path105Path.lineCapStyle = .Round;
+        path105Path.lineCapStyle = .round;
 
-        path105Path.lineJoinStyle = .Round;
+        path105Path.lineJoinStyle = .round;
 
         path105Path.usesEvenOddFillRule = true;
 
@@ -3501,16 +3501,16 @@ public class StyleKit : NSObject {
 
         //// Path-106 Drawing
         let path106Path = UIBezierPath()
-        path106Path.moveToPoint(CGPoint(x: 5.4, y: -5.17))
-        path106Path.addLineToPoint(CGPoint(x: 5.65, y: -9.06))
-        path106Path.addLineToPoint(CGPoint(x: 12.61, y: -6.38))
-        path106Path.addLineToPoint(CGPoint(x: 11.4, y: -11.01))
-        path106Path.addLineToPoint(CGPoint(x: 15.56, y: -10.67))
+        path106Path.move(to: CGPoint(x: 5.4, y: -5.17))
+        path106Path.addLine(to: CGPoint(x: 5.65, y: -9.06))
+        path106Path.addLine(to: CGPoint(x: 12.61, y: -6.38))
+        path106Path.addLine(to: CGPoint(x: 11.4, y: -11.01))
+        path106Path.addLine(to: CGPoint(x: 15.56, y: -10.67))
         path106Path.miterLimit = 4;
 
-        path106Path.lineCapStyle = .Round;
+        path106Path.lineCapStyle = .round;
 
-        path106Path.lineJoinStyle = .Round;
+        path106Path.lineJoinStyle = .round;
 
         path106Path.usesEvenOddFillRule = true;
 
@@ -3521,16 +3521,16 @@ public class StyleKit : NSObject {
 
         //// Path-107 Drawing
         let path107Path = UIBezierPath()
-        path107Path.moveToPoint(CGPoint(x: -11.9, y: -4.26))
-        path107Path.addCurveToPoint(CGPoint(x: -11.16, y: -7.63), controlPoint1: CGPoint(x: -11.9, y: -4.26), controlPoint2: CGPoint(x: -10.42, y: -7.63))
-        path107Path.addCurveToPoint(CGPoint(x: -16.28, y: -7.72), controlPoint1: CGPoint(x: -11.9, y: -7.63), controlPoint2: CGPoint(x: -16.28, y: -7.72))
-        path107Path.addLineToPoint(CGPoint(x: -13.66, y: -10.9))
-        path107Path.addLineToPoint(CGPoint(x: -16.56, y: -13.47))
+        path107Path.move(to: CGPoint(x: -11.9, y: -4.26))
+        path107Path.addCurve(to: CGPoint(x: -11.16, y: -7.63), controlPoint1: CGPoint(x: -11.9, y: -4.26), controlPoint2: CGPoint(x: -10.42, y: -7.63))
+        path107Path.addCurve(to: CGPoint(x: -16.28, y: -7.72), controlPoint1: CGPoint(x: -11.9, y: -7.63), controlPoint2: CGPoint(x: -16.28, y: -7.72))
+        path107Path.addLine(to: CGPoint(x: -13.66, y: -10.9))
+        path107Path.addLine(to: CGPoint(x: -16.56, y: -13.47))
         path107Path.miterLimit = 4;
 
-        path107Path.lineCapStyle = .Round;
+        path107Path.lineCapStyle = .round;
 
-        path107Path.lineJoinStyle = .Round;
+        path107Path.lineJoinStyle = .round;
 
         path107Path.usesEvenOddFillRule = true;
 
@@ -3540,80 +3540,80 @@ public class StyleKit : NSObject {
 
 
         //// Oval-125 Drawing
-        let oval125Path = UIBezierPath(ovalInRect: CGRect(x: 4.56, y: 10.28, width: 2, height: 2))
+        let oval125Path = UIBezierPath(ovalIn: CGRect(x: 4.56, y: 10.28, width: 2, height: 2))
         color.setFill()
         oval125Path.fill()
 
 
         //// Oval-125-Copy Drawing
-        let oval125CopyPath = UIBezierPath(ovalInRect: CGRect(x: 10.56, y: 6.28, width: 2, height: 2))
+        let oval125CopyPath = UIBezierPath(ovalIn: CGRect(x: 10.56, y: 6.28, width: 2, height: 2))
         color.setFill()
         oval125CopyPath.fill()
 
 
         //// Oval-125-Copy-2 Drawing
-        let oval125Copy2Path = UIBezierPath(ovalInRect: CGRect(x: 12.56, y: 12.28, width: 2, height: 2))
+        let oval125Copy2Path = UIBezierPath(ovalIn: CGRect(x: 12.56, y: 12.28, width: 2, height: 2))
         color.setFill()
         oval125Copy2Path.fill()
 
 
         //// Oval-125-Copy-3 Drawing
-        let oval125Copy3Path = UIBezierPath(ovalInRect: CGRect(x: 14.56, y: 3.28, width: 2, height: 2))
+        let oval125Copy3Path = UIBezierPath(ovalIn: CGRect(x: 14.56, y: 3.28, width: 2, height: 2))
         color.setFill()
         oval125Copy3Path.fill()
 
 
         //// Oval-125-Copy-4 Drawing
-        let oval125Copy4Path = UIBezierPath(ovalInRect: CGRect(x: 6.56, y: -14.72, width: 2, height: 2))
+        let oval125Copy4Path = UIBezierPath(ovalIn: CGRect(x: 6.56, y: -14.72, width: 2, height: 2))
         color.setFill()
         oval125Copy4Path.fill()
 
 
         //// Oval-125-Copy-5 Drawing
-        let oval125Copy5Path = UIBezierPath(ovalInRect: CGRect(x: 1.56, y: -12.72, width: 2, height: 2))
+        let oval125Copy5Path = UIBezierPath(ovalIn: CGRect(x: 1.56, y: -12.72, width: 2, height: 2))
         color.setFill()
         oval125Copy5Path.fill()
 
 
         //// Oval-125-Copy-6 Drawing
-        let oval125Copy6Path = UIBezierPath(ovalInRect: CGRect(x: -15.44, y: -0.72, width: 2, height: 2))
+        let oval125Copy6Path = UIBezierPath(ovalIn: CGRect(x: -15.44, y: -0.72, width: 2, height: 2))
         color.setFill()
         oval125Copy6Path.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawActivityIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawActivityIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.49311 * frame.width, frame.minY + 0.50498 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.49311 * frame.width, y: frame.minY + 0.50498 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Oval-132 Drawing
-        let oval132Path = UIBezierPath(ovalInRect: CGRect(x: 3.34, y: -15.25, width: 7, height: 7))
+        let oval132Path = UIBezierPath(ovalIn: CGRect(x: 3.34, y: -15.25, width: 7, height: 7))
         color.setFill()
         oval132Path.fill()
 
 
         //// Path-108 Drawing
         let path108Path = UIBezierPath()
-        path108Path.moveToPoint(CGPoint(x: -14.84, y: 7.07))
-        path108Path.addLineToPoint(CGPoint(x: -6.41, y: 7.69))
-        path108Path.addLineToPoint(CGPoint(x: -2.42, y: 1.6))
-        path108Path.addLineToPoint(CGPoint(x: 5.49, y: 6.85))
-        path108Path.addLineToPoint(CGPoint(x: 0.6, y: 15.25))
+        path108Path.move(to: CGPoint(x: -14.84, y: 7.07))
+        path108Path.addLine(to: CGPoint(x: -6.41, y: 7.69))
+        path108Path.addLine(to: CGPoint(x: -2.42, y: 1.6))
+        path108Path.addLine(to: CGPoint(x: 5.49, y: 6.85))
+        path108Path.addLine(to: CGPoint(x: 0.6, y: 15.25))
         path108Path.miterLimit = 4;
 
-        path108Path.lineCapStyle = .Round;
+        path108Path.lineCapStyle = .round;
 
-        path108Path.lineJoinStyle = .Round;
+        path108Path.lineJoinStyle = .round;
 
         path108Path.usesEvenOddFillRule = true;
 
@@ -3624,17 +3624,17 @@ public class StyleKit : NSObject {
 
         //// Path-109 Drawing
         let path109Path = UIBezierPath()
-        path109Path.moveToPoint(CGPoint(x: -5.56, y: 4.16))
-        path109Path.addLineToPoint(CGPoint(x: -5.53, y: -0.78))
-        path109Path.addLineToPoint(CGPoint(x: 1.1, y: -8.87))
-        path109Path.addLineToPoint(CGPoint(x: 2.8, y: -8.9))
-        path109Path.addLineToPoint(CGPoint(x: 6.39, y: -6.09))
-        path109Path.addLineToPoint(CGPoint(x: 6.45, y: -4.61))
-        path109Path.addLineToPoint(CGPoint(x: 1.34, y: 0.18))
-        path109Path.addLineToPoint(CGPoint(x: 2.27, y: 2.99))
-        path109Path.addLineToPoint(CGPoint(x: -1.84, y: 1.85))
-        path109Path.addLineToPoint(CGPoint(x: -5.56, y: 4.16))
-        path109Path.closePath()
+        path109Path.move(to: CGPoint(x: -5.56, y: 4.16))
+        path109Path.addLine(to: CGPoint(x: -5.53, y: -0.78))
+        path109Path.addLine(to: CGPoint(x: 1.1, y: -8.87))
+        path109Path.addLine(to: CGPoint(x: 2.8, y: -8.9))
+        path109Path.addLine(to: CGPoint(x: 6.39, y: -6.09))
+        path109Path.addLine(to: CGPoint(x: 6.45, y: -4.61))
+        path109Path.addLine(to: CGPoint(x: 1.34, y: 0.18))
+        path109Path.addLine(to: CGPoint(x: 2.27, y: 2.99))
+        path109Path.addLine(to: CGPoint(x: -1.84, y: 1.85))
+        path109Path.addLine(to: CGPoint(x: -5.56, y: 4.16))
+        path109Path.close()
         path109Path.miterLimit = 4;
 
         path109Path.usesEvenOddFillRule = true;
@@ -3648,14 +3648,14 @@ public class StyleKit : NSObject {
 
         //// Path-110 Drawing
         let path110Path = UIBezierPath()
-        path110Path.moveToPoint(CGPoint(x: 5.29, y: -4.66))
-        path110Path.addLineToPoint(CGPoint(x: 7.24, y: -0.74))
-        path110Path.addLineToPoint(CGPoint(x: 14.84, y: -0.77))
+        path110Path.move(to: CGPoint(x: 5.29, y: -4.66))
+        path110Path.addLine(to: CGPoint(x: 7.24, y: -0.74))
+        path110Path.addLine(to: CGPoint(x: 14.84, y: -0.77))
         path110Path.miterLimit = 4;
 
-        path110Path.lineCapStyle = .Round;
+        path110Path.lineCapStyle = .round;
 
-        path110Path.lineJoinStyle = .Round;
+        path110Path.lineJoinStyle = .round;
 
         path110Path.usesEvenOddFillRule = true;
 
@@ -3666,14 +3666,14 @@ public class StyleKit : NSObject {
 
         //// Path-111 Drawing
         let path111Path = UIBezierPath()
-        path111Path.moveToPoint(CGPoint(x: 1.04, y: -7.76))
-        path111Path.addLineToPoint(CGPoint(x: -3.53, y: -8.6))
-        path111Path.addLineToPoint(CGPoint(x: -9.06, y: -5.26))
+        path111Path.move(to: CGPoint(x: 1.04, y: -7.76))
+        path111Path.addLine(to: CGPoint(x: -3.53, y: -8.6))
+        path111Path.addLine(to: CGPoint(x: -9.06, y: -5.26))
         path111Path.miterLimit = 4;
 
-        path111Path.lineCapStyle = .Round;
+        path111Path.lineCapStyle = .round;
 
-        path111Path.lineJoinStyle = .Round;
+        path111Path.lineJoinStyle = .round;
 
         path111Path.usesEvenOddFillRule = true;
 
@@ -3683,30 +3683,30 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawBuildingsIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawBuildingsIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icons
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50945 * frame.width, frame.minY + 0.50581 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50945 * frame.width, y: frame.minY + 0.50581 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Path-112 Drawing
         let path112Path = UIBezierPath()
-        path112Path.moveToPoint(CGPoint(x: -14.87, y: 13.46))
-        path112Path.addLineToPoint(CGPoint(x: -15.03, y: -3.36))
-        path112Path.addLineToPoint(CGPoint(x: -7.77, y: -3.36))
-        path112Path.addLineToPoint(CGPoint(x: -7.93, y: -15.71))
-        path112Path.addLineToPoint(CGPoint(x: 4.23, y: -15.68))
-        path112Path.addLineToPoint(CGPoint(x: 4.32, y: -7.41))
-        path112Path.addLineToPoint(CGPoint(x: 14.75, y: -7.41))
-        path112Path.addLineToPoint(CGPoint(x: 15.03, y: 13.09))
+        path112Path.move(to: CGPoint(x: -14.87, y: 13.46))
+        path112Path.addLine(to: CGPoint(x: -15.03, y: -3.36))
+        path112Path.addLine(to: CGPoint(x: -7.77, y: -3.36))
+        path112Path.addLine(to: CGPoint(x: -7.93, y: -15.71))
+        path112Path.addLine(to: CGPoint(x: 4.23, y: -15.68))
+        path112Path.addLine(to: CGPoint(x: 4.32, y: -7.41))
+        path112Path.addLine(to: CGPoint(x: 14.75, y: -7.41))
+        path112Path.addLine(to: CGPoint(x: 15.03, y: 13.09))
         path112Path.miterLimit = 4;
 
         path112Path.usesEvenOddFillRule = true;
@@ -3767,32 +3767,32 @@ public class StyleKit : NSObject {
 
         //// Rectangle-600 Drawing
         let rectangle600Path = UIBezierPath()
-        rectangle600Path.moveToPoint(CGPoint(x: 2.03, y: 8.71))
-        rectangle600Path.addLineToPoint(CGPoint(x: 2.03, y: 8.71))
-        rectangle600Path.addLineToPoint(CGPoint(x: 2.03, y: 8.71))
-        rectangle600Path.addLineToPoint(CGPoint(x: 0.03, y: 8.71))
-        rectangle600Path.addCurveToPoint(CGPoint(x: -1.97, y: 8.71), controlPoint1: CGPoint(x: -1.97, y: 8.71), controlPoint2: CGPoint(x: -1.97, y: 8.71))
-        rectangle600Path.addLineToPoint(CGPoint(x: -1.97, y: 8.71))
-        rectangle600Path.moveToPoint(CGPoint(x: -7.27, y: 4.68))
-        rectangle600Path.addCurveToPoint(CGPoint(x: -7.47, y: 3.21), controlPoint1: CGPoint(x: -7.4, y: 4.21), controlPoint2: CGPoint(x: -7.47, y: 3.72))
-        rectangle600Path.addLineToPoint(CGPoint(x: -7.47, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: -7.47, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: -7.47, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: -7.47, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: -7.47, y: 3.21))
-        rectangle600Path.addCurveToPoint(CGPoint(x: -1.97, y: -2.29), controlPoint1: CGPoint(x: -7.47, y: 0.17), controlPoint2: CGPoint(x: -5.01, y: -2.29))
-        rectangle600Path.addLineToPoint(CGPoint(x: -1.97, y: -2.29))
-        rectangle600Path.addLineToPoint(CGPoint(x: 0.03, y: -2.29))
-        rectangle600Path.addLineToPoint(CGPoint(x: 0.03, y: -2.29))
-        rectangle600Path.addCurveToPoint(CGPoint(x: 2.03, y: -2.29), controlPoint1: CGPoint(x: 2.03, y: -2.29), controlPoint2: CGPoint(x: 2.03, y: -2.29))
-        rectangle600Path.addLineToPoint(CGPoint(x: 2.03, y: -2.29))
-        rectangle600Path.addCurveToPoint(CGPoint(x: 7.53, y: 3.21), controlPoint1: CGPoint(x: 5.07, y: -2.29), controlPoint2: CGPoint(x: 7.53, y: 0.17))
-        rectangle600Path.addLineToPoint(CGPoint(x: 7.53, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: 7.53, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: 7.53, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: 7.53, y: 3.21))
-        rectangle600Path.addLineToPoint(CGPoint(x: 7.53, y: 3.21))
-        rectangle600Path.addCurveToPoint(CGPoint(x: 7.3, y: 4.79), controlPoint1: CGPoint(x: 7.53, y: 3.76), controlPoint2: CGPoint(x: 7.45, y: 4.29))
+        rectangle600Path.move(to: CGPoint(x: 2.03, y: 8.71))
+        rectangle600Path.addLine(to: CGPoint(x: 2.03, y: 8.71))
+        rectangle600Path.addLine(to: CGPoint(x: 2.03, y: 8.71))
+        rectangle600Path.addLine(to: CGPoint(x: 0.03, y: 8.71))
+        rectangle600Path.addCurve(to: CGPoint(x: -1.97, y: 8.71), controlPoint1: CGPoint(x: -1.97, y: 8.71), controlPoint2: CGPoint(x: -1.97, y: 8.71))
+        rectangle600Path.addLine(to: CGPoint(x: -1.97, y: 8.71))
+        rectangle600Path.move(to: CGPoint(x: -7.27, y: 4.68))
+        rectangle600Path.addCurve(to: CGPoint(x: -7.47, y: 3.21), controlPoint1: CGPoint(x: -7.4, y: 4.21), controlPoint2: CGPoint(x: -7.47, y: 3.72))
+        rectangle600Path.addLine(to: CGPoint(x: -7.47, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: -7.47, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: -7.47, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: -7.47, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: -7.47, y: 3.21))
+        rectangle600Path.addCurve(to: CGPoint(x: -1.97, y: -2.29), controlPoint1: CGPoint(x: -7.47, y: 0.17), controlPoint2: CGPoint(x: -5.01, y: -2.29))
+        rectangle600Path.addLine(to: CGPoint(x: -1.97, y: -2.29))
+        rectangle600Path.addLine(to: CGPoint(x: 0.03, y: -2.29))
+        rectangle600Path.addLine(to: CGPoint(x: 0.03, y: -2.29))
+        rectangle600Path.addCurve(to: CGPoint(x: 2.03, y: -2.29), controlPoint1: CGPoint(x: 2.03, y: -2.29), controlPoint2: CGPoint(x: 2.03, y: -2.29))
+        rectangle600Path.addLine(to: CGPoint(x: 2.03, y: -2.29))
+        rectangle600Path.addCurve(to: CGPoint(x: 7.53, y: 3.21), controlPoint1: CGPoint(x: 5.07, y: -2.29), controlPoint2: CGPoint(x: 7.53, y: 0.17))
+        rectangle600Path.addLine(to: CGPoint(x: 7.53, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: 7.53, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: 7.53, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: 7.53, y: 3.21))
+        rectangle600Path.addLine(to: CGPoint(x: 7.53, y: 3.21))
+        rectangle600Path.addCurve(to: CGPoint(x: 7.3, y: 4.79), controlPoint1: CGPoint(x: 7.53, y: 3.76), controlPoint2: CGPoint(x: 7.45, y: 4.29))
         color.setStroke()
         rectangle600Path.lineWidth = 2
         rectangle600Path.stroke()
@@ -3800,28 +3800,28 @@ public class StyleKit : NSObject {
 
         //// Rectangle-597 Drawing
         let rectangle597Path = UIBezierPath()
-        rectangle597Path.moveToPoint(CGPoint(x: -6.63, y: 12.21))
-        rectangle597Path.addLineToPoint(CGPoint(x: -5.81, y: 12.21))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -5.06, y: 12.27), controlPoint1: CGPoint(x: -5.42, y: 12.21), controlPoint2: CGPoint(x: -5.23, y: 12.21))
-        rectangle597Path.addLineToPoint(CGPoint(x: -5.02, y: 12.28))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -4.54, y: 12.76), controlPoint1: CGPoint(x: -4.8, y: 12.36), controlPoint2: CGPoint(x: -4.62, y: 12.54))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -4.47, y: 13.55), controlPoint1: CGPoint(x: -4.47, y: 12.97), controlPoint2: CGPoint(x: -4.47, y: 13.16))
-        rectangle597Path.addLineToPoint(CGPoint(x: -4.47, y: 14.37))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -4.53, y: 15.12), controlPoint1: CGPoint(x: -4.47, y: 14.76), controlPoint2: CGPoint(x: -4.47, y: 14.95))
-        rectangle597Path.addLineToPoint(CGPoint(x: -4.54, y: 15.16))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -5.02, y: 15.64), controlPoint1: CGPoint(x: -4.62, y: 15.38), controlPoint2: CGPoint(x: -4.8, y: 15.56))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -5.81, y: 15.71), controlPoint1: CGPoint(x: -5.23, y: 15.71), controlPoint2: CGPoint(x: -5.42, y: 15.71))
-        rectangle597Path.addLineToPoint(CGPoint(x: -6.63, y: 15.71))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -7.39, y: 15.65), controlPoint1: CGPoint(x: -7.02, y: 15.71), controlPoint2: CGPoint(x: -7.21, y: 15.71))
-        rectangle597Path.addLineToPoint(CGPoint(x: -7.42, y: 15.64))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -7.91, y: 15.16), controlPoint1: CGPoint(x: -7.65, y: 15.56), controlPoint2: CGPoint(x: -7.82, y: 15.38))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -7.97, y: 14.37), controlPoint1: CGPoint(x: -7.97, y: 14.95), controlPoint2: CGPoint(x: -7.97, y: 14.76))
-        rectangle597Path.addLineToPoint(CGPoint(x: -7.97, y: 13.55))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -7.92, y: 12.8), controlPoint1: CGPoint(x: -7.97, y: 13.16), controlPoint2: CGPoint(x: -7.97, y: 12.97))
-        rectangle597Path.addLineToPoint(CGPoint(x: -7.91, y: 12.76))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -7.42, y: 12.28), controlPoint1: CGPoint(x: -7.82, y: 12.54), controlPoint2: CGPoint(x: -7.65, y: 12.36))
-        rectangle597Path.addCurveToPoint(CGPoint(x: -6.63, y: 12.21), controlPoint1: CGPoint(x: -7.21, y: 12.21), controlPoint2: CGPoint(x: -7.02, y: 12.21))
-        rectangle597Path.closePath()
+        rectangle597Path.move(to: CGPoint(x: -6.63, y: 12.21))
+        rectangle597Path.addLine(to: CGPoint(x: -5.81, y: 12.21))
+        rectangle597Path.addCurve(to: CGPoint(x: -5.06, y: 12.27), controlPoint1: CGPoint(x: -5.42, y: 12.21), controlPoint2: CGPoint(x: -5.23, y: 12.21))
+        rectangle597Path.addLine(to: CGPoint(x: -5.02, y: 12.28))
+        rectangle597Path.addCurve(to: CGPoint(x: -4.54, y: 12.76), controlPoint1: CGPoint(x: -4.8, y: 12.36), controlPoint2: CGPoint(x: -4.62, y: 12.54))
+        rectangle597Path.addCurve(to: CGPoint(x: -4.47, y: 13.55), controlPoint1: CGPoint(x: -4.47, y: 12.97), controlPoint2: CGPoint(x: -4.47, y: 13.16))
+        rectangle597Path.addLine(to: CGPoint(x: -4.47, y: 14.37))
+        rectangle597Path.addCurve(to: CGPoint(x: -4.53, y: 15.12), controlPoint1: CGPoint(x: -4.47, y: 14.76), controlPoint2: CGPoint(x: -4.47, y: 14.95))
+        rectangle597Path.addLine(to: CGPoint(x: -4.54, y: 15.16))
+        rectangle597Path.addCurve(to: CGPoint(x: -5.02, y: 15.64), controlPoint1: CGPoint(x: -4.62, y: 15.38), controlPoint2: CGPoint(x: -4.8, y: 15.56))
+        rectangle597Path.addCurve(to: CGPoint(x: -5.81, y: 15.71), controlPoint1: CGPoint(x: -5.23, y: 15.71), controlPoint2: CGPoint(x: -5.42, y: 15.71))
+        rectangle597Path.addLine(to: CGPoint(x: -6.63, y: 15.71))
+        rectangle597Path.addCurve(to: CGPoint(x: -7.39, y: 15.65), controlPoint1: CGPoint(x: -7.02, y: 15.71), controlPoint2: CGPoint(x: -7.21, y: 15.71))
+        rectangle597Path.addLine(to: CGPoint(x: -7.42, y: 15.64))
+        rectangle597Path.addCurve(to: CGPoint(x: -7.91, y: 15.16), controlPoint1: CGPoint(x: -7.65, y: 15.56), controlPoint2: CGPoint(x: -7.82, y: 15.38))
+        rectangle597Path.addCurve(to: CGPoint(x: -7.97, y: 14.37), controlPoint1: CGPoint(x: -7.97, y: 14.95), controlPoint2: CGPoint(x: -7.97, y: 14.76))
+        rectangle597Path.addLine(to: CGPoint(x: -7.97, y: 13.55))
+        rectangle597Path.addCurve(to: CGPoint(x: -7.92, y: 12.8), controlPoint1: CGPoint(x: -7.97, y: 13.16), controlPoint2: CGPoint(x: -7.97, y: 12.97))
+        rectangle597Path.addLine(to: CGPoint(x: -7.91, y: 12.76))
+        rectangle597Path.addCurve(to: CGPoint(x: -7.42, y: 12.28), controlPoint1: CGPoint(x: -7.82, y: 12.54), controlPoint2: CGPoint(x: -7.65, y: 12.36))
+        rectangle597Path.addCurve(to: CGPoint(x: -6.63, y: 12.21), controlPoint1: CGPoint(x: -7.21, y: 12.21), controlPoint2: CGPoint(x: -7.02, y: 12.21))
+        rectangle597Path.close()
         color.setFill()
         rectangle597Path.fill()
         color.setStroke()
@@ -3831,28 +3831,28 @@ public class StyleKit : NSObject {
 
         //// Rectangle-597-Copy Drawing
         let rectangle597CopyPath = UIBezierPath()
-        rectangle597CopyPath.moveToPoint(CGPoint(x: 5.87, y: 12.21))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 6.69, y: 12.21))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 7.44, y: 12.27), controlPoint1: CGPoint(x: 7.08, y: 12.21), controlPoint2: CGPoint(x: 7.27, y: 12.21))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 7.48, y: 12.28))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 7.96, y: 12.76), controlPoint1: CGPoint(x: 7.7, y: 12.36), controlPoint2: CGPoint(x: 7.88, y: 12.54))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 8.03, y: 13.55), controlPoint1: CGPoint(x: 8.03, y: 12.97), controlPoint2: CGPoint(x: 8.03, y: 13.16))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 8.03, y: 14.37))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 7.97, y: 15.12), controlPoint1: CGPoint(x: 8.03, y: 14.76), controlPoint2: CGPoint(x: 8.03, y: 14.95))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 7.96, y: 15.16))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 7.48, y: 15.64), controlPoint1: CGPoint(x: 7.88, y: 15.38), controlPoint2: CGPoint(x: 7.7, y: 15.56))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 6.69, y: 15.71), controlPoint1: CGPoint(x: 7.27, y: 15.71), controlPoint2: CGPoint(x: 7.08, y: 15.71))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 5.87, y: 15.71))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 5.11, y: 15.65), controlPoint1: CGPoint(x: 5.48, y: 15.71), controlPoint2: CGPoint(x: 5.29, y: 15.71))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 5.08, y: 15.64))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 4.59, y: 15.16), controlPoint1: CGPoint(x: 4.85, y: 15.56), controlPoint2: CGPoint(x: 4.68, y: 15.38))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 4.53, y: 14.37), controlPoint1: CGPoint(x: 4.53, y: 14.95), controlPoint2: CGPoint(x: 4.53, y: 14.76))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 4.53, y: 13.55))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 4.58, y: 12.8), controlPoint1: CGPoint(x: 4.53, y: 13.16), controlPoint2: CGPoint(x: 4.53, y: 12.97))
-        rectangle597CopyPath.addLineToPoint(CGPoint(x: 4.59, y: 12.76))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 5.08, y: 12.28), controlPoint1: CGPoint(x: 4.68, y: 12.54), controlPoint2: CGPoint(x: 4.85, y: 12.36))
-        rectangle597CopyPath.addCurveToPoint(CGPoint(x: 5.87, y: 12.21), controlPoint1: CGPoint(x: 5.29, y: 12.21), controlPoint2: CGPoint(x: 5.48, y: 12.21))
-        rectangle597CopyPath.closePath()
+        rectangle597CopyPath.move(to: CGPoint(x: 5.87, y: 12.21))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 6.69, y: 12.21))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 7.44, y: 12.27), controlPoint1: CGPoint(x: 7.08, y: 12.21), controlPoint2: CGPoint(x: 7.27, y: 12.21))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 7.48, y: 12.28))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 7.96, y: 12.76), controlPoint1: CGPoint(x: 7.7, y: 12.36), controlPoint2: CGPoint(x: 7.88, y: 12.54))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 8.03, y: 13.55), controlPoint1: CGPoint(x: 8.03, y: 12.97), controlPoint2: CGPoint(x: 8.03, y: 13.16))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 8.03, y: 14.37))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 7.97, y: 15.12), controlPoint1: CGPoint(x: 8.03, y: 14.76), controlPoint2: CGPoint(x: 8.03, y: 14.95))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 7.96, y: 15.16))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 7.48, y: 15.64), controlPoint1: CGPoint(x: 7.88, y: 15.38), controlPoint2: CGPoint(x: 7.7, y: 15.56))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 6.69, y: 15.71), controlPoint1: CGPoint(x: 7.27, y: 15.71), controlPoint2: CGPoint(x: 7.08, y: 15.71))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 5.87, y: 15.71))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 5.11, y: 15.65), controlPoint1: CGPoint(x: 5.48, y: 15.71), controlPoint2: CGPoint(x: 5.29, y: 15.71))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 5.08, y: 15.64))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 4.59, y: 15.16), controlPoint1: CGPoint(x: 4.85, y: 15.56), controlPoint2: CGPoint(x: 4.68, y: 15.38))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 4.53, y: 14.37), controlPoint1: CGPoint(x: 4.53, y: 14.95), controlPoint2: CGPoint(x: 4.53, y: 14.76))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 4.53, y: 13.55))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 4.58, y: 12.8), controlPoint1: CGPoint(x: 4.53, y: 13.16), controlPoint2: CGPoint(x: 4.53, y: 12.97))
+        rectangle597CopyPath.addLine(to: CGPoint(x: 4.59, y: 12.76))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 5.08, y: 12.28), controlPoint1: CGPoint(x: 4.68, y: 12.54), controlPoint2: CGPoint(x: 4.85, y: 12.36))
+        rectangle597CopyPath.addCurve(to: CGPoint(x: 5.87, y: 12.21), controlPoint1: CGPoint(x: 5.29, y: 12.21), controlPoint2: CGPoint(x: 5.48, y: 12.21))
+        rectangle597CopyPath.close()
         color.setFill()
         rectangle597CopyPath.fill()
         color.setStroke()
@@ -3868,7 +3868,7 @@ public class StyleKit : NSObject {
 
 
         //// Oval-133 Drawing
-        let oval133Path = UIBezierPath(ovalInRect: CGRect(x: -7.47, y: 7.71, width: 2, height: 2))
+        let oval133Path = UIBezierPath(ovalIn: CGRect(x: -7.47, y: 7.71, width: 2, height: 2))
         color.setFill()
         oval133Path.fill()
         color.setStroke()
@@ -3877,7 +3877,7 @@ public class StyleKit : NSObject {
 
 
         //// Oval-133-Copy Drawing
-        let oval133CopyPath = UIBezierPath(ovalInRect: CGRect(x: 5.53, y: 7.71, width: 2, height: 2))
+        let oval133CopyPath = UIBezierPath(ovalIn: CGRect(x: 5.53, y: 7.71, width: 2, height: 2))
         color.setFill()
         oval133CopyPath.fill()
         color.setStroke()
@@ -3886,24 +3886,24 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawRandomIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawRandomIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icons
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.52000 * frame.height)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.50000 * frame.width, y: frame.minY + 0.52000 * frame.height)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Path-113 Drawing
         let path113Path = UIBezierPath()
-        path113Path.moveToPoint(CGPoint(x: 2.39, y: 13.44))
-        path113Path.addLineToPoint(CGPoint(x: 12.21, y: 0.29))
+        path113Path.move(to: CGPoint(x: 2.39, y: 13.44))
+        path113Path.addLine(to: CGPoint(x: 12.21, y: 0.29))
         path113Path.miterLimit = 4;
 
         path113Path.usesEvenOddFillRule = true;
@@ -3914,21 +3914,21 @@ public class StyleKit : NSObject {
 
 
         //// Oval-135 Drawing
-        let oval135Path = UIBezierPath(ovalInRect: CGRect(x: 9, y: 8, width: 6, height: 6))
+        let oval135Path = UIBezierPath(ovalIn: CGRect(x: 9, y: 8, width: 6, height: 6))
         color.setStroke()
         oval135Path.lineWidth = 2
         oval135Path.stroke()
 
 
         //// Oval-135-Copy Drawing
-        let oval135CopyPath = UIBezierPath(ovalInRect: CGRect(x: 0, y: 0, width: 6, height: 6))
+        let oval135CopyPath = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: 6, height: 6))
         color.setStroke()
         oval135CopyPath.lineWidth = 2
         oval135CopyPath.stroke()
 
 
         //// Oval-137 Drawing
-        let oval137Path = UIBezierPath(ovalInRect: CGRect(x: 0, y: -10, width: 7, height: 6))
+        let oval137Path = UIBezierPath(ovalIn: CGRect(x: 0, y: -10, width: 7, height: 6))
         color.setFill()
         oval137Path.fill()
         color.setStroke()
@@ -3938,14 +3938,14 @@ public class StyleKit : NSObject {
 
         //// Path-114 Drawing
         let path114Path = UIBezierPath()
-        path114Path.moveToPoint(CGPoint(x: -7.95, y: -3.31))
-        path114Path.addLineToPoint(CGPoint(x: -7.89, y: -12.21))
-        path114Path.addLineToPoint(CGPoint(x: -14.25, y: -12.18))
+        path114Path.move(to: CGPoint(x: -7.95, y: -3.31))
+        path114Path.addLine(to: CGPoint(x: -7.89, y: -12.21))
+        path114Path.addLine(to: CGPoint(x: -14.25, y: -12.18))
         path114Path.miterLimit = 4;
 
-        path114Path.lineCapStyle = .Round;
+        path114Path.lineCapStyle = .round;
 
-        path114Path.lineJoinStyle = .Round;
+        path114Path.lineJoinStyle = .round;
 
         path114Path.usesEvenOddFillRule = true;
 
@@ -3956,13 +3956,13 @@ public class StyleKit : NSObject {
 
         //// Path-115 Drawing
         let path115Path = UIBezierPath()
-        path115Path.moveToPoint(CGPoint(x: -14.37, y: -16.06))
-        path115Path.addLineToPoint(CGPoint(x: -1.22, y: -15.97))
+        path115Path.move(to: CGPoint(x: -14.37, y: -16.06))
+        path115Path.addLine(to: CGPoint(x: -1.22, y: -15.97))
         path115Path.miterLimit = 4;
 
-        path115Path.lineCapStyle = .Round;
+        path115Path.lineCapStyle = .round;
 
-        path115Path.lineJoinStyle = .Round;
+        path115Path.lineJoinStyle = .round;
 
         path115Path.usesEvenOddFillRule = true;
 
@@ -3973,30 +3973,30 @@ public class StyleKit : NSObject {
 
         //// Path-116 Drawing
         let path116Path = UIBezierPath()
-        path116Path.moveToPoint(CGPoint(x: -3.23, y: 13.23))
-        path116Path.addLineToPoint(CGPoint(x: -11.46, y: 4.23))
-        path116Path.addCurveToPoint(CGPoint(x: -12.12, y: 2.5), controlPoint1: CGPoint(x: -11.83, y: 3.83), controlPoint2: CGPoint(x: -12.12, y: 3.06))
-        path116Path.addLineToPoint(CGPoint(x: -12.12, y: 1.5))
-        path116Path.addCurveToPoint(CGPoint(x: -9.17, y: -0.64), controlPoint1: CGPoint(x: -12.12, y: 1.5), controlPoint2: CGPoint(x: -12.03, y: -0.64))
-        path116Path.addCurveToPoint(CGPoint(x: -6.47, y: 1.5), controlPoint1: CGPoint(x: -6.31, y: -0.64), controlPoint2: CGPoint(x: -6.47, y: 1.5))
-        path116Path.addLineToPoint(CGPoint(x: -6.47, y: 2.5))
-        path116Path.addCurveToPoint(CGPoint(x: -7.23, y: 4.14), controlPoint1: CGPoint(x: -6.47, y: 3.05), controlPoint2: CGPoint(x: -6.81, y: 3.79))
-        path116Path.addLineToPoint(CGPoint(x: -12.16, y: 8.2))
-        path116Path.addCurveToPoint(CGPoint(x: -12.93, y: 9.83), controlPoint1: CGPoint(x: -12.58, y: 8.55), controlPoint2: CGPoint(x: -12.93, y: 9.28))
-        path116Path.addLineToPoint(CGPoint(x: -12.94, y: 10.4))
-        path116Path.addCurveToPoint(CGPoint(x: -12.27, y: 12.13), controlPoint1: CGPoint(x: -12.95, y: 10.95), controlPoint2: CGPoint(x: -12.65, y: 11.73))
-        path116Path.addLineToPoint(CGPoint(x: -11.88, y: 12.55))
-        path116Path.addCurveToPoint(CGPoint(x: -10.21, y: 13.28), controlPoint1: CGPoint(x: -11.5, y: 12.96), controlPoint2: CGPoint(x: -10.75, y: 13.28))
-        path116Path.addLineToPoint(CGPoint(x: -8.42, y: 13.28))
-        path116Path.addCurveToPoint(CGPoint(x: -6.8, y: 12.52), controlPoint1: CGPoint(x: -7.87, y: 13.28), controlPoint2: CGPoint(x: -7.15, y: 12.94))
-        path116Path.addLineToPoint(CGPoint(x: -4.63, y: 9.87))
-        path116Path.addCurveToPoint(CGPoint(x: -3.97, y: 8.11), controlPoint1: CGPoint(x: -4.29, y: 9.45), controlPoint2: CGPoint(x: -3.99, y: 8.66))
-        path116Path.addLineToPoint(CGPoint(x: -3.91, y: 6.16))
+        path116Path.move(to: CGPoint(x: -3.23, y: 13.23))
+        path116Path.addLine(to: CGPoint(x: -11.46, y: 4.23))
+        path116Path.addCurve(to: CGPoint(x: -12.12, y: 2.5), controlPoint1: CGPoint(x: -11.83, y: 3.83), controlPoint2: CGPoint(x: -12.12, y: 3.06))
+        path116Path.addLine(to: CGPoint(x: -12.12, y: 1.5))
+        path116Path.addCurve(to: CGPoint(x: -9.17, y: -0.64), controlPoint1: CGPoint(x: -12.12, y: 1.5), controlPoint2: CGPoint(x: -12.03, y: -0.64))
+        path116Path.addCurve(to: CGPoint(x: -6.47, y: 1.5), controlPoint1: CGPoint(x: -6.31, y: -0.64), controlPoint2: CGPoint(x: -6.47, y: 1.5))
+        path116Path.addLine(to: CGPoint(x: -6.47, y: 2.5))
+        path116Path.addCurve(to: CGPoint(x: -7.23, y: 4.14), controlPoint1: CGPoint(x: -6.47, y: 3.05), controlPoint2: CGPoint(x: -6.81, y: 3.79))
+        path116Path.addLine(to: CGPoint(x: -12.16, y: 8.2))
+        path116Path.addCurve(to: CGPoint(x: -12.93, y: 9.83), controlPoint1: CGPoint(x: -12.58, y: 8.55), controlPoint2: CGPoint(x: -12.93, y: 9.28))
+        path116Path.addLine(to: CGPoint(x: -12.94, y: 10.4))
+        path116Path.addCurve(to: CGPoint(x: -12.27, y: 12.13), controlPoint1: CGPoint(x: -12.95, y: 10.95), controlPoint2: CGPoint(x: -12.65, y: 11.73))
+        path116Path.addLine(to: CGPoint(x: -11.88, y: 12.55))
+        path116Path.addCurve(to: CGPoint(x: -10.21, y: 13.28), controlPoint1: CGPoint(x: -11.5, y: 12.96), controlPoint2: CGPoint(x: -10.75, y: 13.28))
+        path116Path.addLine(to: CGPoint(x: -8.42, y: 13.28))
+        path116Path.addCurve(to: CGPoint(x: -6.8, y: 12.52), controlPoint1: CGPoint(x: -7.87, y: 13.28), controlPoint2: CGPoint(x: -7.15, y: 12.94))
+        path116Path.addLine(to: CGPoint(x: -4.63, y: 9.87))
+        path116Path.addCurve(to: CGPoint(x: -3.97, y: 8.11), controlPoint1: CGPoint(x: -4.29, y: 9.45), controlPoint2: CGPoint(x: -3.99, y: 8.66))
+        path116Path.addLine(to: CGPoint(x: -3.91, y: 6.16))
         path116Path.miterLimit = 4;
 
-        path116Path.lineCapStyle = .Round;
+        path116Path.lineCapStyle = .round;
 
-        path116Path.lineJoinStyle = .Round;
+        path116Path.lineJoinStyle = .round;
 
         path116Path.usesEvenOddFillRule = true;
 
@@ -4007,14 +4007,14 @@ public class StyleKit : NSObject {
 
         //// Path-117 Drawing
         let path117Path = UIBezierPath()
-        path117Path.moveToPoint(CGPoint(x: 5.8, y: -6.47))
-        path117Path.addCurveToPoint(CGPoint(x: 7.8, y: -16.16), controlPoint1: CGPoint(x: 5.8, y: -7.34), controlPoint2: CGPoint(x: 7.8, y: -16.16))
-        path117Path.addCurveToPoint(CGPoint(x: 13.21, y: -16.07), controlPoint1: CGPoint(x: 7.8, y: -16.16), controlPoint2: CGPoint(x: 12.15, y: -15.05))
+        path117Path.move(to: CGPoint(x: 5.8, y: -6.47))
+        path117Path.addCurve(to: CGPoint(x: 7.8, y: -16.16), controlPoint1: CGPoint(x: 5.8, y: -7.34), controlPoint2: CGPoint(x: 7.8, y: -16.16))
+        path117Path.addCurve(to: CGPoint(x: 13.21, y: -16.07), controlPoint1: CGPoint(x: 7.8, y: -16.16), controlPoint2: CGPoint(x: 12.15, y: -15.05))
         path117Path.miterLimit = 4;
 
-        path117Path.lineCapStyle = .Round;
+        path117Path.lineCapStyle = .round;
 
-        path117Path.lineJoinStyle = .Round;
+        path117Path.lineJoinStyle = .round;
 
         path117Path.usesEvenOddFillRule = true;
 
@@ -4024,27 +4024,27 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawFlagIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawFlagIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 25.03, frame.minY + 24.91)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 25.03, y: frame.minY + 24.91)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Path-214 Drawing
         let path214Path = UIBezierPath()
-        path214Path.moveToPoint(CGPoint(x: -6.36, y: 14.9))
-        path214Path.addLineToPoint(CGPoint(x: -9.71, y: -14.9))
+        path214Path.move(to: CGPoint(x: -6.36, y: 14.9))
+        path214Path.addLine(to: CGPoint(x: -9.71, y: -14.9))
         path214Path.miterLimit = 4;
 
-        path214Path.lineCapStyle = .Round;
+        path214Path.lineCapStyle = .round;
 
         path214Path.usesEvenOddFillRule = true;
 
@@ -4055,14 +4055,14 @@ public class StyleKit : NSObject {
 
         //// Path-215 Drawing
         let path215Path = UIBezierPath()
-        path215Path.moveToPoint(CGPoint(x: -9.35, y: -11.76))
-        path215Path.addCurveToPoint(CGPoint(x: 0.22, y: -10.4), controlPoint1: CGPoint(x: -9.35, y: -11.76), controlPoint2: CGPoint(x: -4.29, y: -9.57))
-        path215Path.addCurveToPoint(CGPoint(x: 7.88, y: -14.26), controlPoint1: CGPoint(x: 4.73, y: -11.23), controlPoint2: CGPoint(x: 7.88, y: -14.26))
-        path215Path.addCurveToPoint(CGPoint(x: 8.71, y: -13.9), controlPoint1: CGPoint(x: 8.29, y: -14.62), controlPoint2: CGPoint(x: 8.67, y: -14.46))
-        path215Path.addLineToPoint(CGPoint(x: 9.7, y: -1.96))
-        path215Path.addCurveToPoint(CGPoint(x: 9.03, y: -0.32), controlPoint1: CGPoint(x: 9.75, y: -1.41), controlPoint2: CGPoint(x: 9.44, y: -0.66))
-        path215Path.addCurveToPoint(CGPoint(x: 1.57, y: 3.08), controlPoint1: CGPoint(x: 9.03, y: -0.32), controlPoint2: CGPoint(x: 6.39, y: 2.24))
-        path215Path.addCurveToPoint(CGPoint(x: -8.1, y: 2.17), controlPoint1: CGPoint(x: -3.25, y: 3.92), controlPoint2: CGPoint(x: -8.1, y: 2.17))
+        path215Path.move(to: CGPoint(x: -9.35, y: -11.76))
+        path215Path.addCurve(to: CGPoint(x: 0.22, y: -10.4), controlPoint1: CGPoint(x: -9.35, y: -11.76), controlPoint2: CGPoint(x: -4.29, y: -9.57))
+        path215Path.addCurve(to: CGPoint(x: 7.88, y: -14.26), controlPoint1: CGPoint(x: 4.73, y: -11.23), controlPoint2: CGPoint(x: 7.88, y: -14.26))
+        path215Path.addCurve(to: CGPoint(x: 8.71, y: -13.9), controlPoint1: CGPoint(x: 8.29, y: -14.62), controlPoint2: CGPoint(x: 8.67, y: -14.46))
+        path215Path.addLine(to: CGPoint(x: 9.7, y: -1.96))
+        path215Path.addCurve(to: CGPoint(x: 9.03, y: -0.32), controlPoint1: CGPoint(x: 9.75, y: -1.41), controlPoint2: CGPoint(x: 9.44, y: -0.66))
+        path215Path.addCurve(to: CGPoint(x: 1.57, y: 3.08), controlPoint1: CGPoint(x: 9.03, y: -0.32), controlPoint2: CGPoint(x: 6.39, y: 2.24))
+        path215Path.addCurve(to: CGPoint(x: -8.1, y: 2.17), controlPoint1: CGPoint(x: -3.25, y: 3.92), controlPoint2: CGPoint(x: -8.1, y: 2.17))
         path215Path.miterLimit = 4;
 
         path215Path.usesEvenOddFillRule = true;
@@ -4074,9 +4074,9 @@ public class StyleKit : NSObject {
 
         //// Path-216 Drawing
         let path216Path = UIBezierPath()
-        path216Path.moveToPoint(CGPoint(x: -8.42, y: -6.84))
-        path216Path.addCurveToPoint(CGPoint(x: 0.38, y: -5.48), controlPoint1: CGPoint(x: -8.42, y: -6.84), controlPoint2: CGPoint(x: -5.74, y: -4.77))
-        path216Path.addCurveToPoint(CGPoint(x: 9.18, y: -9.78), controlPoint1: CGPoint(x: 6.5, y: -6.2), controlPoint2: CGPoint(x: 9.18, y: -9.78))
+        path216Path.move(to: CGPoint(x: -8.42, y: -6.84))
+        path216Path.addCurve(to: CGPoint(x: 0.38, y: -5.48), controlPoint1: CGPoint(x: -8.42, y: -6.84), controlPoint2: CGPoint(x: -5.74, y: -4.77))
+        path216Path.addCurve(to: CGPoint(x: 9.18, y: -9.78), controlPoint1: CGPoint(x: 6.5, y: -6.2), controlPoint2: CGPoint(x: 9.18, y: -9.78))
         path216Path.miterLimit = 4;
 
         path216Path.usesEvenOddFillRule = true;
@@ -4088,9 +4088,9 @@ public class StyleKit : NSObject {
 
         //// Path-216-Copy Drawing
         let path216CopyPath = UIBezierPath()
-        path216CopyPath.moveToPoint(CGPoint(x: -8.42, y: -2.84))
-        path216CopyPath.addCurveToPoint(CGPoint(x: 0.38, y: -1.48), controlPoint1: CGPoint(x: -8.42, y: -2.84), controlPoint2: CGPoint(x: -5.74, y: -0.77))
-        path216CopyPath.addCurveToPoint(CGPoint(x: 9.18, y: -5.78), controlPoint1: CGPoint(x: 6.5, y: -2.2), controlPoint2: CGPoint(x: 9.18, y: -5.78))
+        path216CopyPath.move(to: CGPoint(x: -8.42, y: -2.84))
+        path216CopyPath.addCurve(to: CGPoint(x: 0.38, y: -1.48), controlPoint1: CGPoint(x: -8.42, y: -2.84), controlPoint2: CGPoint(x: -5.74, y: -0.77))
+        path216CopyPath.addCurve(to: CGPoint(x: 9.18, y: -5.78), controlPoint1: CGPoint(x: 6.5, y: -2.2), controlPoint2: CGPoint(x: 9.18, y: -5.78))
         path216CopyPath.miterLimit = 4;
 
         path216CopyPath.usesEvenOddFillRule = true;
@@ -4101,10 +4101,10 @@ public class StyleKit : NSObject {
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawBackspaceIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
+    public class func drawBackspaceIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -4114,59 +4114,59 @@ public class StyleKit : NSObject {
             colorBrightnessComponent: CGFloat = 1
         color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
 
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
+        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: color.cgColor.alpha)
 
         //// Variable Declarations
         let strokeColor = selected ? highlightedColor : color
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.49624 * frame.width, frame.minY + 0.49721 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
+        context.saveGState()
+        context.translate(x: frame.minX + 0.49624 * frame.width, y: frame.minY + 0.49721 * frame.height)
+        context.scale(x: scale, y: scale)
 
 
 
         //// Bezier Drawing
         let bezierPath = UIBezierPath()
-        bezierPath.moveToPoint(CGPoint(x: 9.88, y: -7.81))
-        bezierPath.addLineToPoint(CGPoint(x: 4.09, y: -1.98))
-        bezierPath.addLineToPoint(CGPoint(x: -1.69, y: -7.81))
-        bezierPath.addCurveToPoint(CGPoint(x: -3.8, y: -7.82), controlPoint1: CGPoint(x: -2.27, y: -8.4), controlPoint2: CGPoint(x: -3.22, y: -8.4))
-        bezierPath.addCurveToPoint(CGPoint(x: -3.79, y: -5.69), controlPoint1: CGPoint(x: -4.38, y: -7.23), controlPoint2: CGPoint(x: -4.38, y: -6.28))
-        bezierPath.addLineToPoint(CGPoint(x: 1.99, y: 0.14))
-        bezierPath.addLineToPoint(CGPoint(x: -3.79, y: 5.97))
-        bezierPath.addCurveToPoint(CGPoint(x: -3.8, y: 8.09), controlPoint1: CGPoint(x: -4.38, y: 6.56), controlPoint2: CGPoint(x: -4.38, y: 7.51))
-        bezierPath.addCurveToPoint(CGPoint(x: -1.69, y: 8.09), controlPoint1: CGPoint(x: -3.21, y: 8.68), controlPoint2: CGPoint(x: -2.27, y: 8.68))
-        bezierPath.addLineToPoint(CGPoint(x: 4.09, y: 2.26))
-        bezierPath.addLineToPoint(CGPoint(x: 9.88, y: 8.09))
-        bezierPath.addCurveToPoint(CGPoint(x: 11.99, y: 8.09), controlPoint1: CGPoint(x: 10.46, y: 8.68), controlPoint2: CGPoint(x: 11.41, y: 8.68))
-        bezierPath.addCurveToPoint(CGPoint(x: 11.98, y: 5.97), controlPoint1: CGPoint(x: 12.57, y: 7.5), controlPoint2: CGPoint(x: 12.57, y: 6.56))
-        bezierPath.addLineToPoint(CGPoint(x: 6.2, y: 0.14))
-        bezierPath.addLineToPoint(CGPoint(x: 11.98, y: -5.69))
-        bezierPath.addCurveToPoint(CGPoint(x: 11.99, y: -7.82), controlPoint1: CGPoint(x: 12.57, y: -6.28), controlPoint2: CGPoint(x: 12.57, y: -7.23))
-        bezierPath.addCurveToPoint(CGPoint(x: 9.88, y: -7.81), controlPoint1: CGPoint(x: 11.4, y: -8.41), controlPoint2: CGPoint(x: 10.46, y: -8.4))
-        bezierPath.closePath()
-        bezierPath.moveToPoint(CGPoint(x: 24.19, y: -10.87))
-        bezierPath.addLineToPoint(CGPoint(x: 24.19, y: 10.87))
-        bezierPath.addCurveToPoint(CGPoint(x: 17.19, y: 17.86), controlPoint1: CGPoint(x: 24.19, y: 14.73), controlPoint2: CGPoint(x: 21.06, y: 17.86))
-        bezierPath.addLineToPoint(CGPoint(x: -4.82, y: 17.86))
-        bezierPath.addCurveToPoint(CGPoint(x: -10.09, y: 15.9), controlPoint1: CGPoint(x: -6.47, y: 17.86), controlPoint2: CGPoint(x: -8.82, y: 16.99))
-        bezierPath.addLineToPoint(CGPoint(x: -21.61, y: 6.01))
-        bezierPath.addCurveToPoint(CGPoint(x: -21.85, y: -4.67), controlPoint1: CGPoint(x: -24.96, y: 3.14), controlPoint2: CGPoint(x: -25.06, y: -1.66))
-        bezierPath.addLineToPoint(CGPoint(x: -9.99, y: -15.81))
-        bezierPath.addCurveToPoint(CGPoint(x: -4.82, y: -17.86), controlPoint1: CGPoint(x: -8.79, y: -16.94), controlPoint2: CGPoint(x: -6.48, y: -17.86))
-        bezierPath.addLineToPoint(CGPoint(x: 17.19, y: -17.86))
-        bezierPath.addCurveToPoint(CGPoint(x: 24.19, y: -10.87), controlPoint1: CGPoint(x: 21.05, y: -17.86), controlPoint2: CGPoint(x: 24.19, y: -14.72))
-        bezierPath.closePath()
+        bezierPath.move(to: CGPoint(x: 9.88, y: -7.81))
+        bezierPath.addLine(to: CGPoint(x: 4.09, y: -1.98))
+        bezierPath.addLine(to: CGPoint(x: -1.69, y: -7.81))
+        bezierPath.addCurve(to: CGPoint(x: -3.8, y: -7.82), controlPoint1: CGPoint(x: -2.27, y: -8.4), controlPoint2: CGPoint(x: -3.22, y: -8.4))
+        bezierPath.addCurve(to: CGPoint(x: -3.79, y: -5.69), controlPoint1: CGPoint(x: -4.38, y: -7.23), controlPoint2: CGPoint(x: -4.38, y: -6.28))
+        bezierPath.addLine(to: CGPoint(x: 1.99, y: 0.14))
+        bezierPath.addLine(to: CGPoint(x: -3.79, y: 5.97))
+        bezierPath.addCurve(to: CGPoint(x: -3.8, y: 8.09), controlPoint1: CGPoint(x: -4.38, y: 6.56), controlPoint2: CGPoint(x: -4.38, y: 7.51))
+        bezierPath.addCurve(to: CGPoint(x: -1.69, y: 8.09), controlPoint1: CGPoint(x: -3.21, y: 8.68), controlPoint2: CGPoint(x: -2.27, y: 8.68))
+        bezierPath.addLine(to: CGPoint(x: 4.09, y: 2.26))
+        bezierPath.addLine(to: CGPoint(x: 9.88, y: 8.09))
+        bezierPath.addCurve(to: CGPoint(x: 11.99, y: 8.09), controlPoint1: CGPoint(x: 10.46, y: 8.68), controlPoint2: CGPoint(x: 11.41, y: 8.68))
+        bezierPath.addCurve(to: CGPoint(x: 11.98, y: 5.97), controlPoint1: CGPoint(x: 12.57, y: 7.5), controlPoint2: CGPoint(x: 12.57, y: 6.56))
+        bezierPath.addLine(to: CGPoint(x: 6.2, y: 0.14))
+        bezierPath.addLine(to: CGPoint(x: 11.98, y: -5.69))
+        bezierPath.addCurve(to: CGPoint(x: 11.99, y: -7.82), controlPoint1: CGPoint(x: 12.57, y: -6.28), controlPoint2: CGPoint(x: 12.57, y: -7.23))
+        bezierPath.addCurve(to: CGPoint(x: 9.88, y: -7.81), controlPoint1: CGPoint(x: 11.4, y: -8.41), controlPoint2: CGPoint(x: 10.46, y: -8.4))
+        bezierPath.close()
+        bezierPath.move(to: CGPoint(x: 24.19, y: -10.87))
+        bezierPath.addLine(to: CGPoint(x: 24.19, y: 10.87))
+        bezierPath.addCurve(to: CGPoint(x: 17.19, y: 17.86), controlPoint1: CGPoint(x: 24.19, y: 14.73), controlPoint2: CGPoint(x: 21.06, y: 17.86))
+        bezierPath.addLine(to: CGPoint(x: -4.82, y: 17.86))
+        bezierPath.addCurve(to: CGPoint(x: -10.09, y: 15.9), controlPoint1: CGPoint(x: -6.47, y: 17.86), controlPoint2: CGPoint(x: -8.82, y: 16.99))
+        bezierPath.addLine(to: CGPoint(x: -21.61, y: 6.01))
+        bezierPath.addCurve(to: CGPoint(x: -21.85, y: -4.67), controlPoint1: CGPoint(x: -24.96, y: 3.14), controlPoint2: CGPoint(x: -25.06, y: -1.66))
+        bezierPath.addLine(to: CGPoint(x: -9.99, y: -15.81))
+        bezierPath.addCurve(to: CGPoint(x: -4.82, y: -17.86), controlPoint1: CGPoint(x: -8.79, y: -16.94), controlPoint2: CGPoint(x: -6.48, y: -17.86))
+        bezierPath.addLine(to: CGPoint(x: 17.19, y: -17.86))
+        bezierPath.addCurve(to: CGPoint(x: 24.19, y: -10.87), controlPoint1: CGPoint(x: 21.05, y: -17.86), controlPoint2: CGPoint(x: 24.19, y: -14.72))
+        bezierPath.close()
         strokeColor.setFill()
         bezierPath.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
-    public class func drawSmileyIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
+    public class func drawSmileyIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -4174,26 +4174,26 @@ public class StyleKit : NSObject {
         let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 25, frame.minY + 25)
-        CGContextScaleCTM(context, emojiScale, emojiScale)
+        context.saveGState()
+        context.translate(x: frame.minX + 25, y: frame.minY + 25)
+        context.scale(x: emojiScale, y: emojiScale)
 
 
 
         //// Oval-77-Copy Drawing
-        let oval77CopyPath = UIBezierPath(ovalInRect: CGRect(x: -17, y: -17, width: 34, height: 34))
+        let oval77CopyPath = UIBezierPath(ovalIn: CGRect(x: -17, y: -17, width: 34, height: 34))
         fillColor10.setFill()
         oval77CopyPath.fill()
 
 
         //// Path-594 Drawing
         let path594Path = UIBezierPath()
-        path594Path.moveToPoint(CGPoint(x: -9.44, y: 4.25))
-        path594Path.addCurveToPoint(CGPoint(x: 0, y: 9.92), controlPoint1: CGPoint(x: -9.44, y: 4.25), controlPoint2: CGPoint(x: -7.08, y: 9.92))
-        path594Path.addCurveToPoint(CGPoint(x: 9.44, y: 4.25), controlPoint1: CGPoint(x: 7.08, y: 9.92), controlPoint2: CGPoint(x: 9.44, y: 4.25))
+        path594Path.move(to: CGPoint(x: -9.44, y: 4.25))
+        path594Path.addCurve(to: CGPoint(x: 0, y: 9.92), controlPoint1: CGPoint(x: -9.44, y: 4.25), controlPoint2: CGPoint(x: -7.08, y: 9.92))
+        path594Path.addCurve(to: CGPoint(x: 9.44, y: 4.25), controlPoint1: CGPoint(x: 7.08, y: 9.92), controlPoint2: CGPoint(x: 9.44, y: 4.25))
         path594Path.miterLimit = 4;
 
-        path594Path.lineCapStyle = .Round;
+        path594Path.lineCapStyle = .round;
 
         path594Path.usesEvenOddFillRule = true;
 
@@ -4203,24 +4203,24 @@ public class StyleKit : NSObject {
 
 
         //// Oval-370 Drawing
-        let oval370Path = UIBezierPath(ovalInRect: CGRect(x: -10.39, y: -10.39, width: 6.61, height: 6.61))
+        let oval370Path = UIBezierPath(ovalIn: CGRect(x: -10.39, y: -10.39, width: 6.61, height: 6.61))
         color.setFill()
         oval370Path.fill()
 
 
         //// Oval-370-Copy Drawing
-        let oval370CopyPath = UIBezierPath(ovalInRect: CGRect(x: 3.78, y: -10.39, width: 6.61, height: 6.61))
+        let oval370CopyPath = UIBezierPath(ovalIn: CGRect(x: 3.78, y: -10.39, width: 6.61, height: 6.61))
         color.setFill()
         oval370CopyPath.fill()
 
 
 
-        CGContextRestoreGState(context)
+        context.restoreGState()
     }
 
     //// Generated Images
 
-    public class func imageOfBackspace(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) -> UIImage {
+    public class func imageOfBackspace(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawBackspace(color: color, keySize: keySize)
 
@@ -4230,7 +4230,7 @@ public class StyleKit : NSObject {
         return imageOfBackspace
     }
 
-    public class func imageOfArrowup(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) -> UIImage {
+    public class func imageOfArrowup(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), keySize: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawArrowup(color: color, keySize: keySize)
 
@@ -4240,7 +4240,7 @@ public class StyleKit : NSObject {
         return imageOfArrowup
     }
 
-    public class func imageOfSearch(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfSearch(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearch(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4250,7 +4250,7 @@ public class StyleKit : NSObject {
         return imageOfSearch
     }
 
-    public class func imageOfArrowheadup(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, borderWidth: CGFloat = 2) -> UIImage {
+    public class func imageOfArrowheadup(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, borderWidth: CGFloat = 2) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawArrowheadup(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, borderWidth: borderWidth)
 
@@ -4260,7 +4260,7 @@ public class StyleKit : NSObject {
         return imageOfArrowheadup
     }
 
-    public class func imageOfShare(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+    public class func imageOfShare(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawShare(color: color)
 
@@ -4270,7 +4270,7 @@ public class StyleKit : NSObject {
         return imageOfShare
     }
 
-    public class func imageOfClose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfClose(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClose(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4280,7 +4280,7 @@ public class StyleKit : NSObject {
         return imageOfClose
     }
 
-    public class func imageOfButtonclose(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfButtonclose(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawButtonclose(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4290,7 +4290,7 @@ public class StyleKit : NSObject {
         return imageOfButtonclose
     }
 
-    public class func imageOfFavorite(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) -> UIImage {
+    public class func imageOfFavorite(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawFavorite(color: color, scale: scale, selected: selected, favorited: favorited)
 
@@ -4300,7 +4300,7 @@ public class StyleKit : NSObject {
         return imageOfFavorite
     }
 
-    public class func imageOfFavoritedstate(frame frame: CGRect = CGRect(x: 0, y: 0, width: 62, height: 62), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfFavoritedstate(frame: CGRect = CGRect(x: 0, y: 0, width: 62, height: 62), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFavoritedstate(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4310,7 +4310,7 @@ public class StyleKit : NSObject {
         return imageOfFavoritedstate
     }
 
-    public class func imageOfRefresharrow(frame frame: CGRect = CGRect(x: 4, y: 2, width: 22, height: 26), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfRefresharrow(frame: CGRect = CGRect(x: 4, y: 2, width: 22, height: 26), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRefresharrow(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4320,7 +4320,7 @@ public class StyleKit : NSObject {
         return imageOfRefresharrow
     }
 
-    public class func imageOfTrash(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfTrash(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawTrash(color: color, scale: scale, selected: selected)
 
@@ -4330,7 +4330,7 @@ public class StyleKit : NSObject {
         return imageOfTrash
     }
 
-    public class func imageOfClipboard(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfClipboard(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawClipboard(color: color, scale: scale, selected: selected)
 
@@ -4340,7 +4340,7 @@ public class StyleKit : NSObject {
         return imageOfClipboard
     }
 
-    public class func imageOfCheckmark(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCheckmark(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCheckmark(color: color, scale: scale, selected: selected)
 
@@ -4350,7 +4350,7 @@ public class StyleKit : NSObject {
         return imageOfCheckmark
     }
 
-    public class func imageOfCancel(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCancel(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCancel(color: color, scale: scale, selected: selected)
 
@@ -4360,7 +4360,7 @@ public class StyleKit : NSObject {
         return imageOfCancel
     }
 
-    public class func imageOfInsert(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfInsert(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawInsert(color: color, scale: scale, selected: selected)
 
@@ -4370,7 +4370,7 @@ public class StyleKit : NSObject {
         return imageOfInsert
     }
 
-    public class func imageOfKeyboard(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfKeyboard(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawKeyboard(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4380,7 +4380,7 @@ public class StyleKit : NSObject {
         return imageOfKeyboard
     }
 
-    public class func imageOfUndo(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfUndo(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawUndo(color: color, scale: scale, selected: selected)
 
@@ -4390,7 +4390,7 @@ public class StyleKit : NSObject {
         return imageOfUndo
     }
 
-    public class func imageOfClosebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfClosebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClosebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4400,7 +4400,7 @@ public class StyleKit : NSObject {
         return imageOfClosebutton
     }
 
-    public class func imageOfSearchbaricon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfSearchbaricon(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearchbaricon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4410,7 +4410,7 @@ public class StyleKit : NSObject {
         return imageOfSearchbaricon
     }
 
-    public class func imageOfSharebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfSharebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSharebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4420,7 +4420,7 @@ public class StyleKit : NSObject {
         return imageOfSharebutton
     }
 
-    public class func imageOfSettings(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfSettings(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawSettings(color: color, scale: scale, selected: selected)
 
@@ -4430,7 +4430,7 @@ public class StyleKit : NSObject {
         return imageOfSettings
     }
 
-    public class func imageOfTrending(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfTrending(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawTrending(color: color, scale: scale, selected: selected)
 
@@ -4440,7 +4440,7 @@ public class StyleKit : NSObject {
         return imageOfTrending
     }
 
-    public class func imageOfProfile(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfProfile(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawProfile(color: color, scale: scale, selected: selected)
 
@@ -4450,7 +4450,7 @@ public class StyleKit : NSObject {
         return imageOfProfile
     }
 
-    public class func imageOfGlobebutton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfGlobebutton(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGlobebutton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4460,7 +4460,7 @@ public class StyleKit : NSObject {
         return imageOfGlobebutton
     }
 
-    public class func imageOfSearchtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfSearchtab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSearchtab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4470,7 +4470,7 @@ public class StyleKit : NSObject {
         return imageOfSearchtab
     }
 
-    public class func imageOfTrendingtab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfTrendingtab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawTrendingtab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4480,7 +4480,7 @@ public class StyleKit : NSObject {
         return imageOfTrendingtab
     }
 
-    public class func imageOfFavoritestab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) -> UIImage {
+    public class func imageOfFavoritestab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, favorited: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFavoritestab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected, favorited: favorited)
 
@@ -4490,7 +4490,7 @@ public class StyleKit : NSObject {
         return imageOfFavoritestab
     }
 
-    public class func imageOfRecentstab(frame frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfRecentstab(frame: CGRect = CGRect(x: 18, y: 12, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRecentstab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4500,7 +4500,7 @@ public class StyleKit : NSObject {
         return imageOfRecentstab
     }
 
-    public class func imageOfBackarrow(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, rotate: CGFloat = -90) -> UIImage {
+    public class func imageOfBackarrow(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false, rotate: CGFloat = -90) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBackarrow(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected, rotate: rotate)
 
@@ -4510,7 +4510,7 @@ public class StyleKit : NSObject {
         return imageOfBackarrow
     }
 
-    public class func imageOfHotness(scale scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfHotness(scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 24, height: 30), false, 0)
             StyleKit.drawHotness(scale: scale)
 
@@ -4520,7 +4520,7 @@ public class StyleKit : NSObject {
         return imageOfHotness
     }
 
-    public class func imageOfMenu(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfMenu(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawMenu(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4530,7 +4530,7 @@ public class StyleKit : NSObject {
         return imageOfMenu
     }
 
-    public class func imageOfCancelbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCancelbutton(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawCancelbutton(color: color, scale: scale, selected: selected)
 
@@ -4540,7 +4540,7 @@ public class StyleKit : NSObject {
         return imageOfCancelbutton
     }
 
-    public class func imageOfInsertbutton(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfInsertbutton(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 50, height: 50), false, 0)
             StyleKit.drawInsertbutton(color: color, scale: scale, selected: selected)
 
@@ -4550,7 +4550,7 @@ public class StyleKit : NSObject {
         return imageOfInsertbutton
     }
 
-    public class func imageOfLyricsclosebutton(scale scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfLyricsclosebutton(scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawLyricsclosebutton(scale: scale)
 
@@ -4560,7 +4560,7 @@ public class StyleKit : NSObject {
         return imageOfLyricsclosebutton
     }
 
-    public class func imageOfSnapchat(scale scale: CGFloat = 0.5, snapchatSelect: Bool = false) -> UIImage {
+    public class func imageOfSnapchat(scale: CGFloat = 0.5, snapchatSelect: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawSnapchat(scale: scale, snapchatSelect: snapchatSelect)
 
@@ -4570,7 +4570,7 @@ public class StyleKit : NSObject {
         return imageOfSnapchat
     }
 
-    public class func imageOfPremium(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfPremium(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPremium(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
@@ -4580,7 +4580,7 @@ public class StyleKit : NSObject {
         return imageOfPremium
     }
 
-    public class func imageOfCategoryicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCategoryicon(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoryicon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4590,7 +4590,7 @@ public class StyleKit : NSObject {
         return imageOfCategoryicon
     }
 
-    public class func imageOfGlobe(frame frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfGlobe(frame: CGRect = CGRect(x: 0, y: 0, width: 35, height: 35), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGlobe(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4600,7 +4600,7 @@ public class StyleKit : NSObject {
         return imageOfGlobe
     }
 
-    public class func imageOfPacktab(frame frame: CGRect = CGRect(x: 19, y: 11, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfPacktab(frame: CGRect = CGRect(x: 19, y: 11, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPacktab(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4610,7 +4610,7 @@ public class StyleKit : NSObject {
         return imageOfPacktab
     }
 
-    public class func imageOfEnterkey(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfEnterkey(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawEnterkey(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4620,7 +4620,7 @@ public class StyleKit : NSObject {
         return imageOfEnterkey
     }
 
-    public class func imageOfCheckicon(color color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfCheckicon(color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 35, height: 35), false, 0)
             StyleKit.drawCheckicon(color: color, scale: scale, selected: selected)
 
@@ -4630,7 +4630,7 @@ public class StyleKit : NSObject {
         return imageOfCheckicon
     }
 
-    public class func imageOfClipboard_button(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfClipboard_button(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawClipboard_button(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4640,7 +4640,7 @@ public class StyleKit : NSObject {
         return imageOfClipboard_button
     }
 
-    public class func imageOfThumbslider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 51, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfThumbslider(frame: CGRect = CGRect(x: 0, y: 0, width: 51, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawThumbslider(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4650,7 +4650,7 @@ public class StyleKit : NSObject {
         return imageOfThumbslider
     }
 
-    public class func imageOfSlider(frame frame: CGRect = CGRect(x: 0, y: 0, width: 568, height: 39), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfSlider(frame: CGRect = CGRect(x: 0, y: 0, width: 568, height: 39), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSlider(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4660,7 +4660,7 @@ public class StyleKit : NSObject {
         return imageOfSlider
     }
 
-    public class func imageOfCategoryButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfCategoryButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoryButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4670,7 +4670,7 @@ public class StyleKit : NSObject {
         return imageOfCategoryButton
     }
 
-    public class func imageOfGifsButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfGifsButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGifsButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4680,7 +4680,7 @@ public class StyleKit : NSObject {
         return imageOfGifsButton
     }
 
-    public class func imageOfQuotesButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfQuotesButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawQuotesButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4690,7 +4690,7 @@ public class StyleKit : NSObject {
         return imageOfQuotesButton
     }
 
-    public class func imageOfMenuButton(frame frame: CGRect = CGRect(x: 1, y: 0, width: 50, height: 50), selected: Bool = false) -> UIImage {
+    public class func imageOfMenuButton(frame: CGRect = CGRect(x: 1, y: 0, width: 50, height: 50), selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), selected: selected)
 
@@ -4700,7 +4700,7 @@ public class StyleKit : NSObject {
         return imageOfMenuButton
     }
 
-    public class func imageOfCategoriesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfCategoriesMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawCategoriesMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4710,7 +4710,7 @@ public class StyleKit : NSObject {
         return imageOfCategoriesMenuButton
     }
 
-    public class func imageOfPacksMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfPacksMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPacksMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4720,7 +4720,7 @@ public class StyleKit : NSObject {
         return imageOfPacksMenuButton
     }
 
-    public class func imageOfQuotesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfQuotesMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawQuotesMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4730,7 +4730,7 @@ public class StyleKit : NSObject {
         return imageOfQuotesMenuButton
     }
 
-    public class func imageOfGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfGifMenuButton(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawGifMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4740,7 +4740,7 @@ public class StyleKit : NSObject {
         return imageOfGifMenuButton
     }
 
-    public class func imageOfHashtagicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfHashtagicon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawHashtagicon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4750,7 +4750,7 @@ public class StyleKit : NSObject {
         return imageOfHashtagicon
     }
 
-    public class func imageOfShareButtonCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfShareButtonCanvas(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawShareButtonCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
 
@@ -4760,7 +4760,7 @@ public class StyleKit : NSObject {
         return imageOfShareButtonCanvas
     }
 
-    public class func imageOfShareCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfShareCanvas(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawShareCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4770,7 +4770,7 @@ public class StyleKit : NSObject {
         return imageOfShareCanvas
     }
 
-    public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfEmojiSelectedIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawEmojiSelectedIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), emojiScale: emojiScale)
 
@@ -4780,7 +4780,7 @@ public class StyleKit : NSObject {
         return imageOfEmojiSelectedIcon
     }
 
-    public class func imageOfAbcIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfAbcIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawAbcIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4790,7 +4790,7 @@ public class StyleKit : NSObject {
         return imageOfAbcIcon
     }
 
-    public class func imageOfRecentIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfRecentIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRecentIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4800,7 +4800,7 @@ public class StyleKit : NSObject {
         return imageOfRecentIcon
     }
 
-    public class func imageOfPeopleIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfPeopleIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawPeopleIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4810,7 +4810,7 @@ public class StyleKit : NSObject {
         return imageOfPeopleIcon
     }
 
-    public class func imageOfNatureIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfNatureIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawNatureIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4820,7 +4820,7 @@ public class StyleKit : NSObject {
         return imageOfNatureIcon
     }
 
-    public class func imageOfFoodIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfFoodIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFoodIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4830,7 +4830,7 @@ public class StyleKit : NSObject {
         return imageOfFoodIcon
     }
 
-    public class func imageOfConfettiIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfConfettiIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawConfettiIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4840,7 +4840,7 @@ public class StyleKit : NSObject {
         return imageOfConfettiIcon
     }
 
-    public class func imageOfActivityIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfActivityIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawActivityIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4850,7 +4850,7 @@ public class StyleKit : NSObject {
         return imageOfActivityIcon
     }
 
-    public class func imageOfBuildingsIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfBuildingsIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBuildingsIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4860,7 +4860,7 @@ public class StyleKit : NSObject {
         return imageOfBuildingsIcon
     }
 
-    public class func imageOfRandomIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfRandomIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawRandomIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4870,7 +4870,7 @@ public class StyleKit : NSObject {
         return imageOfRandomIcon
     }
 
-    public class func imageOfFlagIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfFlagIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawFlagIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 
@@ -4880,7 +4880,7 @@ public class StyleKit : NSObject {
         return imageOfFlagIcon
     }
 
-    public class func imageOfBackspaceIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
+    public class func imageOfBackspaceIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawBackspaceIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
 
@@ -4890,7 +4890,7 @@ public class StyleKit : NSObject {
         return imageOfBackspaceIcon
     }
 
-    public class func imageOfSmileyIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
+    public class func imageOfSmileyIcon(frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), emojiScale: CGFloat = 1) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawSmileyIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, emojiScale: emojiScale)
 

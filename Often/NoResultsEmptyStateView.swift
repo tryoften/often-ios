@@ -14,7 +14,7 @@ class NoResultsEmptyStateView: EmptyStateView {
         let description = "Something went wrong with your search"
         let image = UIImage(named: "noresultsemptystate")!
         
-        super.init(state: .NoResults)
+        super.init(state: .noResults)
         
         primaryButton.removeFromSuperview()
         
@@ -24,15 +24,15 @@ class NoResultsEmptyStateView: EmptyStateView {
         primaryButton.clipsToBounds = true
         primaryButton.layer.cornerRadius = 20
         primaryButton.backgroundColor = TealColor
-        primaryButton.setTitle("try again".uppercaseString, forState: .Normal)
-        primaryButton.hidden = false
+        primaryButton.setTitle("try again".uppercased(), for: UIControlState())
+        primaryButton.isHidden = false
         
         titleLabel.text = title
         descriptionLabel.text = description
         imageView.image = image
         
-        imageView.contentMode = .ScaleAspectFill
-        imageSize = .Medium
+        imageView.contentMode = .scaleAspectFill
+        imageSize = .medium
 
         imageViewTopPadding = 30.0
         

@@ -36,14 +36,14 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
     var currentTab: Int {
         get {
-            if let value = NSUserDefaults.standardUserDefaults().objectForKey(KeyboardSectionCurrentTabKey) as? Int {
+            if let value = UserDefaults.standard().object(forKey: KeyboardSectionCurrentTabKey) as? Int {
                 return value
             }
             return 1
         }
         
         set(value) {
-            NSUserDefaults.standardUserDefaults().setInteger(value, forKey: KeyboardSectionCurrentTabKey)
+            UserDefaults.standard().set(value, forKey: KeyboardSectionCurrentTabKey)
         }
     }
 
@@ -57,7 +57,7 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
         tabBar = SlideTabBar(highlightBarEnabled: true)
         tabBar.backgroundColor = WhiteColor
-        tabBar.translucent = false
+        tabBar.isTranslucent = false
         tabBar.tintColor = BlackColor
 
         containerView = UIView()
@@ -88,9 +88,9 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 
                 let tabBarItem = UITabBarItem()
                 tabBarItem.image = viewController.tabBarItem.image
-                tabBarItem.tag = i++
+                tabBarItem.tag = i
                 tabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
-
+                i = i + 1
                 return tabBarItem
             }
 
@@ -121,30 +121,30 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
     }
 
     func checkOrientation() {
-        let newScreenWidth = UIScreen.mainScreen().bounds.size.width
+        let newScreenWidth = UIScreen.main().bounds.size.width
         if newScreenWidth != oldScreenWidth {
-            NSNotificationCenter.defaultCenter().postNotificationName(KeyboardOrientationChangeEvent, object: self)
+            NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: KeyboardOrientationChangeEvent), object: self)
             oldScreenWidth = newScreenWidth
         }
     }
     
-    func showTabBar(animated: Bool, animations: (() -> Void)? = nil) {
+    func showTabBar(_ animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = false
         positionTabBar(animated, animations: animations)
     }
 
-    func hideTabBar(animated: Bool, animations: (() -> Void)? = nil) {
+    func hideTabBar(_ animated: Bool, animations: (() -> Void)? = nil) {
         tabBarHidden = true
         positionTabBar(animated, animations: animations)
     }
 
     func resetPosition() {
         var frame = tabBar.frame
-        frame.origin = CGPointZero
+        frame.origin = CGPoint.zero
         tabBar.frame = frame
     }
 
-    private func positionTabBar(animated: Bool = false, animations: (() -> Void)? = nil) {
+    private func positionTabBar(_ animated: Bool = false, animations: (() -> Void)? = nil) {
         if animated {
             UIView.setAnimationDuration(0.3)
             UIView.beginAnimations(nil, context: nil)
@@ -153,11 +153,11 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         let oldTabBarFrame = tabBar.frame
 
         if tabBarHidden {
-            tabBar.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, tabBarHeight)
-            containerView.frame = CGRectMake(0, -tabBarHeight, view.frame.size.width, view.frame.size.height + tabBarHeight)
+            tabBar.frame = CGRect(x: 0, y: -tabBarHeight, width: view.frame.size.width, height: tabBarHeight)
+            containerView.frame = CGRect(x: 0, y: -tabBarHeight, width: view.frame.size.width, height: view.frame.size.height + tabBarHeight)
         } else {
-            tabBar.frame = CGRectMake(oldTabBarFrame.origin.x, oldTabBarFrame.origin.y, view.frame.size.width, tabBarHeight)
-            containerView.frame = CGRectMake(0, 0, view.frame.size.width, view.frame.size.height)
+            tabBar.frame = CGRect(x: oldTabBarFrame.origin.x, y: oldTabBarFrame.origin.y, width: view.frame.size.width, height: tabBarHeight)
+            containerView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         }
 
         animations?()
@@ -167,13 +167,13 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
     }
 
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         self.selectedViewController = viewControllers[item.tag]
         currentTab = item.tag
         didChangeTab.emit(item)
     }
 
-    private func transitionToChildViewController(toViewController: UIViewController) {
+    private func transitionToChildViewController(_ toViewController: UIViewController) {
         let fromViewController: UIViewController? = childViewControllers.count > 0 ? childViewControllers[0] : nil
 
         if toViewController == fromViewController || !isViewLoaded() {
@@ -181,21 +181,21 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
         }
 
         let toView = toViewController.view
-        toView.translatesAutoresizingMaskIntoConstraints = true
-        toView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        toView.frame = containerView.bounds
+        toView?.translatesAutoresizingMaskIntoConstraints = true
+        toView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        toView?.frame = containerView.bounds
 
-        fromViewController?.willMoveToParentViewController(nil)
+        fromViewController?.willMove(toParentViewController: nil)
         addChildViewController(toViewController)
 
         containerView.addSubview(toViewController.view)
-        toViewController.didMoveToParentViewController(self)
+        toViewController.didMove(toParentViewController: self)
 
-        tabBar.userInteractionEnabled = false
+        tabBar.isUserInteractionEnabled = false
         fromViewController?.view.removeFromSuperview()
         fromViewController?.removeFromParentViewController()
-        toViewController.didMoveToParentViewController(self)
-        tabBar.userInteractionEnabled = true
+        toViewController.didMove(toParentViewController: self)
+        tabBar.isUserInteractionEnabled = true
     }
 
     override func childViewControllerForStatusBarStyle() -> UIViewController? {
@@ -204,5 +204,5 @@ class KeyboardSectionsContainerViewController: UIViewController, UITabBarDelegat
 }
 
 @objc protocol KeyboardSectionsContainerViewControllerDelegate {
-    func keyboardSectionsContainerViewControllerShouldShowBarShadow(containerViewController: KeyboardSectionsContainerViewController) -> Bool
+    func keyboardSectionsContainerViewControllerShouldShowBarShadow(_ containerViewController: KeyboardSectionsContainerViewController) -> Bool
 }

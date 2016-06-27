@@ -12,40 +12,40 @@ import TwitterKit
 
 class TwitterAccountManager: AccountManager {
 
-    override func openSession(completion: (results: ResultType) -> Void) {
+    override func openSession(_ completion: (results: ResultType) -> Void) {
         fetchData(completion)
         sessionManagerFlags.openSession = true
         initiateUserWithPacks()
     }
     
-    override func login(userData: UserAuthData?, completion: (results: ResultType) -> Void) {
+    override func login(_ userData: UserAuthData?, completion: (results: ResultType) -> Void) {
         guard isNetworkReachable else {
-            completion(results: ResultType.Error(e: AccountManagerError.NotConnectedOnline))
+            completion(results: ResultType.error(e: AccountManagerError.notConnectedOnline))
             return
         }
 
-        Twitter.sharedInstance().logInWithCompletion { result, error in
+        Twitter.sharedInstance().logIn { result, error in
             if error == nil {
                 if result == nil {
-                    completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                    completion(results: ResultType.error(e: AccountManagerError.returnedEmptyUserObject))
                 } else {
                     self.openSession(completion)
                 }
             } else {
                 self.logout()
-                completion(results: ResultType.SystemError(e: error!))
+                completion(results: ResultType.systemError(e: error!))
             }
 
         }
     }
     
-    func fetchData(completion: ((results: ResultType) -> Void)? = nil) {
+    func fetchData(_ completion: ((results: ResultType) -> Void)? = nil) {
         if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
             let client = TWTRAPIClient(userID: userID)
-            client.loadUserWithID(userID) { (user, error) -> Void in
+            client.loadUser(withID: userID) { (user, error) -> Void in
                 if error == nil {
                     if user == nil {
-                        completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                        completion?(results: ResultType.error(e: AccountManagerError.returnedEmptyUserObject))
                     } else {
                         var firebaseData = [String: AnyObject]()
                         firebaseData["id"] = "twitter:\(userID)"
@@ -56,19 +56,19 @@ class TwitterAccountManager: AccountManager {
 
                         if self.sessionManagerFlags.userId == nil {
                             guard let userIDWithProvider = firebaseData["id"] as? String else {
-                                completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                                completion?(results: ResultType.error(e: AccountManagerError.returnedEmptyUserObject))
                                 return
                             }
 
                             self.sessionManagerFlags.userId = userIDWithProvider
-                            self.userRef = self.firebase.childByAppendingPath("users/\(userIDWithProvider)")
+                            self.userRef = self.firebase.child(byAppendingPath: "users/\(userIDWithProvider)")
 
                             self.currentUser = User()
-                            self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
+                            self.currentUser?.setValuesForKeys(firebaseData)
 
                             if let user = self.currentUser {
                                 self.userRef?.updateChildValues(user.dataChangedToDictionary())
-                                completion?(results: ResultType.Success(r: true))
+                                completion?(results: ResultType.success(r: true))
                                 self.delegate?.accountManagerUserDidLogin(self, user: user)
                             }
                             self.initiateUserWithPacks()

@@ -33,20 +33,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         super.init()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
+        NotificationCenter.default().addObserver(self, selector: "didReceiveSetCurrentProxy:", name: TextProcessingManagerProxyEvent, object: nil)
+        NotificationCenter.default().addObserver(self, selector: "didReceiveResetDefaultProxy:", name: TextProcessingManagedResetDefaultProxyEvent, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func didReceiveSetCurrentProxy(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
+    func didReceiveSetCurrentProxy(_ notification: Foundation.Notification) {
+        guard let userInfo = (notification as NSNotification).userInfo,
             let proxy = notification.object as? UITextDocumentProxy,
             let setDefault = userInfo["setDefault"] as? Bool,
             let id = userInfo["id"] as? String else {
@@ -68,32 +68,32 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
     }
     
-    func didReceiveResetDefaultProxy(notification: NSNotification) {
+    func didReceiveResetDefaultProxy(_ notification: Foundation.Notification) {
         if let proxy = currentProxy as? UIResponder {
             proxy.resignFirstResponder()
         }
         currentProxy = proxies["default"]!
     }
     
-    func textWillChange(textInput: UITextInput?) {
+    func textWillChange(_ textInput: UITextInput?) {
         if let beforeInput = defaultProxy.documentContextBeforeInput {
             textBuffer = beforeInput
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagedResetDefaultProxyEvent, object: self, userInfo: nil)
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: TextProcessingManagedResetDefaultProxyEvent), object: self, userInfo: nil)
     }
     
-    func textDidChange(textInput: UITextInput?) {
+    func textDidChange(_ textInput: UITextInput?) {
         if !defaultProxy.hasText() {
             delegate?.textProcessingManagerDidClearTextBuffer(self, text: textBuffer)
         }
     }
 
-    func selectionWillChange(textInput: UITextInput?) {
+    func selectionWillChange(_ textInput: UITextInput?) {
         
     }
 
-    func selectionDidChange(textInput: UITextInput?) {
+    func selectionDidChange(_ textInput: UITextInput?) {
         
     }
     
@@ -108,7 +108,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
         
         if let text = currentProxy.documentContextBeforeInput {
-            let tokens = text.componentsSeparatedByString(" ")
+            let tokens = text.components(separatedBy: " ")
         }
 
         delegate?.textProcessingManagerDidChangeText(self)
@@ -117,11 +117,11 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
     func clearInput() {
         //move cursor to end of text
         if let afterInputText = currentProxy.documentContextAfterInput {
-            currentProxy.adjustTextPositionByCharacterOffset(afterInputText.utf16.count)
+            currentProxy.adjustTextPosition(byCharacterOffset: afterInputText.utf16.count)
         }
         
         if let beforeInputText = lastInsertedString {
-            for var i = 0, len = beforeInputText.utf16.count; i < len; i++ {
+            for _ in 0..<beforeInputText.utf16.count {
                 currentProxy.deleteBackward()
             }
         }
@@ -130,12 +130,12 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         broadcastTextDidChange()
     }
     
-    func insertTextInProxy(text: String, proxy: UITextDocumentProxy) {
+    func insertTextInProxy(_ text: String, proxy: UITextDocumentProxy) {
         proxy.insertText(text)
         delegate?.textProcessingManagerDidChangeText(self)
     }
     
-    func insertText(text: String) {
+    func insertText(_ text: String) {
         currentProxy.insertText(text)
         parseTextInCurrentDocumentProxy()
         broadcastTextDidChange()
@@ -147,7 +147,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         broadcastTextDidChange()
     }
     
-    func setCurrentProxyWithId(id: String) -> Bool {
+    func setCurrentProxyWithId(_ id: String) -> Bool {
         if let proxy = proxies[id] {
             currentProxy = proxy
             return true
@@ -166,20 +166,20 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
             text += afterInput
         }
         
-        NSNotificationCenter.defaultCenter().postNotificationName(TextProcessingManagerTextChangedEvent, object: self, userInfo: [
+        NotificationCenter.default().post(name: Foundation.Notification.Name(rawValue: TextProcessingManagerTextChangedEvent), object: self, userInfo: [
             "text": text
         ])
     }
     
-    func characterIsPunctuation(character: Character) -> Bool {
+    func characterIsPunctuation(_ character: Character) -> Bool {
         return (character == ".") || (character == "!") || (character == "?")
     }
     
-    func characterIsNewline(character: Character) -> Bool {
+    func characterIsNewline(_ character: Character) -> Bool {
         return (character == "\n") || (character == "\r")
     }
     
-    func characterIsWhitespace(character: Character) -> Bool {
+    func characterIsWhitespace(_ character: Character) -> Bool {
         // there are others, but who cares
         return (character == " ") || (character == "\n") || (character == "\r") || (character == "\t")
     }
@@ -193,17 +193,17 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         
         var index = previousContext!.endIndex
         
-        index = index.predecessor()
+        index = previousContext!.characters.index(before: index)
         if previousContext![index] != " " {
             return false
         }
         
-        index = index.predecessor()
+        index = previousContext!.characters.index(before: index)
         if previousContext![index] != " " {
             return false
         }
         
-        index = index.predecessor()
+        index = previousContext!.characters.index(before: index)
         let char = previousContext![index]
         if characterIsWhitespace(char) || characterIsPunctuation(char) || char == "," {
             return false
@@ -212,7 +212,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         return true
     }
 
-    func stringIsWhitespace(string: String?) -> Bool {
+    func stringIsWhitespace(_ string: String?) -> Bool {
         if string != nil {
             for char in string!.characters {
                 if !characterIsWhitespace(char) {
@@ -230,17 +230,17 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
         }
 
         switch autocapitalization {
-        case .None:
+        case .none:
             return false
-        case .Words:
-            let previousCharacter = beforeContext[beforeContext.endIndex.predecessor()]
+        case .words:
+            let previousCharacter = beforeContext[beforeContext.characters.index(before: beforeContext.endIndex)]
             return self.characterIsWhitespace(previousCharacter)
-        case .Sentences:
+        case .sentences:
             let offset = min(3, beforeContext.characters.count)
             var index = beforeContext.endIndex
 
             for i in 0 ..< offset {
-                index = index.predecessor()
+                index = beforeContext.characters.index(before: index)
                 let char = beforeContext[index]
 
                 if characterIsPunctuation(char) {
@@ -258,7 +258,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
                     }
                 }
             }
-        case .AllCharacters:
+        case .allCharacters:
             return true
         }
 
@@ -268,7 +268,7 @@ class TextProcessingManager: NSObject, UITextInputDelegate {
 }
 
 protocol TextProcessingManagerDelegate: class {
-    func textProcessingManagerDidChangeText(textProcessingManager: TextProcessingManager)
-    func textProcessingManagerDidClearTextBuffer(textProcessingManager: TextProcessingManager, text: String)
+    func textProcessingManagerDidChangeText(_ textProcessingManager: TextProcessingManager)
+    func textProcessingManagerDidClearTextBuffer(_ textProcessingManager: TextProcessingManager, text: String)
 }
 

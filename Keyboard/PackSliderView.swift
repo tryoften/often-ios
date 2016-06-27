@@ -14,9 +14,9 @@ class PackSliderView: UIView {
     override init(frame: CGRect) {
         slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.setThumbImage(StyleKit.imageOfThumbslider(), forState: .Normal)
-        slider.setMaximumTrackImage(StyleKit.imageOfSlider(scale: 0.5).resizableImageWithCapInsets(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)), forState: .Normal)
-        slider.setMinimumTrackImage(StyleKit.imageOfSlider(scale: 0.5).resizableImageWithCapInsets(UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)), forState: .Normal)
+        slider.setThumbImage(StyleKit.imageOfThumbslider(), for: UIControlState())
+        slider.setMaximumTrackImage(StyleKit.imageOfSlider(scale: 0.5).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)), for: UIControlState())
+        slider.setMinimumTrackImage(StyleKit.imageOfSlider(scale: 0.5).resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)), for: UIControlState())
 
 
         super.init(frame: frame)

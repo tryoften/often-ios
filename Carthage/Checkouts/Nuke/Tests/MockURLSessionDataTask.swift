@@ -11,11 +11,11 @@ import Foundation
 let MockURLSessionDataTaskDidResumeNotification = "didResume"
 let MockURLSessionDataTaskDidCancelNotification = "didCancel"
 
-class MockURLSessionDataTask: NSURLSessionDataTask {
+class MockURLSessionDataTask: URLSessionDataTask {
     override func resume() {
-        NSNotificationCenter.defaultCenter().postNotificationName(MockURLSessionDataTaskDidResumeNotification, object: self)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: MockURLSessionDataTaskDidResumeNotification), object: self)
     }
     override func cancel() {
-        NSNotificationCenter.defaultCenter().postNotificationName(MockURLSessionDataTaskDidCancelNotification, object: self)
+        NotificationCenter.default().post(name: Notification.Name(rawValue: MockURLSessionDataTaskDidCancelNotification), object: self)
     }
 }

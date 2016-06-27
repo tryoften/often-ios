@@ -24,7 +24,7 @@ class SettingsViewModel: NSObject, SessionManagerDelegate {
         self.sessionManager.delegate = nil
     }
     
-    func requestData(completion: ((Bool) -> ())? = nil) {
+    func requestData(_ completion: ((Bool) -> ())? = nil) {
         if sessionManager.sessionManagerFlags.openSession {
             if let user = sessionManager.currentUser {
                 currentUser = user
@@ -34,7 +34,7 @@ class SettingsViewModel: NSObject, SessionManagerDelegate {
     }
     
 
-    func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
+    func sessionManagerDidLoginUser(_ sessionManager: SessionManager, user: User) {
         currentUser = user
         if let userData = currentUser {
             delegate?.settingsViewModelDidReceiveUserData(self, user: userData)
@@ -43,10 +43,10 @@ class SettingsViewModel: NSObject, SessionManagerDelegate {
         }
     }
     
-    func sessionManagerNoUserFound(sessionManager: SessionManager) {}
+    func sessionManagerNoUserFound(_ sessionManager: SessionManager) {}
 
 }
 
 protocol SettingsViewModelDelegate: class {
-    func settingsViewModelDidReceiveUserData(userProfileViewModel: SettingsViewModel, user: User)
+    func settingsViewModelDidReceiveUserData(_ userProfileViewModel: SettingsViewModel, user: User)
 }

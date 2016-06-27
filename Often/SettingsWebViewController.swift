@@ -21,28 +21,28 @@ class SettingsWebViewController: UIViewController {
         
         closeButton = UIButton()
         closeButton.translatesAutoresizingMaskIntoConstraints = false
-        closeButton.setImage(UIImage(named: "close-white"), forState: UIControlState.Normal)
+        closeButton.setImage(UIImage(named: "close-white"), for: UIControlState())
         closeButton.contentEdgeInsets = UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)
         
         titleBar = UILabel()
         titleBar.translatesAutoresizingMaskIntoConstraints = false
         titleBar.font = UIFont(name: "OpenSans", size: 14)
-        titleBar.text = title.uppercaseString
-        titleBar.backgroundColor = UIColor.clearColor()
+        titleBar.text = title.uppercased()
+        titleBar.backgroundColor = UIColor.clear()
         titleBar.numberOfLines = 0
-        titleBar.textAlignment = .Center
+        titleBar.textAlignment = .center
         titleBar.textColor = WhiteColor
         
         
-        let requestURL = NSURL(string: website)
-        let request = NSURLRequest(URL: requestURL!)
+        let requestURL = URL(string: website)
+        let request = URLRequest(url: requestURL!)
         
-        webView = UIWebView(frame: CGRectMake(0, 50, UIScreen.mainScreen().bounds.width, UIScreen.mainScreen().bounds.height))
+        webView = UIWebView(frame: CGRect(x: 0, y: 50, width: UIScreen.main().bounds.width, height: UIScreen.main().bounds.height))
         webView.loadRequest(request)
         
         super.init(nibName: nil, bundle: nil)
         
-        closeButton.addTarget(self, action: "closeTapped", forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addTarget(self, action: "closeTapped", for: UIControlEvents.touchUpInside)
         
         view.addSubview(webView)
         view.addSubview(navigationBar)
@@ -73,7 +73,7 @@ class SettingsWebViewController: UIViewController {
     }
     
     func closeTapped() {
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
     }
     
     func setupLayout() {

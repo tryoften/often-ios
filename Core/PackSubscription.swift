@@ -18,7 +18,7 @@ class PackSubscription {
     let userId: String
     let packId: String
     let subscriptionType: PackSubscriptionType
-    let timeSubscribed: NSDate?
+    let timeSubscribed: Date?
 
     init(data: NSDictionary) {
         if let id = data["id"] as? String {
@@ -46,8 +46,8 @@ class PackSubscription {
             subscriptionType = .Free
         }
 
-        if let timestamp = data["timeSubscribed"] as? NSTimeInterval {
-            timeSubscribed = NSDate(timeIntervalSince1970: timestamp)
+        if let timestamp = data["timeSubscribed"] as? TimeInterval {
+            timeSubscribed = Date(timeIntervalSince1970: timestamp)
         } else {
             timeSubscribed = nil
         }

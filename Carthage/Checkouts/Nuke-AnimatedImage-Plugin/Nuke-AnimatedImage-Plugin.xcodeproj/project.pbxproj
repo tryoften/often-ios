@@ -118,6 +118,7 @@
 				TargetAttributes = {
 					0C06D2231C11F3FF00CC5C35 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -268,7 +269,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.kean.Nuke-AnimatedImage-Plugin";
 				PRODUCT_NAME = NukeAnimatedImagePlugin;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -291,7 +292,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.kean.Nuke-AnimatedImage-Plugin";
 				PRODUCT_NAME = NukeAnimatedImagePlugin;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -14,20 +14,20 @@ class NoKeyboardEmptyStateView: EmptyStateView {
         let description = "Remember to allow full access! Trust us fam"
         let image = UIImage(named: "installoftenemptystate")!
         
-        super.init(state: .NoKeyboard)
+        super.init(state: .noKeyboard)
         
         titleLabel.text = title
         descriptionLabel.text = description
         imageView.image = image
         
-        imageView.contentMode = .ScaleAspectFill
-        imageSize = .Large
+        imageView.contentMode = .scaleAspectFill
+        imageSize = .large
         
         primaryButton.backgroundColor = TealColor
-        primaryButton.setTitleColor(WhiteColor , forState: .Normal)
-        primaryButton.setTitle("go to settings".uppercaseString, forState: .Normal)
-        primaryButton.hidden = false
-        primaryButton.userInteractionEnabled = true
+        primaryButton.setTitleColor(WhiteColor , for: UIControlState())
+        primaryButton.setTitle("go to settings".uppercased(), for: UIControlState())
+        primaryButton.isHidden = false
+        primaryButton.isUserInteractionEnabled = true
         
         addAdditionalLayouts()
     }
