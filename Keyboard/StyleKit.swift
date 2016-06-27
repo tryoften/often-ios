@@ -2672,56 +2672,6 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawPacksMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
-        //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
-
-        //// Color Declarations
-        var colorHueComponent: CGFloat = 1,
-            colorSaturationComponent: CGFloat = 1,
-            colorBrightnessComponent: CGFloat = 1
-        color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
-
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
-
-        //// Variable Declarations
-        let strokeColor = selected ? highlightedColor : color
-
-        //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.50000 * frame.height)
-        CGContextScaleCTM(context, scale, scale)
-
-
-
-        //// Rectangle-758-Copy-4 Drawing
-        let rectangle758Copy4Path = UIBezierPath(roundedRect: CGRect(x: -16, y: -12, width: 5, height: 24), cornerRadius: 2.5)
-        strokeColor.setFill()
-        rectangle758Copy4Path.fill()
-
-
-        //// Rectangle-758-Copy-5 Drawing
-        let rectangle758Copy5Path = UIBezierPath(roundedRect: CGRect(x: -7, y: -12, width: 5, height: 24), cornerRadius: 2.5)
-        strokeColor.setFill()
-        rectangle758Copy5Path.fill()
-
-
-        //// Rectangle-758-Copy-6 Drawing
-        let rectangle758Copy6Path = UIBezierPath(roundedRect: CGRect(x: 2, y: -12, width: 5, height: 24), cornerRadius: 2.5)
-        strokeColor.setFill()
-        rectangle758Copy6Path.fill()
-
-
-        //// Rectangle-758-Copy-7 Drawing
-        let rectangle758Copy7Path = UIBezierPath(roundedRect: CGRect(x: 11, y: -12, width: 5, height: 24), cornerRadius: 2.5)
-        strokeColor.setFill()
-        rectangle758Copy7Path.fill()
-
-
-
-        CGContextRestoreGState(context)
-    }
-
     public class func drawQuotesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -2782,67 +2732,6 @@ public class StyleKit : NSObject {
 
         strokeColor.setFill()
         combinedShapeCopyPath.fill()
-
-
-
-        CGContextRestoreGState(context)
-    }
-
-    public class func drawGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) {
-        //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
-
-        //// Color Declarations
-        var colorHueComponent: CGFloat = 1,
-            colorSaturationComponent: CGFloat = 1,
-            colorBrightnessComponent: CGFloat = 1
-        color.getHue(&colorHueComponent, saturation: &colorSaturationComponent, brightness: &colorBrightnessComponent, alpha: nil)
-
-        let highlightedColor = UIColor(hue: 0.449, saturation: colorSaturationComponent, brightness: colorBrightnessComponent, alpha: CGColorGetAlpha(color.CGColor))
-
-        //// Variable Declarations
-        let strokeColor = selected ? highlightedColor : color
-
-        //// icon
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, frame.minX + 0.50000 * frame.width, frame.minY + 0.51000 * frame.height)
-        CGContextRotateCTM(context, -0.85 * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, scale, scale)
-
-
-
-        //// path-4 Drawing
-        let path4Path = UIBezierPath()
-        path4Path.moveToPoint(CGPoint(x: -12, y: -13.01))
-        path4Path.addCurveToPoint(CGPoint(x: -9.99, y: -15), controlPoint1: CGPoint(x: -12, y: -14.11), controlPoint2: CGPoint(x: -11.1, y: -15))
-        path4Path.addLineToPoint(CGPoint(x: 2, y: -15))
-        path4Path.addLineToPoint(CGPoint(x: 2, y: -5))
-        path4Path.addLineToPoint(CGPoint(x: 12, y: -5))
-        path4Path.addLineToPoint(CGPoint(x: 12, y: 13.01))
-        path4Path.addCurveToPoint(CGPoint(x: 10, y: 15), controlPoint1: CGPoint(x: 12, y: 14.11), controlPoint2: CGPoint(x: 11.1, y: 15))
-        path4Path.addLineToPoint(CGPoint(x: -10, y: 15))
-        path4Path.addCurveToPoint(CGPoint(x: -12, y: 13.01), controlPoint1: CGPoint(x: -11.1, y: 15), controlPoint2: CGPoint(x: -12, y: 14.1))
-        path4Path.addLineToPoint(CGPoint(x: -12, y: -13.01))
-        path4Path.closePath()
-        path4Path.miterLimit = 4;
-
-        path4Path.usesEvenOddFillRule = true;
-
-        strokeColor.setStroke()
-        path4Path.lineWidth = 4
-        path4Path.stroke()
-
-
-        //// Rectangle-614 Drawing
-        let rectangle614Path = UIBezierPath(rect: CGRect(x: 7, y: -17, width: 3, height: 4))
-        strokeColor.setFill()
-        rectangle614Path.fill()
-
-
-        //// Rectangle-615 Drawing
-        let rectangle615Path = UIBezierPath(rect: CGRect(x: 10, y: -17, width: 4, height: 7))
-        strokeColor.setFill()
-        rectangle615Path.fill()
 
 
 
@@ -3124,56 +3013,53 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawGiftabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 88, height: 71)) {
-        //// Color Declarations
-        let strokeColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
-        let fillColor3 = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)
+    public class func drawPackMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
 
-        //// gif-icon
-        //// path-1 Drawing
-        let path1Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 36, y: frame.minY + 26, width: 16, height: 16), cornerRadius: 3)
-        strokeColor3.setStroke()
-        path1Path.lineWidth = 6
-        path1Path.stroke()
-
-
-        //// Triangle-1 Drawing
-        let triangle1Path = UIBezierPath()
-        triangle1Path.moveToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 32.98))
-        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 34.47), controlPoint1: CGPoint(x: frame.minX + 47.34, y: frame.minY + 33.39), controlPoint2: CGPoint(x: frame.minX + 47.35, y: frame.minY + 34.06))
-        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 42.9, y: frame.minY + 37.5))
-        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 41.94, y: frame.minY + 36.86), controlPoint1: CGPoint(x: frame.minX + 42.37, y: frame.minY + 37.91), controlPoint2: CGPoint(x: frame.minX + 41.94, y: frame.minY + 37.63))
-        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 41.94, y: frame.minY + 30.6))
-        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 42.9, y: frame.minY + 29.95), controlPoint1: CGPoint(x: frame.minX + 41.94, y: frame.minY + 29.83), controlPoint2: CGPoint(x: frame.minX + 42.37, y: frame.minY + 29.54))
-        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 46.81, y: frame.minY + 32.98))
-        triangle1Path.closePath()
-        triangle1Path.miterLimit = 4;
-
-        triangle1Path.usesEvenOddFillRule = true;
-
-        fillColor3.setFill()
-        triangle1Path.fill()
-    }
-
-    public class func drawPacktabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
-
-        //// Group- 6
+        //// icon
         //// Rectangle-758 Drawing
-        let rectangle758Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 23, width: 19, height: 3), cornerRadius: 1.5)
+        let rectangle758Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 19, y: frame.minY + 23.62, width: 13, height: 2), cornerRadius: 1)
         color.setFill()
         rectangle758Path.fill()
 
 
         //// Rectangle-758-Copy-4 Drawing
-        let rectangle758Copy4Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 18.25, width: 19, height: 3), cornerRadius: 1.5)
+        let rectangle758Copy4Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 19, y: frame.minY + 19.25, width: 13, height: 2), cornerRadius: 1)
         color.setFill()
         rectangle758Copy4Path.fill()
 
 
         //// Rectangle-758-Copy Drawing
-        let rectangle758CopyPath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 16, y: frame.minY + 28, width: 19, height: 3), cornerRadius: 1.5)
+        let rectangle758CopyPath = UIBezierPath(roundedRect: CGRect(x: frame.minX + 19, y: frame.minY + 28, width: 13, height: 2), cornerRadius: 1)
         color.setFill()
         rectangle758CopyPath.fill()
+    }
+
+    public class func drawGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
+
+        //// icon
+        //// path-1 Drawing
+        let path1Path = UIBezierPath(roundedRect: CGRect(x: frame.minX + 18, y: frame.minY + 19, width: 15, height: 12), cornerRadius: 3)
+        color.setStroke()
+        path1Path.lineWidth = 2
+        path1Path.stroke()
+
+
+        //// Triangle-1 Drawing
+        let triangle1Path = UIBezierPath()
+        triangle1Path.moveToPoint(CGPoint(x: frame.minX + 28.14, y: frame.minY + 24.24))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 28.14, y: frame.minY + 25.36), controlPoint1: CGPoint(x: frame.minX + 28.63, y: frame.minY + 24.54), controlPoint2: CGPoint(x: frame.minX + 28.64, y: frame.minY + 25.04))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 24.47, y: frame.minY + 27.63))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 23.57, y: frame.minY + 27.14), controlPoint1: CGPoint(x: frame.minX + 23.97, y: frame.minY + 27.94), controlPoint2: CGPoint(x: frame.minX + 23.57, y: frame.minY + 27.72))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 23.57, y: frame.minY + 22.45))
+        triangle1Path.addCurveToPoint(CGPoint(x: frame.minX + 24.47, y: frame.minY + 21.96), controlPoint1: CGPoint(x: frame.minX + 23.57, y: frame.minY + 21.87), controlPoint2: CGPoint(x: frame.minX + 23.97, y: frame.minY + 21.65))
+        triangle1Path.addLineToPoint(CGPoint(x: frame.minX + 28.14, y: frame.minY + 24.24))
+        triangle1Path.closePath()
+        triangle1Path.miterLimit = 4;
+
+        triangle1Path.usesEvenOddFillRule = true;
+
+        color.setFill()
+        triangle1Path.fill()
     }
 
     public class func drawCanvas1(frame frame: CGRect = CGRect(x: 102, y: 96, width: 265, height: 276)) {
@@ -4787,16 +4673,6 @@ public class StyleKit : NSObject {
         return imageOfCategoriesMenuButton
     }
 
-    public class func imageOfPacksMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawPacksMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
-
-        let imageOfPacksMenuButton = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return imageOfPacksMenuButton
-    }
-
     public class func imageOfQuotesMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             StyleKit.drawQuotesMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
@@ -4805,16 +4681,6 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfQuotesMenuButton
-    }
-
-    public class func imageOfGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawGifMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale, selected: selected)
-
-        let imageOfGifMenuButton = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        return imageOfGifMenuButton
     }
 
     public class func imageOfHashtagicon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5, selected: Bool = false) -> UIImage {
@@ -4857,14 +4723,24 @@ public class StyleKit : NSObject {
         return imageOfMainAppMenu
     }
 
-    public class func imageOfPacktabnew(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+    public class func imageOfPackMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawPacktabnew(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
+            StyleKit.drawPackMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
 
-        let imageOfPacktabnew = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfPackMenuButton = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        return imageOfPacktabnew
+        return imageOfPackMenuButton
+    }
+
+    public class func imageOfGifMenuButton(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawGifMenuButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
+
+        let imageOfGifMenuButton = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfGifMenuButton
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {
