@@ -132,8 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func tokenRefreshNotificaiton(notification: NSNotification) {
         let refreshedToken = FIRInstanceID.instanceID().token()
-
-        print("TOKEN: \(refreshedToken)")
+        
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
