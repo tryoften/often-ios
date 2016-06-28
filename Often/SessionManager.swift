@@ -68,9 +68,11 @@ class SessionManager: NSObject, AccountManagerDelegate {
 
 
         if status {
+            PacksService.defaultInstance.addToGlobalPushNotifications()
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
             UIApplication.sharedApplication().registerForRemoteNotifications()
         } else {
+            PacksService.defaultInstance.removeFromGlobalPushNotifications()
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }
 
