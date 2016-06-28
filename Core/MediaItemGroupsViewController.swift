@@ -141,4 +141,5 @@ class MediaItemGroupsViewController: MediaItemsCollectionBaseViewController, UIC
         displayedData = true
         collectionView?.reloadData()
     }
+
 }

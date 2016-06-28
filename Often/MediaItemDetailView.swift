@@ -82,7 +82,7 @@ class MediaItemDetailView: UIView {
             NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
             NSForegroundColorAttributeName: BlackColor
             ])
-        let copyText = NSAttributedString(string: "Copy".uppercaseString, attributes: [
+        let copyText = NSAttributedString(string: "Share".uppercaseString, attributes: [
             NSKernAttributeName: NSNumber(float: 1.0),
             NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
             NSForegroundColorAttributeName: BlackColor

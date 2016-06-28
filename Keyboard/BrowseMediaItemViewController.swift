@@ -20,7 +20,6 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
     var navigationBarHideConstraint: NSLayoutConstraint?
     var headerView: MediaItemPageHeaderView?
     var viewModel: BrowseViewModel
-    var hudTimer: NSTimer?
 #if KEYBOARD
     var navigationBar: KeyboardBrowseNavigationBar?
 #endif
@@ -221,18 +220,6 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 #else
     func setupLayout() {
 
-    }
-    
-    func showHud() {
-        hudTimer?.invalidate()
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
-    }
-
-    func hideHud() {
-        PKHUD.sharedHUD.hide(animated: true)
-        hudTimer?.invalidate()
     }
 #endif
 }

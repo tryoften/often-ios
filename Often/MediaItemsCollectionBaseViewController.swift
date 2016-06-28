@@ -12,17 +12,23 @@ import UIKit
 import Nuke
 import NukeAnimatedImagePlugin
 import FLAnimatedImage
+import Preheat
 
 let MediaItemCollectionViewCellReuseIdentifier = "MediaItemCollectionViewCell"
 let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectionViewCell"
 
-class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController, MediaItemsCollectionViewCellDelegate, UIViewControllerTransitioningDelegate {
+class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController,
+    MediaItemsCollectionViewCellDelegate,
+    UIViewControllerTransitioningDelegate,
+    PreheatControllerDelegate {
     weak var textProcessor: TextProcessingManager?
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
     var emptyStateView: EmptyStateView?
+    var preheatController: PreheatController?
     var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
+    var hudTimer: NSTimer?
     var isDataLoaded: Bool {
         return false
     }
@@ -34,6 +40,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cellsAnimated = [:]
 
         super.init(collectionViewLayout: layout)
+        preheatController = PreheatControllerForCollectionView(collectionView: collectionView!)
+        preheatController?.delegate = self
+        
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
@@ -52,6 +61,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         loaderView?.frame = view.bounds
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        preheatController?.enabled = true
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        preheatController?.enabled = false
+    }
+    
     func requestData(animated: Bool = false) {
         showLoaderIfNeeded()
     }
@@ -164,11 +185,16 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.titleLabel.text = pack.name
         cell.itemCount = pack.items_count
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
+        cell.updatedContentBadge.hidden = !pack.isUpdated
+        cell.newPackBadge.hidden = !pack.isNew
+
+        if pack.isUpdated {
+            cell.addedBadgeView.hidden = true
+        }
         cell.layer.shouldRasterize = true
         cell.layer.rasterizationScale = UIScreen.mainScreen().scale
 
         return cell
-        
     }
     
     func parseMediaItemData(items: [MediaItem]?, indexPath: NSIndexPath, collectionView: UICollectionView) -> MediaItemCollectionViewCell {
@@ -362,6 +388,21 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         }
     }
 
+#if !(KEYBOARD)
+    func showHud() {
+        hudTimer?.invalidate()
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(5.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+    }
+
+    func hideHud() {
+        PKHUD.sharedHUD.hide(animated: true)
+        hudTimer?.invalidate()
+    }
+#endif
+    
+    // MARK: UIViewControllerAnimatedTransitioning
     func presentViewControllerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection = .None, duration: NSTimeInterval = 0.15) {
         transitionAnimator = FadeInTransitionAnimator(presenting: true, direction: direction, duration: duration)
         presentingController.transitioningDelegate = self
@@ -383,4 +424,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return animator
     }
 
+    // MARK: PreheatControllerDelegate
+    func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        return nil
+    }
+
+    func preheatControllerDidUpdate(controller: PreheatController, addedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) {
+        guard let startPreheatingImages = requestForIndexPaths(addedIndexPaths),
+            let stopPreheatingImages = requestForIndexPaths(removedIndexPaths) else {
+                return
+        }
+
+        Nuke.startPreheatingImages(startPreheatingImages)
+        Nuke.stopPreheatingImages(stopPreheatingImages)
+    }
 }

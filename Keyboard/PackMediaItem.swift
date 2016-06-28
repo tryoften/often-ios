@@ -24,6 +24,8 @@ class PackMediaItem: MediaItem {
     var isFavorites: Bool = false
     var isRecents: Bool = false
     var shareLink: String?
+    var isUpdated: Bool = false
+    var isNew: Bool = false
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -104,6 +106,14 @@ class PackMediaItem: MediaItem {
 
         if let isRecents = data["isRecents"] as? Bool {
             self.isRecents = isRecents
+        }
+
+        if let isUpdated = data["isUpdated"] as? Bool {
+            self.isUpdated = isUpdated
+        }
+
+        if let isNew = data["isNew"] as? Bool {
+            self.isNew = isNew
         }
 
         if let isFavorites = data["isFavorites"] as? Bool {

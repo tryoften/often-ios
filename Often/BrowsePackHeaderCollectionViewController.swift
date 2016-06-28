@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import Preheat
 
 let BrowsePackHeaderViewIdentifier = "browseCell"
 
@@ -15,9 +16,11 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
-    MediaItemGroupViewModelDelegate {
+    MediaItemGroupViewModelDelegate,
+    PreheatControllerDelegate {
     private var viewModel: MediaItemGroupViewModel
     private var collectionView: UICollectionView
+    private var preheatController: PreheatController?
     private var currentPage: Int
     private let scrollView: UIScrollView
     private let itemWidth: CGFloat
@@ -53,6 +56,8 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         scrollView.hidden = true
 
         super.init(nibName: nil, bundle: nil)
+        preheatController = PreheatControllerForCollectionView(collectionView: collectionView)
+        preheatController?.delegate = self
 
 
         view.backgroundColor = UIColor.clearColor()
@@ -121,6 +126,19 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         collectionView.registerClass(BrowsePackHeaderCollectionViewCell.self, forCellWithReuseIdentifier: BrowsePackHeaderViewIdentifier)
 
     }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        preheatController?.enabled = true
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        preheatController?.enabled = false
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -201,6 +219,31 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         collectionView.reloadData()
     }
 
+    // MARK: PreheatControllerDelegate
+    func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let group = viewModel.groupAtIndex(index.section),
+                pack = group.items[index.row] as? PackMediaItem,
+                url = pack.largeImageURL {
+
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
+    }
+
+    func preheatControllerDidUpdate(controller: PreheatController, addedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) {
+        guard let startPreheatingImages = requestForIndexPaths(addedIndexPaths),
+            let stopPreheatingImages = requestForIndexPaths(removedIndexPaths) else {
+                return
+        }
+
+        Nuke.startPreheatingImages(startPreheatingImages)
+        Nuke.stopPreheatingImages(stopPreheatingImages)
+    }
 }
 
 

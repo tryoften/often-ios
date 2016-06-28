@@ -8,6 +8,8 @@
 //
 
 import UIKit
+import Preheat
+import Nuke
 
 class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
     UICollectionViewDelegateFlowLayout {
@@ -15,7 +17,6 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     var headerView: UserProfileHeaderView?
     private var packServiceListener: Listener?
 
-    
     init(viewModel: PacksService) {
         self.viewModel = viewModel
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
@@ -162,8 +163,16 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         }
 
         if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem where button.tag < viewModel.mediaItems.count {
+            showHud()
             PacksService.defaultInstance.removePack(pack)
         }
+    }
+
+    override func showHud() {
+        super.showHud()
+        
+        hudTimer?.invalidate()
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
     }
 
     func promptUserToRegisterPushNotifications() {
@@ -176,6 +185,18 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
             }
         }
+    }
+
+    override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
+        var imageRequest: [ImageRequest] = []
+
+        for index in indexPaths {
+            if let url = viewModel.mediaItems[index.row].smallImageURL {
+                imageRequest.append (ImageRequest(URL: url))
+            }
+        }
+
+        return imageRequest
     }
 
     // Empty States button actions

@@ -20,6 +20,8 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var addedBadgeView: UIImageView
     var highlightColorBorder: UIView
     var shareButton: UIButton
+    var newPackBadge: UIButton
+    var updatedContentBadge: UIButton
 
     var itemCount: Int? {
         didSet {
@@ -50,7 +52,37 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addedBadgeView.layer.shadowOpacity = 0.2
         addedBadgeView.layer.shadowColor = MediumLightGrey.CGColor
         addedBadgeView.layer.shadowOffset = CGSizeMake(0, 1)
-        
+
+        newPackBadge = UIButton()
+        newPackBadge.translatesAutoresizingMaskIntoConstraints = false
+        newPackBadge.setAttributedTitle(NSAttributedString(string: "new".uppercaseString, attributes: [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8.0)!,
+            NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+            ]), forState: .Normal)
+        newPackBadge.backgroundColor = UIColor.oftBrightLavenderColor()
+        newPackBadge.layer.cornerRadius = 10.0
+        newPackBadge.layer.shadowRadius = 2
+        newPackBadge.layer.shadowOpacity = 0.2
+        newPackBadge.layer.shadowColor = MediumLightGrey.CGColor
+        newPackBadge.layer.shadowOffset = CGSizeMake(0, 1)
+        newPackBadge.hidden = true
+
+        updatedContentBadge = UIButton()
+        updatedContentBadge.translatesAutoresizingMaskIntoConstraints = false
+        updatedContentBadge.backgroundColor = UIColor.oftWhiteColor()
+        updatedContentBadge.layer.cornerRadius = 10.0
+        updatedContentBadge.layer.shadowRadius = 2
+        updatedContentBadge.layer.shadowOpacity = 0.2
+        updatedContentBadge.layer.shadowColor = MediumLightGrey.CGColor
+        updatedContentBadge.layer.shadowOffset = CGSizeMake(0, 1)
+        updatedContentBadge.hidden = true
+        updatedContentBadge.setAttributedTitle(NSAttributedString(string: "updated".uppercaseString, attributes: [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 8.0)!,
+            NSForegroundColorAttributeName: UIColor.oftBlackColor()
+            ]), forState: .Normal)
+
         shareButton = UIButton()
         shareButton.translatesAutoresizingMaskIntoConstraints = false
         shareButton.backgroundColor = ClearColor
@@ -100,6 +132,8 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addSubview(addedBadgeView)
         addSubview(highlightColorBorder)
         addSubview(shareButton)
+        addSubview(newPackBadge)
+        addSubview(updatedContentBadge)
 
         backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 2.0
@@ -158,6 +192,16 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
             shareButton.al_height == shareButton.al_width,
             shareButton.al_top == al_top,
             shareButton.al_right == al_right,
+
+            newPackBadge.al_centerY == al_centerY,
+            newPackBadge.al_right == al_right - 16,
+            newPackBadge.al_width == 44,
+            newPackBadge.al_height == 21,
+
+            updatedContentBadge.al_centerY == al_centerY,
+            updatedContentBadge.al_right == al_right - 16,
+            updatedContentBadge.al_width == 66,
+            updatedContentBadge.al_height == 21,
 
             placeholderImageView.al_width == imageView.al_width,
             placeholderImageView.al_height == imageView.al_height,

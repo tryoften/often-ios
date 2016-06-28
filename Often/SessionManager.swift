@@ -9,6 +9,7 @@
 import Foundation
 import Crashlytics
 import Firebase
+import FirebaseInstanceID
 
 class SessionManager: NSObject, AccountManagerDelegate {
     static let defaultManager = SessionManager()
@@ -21,7 +22,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
      override init() {
-        Analytics.setupWithConfiguration(SEGAnalyticsConfiguration(writeKey: AnalyticsWriteKey))
+        Analytics.setupWithConfiguration(SEGAnalyticsConfiguration.init(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
 
@@ -54,22 +55,31 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
 
     func updateUserPushNotificationStatus(status: Bool)  {
-        guard let userId = currentUser?.id else {
+        guard let user = currentUser, let userId = currentUser?.id else {
             return
         }
 
-        currentUser?.pushNotificationStatus = status
+        user.pushNotificationStatus = status
         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = status
 
         let userRef = FIRDatabase.database().reference().child("users/\(userId)")
-        let pushNotificationEndPoint = userRef.child("pushNotificationStatus")
+        let pushNotificationTokenEndPoint = userRef.child("firebasePushNotificationToken")
+        let pushNotificationStatusEndPoint = userRef.child("pushNotificationStatus")
 
-        pushNotificationEndPoint.setValue(status)
 
         if status {
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
             UIApplication.sharedApplication().registerForRemoteNotifications()
+        } else {
+            UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }
+
+        if let token = FIRInstanceID.instanceID().token() {
+            currentUser?.firebasePushNotificationToken = token
+        }
+
+        pushNotificationTokenEndPoint.setValue(user.firebasePushNotificationToken)
+        pushNotificationStatusEndPoint.setValue(status)
     }
 
 

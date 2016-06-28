@@ -24,6 +24,7 @@ class User: NSObject {
     var recentsPackId: String = ""
     var shareCount: Int = 0
     var pushNotificationStatus: Bool = false
+    var firebasePushNotificationToken: String = ""
 
     override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
 
@@ -94,6 +95,10 @@ class User: NSObject {
         if let pushNotificationStatus = keyedValues["pushNotificationStatus"] as? Bool {
             self.pushNotificationStatus = pushNotificationStatus
             SessionManagerFlags.defaultManagerFlags.userNotificationSettings = pushNotificationStatus
+        }
+
+        if let firebasePushNotificationToken = keyedValues["firebasePushNotificationToken"] as? String {
+            self.firebasePushNotificationToken = firebasePushNotificationToken
         }
 
         setupCrashlytics()

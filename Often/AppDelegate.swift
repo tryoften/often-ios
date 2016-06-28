@@ -14,6 +14,7 @@ import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
 import FirebaseDynamicLinks
+import Nuke
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,8 +32,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         Flurry.startSession(FlurryClientKey)
-        application.applicationIconBadgeNumber = 0
+        ImageManager.shared.setupImageManager()
 
+        application.applicationIconBadgeNumber = 0
+        
         let screen = UIScreen.mainScreen()
         let frame = screen.bounds
 
@@ -124,10 +127,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject],
                      fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-
+        
         if let packid = userInfo["p"] as? String {
-            NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
-
+            delay(1) {
+                NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : packid])
+            }
+            
             completionHandler(.NewData)
         } else {
             completionHandler(.Failed)
@@ -138,7 +143,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func tokenRefreshNotificaiton(notification: NSNotification) {
         let refreshedToken = FIRInstanceID.instanceID().token()
 
-        print(refreshedToken)
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
