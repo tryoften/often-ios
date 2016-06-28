@@ -30,9 +30,9 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let brandLabel = UILabel(frame: CGRectMake(0, 0, 64, 20))
         brandLabel.textAlignment = .Center
         brandLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 15)!,
-                               letterSpacing: 2.0,
+                               letterSpacing: 1.0,
                                color: UIColor.oftBlackColor(),
-                               text: "OFTEN")
+                               text: "Often")
 
         navigationItem.titleView = brandLabel
 
