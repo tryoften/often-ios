@@ -26,6 +26,7 @@ class PackMediaItem: MediaItem {
     var shareLink: String?
     var isUpdated: Bool = false
     var isNew: Bool = false
+    var backgroundColor: UIColor?
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -118,6 +119,10 @@ class PackMediaItem: MediaItem {
 
         if let isFavorites = data["isFavorites"] as? Bool {
             self.isFavorites = isFavorites
+        }
+
+        if let backgroundColor = data["backgroundColor"] as? String {
+            self.backgroundColor = UIColor(fromHexString: backgroundColor)
         }
     }
 
