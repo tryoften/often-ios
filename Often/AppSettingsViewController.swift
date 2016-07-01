@@ -185,7 +185,7 @@ class AppSettingsViewController: UIViewController,
                 var link, title: String?
                 switch indexPath.row {
                 case 0:
-                    link = "http://www.tryoften.com/privacypolicy.html"
+                    link = "http://tryoften.com/privacy"
                     title = aboutSettings[0] 
                 default: break
                 }
