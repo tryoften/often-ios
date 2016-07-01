@@ -22,7 +22,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var shareButton: UIButton
     var newPackBadge: UIButton
     var updatedContentBadge: UIButton
-
+    
     var itemCount: Int? {
         didSet {
             subtitleLabel.setTextWith(ArtistCollectionViewCellSubtitleFont!,
