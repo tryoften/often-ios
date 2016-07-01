@@ -24,6 +24,9 @@
 		3B0D116A1D21C95900B58F13 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B0D116B1D21C96200B58F13 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; };
 		3B0D116C1D21C96200B58F13 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11661D21C94000B58F13 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B0D116E1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
+		3B0D116F1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
+		3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -106,7 +109,6 @@
 		3B25C6E61C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E71C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E81C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
-		3B309D6A1CE39C36005B9942 /* Material.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C79B81CCEC3E2002ED5B7 /* Material.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B309D6C1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
 		3B309D6D1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
 		3B309D6E1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
@@ -882,10 +884,7 @@
 		BF9861531CDA9AEA005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
 		BF9861551CDA9AEC005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
-		BF99550C1CF653D50054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
 		BF9955101CF8EDB00054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8138EEA61CF4B1820025BB24 /* GoogleService-Info.plist */; };
-		BF9955131CF8EF600054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
-		BF9955141CF8EF730054E770 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BF99550B1CF653D50054E770 /* GoogleService-Info.plist */; };
 		BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971421CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
 		BF9971431CBEC310008351C7 /* GifMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF9971401CBEC310008351C7 /* GifMediaItem.swift */; };
@@ -1043,7 +1042,6 @@
 				3BD5223E1CC6F32A00A5577F /* Alamofire.framework in Embed Frameworks */,
 				3B0D115C1D21C67F00B58F13 /* DFCache.framework in Embed Frameworks */,
 				3B0D116A1D21C95900B58F13 /* Preheat.framework in Embed Frameworks */,
-				3B309D6A1CE39C36005B9942 /* Material.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1060,6 +1058,7 @@
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = delay.swift; path = ../Often/delay.swift; sourceTree = "<group>"; };
 		3B0D11581D21C66400B58F13 /* DFCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFCache.framework; path = Carthage/Build/iOS/DFCache.framework; sourceTree = "<group>"; };
 		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
+		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1699,7 +1698,6 @@
 			children = (
 				3B0D11661D21C94000B58F13 /* Preheat.framework */,
 				3B0D11581D21C66400B58F13 /* DFCache.framework */,
-				BF1C79B81CCEC3E2002ED5B7 /* Material.framework */,
 				81C081051CC5769F009DA5E8 /* FLAnimatedImage.framework */,
 				81C080F01CC57207009DA5E8 /* NukeAnimatedImagePlugin.framework */,
 				81C080F11CC57207009DA5E8 /* NukeAlamofirePlugin.framework */,
@@ -2254,7 +2252,7 @@
 		BF9955081CF653520054E770 /* Prod */ = {
 			isa = PBXGroup;
 			children = (
-				BF99550B1CF653D50054E770 /* GoogleService-Info.plist */,
+				3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */,
 			);
 			name = Prod;
 			sourceTree = "<group>";
@@ -2564,7 +2562,7 @@
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				BF99550C1CF653D50054E770 /* GoogleService-Info.plist in Resources */,
+				3B0D116E1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2589,9 +2587,9 @@
 				81E26D921B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
+				3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
 				3B25C6E11C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
-				BF9955131CF8EF600054E770 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2619,7 +2617,7 @@
 				81DA3F651C24BE85006822D3 /* font_icons8.ttf in Resources */,
 				81DA3F661C24BE85006822D3 /* OpenSans-Semibold.ttf in Resources */,
 				81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
-				BF9955141CF8EF730054E770 /* GoogleService-Info.plist in Resources */,
+				3B0D116F1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3739,9 +3737,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
-					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4133,9 +4128,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
-					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4388,9 +4380,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
-					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -4521,9 +4510,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Firebase",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug-iphoneos",
-					"$(PROJECT_DIR)/OAuthSwift/build/Debug",
-					"$(PROJECT_DIR)/Vendors/OAuthSwift/build/Debug-iphoneos",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (

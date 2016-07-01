@@ -18,6 +18,28 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         }
         return 45
     }
+
+    private var coverPhotoContainerSize: CGFloat {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
+            return 150
+        }
+        return 175
+    }
+
+    private var coverPhotoContainerOffsett: CGFloat {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
+            return tabContainerViewHeight + 0
+        }
+        return tabContainerViewHeight + 20
+    }
+
+    private var titleLabelTopMargin: CGFloat {
+        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
+            return 15
+        }
+        return 24
+    }
+
     
     override init(frame: CGRect) {
         tabContainerView = FilterTabView()
@@ -47,11 +69,20 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             UIView.beginAnimations("", context: nil)
 
             if progressiveness <= 0.58 {
-                self.subtitleLabel.alpha = 0
-                self.primaryButton.alpha = 0
+                subtitleLabel.alpha = 0
+                primaryButton.alpha = 0
+                coverPhotoContainer.alpha = 0
+                coverPhoto.alpha = 0
+                titleLabel.alpha = 0
+                collapseTitleLabel.alpha = 1
+
             } else {
-                self.subtitleLabel.alpha = 1
-                self.primaryButton.alpha = 1
+                titleLabel.alpha = 1
+                coverPhoto.alpha = 1
+                subtitleLabel.alpha = 1
+                coverPhotoContainer.alpha = 1
+                primaryButton.alpha = 1
+                collapseTitleLabel.alpha = 0
             }
 
             UIView.commitAnimations()
@@ -60,19 +91,28 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     
     override func setupLayout() {
         addConstraints([
-            coverPhoto.al_top == al_top,
-            coverPhoto.al_left == al_left,
-            coverPhoto.al_width == al_width,
-            coverPhoto.al_height == al_height,
+            collapseTitleLabel.al_top == al_top + 10,
+            collapseTitleLabel.al_width <= al_width - 30,
+            collapseTitleLabel.al_centerX == al_centerX,
+            collapseTitleLabel.al_height == 22,
 
-            coverPhotoTintView.al_width == coverPhoto.al_width,
-            coverPhotoTintView.al_height == coverPhoto.al_height,
-            coverPhotoTintView.al_left == coverPhoto.al_left,
-            coverPhotoTintView.al_top == coverPhoto.al_top,
+            packBackgroundColor.al_top == al_top,
+            packBackgroundColor.al_left == al_left,
+            packBackgroundColor.al_width == al_width,
+            packBackgroundColor.al_height == al_height,
 
+            coverPhotoContainer.al_centerX == al_centerX,
+            coverPhotoContainer.al_centerY == al_centerY - coverPhotoContainerOffsett,
+            coverPhotoContainer.al_width == coverPhotoContainerSize,
+            coverPhotoContainer.al_height == coverPhotoContainerSize,
+
+            coverPhoto.al_top == coverPhotoContainer.al_top,
+            coverPhoto.al_left == coverPhotoContainer.al_left,
+            coverPhoto.al_right == coverPhotoContainer.al_right,
+            coverPhoto.al_bottom == coverPhotoContainer.al_bottom,
+
+            titleLabel.al_top == coverPhotoContainer.al_bottom + titleLabelTopMargin,
             titleLabel.al_centerX == al_centerX,
-            titleLabel.al_centerY == al_centerY - tabContainerViewHeight,
-            titleLabel.al_top >= al_top + 30,
             titleLabel.al_height == 22,
             titleLabel.al_width <= al_width - 30,
 

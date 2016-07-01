@@ -121,6 +121,22 @@ class PacksService: PackItemViewModel {
         currentInstallation.saveInBackground()
     }
 
+    func addToGlobalPushNotifications() {
+        FIRMessaging.messaging().subscribeToTopic("/topics/global")
+
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.addUniqueObject("pglobal", forKey: "channels")
+        currentInstallation.saveInBackground()
+    }
+
+    func removeFromGlobalPushNotifications() {
+        FIRMessaging.messaging().unsubscribeFromTopic("/topics/global")
+
+        let currentInstallation = PFInstallation.currentInstallation()
+        currentInstallation.removeObject("pglobal", forKey: "channels")
+        currentInstallation.saveInBackground()
+    }
+
     func removePack(pack: PackMediaItem) {
         sendTask("remove", result: pack)
 
