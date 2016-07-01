@@ -9,73 +9,83 @@
 import Foundation
 
 class PacksViewModel: MediaItemsViewModel {
+    var sectionPacks: [String: [MediaItem]]
+    var sections: [String]
+    
     init() {
+        sectionPacks = [:]
+        sections = []
         super.init(collectionType: .Packs)
+        collectionEndpoint = baseRef.child("browse")
     }
     
-    func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
-        guard let packs = items as? [PackMediaItem] else {
-            return [MediaItemGroup]()
+    func generatePacksGroup() -> [MediaItemGroup] {
+        
+        var groups: [MediaItemGroup] = []
+        
+        for section in sections {
+            if let packs = sectionPacks[section] as? [PackMediaItem] {
+                let group = MediaItemGroup(dictionary: [
+                    "id": section,
+                    "title": section,
+                    "type": "section"
+                    ])
+                group.items = packs
+                    .filter { $0.published }
+                    .filter { !$0.featured }
+                    .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
+                groups.append(group)
+            }
         }
-
-        let group = MediaItemGroup(dictionary: [
-            "id": "music",
-            "title": "Music",
-            "type": "pack"
-            ])
-        group.items = packs
-            .filter { $0.published }
-            .filter { !$0.featured }
-            .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
         
-        
-        let group2 = MediaItemGroup(dictionary: [
-            "id": "tv shows",
-            "title": "TV Shows",
-            "type": "pack"
-            ])
-        group2.items = group.items
-        
-        let group3 = MediaItemGroup(dictionary: [
-            "id": "sports",
-            "title": "Sports",
-            "type": "pack"
-            ])
-        group3.items = group.items
-        
-        let group4 = MediaItemGroup(dictionary: [
-            "id": "politics",
-            "title": "Politics",
-            "type": "pack"
-            ])
-        group4.items = group.items
-        
-        let group5 = MediaItemGroup(dictionary: [
-            "id": "celebs",
-            "title": "Celebs",
-            "type": "pack"
-            ])
-        group5.items = group.items
-        
-        let group6 = MediaItemGroup(dictionary: [
-            "id": "random",
-            "title": "Random",
-            "type": "pack"
-            ])
-        group6.items = group.items
-        
-        
-        return [group, group2, group3, group4, group5, group6]
-        
+        return groups
     }
     
     override func generateMediaItemGroups() -> [MediaItemGroup] {
-        if !mediaItems.isEmpty {
-            mediaItemGroups = generatePacksGroup(mediaItems)
+        if !sectionPacks.isEmpty {
+            mediaItemGroups = generatePacksGroup()
             return mediaItemGroups
         }
         
         return []
     }
     
+    override func fetchCollection(completion: ((Bool) -> Void)? = nil) {
+        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                self.isDataLoaded = true
+                if let data = snapshot.value as? [[String: AnyObject]] {
+                    self.sectionPacks = self.processPackItemsCollectionData(data)
+                }
+                
+                let mediaItemGroups = self.generateMediaItemGroups()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: .Packs, groups: mediaItemGroups)
+                    completion?(true)
+                }
+            }
+        })
+    }
+    
+    func processPackItemsCollectionData(data: [[String: AnyObject]]) -> [String: [MediaItem]] {
+        sections = []
+        var links: [MediaItem] = []
+        var filteredPacks: [String: [MediaItem]] = [:]
+        
+        for item in data {
+            if let name = item["name"] as? String, packs = item["packs"] as? [String: AnyObject] {
+                sections.append(name)
+                links = []
+                for (_, pack) in packs {
+                    if let dict = pack as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {
+                        links.append(link)
+                    }
+                }
+                filteredPacks[name] = links
+                mediaItems.appendContentsOf(links)
+            }
+        }
+        
+        return filteredPacks
+    }
 }

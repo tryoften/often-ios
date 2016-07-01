@@ -154,9 +154,7 @@
 		3B5006531CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064E1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift */; };
 		3B6871151D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871161D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
-		3B6871171D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871181D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
-		3B6871191D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6B6FFF1BB0899300669ACD /* StyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6FFD1BB0899300669ACD /* StyleKit.swift */; };
 		3B6EA4311BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */; };
 		3B7107A71CC9455300707602 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
@@ -913,6 +911,10 @@
 		BF9971611CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
 		BF9971631CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */; };
+		BFCB58671D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
+		BFCB58681D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
+		BFCB58691D22D26400F8A212 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
+		BFCB586A1D22D26500F8A212 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
 		BFD877851CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877861CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
 		BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */; };
@@ -1398,6 +1400,7 @@
 				810EA62A1C8579F1005A6C6D /* libsqlite3.dylib in Frameworks */,
 				3B25C6CA1C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
 				810EA62B1C8579F1005A6C6D /* CoreGraphics.framework in Frameworks */,
+				BFCB586A1D22D26500F8A212 /* DFCache.framework in Frameworks */,
 				3B25C6CF1C861F3A00C1BD74 /* UIKit.framework in Frameworks */,
 				810EA62D1C8579F1005A6C6D /* Crashlytics.framework in Frameworks */,
 				810EA62E1C8579F1005A6C6D /* CFNetwork.framework in Frameworks */,
@@ -1484,6 +1487,7 @@
 				81794EFC1A81ECC6009D4A71 /* MobileCoreServices.framework in Frameworks */,
 				81794EFB1A81ECBF009D4A71 /* CoreLocation.framework in Frameworks */,
 				81794EFA1A81EC8C009D4A71 /* libz.dylib in Frameworks */,
+				BFCB58691D22D26400F8A212 /* DFCache.framework in Frameworks */,
 				3B25C6AA1C861F3A00C1BD74 /* Accounts.framework in Frameworks */,
 				81794EF91A81EC85009D4A71 /* libsqlite3.dylib in Frameworks */,
 				3B25C6C81C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
@@ -3236,6 +3240,7 @@
 				810EA5DB1C8579F1005A6C6D /* SwiftAutoLayout.swift in Sources */,
 				3B309D701CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
 				3BC55AC61C8A264600363AB0 /* MediaItemDetailView.swift in Sources */,
+				BFCB58681D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */,
 				3B309D741CE3F496005B9942 /* KeyboardSectionsContainerViewController.swift in Sources */,
 				810EA5DD1C8579F1005A6C6D /* UIColor+HEXString.m in Sources */,
 				69410A541CFF9AEE0036BEA9 /* ShareBarButton.swift in Sources */,
@@ -3253,7 +3258,6 @@
 				810EA5F21C8579F1005A6C6D /* TextProcessingManager.swift in Sources */,
 				810EA5F31C8579F1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
 				816D50201C862830007B3249 /* CategoryCollectionViewCell.swift in Sources */,
-				3B6871191D106E7100AFF61F /* DFCacheExtensions.swift in Sources */,
 				810EA5F51C8579F1005A6C6D /* MediaItemsSectionHeaderView.swift in Sources */,
 				81F15C111CB2B5B700D074CB /* PacksService.swift in Sources */,
 				810EA5F71C8579F1005A6C6D /* KeyboardBrowseNavigationBar.swift in Sources */,
@@ -3455,6 +3459,7 @@
 				3B6EA4311BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift in Sources */,
 				3BA021511C6A999600FE9009 /* Analytics.swift in Sources */,
 				816D50111C861000007B3249 /* CategoryService.swift in Sources */,
+				BFCB58671D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */,
 				BF9861541CDA9AEB005AB2BB /* FilterTabView.swift in Sources */,
 				8157AD811CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				813323801C2216BB0084918B /* EventEmittable.swift in Sources */,
@@ -3471,7 +3476,6 @@
 				3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */,
 				8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */,
 				81BDA7301C3F24BE00198AF8 /* LyricMediaItem.swift in Sources */,
-				3B6871171D106E7100AFF61F /* DFCacheExtensions.swift in Sources */,
 				BF99715B1CC00942008351C7 /* PackItemViewModel.swift in Sources */,
 				8192A7DB1C62410300B25AC6 /* Listener.swift in Sources */,
 				81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */,

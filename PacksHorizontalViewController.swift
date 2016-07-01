@@ -73,8 +73,7 @@ class PacksHorizontalViewController: MediaItemsCollectionBaseViewController {
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell: UICollectionViewCell
-        
-            cell = parsePackItemData(group, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
+        cell = parsePackItemData(group, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
         return cell
     }
 }
