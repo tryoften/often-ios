@@ -130,7 +130,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             }
             
             sectionHeaderView = cell
-            if let sectionTitle = viewModel.generateMediaItemGroups()[indexPath.section].title {
+            if let sectionTitle = viewModel.mediaItemGroups[indexPath.section].title {
                 sectionHeaderView?.leftLabelText = sectionTitle
             }
             
