@@ -19,13 +19,12 @@ let BrowseMediaItemCollectionViewCellReuseIdentifier = "BrowseMediaItemCollectio
 
 class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController,
     MediaItemsCollectionViewCellDelegate,
-    UIViewControllerTransitioningDelegate,
-    PreheatControllerDelegate {
+    UIViewControllerTransitioningDelegate {
     weak var textProcessor: TextProcessingManager?
     var favoritesCollectionListener: Listener? = nil
     var favoriteSelected: Bool = false
     var emptyStateView: EmptyStateView?
-    var preheatController: PreheatController?
+    var preheatController: PreheatController<UICollectionView>?
     var transitionAnimator: FadeInTransitionAnimator?
     var loaderView: AnimatedLoaderView?
     var hudTimer: NSTimer?
@@ -40,9 +39,12 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cellsAnimated = [:]
 
         super.init(collectionViewLayout: layout)
-        preheatController = PreheatControllerForCollectionView(collectionView: collectionView!)
-        preheatController?.delegate = self
-        
+        preheatController = PreheatController(view: collectionView!)
+
+        preheatController?.handler = { [weak self] in
+            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
+        }
+
         collectionView?.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(BrowseMediaItemCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
@@ -429,9 +431,9 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         return nil
     }
 
-    func preheatControllerDidUpdate(controller: PreheatController, addedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) {
-        guard let startPreheatingImages = requestForIndexPaths(addedIndexPaths),
-            let stopPreheatingImages = requestForIndexPaths(removedIndexPaths) else {
+    func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
+        guard let startPreheatingImages = requestForIndexPaths(added),
+            let stopPreheatingImages = requestForIndexPaths(removed) else {
                 return
         }
 
