@@ -105,7 +105,7 @@ class MediaItemsViewModel: BaseViewModel {
         return nil
     }
     
-    private func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
+    func processMediaItemsCollectionData(data: [String: AnyObject]) -> [MediaItem] {
         var links: [MediaItem] = []
         var ids = [String]()
         

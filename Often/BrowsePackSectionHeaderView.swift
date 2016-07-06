@@ -13,14 +13,20 @@ class BrowsePackSectionHeaderView: UICollectionReusableView {
     var rightLabel: UILabel
     var bottomBorderView: UIView
     var topBorderView: UIView
+    var leftLabelText: String {
+        didSet {
+            self.leftLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9.0)!,
+                                  letterSpacing: 1.0,
+                                  color: UIColor.oftDarkGrey74Color(),
+                                  text: leftLabelText.uppercaseString)
+        }
+    }
     
     override init(frame: CGRect) {
         leftLabel = UILabel()
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9.0)!,
-                              letterSpacing: 1.0,
-                              color: UIColor.oftDarkGrey74Color(),
-                              text: "all packs".uppercaseString)
+        
+        leftLabelText = ""
         
         rightLabel = UILabel()
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
