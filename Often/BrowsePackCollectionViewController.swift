@@ -4,19 +4,22 @@
 //
 //  Created by Komran Ghahremani on 3/23/16.
 //  Copyright © 2016 Surf Inc. All rights reserved.
-//
+//2
 
 import UIKit
 
 let horizontalCellReuseIdentifer = "HorizontalCellReuseIdentifier"
 
-class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable {
+class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable, CategoryPanelControllable {
     var headerView: BrowsePackHeaderView?
     var sectionHeaderView: BrowsePackSectionHeaderView?
+    var categorySelectionPanel: BrowseCategoryPanelViewController?
     var packServiceListener: Listener?
     var isNetworkReachable: Bool = true
     var reachabilityView: DropDownMessageView
     var screenWidth: CGFloat
+    var menuOpen: Bool = false
+    let interactor = CategoryPanelInteractor()
     
     init(viewModel: PacksViewModel) {
         screenWidth = UIScreen.mainScreen().bounds.width
@@ -32,12 +35,17 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let brandLabel = UILabel(frame: CGRectMake(0, 0, 64, 20))
         brandLabel.textAlignment = .Center
         brandLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 15)!,
-                               letterSpacing: 2.0,
+                               letterSpacing: 1.0,
                                color: UIColor.oftBlackColor(),
-                               text: "OFTEN")
+                               text: "Often")
 
         navigationItem.titleView = brandLabel
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfMainAppMenu(frame: CGRectMake(0, 0, 35, 35),
+                                                    color: UIColor.oftBlack74Color(), scale: 0.5).imageWithRenderingMode(.AlwaysOriginal),
+                                                    style: .Plain,
+                                                    target: self,
+                                                    action: #selector(BrowsePackCollectionViewController.categoryMenuButtonTapped))
+        
         packServiceListener = PacksService.defaultInstance.didUpdateCurrentMediaItem.on { [weak self] items in
             self?.collectionView?.reloadData()
         }
@@ -180,6 +188,47 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         
     }
     
+    // MARK: CategoryPanelControllable
+    func categoryMenuButtonTapped() {
+        if menuOpen {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfMainAppMenu(frame: CGRectMake(0, 0, 35, 35),
+                                                    color: UIColor.oftBlack74Color(), scale: 0.5).imageWithRenderingMode(.AlwaysOriginal),
+                                                    style: .Plain,
+                                                    target: self,
+                                                    action: #selector(BrowsePackCollectionViewController.categoryMenuButtonTapped))
+            menuOpen = false
+        } else {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: StyleKit.imageOfClose(frame: CGRectMake(0, 0, 35, 35),
+                                                    color: UIColor.oftBlack74Color(), scale: 0.4).imageWithRenderingMode(.AlwaysOriginal),
+                                                    style: .Plain,
+                                                    target: self,
+                                                    action: #selector(BrowsePackCollectionViewController.categoryMenuButtonTapped))
+            menuOpen = true
+            
+            let panelViewController = BrowseCategoryPanelViewController()
+            panelViewController.delegate = self
+            presentViewControllerWithCustomTransitionAnimator(panelViewController, direction: .Right, duration: 0.25)
+        }
+    }
+    
+    override func presentViewControllerWithCustomTransitionAnimator(presentingController: UIViewController, direction: FadeInTransitionDirection, duration: NSTimeInterval) {
+        if let presentingController = presentingController as? BrowseCategoryPanelViewController {
+            transitionAnimator = BrowseCategoryPanelAnimator(presenting: true, duration: duration)
+            presentingController.transitioningDelegate = self
+            presentingController.interactor = interactor
+            presentingController.modalPresentationStyle = .Custom
+            presentViewController(presentingController, animated: true, completion: nil)
+        }
+    }
+    
+    override func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return BrowseCategoryPanelAnimator(presenting: false)
+    }
+    
+    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    
     //MARK: ConnectivityObservable
     func updateReachabilityView() {
         if isNetworkReachable {
@@ -193,3 +242,5 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         }
     }
 }
+
+

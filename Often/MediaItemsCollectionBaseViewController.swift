@@ -409,7 +409,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         presentingController.modalPresentationStyle = .Custom
         presentViewController(presentingController, animated: true, completion: nil)
     }
-
+    
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if let animator = transitionAnimator {
             return animator
@@ -420,22 +420,23 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: false)
-
+        
         return animator
     }
-
+    
     // MARK: PreheatControllerDelegate
     func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
         return nil
     }
-
+    
     func preheatControllerDidUpdate(controller: PreheatController, addedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) {
         guard let startPreheatingImages = requestForIndexPaths(addedIndexPaths),
             let stopPreheatingImages = requestForIndexPaths(removedIndexPaths) else {
                 return
         }
-
+        
         Nuke.startPreheatingImages(startPreheatingImages)
         Nuke.stopPreheatingImages(stopPreheatingImages)
     }
 }
+
