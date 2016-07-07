@@ -63,7 +63,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     func didTapTermsOfUseButton(sender: UIButton) {
-        self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://www.tryoften.com/privacypolicy.html"), animated: true, completion: nil)
+        self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://tryoften.com/privacy"), animated: true, completion: nil)
         
     }
     

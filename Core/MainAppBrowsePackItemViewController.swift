@@ -100,7 +100,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func headerViewDidLoad() {
         let imageURL: NSURL? = packViewModel.pack?.largeImageURL
         let subtitle: String? = packViewModel.pack?.description
-        
+
         setupHeaderView(imageURL, title: packViewModel.pack?.name, subtitle: subtitle)
     }
     
@@ -116,6 +116,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if let string = subtitle {
             header.subtitle = string
+        }
+
+        if let backgroundColor = pack.backgroundColor {
+            header.packBackgroundColor.backgroundColor = backgroundColor
         }
 
         header.primaryButton.title = pack.callToActionText()

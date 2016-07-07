@@ -9,35 +9,88 @@
 import Foundation
 
 class PacksViewModel: MediaItemsViewModel {
+    var sectionPacks: [String: [MediaItem]]
+    var sections: [String]
+    
     init() {
+        sectionPacks = [:]
+        sections = []
         super.init(collectionType: .Packs)
+        collectionEndpoint = baseRef.child("browse")
     }
     
-    func generatePacksGroup(items: [MediaItem]) -> [MediaItemGroup] {
-        guard let packs = items as? [PackMediaItem] else {
-            return [MediaItemGroup]()
-        }
-
-        let group = MediaItemGroup(dictionary: [
-            "id": "packs",
-            "title": "Packs",
-            "type": "pack"
-            ])
-        group.items = packs
-            .filter { $0.published }
-            .filter { !$0.featured }
-            .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
+    func generatePacksGroup() -> [MediaItemGroup] {
         
-        return [group]
+        var groups: [MediaItemGroup] = []
+        
+        for section in sections {
+            if let packs = sectionPacks[section] as? [PackMediaItem] {
+                let group = MediaItemGroup(dictionary: [
+                    "id": section,
+                    "title": section,
+                    "type": "section"
+                    ])
+                let items = packs
+                    .filter { $0.published }
+                    .filter { !$0.featured }
+                    .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
+                group.items = items
+                
+                if !items.isEmpty {
+                    groups.append(group)
+                }
+            }
+        }
+        
+        return groups
     }
     
     override func generateMediaItemGroups() -> [MediaItemGroup] {
-        if !mediaItems.isEmpty {
-            mediaItemGroups = generatePacksGroup(mediaItems)
+        if !sectionPacks.isEmpty {
+            mediaItemGroups = generatePacksGroup()
             return mediaItemGroups
         }
         
         return []
     }
     
+    override func fetchCollection(completion: ((Bool) -> Void)? = nil) {
+        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
+                self.isDataLoaded = true
+                if let data = snapshot.value as? [[String: AnyObject]] {
+                    self.sectionPacks = self.processPackItemsCollectionData(data)
+                }
+                
+                let mediaItemGroups = self.generateMediaItemGroups()
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.mediaLinksViewModelDidCreateMediaItemGroups(self, collectionType: .Packs, groups: mediaItemGroups)
+                    completion?(true)
+                }
+            }
+        })
+    }
+    
+    func processPackItemsCollectionData(data: [[String: AnyObject]]) -> [String: [MediaItem]] {
+        sections = []
+        var items: [MediaItem] = []
+        var filteredPacks: [String: [MediaItem]] = [:]
+        
+        for item in data {
+            if let name = item["name"] as? String,
+                packs = item["items"] as? [[String: AnyObject]] {
+                sections.append(name)
+                items = []
+                for pack in packs {
+                    if let dict = pack as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {
+                        items.append(link)
+                    }
+                }
+                filteredPacks[name] = items
+                mediaItems.appendContentsOf(items)
+            }
+        }
+        
+        return filteredPacks
+    }
 }

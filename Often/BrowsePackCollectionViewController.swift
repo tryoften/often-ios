@@ -8,6 +8,8 @@
 
 import UIKit
 
+let horizontalCellReuseIdentifer = "HorizontalCellReuseIdentifier"
+
 class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable, CategoryPanelControllable {
     var headerView: BrowsePackHeaderView?
     var sectionHeaderView: BrowsePackSectionHeaderView?
@@ -50,6 +52,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
         
+        collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: horizontalCellReuseIdentifer)
         view.addSubview(reachabilityView)
         startMonitoring()
     }
@@ -77,8 +80,8 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 370)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 230)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 210) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -135,30 +138,44 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             }
             
             sectionHeaderView = cell
+            if let sectionTitle = viewModel.mediaItemGroups[indexPath.section].title {
+                sectionHeaderView?.leftLabelText = sectionTitle
+            }
             
             return cell
         }
         
         return UICollectionReusableView()
     }
-
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        super.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
-
-        if collectionType == .Packs {
-            let result = viewModel.mediaItemGroupItemsForIndex(indexPath.section)[indexPath.row]
-            guard let pack = result as? PackMediaItem, let id = pack.pack_id else {
-                return
-            }
-
-            let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
-            navigationController?.navigationBar.hidden = false
-            navigationController?.pushViewController(packVC, animated: true)
+    
+    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(horizontalCellReuseIdentifer, forIndexPath: indexPath)
+        resetCell(cell)
+        let horizontalVC = PacksHorizontalViewController()
+        addChildViewController(horizontalVC)
+        horizontalVC.group = viewModel.mediaItemGroupItemsForIndex(indexPath.section)
+        cell.contentView.addSubview(horizontalVC.view)
+        horizontalVC.view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        horizontalVC.view.frame = cell.bounds
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        return CGSizeMake(screenWidth, 210)
+    }
+    
+    func resetCell(cell: UICollectionViewCell) {
+        for view in cell.contentView.subviews {
+            view.removeFromSuperview()
         }
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 9.0 as CGFloat
+        return 0.0 as CGFloat
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -167,7 +184,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        return CGSizeMake(screenWidth, 35.0)
+        return CGSizeMake(screenWidth, 30.0)
         
     }
     

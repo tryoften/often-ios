@@ -13,7 +13,7 @@ class ShareBarButton: UIButton {
     
     override init(frame: CGRect) {
         textLabel = UILabel()
-        textLabel.font = UIFont(name: "Montserrat", size: 12.0)
+        textLabel.font = UIFont(name: "Montserrat", size: 9.0)
         textLabel.textColor = WhiteColor
         textLabel.text = "SHARE"
         textLabel.textAlignment = .Center

@@ -25,13 +25,11 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     private let scrollView: UIScrollView
     private let itemWidth: CGFloat
     private let width: CGFloat
-    private var titleLabel: UILabel
-    private var subtitleLabel: UILabel
     private var premiumIcon: UIImageView
     private var topBorderView: UIView
 
     static var padding: CGFloat {
-        return 80.0
+        return 50.0
     }
     
     init(viewModel: MediaItemGroupViewModel = MediaItemGroupViewModel(path: "featured/packs")) {
@@ -44,14 +42,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         itemWidth = UIScreen.mainScreen().bounds.width - (self.dynamicType.padding * 2)
         width = itemWidth + (self.dynamicType.padding / 2)
         currentPage = 0
-
-        titleLabel = UILabel()
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        subtitleLabel = UILabel()
-        subtitleLabel.textAlignment = .Center
-        subtitleLabel.numberOfLines = 2
-        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         premiumIcon = UIImageView(image: StyleKit.imageOfPremium(color: TealColor, frame: CGRectMake(0, 0, 25, 25)))
         premiumIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -80,8 +70,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         view.clipsToBounds = false
 
         view.addSubview(collectionView)
-        view.addSubview(titleLabel)
-        view.addSubview(subtitleLabel)
         view.addSubview(premiumIcon)
         view.addSubview(topBorderView)
         view.addSubview(scrollView)
@@ -101,23 +89,11 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
 
     func setupLayout() {
         view.addConstraints([
-            collectionView.al_top == view.al_top + 15,
+            collectionView.al_top == view.al_top,
             collectionView.al_left == view.al_left,
             collectionView.al_width == view.al_width,
-            collectionView.al_height == 260,
-
-            titleLabel.al_top == collectionView.al_bottom,
-            titleLabel.al_centerX == view.al_centerX,
-
-            premiumIcon.al_centerY == titleLabel.al_centerY,
-            premiumIcon.al_left == titleLabel.al_right + 5,
-
-            subtitleLabel.al_top == titleLabel.al_bottom + 5,
-            subtitleLabel.al_centerX == view.al_centerX,
-            subtitleLabel.al_left == view.al_left + 52,
-            subtitleLabel.al_right == view.al_right - 52,
-            subtitleLabel.al_height == 40,
-
+            collectionView.al_height == 230,
+            
             topBorderView.al_left == view.al_left,
             topBorderView.al_right == view.al_right,
             topBorderView.al_top == view.al_top,
@@ -132,7 +108,7 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
             viewLayout.minimumInteritemSpacing = padding / 2
             viewLayout.minimumLineSpacing = padding / 2
             viewLayout.sectionInset = UIEdgeInsets(top: 0, left: padding, bottom: 0.0, right: padding)
-            viewLayout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+            viewLayout.itemSize = CGSize(width: itemWidth, height: itemWidth * (2/3))
             return viewLayout
         }
     }
@@ -186,32 +162,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
             contentOffset.x = contentOffset.x - collectionView.contentInset.left
             collectionView.contentOffset = contentOffset
         }
-
-        updatePackMetaData()
-    }
-
-    func updatePackMetaData() {
-        let centerPoint = CGPointMake(collectionView.frame.size.width / 2 + scrollView.contentOffset.x, collectionView.frame.size.height / 2 + scrollView.contentOffset.y)
-        if let indexPathOfCentralCell = collectionView.indexPathForItemAtPoint(centerPoint), let group = viewModel.groupAtIndex(indexPathOfCentralCell.section), let pack = group.items[indexPathOfCentralCell.row] as? PackMediaItem {
-            if let title = pack.name {
-                titleLabel.setTextWith(UIFont(name: "Montserrat", size: 16.0)!,
-                                       letterSpacing: 1.0,
-                                       color: BlackColor,
-                                       text: title.uppercaseString)
-            }
-
-            if let subtitle = pack.description {
-                subtitleLabel.setTextWith(UIFont(name: "OpenSans", size: 12)!,
-                                          letterSpacing: 0.5,
-                                          color: UIColor.oftDarkGrey74Color(),
-                                          lineHeight: 1.1,
-                                          text: subtitle)
-            }
-
-            premiumIcon.hidden = !pack.premium
-        }
-        
-        
     }
 
     // MARK: UICollectionViewDataSource
@@ -235,6 +185,14 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
             guard let pack = group.items[indexPath.row] as? PackMediaItem else {
                 return BrowsePackHeaderCollectionViewCell()
             }
+            
+            if let title = pack.name {
+                cell.titleLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 18.0)!,
+                                            letterSpacing: 1.0,
+                                            color: WhiteColor,
+                                            text: title.uppercaseString)
+            }
+
 
             if let imageURL = pack.largeImageURL {
                 cell.artistImage.nk_setImageWith(imageURL)
@@ -259,7 +217,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
 
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView.reloadData()
-        updatePackMetaData()
     }
 
     // MARK: PreheatControllerDelegate

@@ -13,6 +13,9 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
     var artistImage: UIImageView
     var confirmView: UIImageView
     var shadowLayer: CAShapeLayer
+    var titleLabel: UILabel
+    var subtitleLabel: UILabel
+    var gradientView: UIImageView
 
     private var artistImageLeftAndRightMargin: CGFloat {
         if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
@@ -42,20 +45,43 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
         confirmView.alpha = 0
         confirmView.contentMode = .Center
         
+        gradientView = UIImageView()
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.contentMode = .ScaleAspectFill
+        gradientView.clipsToBounds = true
+        gradientView.image = UIImage(named: "gradient")
+        gradientView.layer.cornerRadius = 4.0
+        
+        titleLabel = UILabel()
+        titleLabel.textAlignment = .Center
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        subtitleLabel = UILabel()
+        subtitleLabel.textAlignment = .Center
+        subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        subtitleLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9.0)!,
+                                  letterSpacing: 0.5,
+                                  color: WhiteColor,
+                                  text: "featured keyboard".uppercaseString)
+        
         shadowLayer = CAShapeLayer()
+        
         
         super.init(frame: frame)
         
         contentView.addSubview(placeholderImage)
         contentView.addSubview(artistImage)
+        contentView.addSubview(gradientView)
         contentView.addSubview(confirmView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(subtitleLabel)
         
         layer.cornerRadius = 4.0
         layer.shadowColor = UIColor.blackColor().CGColor
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSizeMake(0, 2)
         layer.shadowRadius = 4
-
+        
         setupLayout()
     }
     
@@ -106,10 +132,21 @@ class BrowsePackHeaderCollectionViewCell: UICollectionViewCell {
             artistImage.al_width == al_width - artistImageLeftAndRightMargin,
             artistImage.al_height == al_height - artistImageLeftAndRightMargin,
             
+            gradientView.al_centerY == artistImage.al_centerY,
+            gradientView.al_centerX == artistImage.al_centerX,
+            gradientView.al_width == artistImage.al_width,
+            gradientView.al_height == artistImage.al_height,
+            
             confirmView.al_centerX == al_centerX,
             confirmView.al_centerY == al_centerY,
             confirmView.al_width == al_width,
-            confirmView.al_height == al_height
+            confirmView.al_height == al_height,
+            
+            titleLabel.al_centerY == al_centerY,
+            titleLabel.al_centerX == al_centerX,
+            
+            subtitleLabel.al_top == titleLabel.al_bottom,
+            subtitleLabel.al_centerX == al_centerX
         ])
     }
     
