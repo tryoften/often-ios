@@ -30,11 +30,15 @@ class PacksViewModel: MediaItemsViewModel {
                     "title": section,
                     "type": "section"
                     ])
-                group.items = packs
+                let items = packs
                     .filter { $0.published }
                     .filter { !$0.featured }
                     .sort { $0.publishedTime.compare($1.publishedTime) == .OrderedDescending }
-                groups.append(group)
+                group.items = items
+                
+                if !items.isEmpty {
+                    groups.append(group)
+                }
             }
         }
         
@@ -69,20 +73,21 @@ class PacksViewModel: MediaItemsViewModel {
     
     func processPackItemsCollectionData(data: [[String: AnyObject]]) -> [String: [MediaItem]] {
         sections = []
-        var links: [MediaItem] = []
+        var items: [MediaItem] = []
         var filteredPacks: [String: [MediaItem]] = [:]
         
         for item in data {
-            if let name = item["name"] as? String, packs = item["packs"] as? [String: AnyObject] {
+            if let name = item["name"] as? String,
+                packs = item["items"] as? [[String: AnyObject]] {
                 sections.append(name)
-                links = []
-                for (_, pack) in packs {
+                items = []
+                for pack in packs {
                     if let dict = pack as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {
-                        links.append(link)
+                        items.append(link)
                     }
                 }
-                filteredPacks[name] = links
-                mediaItems.appendContentsOf(links)
+                filteredPacks[name] = items
+                mediaItems.appendContentsOf(items)
             }
         }
         

@@ -17,5 +17,6 @@
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayout.h>
 #import <CSStickyHeaderFlowLayout/CSStickyHeaderFlowLayoutAttributes.h>
 #import <DateTools/DateTools.h>
+#import <DFCache/DFCache.h>
 #import "NJKScrollFullScreen.h"
 #import "UIViewController+NJKFullScreenSupport.h"

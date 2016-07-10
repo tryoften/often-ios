@@ -6,3 +6,4 @@ github "kean/Nuke-Alamofire-Plugin" # optional
 github "kean/Nuke-AnimatedImage-Plugin" # optional
 github "kean/Preheat"
 github "kean/DFCache"
+    
