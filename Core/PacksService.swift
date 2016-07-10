@@ -102,6 +102,26 @@ class PacksService: PackItemViewModel {
         }
     }
 
+    func fetchLocalData(completion: ((Bool) -> Void)? = nil) {
+        if let path = NSBundle.mainBundle().pathForResource("djkhaledpack", ofType: "json") {
+            do {
+                let jsonData =  try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+                if let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+                    self.isDataLoaded = true
+                    let pack = PackMediaItem(data: jsonResult)
+                    self.mediaItems = [pack]
+                    if let packs = mediaItems as? [PackMediaItem] {
+                        populateCurrentPack()
+                        didUpdatePacks.emit(packs)
+                    }
+                }
+            } catch _{
+
+            }
+
+        }
+    }
+
     func generateMediaItemGroups() -> [MediaItemGroup] {
         if !mediaItems.isEmpty {
             mediaItemGroups = generatePacksGroup(mediaItems)
@@ -118,8 +138,7 @@ class PacksService: PackItemViewModel {
 
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
-        currentInstallation.saveInBackground()
-    }
+        currentInstallation.saveInBackground()    }
 
     func addToGlobalPushNotifications() {
         FIRMessaging.messaging().subscribeToTopic("/topics/global")
