@@ -115,6 +115,12 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         self.setImageWith(ImageRequest(URL: URL))
     }
 
+    func setImageWithData(data: NSData) {
+        let image = FLAnimatedImage(animatedGIFData: data)
+        backgroundImageView.animatedImage = image
+
+    }
+
     func setImageWith(request: ImageRequest) {
         let task = self.backgroundImageView.nk_setImageWith(request)
         task.progressHandler = { [weak self, weak task] _ in
