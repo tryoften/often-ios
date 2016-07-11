@@ -12,6 +12,7 @@ import Nuke
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
+    var fullAccessButton: UIButton?
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
@@ -82,9 +83,38 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             PacksService.defaultInstance.fetchLocalData()
             hideEmptyStateView()
             hideLoadingView()
+            showFullAccessButton()
         } else {
+            hideFullAccessButton()
             hideEmptyStateView()
         }
+    }
+
+    func showFullAccessButton() {
+        self.fullAccessButton?.removeFromSuperview()
+        self.fullAccessButton = nil
+        CGRectMake(0, KeyboardTabBarHeight, view.bounds.width, KeyboardTabBarHeight)
+        fullAccessButton = UIButton(frame: CGRectMake(0, view.bounds.height - 2 * KeyboardTabBarHeight, view.bounds.width, KeyboardTabBarHeight))
+        fullAccessButton?.setTitle("please allow full access to get the full often keyboard experience", forState: .Normal)
+        fullAccessButton?.backgroundColor = UIColor.oftVividPurpleColor()
+        fullAccessButton?.alpha = 0.75
+        fullAccessButton?.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        fullAccessButton?.setTitleColor(WhiteColor , forState: .Normal)
+        fullAccessButton?.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
+
+        if let fullAccessButton = fullAccessButton {
+            view.addSubview(fullAccessButton)
+        }
+    }
+
+    func hideFullAccessButton() {
+        UIView.animateWithDuration(0.3, animations: {
+            self.fullAccessButton?.alpha = 0.0
+            }, completion: { done in
+                self.fullAccessButton?.removeFromSuperview()
+                self.fullAccessButton = nil
+        })
+
     }
 
     func didTapGoToSettingsButton() {
@@ -203,8 +233,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
                     }
                 }
-                
-                
+
                 cell.mediaLink = gif
                 cell.delegate = self
                 return cell
