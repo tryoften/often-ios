@@ -50,6 +50,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             self?.collectionView?.reloadData()
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didSelectBrowseCategory(_:)), name: "didSelectBrowseCategory", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
         
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: horizontalCellReuseIdentifer)
@@ -62,6 +63,13 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
+        }
+    }
+    
+    func didSelectBrowseCategory(notification: NSNotification) {
+        if let section = notification.userInfo!["section"] as? Int {
+            let indexPath = NSIndexPath(forItem: 0, inSection: section)
+            collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
         }
     }
     
@@ -204,10 +212,11 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
                                                     target: self,
                                                     action: #selector(BrowsePackCollectionViewController.categoryMenuButtonTapped))
             menuOpen = true
-            
-            let panelViewController = BrowseCategoryPanelViewController()
-            panelViewController.delegate = self
-            presentViewControllerWithCustomTransitionAnimator(panelViewController, direction: .Right, duration: 0.25)
+            if let viewModel = viewModel as? PacksViewModel {
+                let panelViewController = BrowseCategoryPanelViewController(viewModel: viewModel)
+                panelViewController.delegate = self
+                presentViewControllerWithCustomTransitionAnimator(panelViewController, direction: .Right, duration: 0.25)
+            }
         }
     }
     
