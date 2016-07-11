@@ -109,6 +109,41 @@
 		3B25C6E61C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E71C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
 		3B25C6E81C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */; };
+		3B2BF1CC1D2EBDE700F6B65B /* djkhaledpack.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */; };
+		3B2BF1CD1D2EBDE700F6B65B /* djkhaledpack.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */; };
+		3B2BF1CE1D2EBDE700F6B65B /* djkhaledpack.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */; };
+		3B2BF1DB1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D11D2ED87000F6B65B /* gif:EkYPNq1lZ.gif */; };
+		3B2BF1DC1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D11D2ED87000F6B65B /* gif:EkYPNq1lZ.gif */; };
+		3B2BF1DD1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D11D2ED87000F6B65B /* gif:EkYPNq1lZ.gif */; };
+		3B2BF1DE1D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D21D2ED87000F6B65B /* gif:V1044qJeW.gif */; };
+		3B2BF1DF1D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D21D2ED87000F6B65B /* gif:V1044qJeW.gif */; };
+		3B2BF1E01D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D21D2ED87000F6B65B /* gif:V1044qJeW.gif */; };
+		3B2BF1E11D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif */; };
+		3B2BF1E21D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif */; };
+		3B2BF1E31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif */; };
+		3B2BF1E41D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D41D2ED87000F6B65B /* gif:VkwCE5yg-.gif */; };
+		3B2BF1E51D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D41D2ED87000F6B65B /* gif:VkwCE5yg-.gif */; };
+		3B2BF1E61D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D41D2ED87000F6B65B /* gif:VkwCE5yg-.gif */; };
+		3B2BF1E71D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D51D2ED87000F6B65B /* gif:VyCDm91gZ.gif */; };
+		3B2BF1E81D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D51D2ED87000F6B65B /* gif:VyCDm91gZ.gif */; };
+		3B2BF1E91D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D51D2ED87000F6B65B /* gif:VyCDm91gZ.gif */; };
+		3B2BF1EA1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D61D2ED87000F6B65B /* gif:VypoM9JxW.gif */; };
+		3B2BF1EB1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D61D2ED87000F6B65B /* gif:VypoM9JxW.gif */; };
+		3B2BF1EC1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D61D2ED87000F6B65B /* gif:VypoM9JxW.gif */; };
+		3B2BF1ED1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D71D2ED87000F6B65B /* gif:rybVfNQg.gif */; };
+		3B2BF1EE1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D71D2ED87000F6B65B /* gif:rybVfNQg.gif */; };
+		3B2BF1EF1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D71D2ED87000F6B65B /* gif:rybVfNQg.gif */; };
+		3B2BF1F01D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D81D2ED87000F6B65B /* gif:ryaZXEXg.gif */; };
+		3B2BF1F11D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D81D2ED87000F6B65B /* gif:ryaZXEXg.gif */; };
+		3B2BF1F21D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D81D2ED87000F6B65B /* gif:ryaZXEXg.gif */; };
+		3B2BF1F31D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D91D2ED87000F6B65B /* gif:H1VU7VXe.gif */; };
+		3B2BF1F41D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D91D2ED87000F6B65B /* gif:H1VU7VXe.gif */; };
+		3B2BF1F51D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1D91D2ED87000F6B65B /* gif:H1VU7VXe.gif */; };
+		3B2BF1F61D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1DA1D2ED87000F6B65B /* gif:B1jJm4mg.gif */; };
+		3B2BF1F71D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1DA1D2ED87000F6B65B /* gif:B1jJm4mg.gif */; };
+		3B2BF1F81D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1DA1D2ED87000F6B65B /* gif:B1jJm4mg.gif */; };
+		3B2BF1F91D2EEA4A00F6B65B /* djkhaledpack.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */; };
+		3B2BF1FA1D2EEA4B00F6B65B /* djkhaledpack.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */; };
 		3B309D6C1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
 		3B309D6D1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
 		3B309D6E1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */; };
@@ -1110,6 +1145,17 @@
 		3B25C6961C861F3A00C1BD74 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterKit.framework; sourceTree = "<group>"; };
 		3B25C6971C861F3A00C1BD74 /* TwitterKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TwitterKitResources.bundle; path = TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle; sourceTree = "<group>"; };
 		3B25C6981C861F3A00C1BD74 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TwitterCore.framework; sourceTree = "<group>"; };
+		3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = djkhaledpack.json; path = ../Often/djkhaledpack.json; sourceTree = "<group>"; };
+		3B2BF1D11D2ED87000F6B65B /* gif:EkYPNq1lZ.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:EkYPNq1lZ.gif"; sourceTree = "<group>"; };
+		3B2BF1D21D2ED87000F6B65B /* gif:V1044qJeW.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:V1044qJeW.gif"; sourceTree = "<group>"; };
+		3B2BF1D31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:Vkh1B5kgZ.gif"; sourceTree = "<group>"; };
+		3B2BF1D41D2ED87000F6B65B /* gif:VkwCE5yg-.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:VkwCE5yg-.gif"; sourceTree = "<group>"; };
+		3B2BF1D51D2ED87000F6B65B /* gif:VyCDm91gZ.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:VyCDm91gZ.gif"; sourceTree = "<group>"; };
+		3B2BF1D61D2ED87000F6B65B /* gif:VypoM9JxW.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:VypoM9JxW.gif"; sourceTree = "<group>"; };
+		3B2BF1D71D2ED87000F6B65B /* gif:rybVfNQg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:rybVfNQg.gif"; sourceTree = "<group>"; };
+		3B2BF1D81D2ED87000F6B65B /* gif:ryaZXEXg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:ryaZXEXg.gif"; sourceTree = "<group>"; };
+		3B2BF1D91D2ED87000F6B65B /* gif:H1VU7VXe.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:H1VU7VXe.gif"; sourceTree = "<group>"; };
+		3B2BF1DA1D2ED87000F6B65B /* gif:B1jJm4mg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "gif:B1jJm4mg.gif"; sourceTree = "<group>"; };
 		3B309D6B1CE3E38B005B9942 /* BrowseMediaItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseMediaItemViewController.swift; sourceTree = "<group>"; };
 		3B309D771CE4DF63005B9942 /* FullScreenCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenCollectionViewController.swift; sourceTree = "<group>"; };
 		3B3A1B7E1C4F4AAA0075D601 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginButton.swift; path = Often/LoginButton.swift; sourceTree = SOURCE_ROOT; };
@@ -1337,9 +1383,7 @@
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
-		BF1C79B81CCEC3E2002ED5B7 /* Material.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Material.framework; path = Carthage/Build/iOS/Material.framework; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
-		BF99550B1CF653D50054E770 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
 		BF99714C1CBEF030008351C7 /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
 		BF9971521CBEF388008351C7 /* GifCellOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCellOverlayView.swift; sourceTree = "<group>"; };
@@ -1619,6 +1663,32 @@
 				B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3B2BF1CF1D2EBE1600F6B65B /* Local Pack */ = {
+			isa = PBXGroup;
+			children = (
+				3B2BF1D01D2ED85C00F6B65B /* gifs */,
+				3B2BF1CB1D2EBDE700F6B65B /* djkhaledpack.json */,
+			);
+			name = "Local Pack";
+			sourceTree = "<group>";
+		};
+		3B2BF1D01D2ED85C00F6B65B /* gifs */ = {
+			isa = PBXGroup;
+			children = (
+				3B2BF1D11D2ED87000F6B65B /* gif:EkYPNq1lZ.gif */,
+				3B2BF1D21D2ED87000F6B65B /* gif:V1044qJeW.gif */,
+				3B2BF1D31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif */,
+				3B2BF1D41D2ED87000F6B65B /* gif:VkwCE5yg-.gif */,
+				3B2BF1D51D2ED87000F6B65B /* gif:VyCDm91gZ.gif */,
+				3B2BF1D61D2ED87000F6B65B /* gif:VypoM9JxW.gif */,
+				3B2BF1D71D2ED87000F6B65B /* gif:rybVfNQg.gif */,
+				3B2BF1D81D2ED87000F6B65B /* gif:ryaZXEXg.gif */,
+				3B2BF1D91D2ED87000F6B65B /* gif:H1VU7VXe.gif */,
+				3B2BF1DA1D2ED87000F6B65B /* gif:B1jJm4mg.gif */,
+			);
+			name = gifs;
 			sourceTree = "<group>";
 		};
 		3B58FAD21C4451AE00A38F9E /* Services */ = {
@@ -2153,6 +2223,7 @@
 				81B6D58D1A95B07B0089767B /* View Models */,
 				81AD7FBC1A2818BC00C616F4 /* View Controllers */,
 				8180E6331A142199007FA1CF /* Supporting Files */,
+				3B2BF1CF1D2EBE1600F6B65B /* Local Pack */,
 				8180E67D1A147F7D007FA1CF /* Views */,
 			);
 			path = Keyboard;
@@ -2546,6 +2617,7 @@
 				810EA5741C8579D1005A6C6D /* OpenSans-BoldItalic.ttf in Resources */,
 				810EA5751C8579D1005A6C6D /* OpenSans-Italic.ttf in Resources */,
 				810EA5761C8579D1005A6C6D /* OpenSans-Regular.ttf in Resources */,
+				3B2BF1FA1D2EEA4B00F6B65B /* djkhaledpack.json in Resources */,
 				810EA5771C8579D1005A6C6D /* Oswald-Light.ttf in Resources */,
 				69B5490B1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6E21C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
@@ -2568,20 +2640,31 @@
 				810EA6331C8579F1005A6C6D /* Montserrat-Regular.ttf in Resources */,
 				810EA6341C8579F1005A6C6D /* Oswald-Bold.ttf in Resources */,
 				69B5490C1CB348F600C3D1BC /* Montserrat-SemiBold.otf in Resources */,
+				3B2BF1E91D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */,
 				810EA6351C8579F1005A6C6D /* Images.xcassets in Resources */,
 				810EA6361C8579F1005A6C6D /* OpenSans-Light.ttf in Resources */,
 				810EA6371C8579F1005A6C6D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				810EA6381C8579F1005A6C6D /* EmojisList.plist in Resources */,
+				3B2BF1EC1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */,
 				810EA6391C8579F1005A6C6D /* OpenSans-LightItalic.ttf in Resources */,
 				810EA63A1C8579F1005A6C6D /* Oswald-Light.ttf in Resources */,
 				810EA63B1C8579F1005A6C6D /* OpenSans-Italic.ttf in Resources */,
+				3B2BF1F51D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */,
+				3B2BF1E31D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */,
+				3B2BF1DD1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */,
 				810EA63C1C8579F1005A6C6D /* Oswald-Regular.ttf in Resources */,
+				3B2BF1CE1D2EBDE700F6B65B /* djkhaledpack.json in Resources */,
 				810EA63D1C8579F1005A6C6D /* OpenSans-Semibold.ttf in Resources */,
+				3B2BF1F81D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */,
+				3B2BF1E01D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */,
 				810EA63E1C8579F1005A6C6D /* OpenSans-Bold.ttf in Resources */,
 				810EA63F1C8579F1005A6C6D /* OpenSans-BoldItalic.ttf in Resources */,
 				810EA6401C8579F1005A6C6D /* font_icons8.ttf in Resources */,
 				810EA6411C8579F1005A6C6D /* OpenSans-ExtraBold.ttf in Resources */,
 				810EA6421C8579F1005A6C6D /* OpenSans-Regular.ttf in Resources */,
+				3B2BF1EF1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */,
+				3B2BF1E61D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */,
+				3B2BF1F21D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */,
 				BF9955101CF8EDB00054E770 /* GoogleService-Info.plist in Resources */,
 				3B25C6E31C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				810EA6431C8579F1005A6C6D /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -2601,6 +2684,7 @@
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
 				3BAAB1AB1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
+				3B2BF1F91D2EEA4A00F6B65B /* djkhaledpack.json in Resources */,
 				69B549081CB348F400C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6DF1C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				69A731301C602A3E00F3DBAD /* EmojisList.plist in Resources */,
@@ -2623,20 +2707,31 @@
 				81DF4BBE1BB49371008B1A38 /* Montserrat-Regular.ttf in Resources */,
 				3BAAB1AA1B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				69B5490A1CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */,
+				3B2BF1E81D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */,
 				81C1E4791ADCE30D00E87FC6 /* Images.xcassets in Resources */,
 				3BAAB19D1B1A5D3700EA1925 /* OpenSans-Light.ttf in Resources */,
 				3BAAB1991B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				69A731321C602A3E00F3DBAD /* EmojisList.plist in Resources */,
+				3B2BF1EB1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */,
 				3BAAB19F1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AC1B1A653100EA1925 /* Oswald-Light.ttf in Resources */,
 				3BAAB19B1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
+				3B2BF1F41D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */,
+				3B2BF1E21D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */,
+				3B2BF1DC1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */,
 				3BAAB1AE1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
+				3B2BF1CD1D2EBDE700F6B65B /* djkhaledpack.json in Resources */,
 				3BAAB1A31B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
+				3B2BF1F71D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */,
+				3B2BF1DF1D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */,
 				3BAAB1931B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1951B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				81E26D921B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1971B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
 				3BAAB1A11B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
+				3B2BF1EE1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */,
+				3B2BF1E51D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */,
+				3B2BF1F11D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */,
 				3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
 				3B25C6E11C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				3BAAB1A51B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -2647,27 +2742,38 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2BF1F61D2ED87000F6B65B /* gif:B1jJm4mg.gif in Resources */,
 				81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */,
+				3B2BF1ED1D2ED87000F6B65B /* gif:rybVfNQg.gif in Resources */,
 				81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */,
 				81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */,
 				81DA3F591C24BE85006822D3 /* Oswald-Bold.ttf in Resources */,
 				81DA3F5B1C24BE85006822D3 /* OpenSans-ExtraBold.ttf in Resources */,
 				81DA3F5C1C24BE85006822D3 /* OpenSans-BoldItalic.ttf in Resources */,
+				3B2BF1EA1D2ED87000F6B65B /* gif:VypoM9JxW.gif in Resources */,
+				3B2BF1DB1D2ED87000F6B65B /* gif:EkYPNq1lZ.gif in Resources */,
 				81DA3F5D1C24BE85006822D3 /* OpenSans-Italic.ttf in Resources */,
+				3B2BF1E71D2ED87000F6B65B /* gif:VyCDm91gZ.gif in Resources */,
 				81DA3F5E1C24BE85006822D3 /* OpenSans-Regular.ttf in Resources */,
+				3B2BF1F01D2ED87000F6B65B /* gif:ryaZXEXg.gif in Resources */,
 				81DA3F5F1C24BE85006822D3 /* Oswald-Light.ttf in Resources */,
+				3B2BF1CC1D2EBDE700F6B65B /* djkhaledpack.json in Resources */,
 				69B549091CB348F500C3D1BC /* Montserrat-SemiBold.otf in Resources */,
 				3B25C6E01C861F3A00C1BD74 /* TwitterKitResources.bundle in Resources */,
 				69A731311C602A3E00F3DBAD /* EmojisList.plist in Resources */,
 				81DA3F611C24BE85006822D3 /* OpenSans-Light.ttf in Resources */,
+				3B2BF1E41D2ED87000F6B65B /* gif:VkwCE5yg-.gif in Resources */,
 				81DA3F621C24BE85006822D3 /* OpenSans-LightItalic.ttf in Resources */,
 				81DA3F631C24BE85006822D3 /* Oswald-Regular.ttf in Resources */,
 				3BAC294B1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */,
 				81DA3F641C24BE85006822D3 /* Images.xcassets in Resources */,
+				3B2BF1DE1D2ED87000F6B65B /* gif:V1044qJeW.gif in Resources */,
+				3B2BF1F31D2ED87000F6B65B /* gif:H1VU7VXe.gif in Resources */,
 				81DA3F651C24BE85006822D3 /* font_icons8.ttf in Resources */,
 				81DA3F661C24BE85006822D3 /* OpenSans-Semibold.ttf in Resources */,
 				81DA3F671C24BE85006822D3 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				3B0D116F1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
+				3B2BF1E11D2ED87000F6B65B /* gif:Vkh1B5kgZ.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3806,7 +3912,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -3833,7 +3939,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "4c9517e9-bb53-49b8-ad07-01d059ac938c";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3846,8 +3952,8 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3876,7 +3982,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd02d768-b043-48e3-b7af-cd49da8f4e74";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -4197,7 +4303,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4219,7 +4325,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "4c9517e9-bb53-49b8-ad07-01d059ac938c";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4271,8 +4377,8 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4300,7 +4406,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "cd02d768-b043-48e3-b7af-cd49da8f4e74";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
