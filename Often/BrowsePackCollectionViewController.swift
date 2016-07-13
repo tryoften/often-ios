@@ -9,6 +9,7 @@
 import UIKit
 
 let horizontalCellReuseIdentifer = "HorizontalCellReuseIdentifier"
+let headerSize: CGFloat = 230
 
 class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable, CategoryPanelControllable {
     var headerView: BrowsePackHeaderView?
@@ -68,8 +69,9 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     
     func didSelectBrowseCategory(notification: NSNotification) {
         if let section = notification.userInfo!["section"] as? Int {
-            let indexPath = NSIndexPath(forItem: 0, inSection: section)
-            collectionView?.scrollToItemAtIndexPath(indexPath, atScrollPosition: .Top, animated: true)
+            let scrollHeight: CGFloat = CGFloat((30 + 210 + 24) * section)
+            let topOfHeader = CGPointMake(0, headerSize + scrollHeight)
+            collectionView?.setContentOffset(topOfHeader, animated:true)
         }
     }
     
@@ -88,7 +90,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 230)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerSize)
         flowLayout.itemSize = CGSizeMake(screenWidth, 210) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
