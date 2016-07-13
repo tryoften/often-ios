@@ -156,10 +156,14 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         return UICollectionReusableView()
     }
     
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return viewModel.mediaItemGroups.count
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
-    
+        
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(horizontalCellReuseIdentifer, forIndexPath: indexPath)
         resetCell(cell)
