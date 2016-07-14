@@ -49,7 +49,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             self?.centerOnDefaultCard()
         }
         
-        view.backgroundColor = ClearColor
         collectionView?.backgroundColor = VeryLightGray
         
         view.addSubview(packSliderView)
