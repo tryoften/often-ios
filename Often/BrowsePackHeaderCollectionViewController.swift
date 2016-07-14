@@ -28,6 +28,9 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     private var topBorderView: UIView
 
     static var padding: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 35.0
+        }
         return 50.0
     }
     
