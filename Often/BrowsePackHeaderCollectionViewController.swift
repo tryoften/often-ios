@@ -59,7 +59,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         preheatController = PreheatControllerForCollectionView(collectionView: collectionView)
         preheatController?.delegate = self
 
-
         view.backgroundColor = UIColor.clearColor()
 
         viewModel.delegate = self

@@ -250,7 +250,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             let quote = (result as! QuoteMediaItem)
             cell.leftHeaderLabel.text = quote.origin_name
             cell.rightHeaderLabel.text = quote.origin_name
-            cell.mainTextLabel.text = "\"\(quote.text)\""
+            cell.mainTextLabel.text = quote.text
             cell.leftMetadataLabel.text = quote.owner_name
             cell.mainTextLabel.textAlignment = .Right
             cell.showImageView = false

@@ -70,11 +70,9 @@ class MediaItemDetailViewController: UIViewController {
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(view.bounds.width - 2, view.bounds.height - 2), true, 0.0)
         view.drawViewHierarchyInRect(view.bounds, afterScreenUpdates: false)
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()
-    
+        
         NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: item)
-        
         UIPasteboard.generalPasteboard().image = image
-        
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(item.toDictionary()))
     }
 
