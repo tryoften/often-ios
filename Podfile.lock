@@ -15,22 +15,12 @@ PODS:
   - Bolts/Tasks (1.7.0)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
-  - Facebook-iOS-SDK (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit (= 4.1.0)
-    - Facebook-iOS-SDK/LoginKit (= 4.1.0)
-    - Facebook-iOS-SDK/ShareKit (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit/no-arc (= 4.1.0)
-  - Facebook-iOS-SDK/CoreKit/no-arc (4.1.0):
-    - Bolts (~> 1.1)
-  - Facebook-iOS-SDK/LoginKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
-  - Facebook-iOS-SDK/ShareKit (4.1.0):
-    - Bolts (~> 1.1)
-    - Facebook-iOS-SDK/CoreKit
+  - FBSDKCoreKit (4.14.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.14.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.14.0):
+    - FBSDKCoreKit
   - Firebase/Analytics (3.2.1):
     - FirebaseAnalytics (= 3.2.0)
   - Firebase/Auth (3.2.1):
@@ -115,10 +105,13 @@ PODS:
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
-  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
-  - CSStickyHeaderFlowLayout
+  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`, commit
+    `5bf4e22`)
+  - CSStickyHeaderFlowLayout (~> 0.2)
   - DateTools (~> 1.6)
-  - Facebook-iOS-SDK
+  - FBSDKCoreKit (~> 4.14)
+  - FBSDKLoginKit (~> 4.14)
+  - FBSDKShareKit (~> 4.14)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -130,19 +123,22 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Analytics:
+    :commit: 5bf4e22
     :git: https://github.com/October-Labs/analytics-ios.git
 
 CHECKOUT OPTIONS:
   Analytics:
-    :commit: f55c68031f7c92235f861ccc744623f9897db989
+    :commit: 5bf4e22
     :git: https://github.com/October-Labs/analytics-ios.git
 
 SPEC CHECKSUMS:
-  Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
+  Analytics: 6e53981fe158e51df2b52270b38dcb159f605088
   Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
-  Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
+  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
+  FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
+  FBSDKShareKit: e8e5d4ccef69b41132fe33acda26db1e33143e33
   Firebase: 6c80ac28d59d06bfd9152a7b6ea17625ca93183d
   FirebaseAnalytics: 6f75b04e6bfb8e0b6e9ef298e04c24eea3b13863
   FirebaseAuth: 94b851fc345ce98036dfedfdc2eddeaef8fa3b4c
