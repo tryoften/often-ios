@@ -59,6 +59,7 @@ class PacksViewModel: MediaItemsViewModel {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [[String: AnyObject]] {
+                    self.sections = self.getSections(data)
                     self.sectionPacks = self.processPackItemsCollectionData(data)
                 }
                 
@@ -71,15 +72,25 @@ class PacksViewModel: MediaItemsViewModel {
         })
     }
     
+    func getSections(data: [[String: AnyObject]]) -> [String] {
+        var browseSections: [String] = []
+        
+        for item in data {
+            if let name = item["name"] as? String {
+                browseSections.append(name)
+            }
+        }
+        
+        return browseSections
+    }
+    
     func processPackItemsCollectionData(data: [[String: AnyObject]]) -> [String: [MediaItem]] {
-        sections = []
         var items: [MediaItem] = []
         var filteredPacks: [String: [MediaItem]] = [:]
         
         for item in data {
             if let name = item["name"] as? String,
                 packs = item["items"] as? [[String: AnyObject]] {
-                sections.append(name)
                 items = []
                 for pack in packs {
                     if let dict = pack as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {

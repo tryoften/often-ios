@@ -17,8 +17,8 @@ class BrowseCategoryPanelViewController: UIViewController {
     weak var delegate: CategoryPanelControllable?
     var interactor: CategoryPanelInteractor?
     
-    init() {
-        categoryTableViewController = BrowseCategorySelectionTableViewController(style: .Plain)
+    init(viewModel: PacksViewModel) {
+        categoryTableViewController = BrowseCategorySelectionTableViewController(style: .Plain, viewModel: viewModel)
         categoryTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         borderLine = UIView()
@@ -53,6 +53,8 @@ class BrowseCategoryPanelViewController: UIViewController {
         view.addSubview(navigationDismissalView)
         categoryTableViewController.view.addSubview(borderLine)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseCategoryPanelViewController.cancelButtonDidTap), name: "didSelectBrowseCategory", object: nil)
+        
         setupLayout()
     }
     
@@ -71,6 +73,10 @@ class BrowseCategoryPanelViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func cancelButtonDidTap() {

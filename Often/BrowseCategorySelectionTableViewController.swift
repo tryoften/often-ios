@@ -9,15 +9,17 @@
 import UIKit
 
 class BrowseCategorySelectionTableViewController: UITableViewController {
-
-    let mediaCategories = [
-        "MUSIC",
-        "TV SHOWS",
-        "SPORTS",
-        "POLITICS",
-        "CELEBS",
-        "RANDOM"
-    ]
+    
+    var viewModel: PacksViewModel
+    
+    init(style: UITableViewStyle, viewModel: PacksViewModel) {
+        self.viewModel = viewModel
+        super.init(style: style)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,16 +46,16 @@ class BrowseCategorySelectionTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return mediaCategories.count
+        return viewModel.mediaItemGroups.count
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as? BrowseCategorySelectionTableViewCell {
+        if let cell = tableView.dequeueReusableCellWithIdentifier("categoryCell", forIndexPath: indexPath) as? BrowseCategorySelectionTableViewCell, let section = viewModel.mediaItemGroups[indexPath.row].title {
             cell.textLabel?.setTextWith(UIFont(name: "Montserrat", size: 12.0)!,
                                         letterSpacing: 1.0,
                                         color: UIColor.oftBlack74Color(),
-                                        text: mediaCategories[indexPath.row])
+                                        text: section.uppercaseString)
             cell.indentationLevel = 3
             
             return cell
@@ -67,8 +69,6 @@ class BrowseCategorySelectionTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // TODO: Scroll To Browse View
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        NSNotificationCenter.defaultCenter().postNotificationName("didSelectBrowseCategory", object: nil, userInfo: ["section": indexPath.row])
     }
 }
