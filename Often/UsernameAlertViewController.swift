@@ -50,8 +50,12 @@ class UsernameAlertViewController: AlertViewController, UITextFieldDelegate {
             
             let name = viewModel.generateSuggestedUsername()
             alertView.setTextFieldText(name)
-            
-            checkUsername()
+                        
+            if let text = alertView.textField.text {
+                viewModel.usernameDoesExist(text, completion: { exists in
+                    alertView.setActionButtonEnabled(!exists)
+                })
+            }
             
             alertView.actionButton.addTarget(self, action: #selector(UsernameAlertViewController.didTapActionButton(_:)), forControlEvents: .TouchUpInside)
         }
