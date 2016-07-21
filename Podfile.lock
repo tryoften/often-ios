@@ -47,6 +47,9 @@ PODS:
   - Firebase/Messaging (3.2.1):
     - Firebase/Analytics (= 3.2.1)
     - FirebaseMessaging (= 1.1.0)
+  - Firebase/Storage (3.2.1):
+    - Firebase/Analytics (= 3.2.1)
+    - FirebaseStorage (= 1.0.1)
   - FirebaseAnalytics (3.2.0):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
@@ -74,6 +77,9 @@ PODS:
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleIPhoneUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
+  - FirebaseStorage (1.0.1):
+    - FirebaseAnalytics (~> 3.2)
+    - GoogleNetworkingUtilities (~> 1.2)
   - FlurrySDK (4.4.0):
     - FlurrySDK/FlurrySDK (= 4.4.0)
   - FlurrySDK/FlurrySDK (4.4.0)
@@ -118,6 +124,7 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/DynamicLinks
   - Firebase/Messaging
+  - Firebase/Storage
   - Parse (~> 1.11)
   - Reveal-iOS-SDK
 
@@ -143,6 +150,7 @@ SPEC CHECKSUMS:
   FirebaseDynamicLinks: e7ce861fd1cd501483f4b32861380cc494b79013
   FirebaseInstanceID: d014d574053a2fe84478f12f7bae96979e7051bb
   FirebaseMessaging: 8a92e9ea70673605aa7d1803d2d5aa3eb946009c
+  FirebaseStorage: e9c32a8d246c07eeefd78180c22736aa1b81e81b
   FlurrySDK: ee51555de016e77ff6b516d473de7a57eb858ef7
   GoogleAppUtilities: f1730f91f67767b453c289577040dd3f425ffdc7
   GoogleAuthUtilities: d7a19615cd7627688afcf181737f1011ee8b5a23

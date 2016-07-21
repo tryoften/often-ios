@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import Firebase
 
 enum ProfileSettingsSection: Int {
     case Account = 0
@@ -20,9 +21,13 @@ class AppSettingsViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
     UIActionSheetDelegate,
-    TableViewCellDelegate {
+    TableViewCellDelegate,
+    UIImagePickerControllerDelegate,
+    UINavigationControllerDelegate {
     var appSettingView: AppSettingsView
     var viewModel: SettingsViewModel
+    var imagePicker: PackImagePickerViewController
+    let storage = FIRStorage.storage()
     
     var accountSettings = [
         "Name",
@@ -51,11 +56,15 @@ class AppSettingsViewController: UIViewController,
         appSettingView.translatesAutoresizingMaskIntoConstraints = false
         appSettingView.tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
         
+        imagePicker = PackImagePickerViewController()
+        
         super.init(nibName: nil, bundle: nil)
         
         appSettingView.tableView.delegate = self
         appSettingView.tableView.dataSource = self
 
+        imagePicker.delegate = self
+        
         view.addSubview(appSettingView)
         
         navigationItem.title = "settings".uppercaseString
@@ -286,7 +295,54 @@ class AppSettingsViewController: UIViewController,
     func switchToggled(sender: UISwitch) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(sender.on)
     }
-
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
+            let imageData: NSData = UIImagePNGRepresentation(image),
+            let userId = viewModel.currentUser?.id {
+            
+            let storageRef = storage.referenceForURL("gs://firebase-often-dev.appspot.com/")
+            let imageRef = storageRef.child("images/users/\(userId)/packPhoto.png")
+            let uploadTask = imageRef.putData(imageData)
+            
+            uploadTask.observeStatus(.Progress) { snapshot in
+                // Upload reported progress
+                if let progress = snapshot.progress {
+                    let percentComplete = 100.0 * Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+                    print(percentComplete)
+                }
+            }
+            
+            uploadTask.observeStatus(.Success) { snapshot in
+                print("completed")
+            }
+            
+            uploadTask.observeStatus(.Failure) { snapshot in
+                guard let storageError = snapshot.error else { return }
+                guard let errorCode = FIRStorageErrorCode(rawValue: storageError.code) else { return }
+                switch errorCode {
+                case .ObjectNotFound:
+                    print("File doesn't exist")
+                case .Unauthorized:
+                    print("User doesn't have permission to access file")
+                case .Cancelled:
+                    print("User canceled the upload")
+                case .Unknown:
+                    print("Unknown error occurred, inspect the server response")
+                default:
+                    print("File doesn't exist sum")
+                }
+            }
+            
+            let imageQueue = FIRDatabase.database().reference().child("/queues/image_resizing/tasks").childByAutoId()
+            imageQueue.setValue([
+                "url": " https://storage.googleapis.com/firebase-often-dev.appspot.com/images/users/\(userId)/packPhoto.png"
+            ])
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     // MARK: UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {

@@ -10,6 +10,7 @@ def base_deps
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/DynamicLinks'
+  pod 'Firebase/Storage'
   pod 'DateTools', '~> 1.6'
   pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
   pod 'Parse', '~> 1.11'
