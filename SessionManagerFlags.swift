@@ -29,6 +29,7 @@ class SessionManagerFlags {
         static var lastPack = "pack"
         static var lastCategory = "category"
         static var lastFilterType = "filter"
+        static var userHasUsername = "userHasUsername"
     }
 
     var userNotificationSettings: Bool {
@@ -98,6 +99,16 @@ class SessionManagerFlags {
 
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userHasSeenPushNotificationView)
+        }
+    }
+    
+    var userHasUsername: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.userHasUsername)
+        }
+        
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userHasUsername)
         }
     }
 

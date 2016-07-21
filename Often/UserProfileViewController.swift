@@ -69,6 +69,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
     
+//        promptUserToChooseUsername()
         promptUserToRegisterPushNotifications()
         reloadUserData()
     }
@@ -183,6 +184,17 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
                 AlertVC.modalPresentationStyle = .Custom
                 presentViewController(AlertVC, animated: true, completion: nil)
 
+            }
+        }
+    }
+    
+    func promptUserToChooseUsername() {
+        if let user = SessionManager.defaultManager.currentUser {
+            if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+                let alertVC = UsernameAlertViewController(viewModel: viewModel)
+                alertVC.transitioningDelegate = self
+                alertVC.modalPresentationStyle = .Custom
+                presentViewController(alertVC, animated: true, completion: nil)
             }
         }
     }

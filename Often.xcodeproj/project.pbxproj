@@ -300,8 +300,7 @@
 		6944A5471C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5441C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift */; };
 		6944A54A1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
 		6944A54B1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
-		695409DF1D21C61300EF2782 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50D21D1451BF009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CC1D145107009E6B47 /* Preheat.framework */; };
+		695409E41D21CDD600EF2782 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		6961A6FC1D218D82009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		6961A6FD1D218D83009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -937,6 +936,10 @@
 		81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */; };
 		BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF0A4BF21CB6DF0800824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
+		BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */; };
+		BF1858E41D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */; };
+		BF1858E61D3FE46800087872 /* UsernameAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E51D3FE46800087872 /* UsernameAlertView.swift */; };
+		BF1858E71D3FE46800087872 /* UsernameAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E51D3FE46800087872 /* UsernameAlertView.swift */; };
 		BF18A40A1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40B1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40C1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
@@ -1382,6 +1385,8 @@
 		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameAlertViewController.swift; sourceTree = "<group>"; };
+		BF1858E51D3FE46800087872 /* UsernameAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameAlertView.swift; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
@@ -1404,7 +1409,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */,
+				695409E41D21CDD600EF2782 /* (null) in Frameworks */,
 				81C080E21CC557F3009DA5E8 /* Alamofire.framework in Frameworks */,
 				3B25C6C91C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
 				3B25C6CE1C861F3A00C1BD74 /* UIKit.framework in Frameworks */,
@@ -2095,6 +2100,7 @@
 				3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */,
 				69BBD7F51D18872B0018E7DA /* BrowseCategoryPanelAnimator.swift */,
 				69C8056E1D1D7F51001EF978 /* CategoryPanelInteractor.swift */,
+				BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2123,6 +2129,7 @@
 				3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */,
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				810B04FC1C4446AE00BA731B /* ContainerNavigationBar.swift */,
+				BF1858E51D3FE46800087872 /* UsernameAlertView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3190,6 +3197,7 @@
 				810EA49D1C8579D1005A6C6D /* InstallationWalkthroughViewContoller.swift in Sources */,
 				810EA49E1C8579D1005A6C6D /* DropDownErrorMessage.swift in Sources */,
 				816D50E61C8A32AB007B3249 /* CategoryCollectionViewController.swift in Sources */,
+				BF1858E71D3FE46800087872 /* UsernameAlertView.swift in Sources */,
 				816D50121C861000007B3249 /* CategoryService.swift in Sources */,
 				810EA4A11C8579D1005A6C6D /* ViewSpacerWithText.swift in Sources */,
 				810EA4A21C8579D1005A6C6D /* ConnectivityObservable.swift in Sources */,
@@ -3278,6 +3286,7 @@
 				816D500A1C860F97007B3249 /* Category.swift in Sources */,
 				810EA50C1C8579D1005A6C6D /* LoginView.swift in Sources */,
 				810EA50D1C8579D1005A6C6D /* SessionManager.swift in Sources */,
+				BF1858E41D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				810EA5141C8579D1005A6C6D /* FacebookAccountManager.swift in Sources */,
 				810EA5161C8579D1005A6C6D /* AnimatedLoaderView.swift in Sources */,
 				BF9971501CBEF030008351C7 /* GifCollectionViewCell.swift in Sources */,
@@ -3503,6 +3512,7 @@
 				816D508A1C8A0583007B3249 /* FacebookAccountManager.swift in Sources */,
 				816D50621C8A04F4007B3249 /* NoResultsEmptyStateView.swift in Sources */,
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,
+				BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
 				816D50831C8A0557007B3249 /* UIColor+Often.swift in Sources */,
 				816D504E1C8A04D9007B3249 /* AnimatedLoaderView.swift in Sources */,
@@ -3581,6 +3591,7 @@
 				816D506E1C8A0516007B3249 /* StyleKit.swift in Sources */,
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,
+				BF1858E61D3FE46800087872 /* UsernameAlertView.swift in Sources */,
 				816D50AD1C8A0596007B3249 /* SkipSignupViewController.swift in Sources */,
 				BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */,
 				816D50CA1C8A0722007B3249 /* TextProcessingManager.swift in Sources */,
