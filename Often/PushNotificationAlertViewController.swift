@@ -31,13 +31,13 @@ class PushNotificationAlertViewController: AlertViewController {
 
      func didTapDeclineButton(sender: UIButton) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(false)
-
         dismissViewControllerAnimated(true, completion: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("DismissPushNotificationAlertView", object: nil)
     }
 
     func didTapActionButton(sender: UIButton) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(true)
-
         dismissViewControllerAnimated(true, completion: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("DismissPushNotificationAlertView", object: nil)
     }
 }

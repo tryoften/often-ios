@@ -305,12 +305,11 @@ class PacksService: PackItemViewModel {
         return username
     }
     
-    func usernameDoesExist(username: String) -> Bool {
+    func usernameDoesExist(username: String, completion: ((Bool) -> Void)? = nil) {
         let baseRef = FIRDatabase.database().reference()
         let encodedString = encodeString(username)
         let ref = baseRef.child("usernames/\(encodedString)")
-        
-        var exists: Bool = false
+        var exists: Bool = true
         
         ref.observeEventType(.Value, withBlock: { snapshot in
             
@@ -319,9 +318,12 @@ class PacksService: PackItemViewModel {
             } else {
                 exists = false
             }
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                completion?(exists)
+            }
         })
         
-        return exists
     }
     
     func saveUsername(username: String) {
@@ -338,12 +340,12 @@ class PacksService: PackItemViewModel {
             "name": username,
             "userid": id,
             "packid": packId
-        ])
+            ])
         
         ref = baseRef.child("users/\(id)")
-        ref.setValue([
+        ref.updateChildValues([
             "username": username
-        ])
+            ])
         
     }
     

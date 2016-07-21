@@ -12,7 +12,7 @@ class AlertViewController: UIViewController {
     var backgroundTintView: UIView
     var alertView: AlertView
 
-    private var alertViewTopAndBottomMargin: CGFloat {
+    var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 120
         }

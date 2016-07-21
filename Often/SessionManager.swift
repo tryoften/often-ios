@@ -104,9 +104,25 @@ class SessionManager: NSObject, AccountManagerDelegate {
         } catch _ {
         }
     }
+    
+    func checkForUsername() {
+        if let name = currentUser?.username {
+            if !name.isEmpty {
+                PacksService().usernameDoesExist(name, completion:  { exists in
+                    self.sessionManagerFlags.userHasUsername = exists
+                    if exists {
+                        PacksService().saveUsername(name)
+                    }
+                })
+            }
+        }
+        
+        self.sessionManagerFlags.userHasUsername = false
+    }
 
     func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User) {
         delegate?.sessionManagerDidLoginUser(self, user: user)
+        checkForUsername()
     }
 
     func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User) {
