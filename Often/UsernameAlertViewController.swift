@@ -88,7 +88,7 @@ class UsernameAlertViewController: AlertViewController, UITextFieldDelegate {
             viewModel.usernameDoesExist(text, completion: { exists in
                 alertView.setActionButtonEnabled(!exists)
                 if exists && !text.isEmpty {
-                    DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#152036"))
+//                    DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#152036"))
                 }
             })
         }
