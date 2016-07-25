@@ -8,12 +8,18 @@
 
 import Foundation
 
+enum FilterTabViewType: Int {
+    case Gifs = 0
+    case Quotes
+    case Images
+}
+
 class FilterTabView: UIView {
     let highlightBarView: UIView
     var highlightBarLeftConstraint: NSLayoutConstraint?
-    var leftTabButton: UIButton
-    var rightTabButton: UIButton
+    var highlightBarWidthConstraint: NSLayoutConstraint?
     var delegate: FilterTabDelegate?
+    var buttons: [UIButton] = []
     
     let attributes: [String: AnyObject] = [
         NSKernAttributeName: NSNumber(float: 1.0),
@@ -21,29 +27,15 @@ class FilterTabView: UIView {
         NSForegroundColorAttributeName: BlackColor
     ]
     
-    var leftTabButtonTitle: String? {
+    var mediaTypes: [MediaType] = [] {
         didSet {
-            let filterString = NSAttributedString(string: (leftTabButtonTitle?.uppercaseString)!, attributes: attributes)
-            leftTabButton.setAttributedTitle(filterString, forState: .Normal)
+            resetTabButtons()
+            setupTabView()
+            setupButtonLayout()
         }
     }
-    
-    var rightTabButtonTitle: String? {
-        didSet {
-            let filterString = NSAttributedString(string: (rightTabButtonTitle?.uppercaseString)!, attributes: attributes)
-            rightTabButton.setAttributedTitle(filterString, forState: .Normal)
-        }
-    }
-    
     
     override init(frame: CGRect) {
-        leftTabButton = UIButton()
-        leftTabButton.translatesAutoresizingMaskIntoConstraints = false
-        leftTabButton.titleLabel?.textAlignment = .Center
-        
-        rightTabButton = UIButton()
-        rightTabButton.translatesAutoresizingMaskIntoConstraints = false
-        rightTabButton.titleLabel?.textAlignment = .Center
         
         highlightBarView = UIView()
         highlightBarView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,99 +43,101 @@ class FilterTabView: UIView {
         
         super.init(frame: frame)
         backgroundColor = WhiteColor
-
-        leftTabButton.addTarget(self, action: #selector(FilterTabView.leftButtonDidTap), forControlEvents: .TouchUpInside)
-        rightTabButton.addTarget(self, action: #selector(FilterTabView.rightButtonDidTap), forControlEvents: .TouchUpInside)
-
-        addSubview(leftTabButton)
-        addSubview(rightTabButton)
-        addSubview(highlightBarView)
         
-         setupLayout()
+        addSubview(highlightBarView)
+        setupLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    func setupTabView() {
+        
+        var index = 0
+        for type in mediaTypes {
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.titleLabel?.textAlignment = .Center
+            let title = "\(type.rawValue)s"
+            let titleString = NSAttributedString(string: title.uppercaseString, attributes: attributes)
+            button.setAttributedTitle(titleString, forState: .Normal)
+            button.addTarget(self, action: #selector(FilterTabView.buttonDidTap(_:)), forControlEvents: .TouchUpInside)
+            button.tag = index
+            buttons.append(button)
+            addSubview(button)
+            index += 1
+        }
+    }
+    
     func setupLayout() {
         highlightBarLeftConstraint = highlightBarView.al_left == al_left
-        highlightBarLeftConstraint?.constant = (UIScreen.mainScreen().bounds.width / 2)
+        highlightBarLeftConstraint?.constant = 0.0
+        highlightBarWidthConstraint = highlightBarView.al_width == al_width
         
         addConstraints([
-            rightTabButton.al_bottom == al_bottom,
-            rightTabButton.al_top == al_top,
-            rightTabButton.al_left == al_left,
-            rightTabButton.al_width == al_width / 2,
-
-            leftTabButton.al_bottom == al_bottom,
-            leftTabButton.al_top == al_top,
-            leftTabButton.al_right == al_right,
-            leftTabButton.al_left == rightTabButton.al_right,
-            leftTabButton.al_width == al_width / 2,
-
             highlightBarView.al_bottom == al_bottom,
             highlightBarView.al_height == 4,
-            highlightBarView.al_width == al_width / 2,
-            highlightBarLeftConstraint!
+            highlightBarLeftConstraint!,
         ])
     }
     
-    func leftButtonDidTap() {
-        highlightBarLeftConstraint?.constant =  (UIScreen.mainScreen().bounds.width / 2)
-        
-        UIView.animateWithDuration(0.3) {
-            self.layoutIfNeeded()
+    func setupButtonLayout() {
+        var buttonIndex: CGFloat = 0
+        for button in buttons {
+            let buttonLeftConstraint = button.al_left == al_left
+            buttonLeftConstraint.constant = (UIScreen.mainScreen().bounds.width / CGFloat(buttons.count)) * buttonIndex
+            
+            addConstraints([
+                button.al_top == al_top,
+                button.al_bottom == al_bottom,
+                buttonLeftConstraint,
+                button.al_width == al_width / CGFloat(buttons.count),
+                highlightBarView.al_width == al_width / CGFloat(buttons.count)
+                
+                ])
+            
+            buttonIndex++
         }
-        
-        delegate?.leftTabSelected()
     }
     
-    func rightButtonDidTap() {
-        highlightBarLeftConstraint?.constant = 0.0
-
+    func buttonDidTap(sender: UIButton) {
+        
+        guard let title = sender.titleLabel?.text else {
+            return
+        }
+        
+        highlightBarLeftConstraint?.constant = (UIScreen.mainScreen().bounds.width / CGFloat(buttons.count)) * CGFloat(sender.tag)
+        
         UIView.animateWithDuration(0.3) {
             self.layoutIfNeeded()
         }
         
-        delegate?.rightTabSelected()
-    }
-
-    func disableButtonFor(type: MediaType, withAnimation: Bool = false) {
-        switch type {
-        case .Gif:
-            leftTabButton.userInteractionEnabled = false
-            leftTabButton.alpha = 0.30
-            rightTabButton.alpha = 1
-            highlightBarLeftConstraint?.constant = 0
-        case .Lyric, .Quote:
-            rightTabButton.userInteractionEnabled = false
-            rightTabButton.alpha = 0.30
-            leftTabButton.alpha = 1
-            highlightBarLeftConstraint?.constant = (UIScreen.mainScreen().bounds.width / 2)
-        default:
-            break
+        switch title.lowercaseString {
+        case "gifs":
+            delegate?.gifTabSelected()
+        case "quotes":
+            delegate?.quotesTabSelected()
+        case "images":
+            delegate?.imagesTabSelected()
+        default: break
         }
-
-        if withAnimation {
-            UIView.animateWithDuration(0.3) {
-                self.layoutIfNeeded()
-            }
-
-        }
-
     }
-
+    
     func resetTabButtons() {
-        leftTabButton.userInteractionEnabled = true
-        leftTabButton.alpha = 1
-        rightTabButton.userInteractionEnabled = true
-        rightTabButton.alpha = 1
+        for view in subviews {
+            if let _ = view as? UIButton {
+                view.removeFromSuperview()
+            }
+        }
+        buttons.removeAll()
     }
 
 }
 
 protocol FilterTabDelegate {
-    func leftTabSelected()
-    func rightTabSelected()
+    func gifTabSelected()
+    func quotesTabSelected()
+    func imagesTabSelected()
 }

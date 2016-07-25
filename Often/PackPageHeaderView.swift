@@ -44,8 +44,6 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     override init(frame: CGRect) {
         tabContainerView = FilterTabView()
         tabContainerView.translatesAutoresizingMaskIntoConstraints = false
-        tabContainerView.leftTabButtonTitle = "Gifs"
-        tabContainerView.rightTabButtonTitle = "Quotes"
 
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
