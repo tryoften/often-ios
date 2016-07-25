@@ -11,7 +11,7 @@ def base_deps
   pod 'Firebase/Auth'
   pod 'Firebase/DynamicLinks'
   pod 'DateTools', '~> 1.6'
-  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git'
+  pod 'Analytics/Flurry', :git => 'https://github.com/October-Labs/analytics-ios.git', :commit => '5bf4e22'
   pod 'Parse', '~> 1.11'
   pod 'CSStickyHeaderFlowLayout'
   pod 'Firebase/Messaging'
