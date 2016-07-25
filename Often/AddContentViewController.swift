@@ -1,5 +1,5 @@
 //
-//  AddPackViewController.swift
+//  AddContentViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 7/25/16.
@@ -8,16 +8,16 @@
 
 import Foundation
 
-class AddPackViewController: UIViewController {
-    var addPackView: AddPackView
+class AddContentViewController: UIViewController {
+    var addContentView: AddContentView
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        addPackView = AddPackView()
-        addPackView.translatesAutoresizingMaskIntoConstraints = false
+        addContentView = AddContentView()
+        addContentView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
 
-        view.addSubview(addPackView)
+        view.addSubview(addContentView)
 
         setupLayout()
     }
@@ -29,17 +29,17 @@ class AddPackViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        addPackView.addImageButton.addTarget(self, action: #selector(AddPackViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        addPackView.addGifButton.addTarget(self, action: #selector(AddPackViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        addPackView.addQuoteButton.addTarget(self, action: #selector(AddPackViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        addContentView.addImageButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        addContentView.addGifButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        addContentView.addQuoteButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
     func setupLayout() {
         view.addConstraints([
-            addPackView.al_top == view.al_top,
-            addPackView.al_left == view.al_left,
-            addPackView.al_right == view.al_right,
-            addPackView.al_bottom == view.al_bottom
+            addContentView.al_top == view.al_top,
+            addContentView.al_left == view.al_left,
+            addContentView.al_right == view.al_right,
+            addContentView.al_bottom == view.al_bottom
             ])
     }
 
@@ -53,18 +53,18 @@ class AddPackViewController: UIViewController {
     func actionButtonDidTap(sender: UIButton) {
         var vc: UIViewController
 
-        if sender.isEqual(addPackView.addGifButton) {
+        if sender.isEqual(addContentView.addGifButton) {
             vc = GiphySearchViewController(viewModel: GiphySearchViewModel())
             navigationController?.pushViewController(vc, animated: true)
 
         }
 
-        if sender.isEqual(addPackView.addImageButton) {
+        if sender.isEqual(addContentView.addImageButton) {
             print("Image")
 
         }
 
-        if sender.isEqual(addPackView.addQuoteButton) {
+        if sender.isEqual(addContentView.addQuoteButton) {
             print("quote")
         }
 

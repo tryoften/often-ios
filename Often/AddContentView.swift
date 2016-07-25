@@ -1,5 +1,5 @@
 //
-//  AddPackView.swift
+//  AddContentView.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 7/25/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddPackView: UIView {
+class AddContentView: UIView {
     private var titleLabel: UILabel
     private var descriptionLabel: UILabel
     private var gifTitleLabel: UILabel
