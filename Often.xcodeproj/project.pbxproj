@@ -210,6 +210,7 @@
 		3B97896E1D4668BC001DD156 /* AddContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97896C1D4668BC001DD156 /* AddContentView.swift */; };
 		3B9789701D4694A8001DD156 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97896F1D4694A8001DD156 /* AddContentViewController.swift */; };
 		3B9789711D4694A8001DD156 /* AddContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B97896F1D4694A8001DD156 /* AddContentViewController.swift */; };
+		3B9789751D46B897001DD156 /* GiphySearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF89111D3E8EEB0043173A /* GiphySearchViewModel.swift */; };
 		3B9991D61C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3B9991D71C7E4E9B00C60A99 /* AnimatedLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */; };
 		3BA021511C6A999600FE9009 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA0214F1C6A999600FE9009 /* Analytics.swift */; };
@@ -3341,6 +3342,7 @@
 				810EA5251C8579D1005A6C6D /* UIKit+Guard.swift in Sources */,
 				810EA5261C8579D1005A6C6D /* RecentsEmptyStateView.swift in Sources */,
 				810EA5271C8579D1005A6C6D /* TrackMediaItem.swift in Sources */,
+				3B9789751D46B897001DD156 /* GiphySearchViewModel.swift in Sources */,
 				810EA5281C8579D1005A6C6D /* Event.swift in Sources */,
 				810EA52B1C8579D1005A6C6D /* TwitterAccountManager.swift in Sources */,
 				810EA52C1C8579D1005A6C6D /* LoginButton.swift in Sources */,
