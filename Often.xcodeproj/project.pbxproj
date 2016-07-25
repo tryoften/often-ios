@@ -300,8 +300,7 @@
 		6944A5471C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5441C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift */; };
 		6944A54A1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
 		6944A54B1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
-		695409DF1D21C61300EF2782 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50D21D1451BF009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CC1D145107009E6B47 /* Preheat.framework */; };
+		695409E41D21CDD600EF2782 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		6961A6FC1D218D82009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		6961A6FD1D218D83009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -1404,7 +1403,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */,
+				695409E41D21CDD600EF2782 /* (null) in Frameworks */,
 				81C080E21CC557F3009DA5E8 /* Alamofire.framework in Frameworks */,
 				3B25C6C91C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
 				3B25C6CE1C861F3A00C1BD74 /* UIKit.framework in Frameworks */,
