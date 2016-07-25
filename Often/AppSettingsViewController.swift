@@ -309,12 +309,11 @@ class AppSettingsViewController: UIViewController,
                 // Upload reported progress
                 if let progress = snapshot.progress {
                     let percentComplete = 100.0 * Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
-                    print(percentComplete)
                 }
             }
             
             uploadTask.observeStatus(.Success) { snapshot in
-                print("completed")
+                
             }
             
             uploadTask.observeStatus(.Failure) { snapshot in
@@ -335,12 +334,27 @@ class AppSettingsViewController: UIViewController,
             }
             
             let imageQueue = FIRDatabase.database().reference().child("/queues/image_resizing/tasks").childByAutoId()
+            let imageId = generateIdForString(imageQueue.description())
             imageQueue.setValue([
+                "imageId": imageId,
                 "url": " https://storage.googleapis.com/firebase-often-dev.appspot.com/images/users/\(userId)/packPhoto.png"
             ])
         }
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func generateIdForString(string: String) -> String {
+        let utf8str = string.dataUsingEncoding(NSUTF8StringEncoding)
+        
+        if let base64Encoded = utf8str?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) {
+            return base64Encoded
+                .stringByReplacingOccurrencesOfString("/", withString: "_")
+                .stringByReplacingOccurrencesOfString("+", withString: "-")
+                .substringWithRange(Range<String.Index>(base64Encoded.startIndex..<base64Encoded.startIndex.advancedBy(9)))
+        }
+        
+        return ""
     }
     
     // MARK: UIActionSheetDelegate
