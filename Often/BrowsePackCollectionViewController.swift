@@ -9,6 +9,7 @@
 import UIKit
 
 let horizontalCellReuseIdentifer = "HorizontalCellReuseIdentifier"
+let headerSize: CGFloat = 230
 
 class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable, CategoryPanelControllable {
     var headerView: BrowsePackHeaderView?
@@ -50,6 +51,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             self?.collectionView?.reloadData()
         }
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didSelectBrowseCategory(_:)), name: "didSelectBrowseCategory", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
         
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: horizontalCellReuseIdentifer)
@@ -62,6 +64,14 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
+        }
+    }
+    
+    func didSelectBrowseCategory(notification: NSNotification) {
+        if let section = notification.userInfo!["section"] as? Int {
+            let scrollHeight: CGFloat = CGFloat((30 + 210 + 24) * section)
+            let topOfHeader = CGPointMake(0, headerSize + scrollHeight)
+            collectionView?.setContentOffset(topOfHeader, animated:true)
         }
     }
     
@@ -80,7 +90,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 0)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 230)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, headerSize)
         flowLayout.itemSize = CGSizeMake(screenWidth, 210) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
@@ -148,10 +158,14 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         return UICollectionReusableView()
     }
     
+    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return viewModel.mediaItemGroups.count
+    }
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 1
     }
-    
+        
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(horizontalCellReuseIdentifer, forIndexPath: indexPath)
         resetCell(cell)
@@ -204,10 +218,11 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
                                                     target: self,
                                                     action: #selector(BrowsePackCollectionViewController.categoryMenuButtonTapped))
             menuOpen = true
-            
-            let panelViewController = BrowseCategoryPanelViewController()
-            panelViewController.delegate = self
-            presentViewControllerWithCustomTransitionAnimator(panelViewController, direction: .Right, duration: 0.25)
+            if let viewModel = viewModel as? PacksViewModel {
+                let panelViewController = BrowseCategoryPanelViewController(viewModel: viewModel)
+                panelViewController.delegate = self
+                presentViewControllerWithCustomTransitionAnimator(panelViewController, direction: .Right, duration: 0.25)
+            }
         }
     }
     

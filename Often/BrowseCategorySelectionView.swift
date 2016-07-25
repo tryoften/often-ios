@@ -11,8 +11,8 @@ import UIKit
 class BrowseCategorySelectionView: UIView {
     var categoryTableViewController: BrowseCategorySelectionTableViewController
     
-    override init(frame: CGRect) {
-        categoryTableViewController = BrowseCategorySelectionTableViewController(style: .Plain)
+    init(frame: CGRect, viewModel: PacksViewModel) {
+        categoryTableViewController = BrowseCategorySelectionTableViewController(style: .Plain, viewModel: viewModel)
         categoryTableViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)

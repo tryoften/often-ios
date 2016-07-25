@@ -12,6 +12,7 @@ import Nuke
 class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, KeyboardMediaItemPackPickerViewControllerDelegate, UITabBarDelegate {
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
+    var fullAccessButton: UIButton?
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
@@ -63,7 +64,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         showLoadingView()
 
         delay(0.5) {
-            self.showFullAccessMessageIfNeeded()
+            self.showLocalPackIfNeeded()
         }
     }
 
@@ -77,19 +78,43 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         tabBar.frame = CGRectMake(view.bounds.origin.x, view.bounds.height - 44.5, view.bounds.width, 44.5)
     }
 
-    func showFullAccessMessageIfNeeded() {
+    func showLocalPackIfNeeded() {
         if !isFullAccessEnabled {
+            PacksService.defaultInstance.fetchLocalData()
+            hideEmptyStateView()
             hideLoadingView()
-            showEmptyStateViewForState(.NoKeyboard, completion: { view in
-                view.imageViewTopConstraint?.constant = -100
-                view.titleLabel.text = "You forgot to allow Full-Access"
-                view.primaryButton.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
-                self.view.bringSubviewToFront(view)
-                self.view.bringSubviewToFront(self.tabBar)
-            })
+            showFullAccessButton()
         } else {
+            hideFullAccessButton()
             hideEmptyStateView()
         }
+    }
+
+    func showFullAccessButton() {
+        self.fullAccessButton?.removeFromSuperview()
+        self.fullAccessButton = nil
+        CGRectMake(0, KeyboardTabBarHeight, view.bounds.width, KeyboardTabBarHeight)
+        fullAccessButton = UIButton(frame: CGRectMake(0, view.bounds.height - 2 * KeyboardTabBarHeight, view.bounds.width, KeyboardTabBarHeight))
+        fullAccessButton?.setTitle("please allow full access to get the full often keyboard experience", forState: .Normal)
+        fullAccessButton?.backgroundColor = UIColor.oftVividPurpleColor()
+        fullAccessButton?.alpha = 0.75
+        fullAccessButton?.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
+        fullAccessButton?.setTitleColor(WhiteColor , forState: .Normal)
+        fullAccessButton?.addTarget(self, action: #selector(KeyboardBrowsePackItemViewController.didTapGoToSettingsButton), forControlEvents: .TouchUpInside)
+
+        if let fullAccessButton = fullAccessButton {
+            view.addSubview(fullAccessButton)
+        }
+    }
+
+    func hideFullAccessButton() {
+        UIView.animateWithDuration(0.3, animations: {
+            self.fullAccessButton?.alpha = 0.0
+            }, completion: { done in
+                self.fullAccessButton?.removeFromSuperview()
+                self.fullAccessButton = nil
+        })
+
     }
 
     func didTapGoToSettingsButton() {
@@ -190,6 +215,49 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         return UICollectionReusableView()
     }
+
+
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
+            return UICollectionViewCell()
+        }
+
+        if !isFullAccessEnabled {
+            switch group.type {
+            case .Gif:
+                guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+
+                guard let gif = group.items[indexPath.row] as? GifMediaItem else {
+                    return cell
+                }
+
+                if let path = NSBundle.mainBundle().pathForResource("gif:\(gif.id)", ofType: "gif") {
+                    do {
+                        let gifData = try NSData(contentsOfFile: path, options: .DataReadingMappedIfSafe)
+                        cell.setImageWithData(gifData)
+
+                    } catch _ {
+
+                    }
+                }
+
+                cell.mediaLink = gif
+                cell.delegate = self
+                return cell
+            case .Quote:
+                let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
+                cell.style = .Cell
+                cell.type = .NoMetadata
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
+        } else {
+            return super.collectionView(collectionView, cellForItemAtIndexPath: indexPath)
+        }
+    }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         if packViewModel.typeFilter == .Gif {
@@ -209,13 +277,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         guard let type = BrowsePackTabType(rawValue: item.tag) else {
-            return
-        }
-
-        if !isFullAccessEnabled {
-            if type == .Keyboard {
-                NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
-            }
             return
         }
         
@@ -255,14 +316,12 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
 
     override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        if isFullAccessEnabled {
-            super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-        }
+        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
 
         guard let viewModel = viewModel as? PackItemViewModel, _ = viewModel.pack else {
             return
         }
-
+        
         hideLoadingView()
     }
 

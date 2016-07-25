@@ -16,11 +16,10 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
-    MediaItemGroupViewModelDelegate,
-    PreheatControllerDelegate {
+    MediaItemGroupViewModelDelegate {
     private var viewModel: MediaItemGroupViewModel
     private var collectionView: UICollectionView
-    private var preheatController: PreheatController?
+    private var preheatController: PreheatController<UICollectionView>?
     private var currentPage: Int
     private let scrollView: UIScrollView
     private let itemWidth: CGFloat
@@ -56,8 +55,12 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         scrollView.hidden = true
 
         super.init(nibName: nil, bundle: nil)
-        preheatController = PreheatControllerForCollectionView(collectionView: collectionView)
-        preheatController?.delegate = self
+
+        preheatController = PreheatController(view: collectionView)
+
+        preheatController?.handler = { [weak self] in
+            self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
+        }
 
         view.backgroundColor = UIColor.clearColor()
 
@@ -234,9 +237,9 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
         return imageRequest
     }
 
-    func preheatControllerDidUpdate(controller: PreheatController, addedIndexPaths: [NSIndexPath], removedIndexPaths: [NSIndexPath]) {
-        guard let startPreheatingImages = requestForIndexPaths(addedIndexPaths),
-            let stopPreheatingImages = requestForIndexPaths(removedIndexPaths) else {
+    func preheatWindowChanged(addedIndexPaths added: [NSIndexPath], removedIndexPaths removed: [NSIndexPath]) {
+        guard let startPreheatingImages = requestForIndexPaths(added),
+            let stopPreheatingImages = requestForIndexPaths(removed) else {
                 return
         }
 

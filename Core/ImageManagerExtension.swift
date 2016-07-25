@@ -24,5 +24,6 @@ extension ImageManager {
         loaderConf.cache = DFDiskCache(path: AppSuiteName, error: nil)
         managerConf.loader = ImageLoader(configuration: loaderConf, delegate: AnimatedImageLoaderDelegate())
         ImageManager.shared = (ImageManager(configuration: managerConf))
+
     }
 }
