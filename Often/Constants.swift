@@ -39,8 +39,7 @@ let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 let KeyboardOrientationChangeEvent = "orientationChange"
 let BackToKeyboardButtonPressedEvent = "BackToKeyboardButtonPressed"
-
-
+let GiphyAPIKey = "xTiTnuNf1mc0HfaFS8"
 // Colors
 let BlueColor = UIColor(fromHexString: "#3B5998")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")

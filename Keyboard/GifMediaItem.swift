@@ -38,5 +38,25 @@ class GifMediaItem: MediaItem {
             largeImageURL = NSURL(string: largeImage)
         }
     }
+
+    init(giphyData: NSDictionary) {
+
+        super.init(data: giphyData)
+
+        owner_name = data["username"] as? String
+        giphy_id = data["id"] as? String
+
+        if let images = giphyData["images"] as? NSDictionary, imageData = images["downsized"] as? NSDictionary, smallImage = imageData["url"] as? String {
+            smallImageURL = NSURL(string: smallImage)
+        }
+
+        if let images = giphyData["images"] as? NSDictionary, imageData = images["downsized_medium"] as? NSDictionary, mediumImage = imageData["url"] as? String {
+            mediumImageURL = NSURL(string: mediumImage)
+        }
+
+        if let images = giphyData["images"] as? NSDictionary, imageData = images["downsized_large"] as? NSDictionary, largeImage = imageData["url"] as? String {
+            largeImageURL = NSURL(string: largeImage)
+        }
+    }
     
 }
