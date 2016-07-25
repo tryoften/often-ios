@@ -205,6 +205,58 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
     }
     
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        if packViewModel.typeFilter == .Gif {
+            return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
+        }
+        
+        return UIEdgeInsets(top: 9.0, left: 12.0, bottom: 60, right: 12.0)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
+            return CGSizeZero
+        }
+        
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenHeight = UIScreen.mainScreen().bounds.height
+        
+        switch group.type {
+        case .Gif:
+            var width: CGFloat
+            
+            if screenHeight > screenWidth {
+                width = screenWidth / 2 - 12.5
+            } else {
+                width = screenWidth / 3 - 12.5
+            }
+            
+            let height = width * (4/7)
+            return CGSizeMake(width, height)
+        case .Quote:
+            var width: CGFloat
+            
+            if screenHeight > screenWidth {
+                width = screenWidth / 2 - 15.5
+            } else {
+                width = screenWidth / 3 - 15.5
+            }
+            
+            let height = screenHeight / 4
+            return CGSizeMake(width, height)
+        default:
+            return CGSizeZero
+        }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 7.0
+    }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 7.0
+    }
+    
     func leftTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
         

@@ -271,7 +271,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
             leftHeaderLabel.al_left == leftMetadataLabel.al_left,
             leftHeaderLabel.al_bottom == leftMetadataLabel.al_top,
             leftHeaderLabel.al_height == 16,
-            leftHeaderLabel.al_right <= metadataContentView.al_centerX,
+            leftHeaderLabel.al_right <= al_right,
 
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
@@ -286,7 +286,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
 
             leftMetadataLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - contentEdgeInsets.bottom,
-            leftMetadataLabel.al_height == 12,
+            leftMetadataLabel.al_height == 14,
             
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
