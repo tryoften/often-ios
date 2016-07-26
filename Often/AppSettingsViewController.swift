@@ -304,7 +304,7 @@ class AppSettingsViewController: UIViewController,
             let storageRef = storage.referenceForURL("gs://firebase-often-dev.appspot.com/")
             var uploadTask: FIRStorageUploadTask = FIRStorageUploadTask()
             
-            let pngRange: NSRange = compareString.rangeOfString("PNG", options: .BackwardsSearch)
+            let pngRange: NSRange = compareString.rangeOfString("png", options: [.BackwardsSearch, .CaseInsensitiveSearch])
             if pngRange.location != NSNotFound {
                 if let imageData: NSData = UIImagePNGRepresentation(image) {
                     let imageRef = storageRef.child("images/users/\(userId)/packPhoto.png")
@@ -312,9 +312,9 @@ class AppSettingsViewController: UIViewController,
                 }
             }
             
-            let jpgRange: NSRange = compareString.rangeOfString("JPG", options: .BackwardsSearch)
+            let jpgRange: NSRange = compareString.rangeOfString("jpg", options: [.BackwardsSearch, .CaseInsensitiveSearch])
             if jpgRange.location != NSNotFound {
-                if let imageData: NSData = UIImagePNGRepresentation(image) {
+                if let imageData: NSData = UIImageJPEGRepresentation(image, 1.0) {
                     let imageRef = storageRef.child("images/users/\(userId)/packPhoto.jpg")
                     uploadTask = imageRef.putData(imageData)
                 }
