@@ -1,6 +1,6 @@
 github "MengTo/Spring" "swift2"
 github "aleclarson/emitter-kit"
-github "Alamofire/Alamofire" ~> 3.3
+github "Alamofire/Alamofire"
 github "kean/Nuke"
 github "kean/Nuke-Alamofire-Plugin" # optional
 github "kean/Nuke-AnimatedImage-Plugin" # optional

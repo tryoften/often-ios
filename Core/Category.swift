@@ -44,6 +44,7 @@ struct Category: Equatable {
 
         return models
     }
+
 }
 
 func ==(lhs: Category, rhs: Category) -> Bool {

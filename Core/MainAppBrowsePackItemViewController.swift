@@ -173,7 +173,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func topRightButtonTapped(sender: UIButton) {
-        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else  {
+        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else {
             return
         }
 
