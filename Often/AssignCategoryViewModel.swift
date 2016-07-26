@@ -32,9 +32,16 @@ class AssignCategoryViewModel: BaseViewModel {
         })
     }
 
-    func updateMediaItemCategory() {
-        
+    func updateMediaItemCategory(index: Int) {
+        if categories.count < index {
+            mediaItem.category = categories[index]
+        }
     }
+
+    func submitNewMediaItem() {
+        UserPackService.defaultInstance.addItem(mediaItem)
+    }
+
 
 }
 
