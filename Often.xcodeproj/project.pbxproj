@@ -300,8 +300,7 @@
 		6944A5471C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5441C3B0EFA00EA57C3 /* RecentsEmptyStateView.swift */; };
 		6944A54A1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
 		6944A54B1C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5481C3B0F5300EA57C3 /* NoResultsEmptyStateView.swift */; };
-		695409DF1D21C61300EF2782 /* Preheat.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50D21D1451BF009E6B47 /* Preheat.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B7A50CC1D145107009E6B47 /* Preheat.framework */; };
+		695409E41D21CDD600EF2782 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		695FEEAD1B742AEE0048E5B7 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		6961A6FC1D218D82009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		6961A6FD1D218D83009C7E67 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -944,6 +943,8 @@
 		BF18A40E1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40F1CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
 		BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813323691C1F8A1A0084918B /* SlideTabBar.swift */; };
+		BF3D343B1D46B51600C33436 /* AddQuoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */; };
+		BF3D343C1D46B51600C33436 /* AddQuoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */; };
 		BF3FA1EC1CACAA6800DBB87B /* (null) in Sources */ = {isa = PBXBuildFile; };
 		BF6A03E91D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
 		BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
@@ -1383,6 +1384,7 @@
 		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
 		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
+		BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuoteViewController.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
 		BF99714C1CBEF030008351C7 /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1404,7 +1406,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				695409E41D21CDD600EF2782 /* Preheat.framework in Frameworks */,
+				695409E41D21CDD600EF2782 /* (null) in Frameworks */,
 				81C080E21CC557F3009DA5E8 /* Alamofire.framework in Frameworks */,
 				3B25C6C91C861F3A00C1BD74 /* QuartzCore.framework in Frameworks */,
 				3B25C6CE1C861F3A00C1BD74 /* UIKit.framework in Frameworks */,
@@ -2072,6 +2074,7 @@
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */,
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
 				3BD971E01B9FD374007EAB5A /* LogInViewController.swift */,
 				BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */,
@@ -3208,6 +3211,7 @@
 				810EA4B81C8579D1005A6C6D /* AccountManager.swift in Sources */,
 				810EA4B91C8579D1005A6C6D /* MediaItem.swift in Sources */,
 				3BA7D8351CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
+				BF3D343C1D46B51600C33436 /* AddQuoteViewController.swift in Sources */,
 				3B6871181D106E7100AFF61F /* DFCacheExtensions.swift in Sources */,
 				3B43D88C1CB750CE0012CE5F /* BrowsePackHeaderCollectionViewCell.swift in Sources */,
 				810EA4BB1C8579D1005A6C6D /* NotificationListener.swift in Sources */,
@@ -3477,6 +3481,7 @@
 				816D509C1C8A058D007B3249 /* ViewSpacerWithText.swift in Sources */,
 				816D50A01C8A058D007B3249 /* ContainerNavigationBar.swift in Sources */,
 				816D503E1C8A04CA007B3249 /* MediaItemGroup.swift in Sources */,
+				BF3D343B1D46B51600C33436 /* AddQuoteViewController.swift in Sources */,
 				3BA7D8321CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				816D503A1C8A04C4007B3249 /* Analytics.swift in Sources */,
 				816D508E1C8A0589007B3249 /* SettingsViewModel.swift in Sources */,
