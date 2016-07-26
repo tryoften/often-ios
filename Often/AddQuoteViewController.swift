@@ -37,8 +37,6 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
         navigationView.cancelButton.addTarget(self, action: #selector(AddQuoteViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
         navigationView.addButton.addTarget(self, action: #selector(AddQuoteViewController.addButtonDidTap), forControlEvents: .TouchUpInside)
         
-//        view.addSubview(gradientView)
-        
         view.addSubview(navigationView)
         view.addSubview(cardView)
         setupLayout()
@@ -51,10 +49,6 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     
     func setupLayout() {
         view.addConstraints([
-//            gradientView.al_top == view.al_top,
-//            gradientView.al_left == view.al_left,
-//            gradientView.al_right == view.al_right,
-//            gradientView.al_bottom == view.al_bottom,
             
             navigationView.al_top == view.al_top,
             navigationView.al_left == view.al_left,
@@ -74,6 +68,7 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     
     func addButtonDidTap() {
         // add quotes
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func textViewDidChange(textView: UITextView) {
