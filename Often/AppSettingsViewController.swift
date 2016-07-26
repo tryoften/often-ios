@@ -298,12 +298,27 @@ class AppSettingsViewController: UIViewController,
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
-            let imageData: NSData = UIImagePNGRepresentation(image),
+            let compareString: NSString = info[UIImagePickerControllerReferenceURL]?.absoluteString,
             let userId = viewModel.currentUser?.id {
             
             let storageRef = storage.referenceForURL("gs://firebase-often-dev.appspot.com/")
-            let imageRef = storageRef.child("images/users/\(userId)/packPhoto.png")
-            let uploadTask = imageRef.putData(imageData)
+            var uploadTask: FIRStorageUploadTask = FIRStorageUploadTask()
+            
+            let pngRange: NSRange = compareString.rangeOfString("PNG", options: .BackwardsSearch)
+            if pngRange.location != NSNotFound {
+                if let imageData: NSData = UIImagePNGRepresentation(image) {
+                    let imageRef = storageRef.child("images/users/\(userId)/packPhoto.png")
+                    uploadTask = imageRef.putData(imageData)
+                }
+            }
+            
+            let jpgRange: NSRange = compareString.rangeOfString("JPG", options: .BackwardsSearch)
+            if jpgRange.location != NSNotFound {
+                if let imageData: NSData = UIImagePNGRepresentation(image) {
+                    let imageRef = storageRef.child("images/users/\(userId)/packPhoto.jpg")
+                    uploadTask = imageRef.putData(imageData)
+                }
+            }
             
             uploadTask.observeStatus(.Progress) { snapshot in
                 // Upload reported progress
@@ -313,7 +328,7 @@ class AppSettingsViewController: UIViewController,
             }
             
             uploadTask.observeStatus(.Success) { snapshot in
-                
+                // Successful upload
             }
             
             uploadTask.observeStatus(.Failure) { snapshot in
@@ -339,6 +354,13 @@ class AppSettingsViewController: UIViewController,
                 "imageId": imageId,
                 "url": " https://storage.googleapis.com/firebase-often-dev.appspot.com/images/users/\(userId)/packPhoto.png"
             ])
+            
+            let processedImageRef = FIRDatabase.database().reference().child("/images/\(imageId)")
+            processedImageRef.observeEventType(.Value, withBlock: { snapshot in
+                if let value = snapshot.value as? [String : AnyObject] {
+                    // write this image back to the pack
+                }
+            })
         }
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -375,5 +397,4 @@ class AppSettingsViewController: UIViewController,
     func didFinishEditingName(newName: String) {
         viewModel.currentUser?.name = newName
     }
-    
 }
