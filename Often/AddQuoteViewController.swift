@@ -11,9 +11,11 @@ import Foundation
 class AddQuoteViewController : UIViewController, UITextViewDelegate {
     var navigationView: AddQuoteNavigationView
     var cardView: AddQuoteView
-    var gradientView: UIImageView
+    var viewModel: UserPackService
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    init(viewModel: UserPackService) {
+        
+        self.viewModel = viewModel
         
         navigationView = AddQuoteNavigationView()
         navigationView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,14 +24,7 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
         cardView = AddQuoteView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
         
-        gradientView = UIImageView()
-        gradientView.translatesAutoresizingMaskIntoConstraints = false
-        gradientView.contentMode = .ScaleAspectFill
-        gradientView.clipsToBounds = true
-        gradientView.image = UIImage(named: "gradient")
-        gradientView.layer.cornerRadius = 4.0
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nil, bundle: nil)
         
         view.backgroundColor = UIColor.oftLightPinkColor()
         
@@ -63,12 +58,20 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     }
     
     func cancelButtonDidTap() {
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func addButtonDidTap() {
-        // add quotes
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
+        var quote = QuoteMediaItem(data: [
+            "text": cardView.quoteTextView.text,
+        ])
+        
+        if let source = cardView.sourceTextField.text {
+            quote.owner_name = source
+        }
+        
+        viewModel.addItem(quote)
     }
     
     func textViewDidChange(textView: UITextView) {
