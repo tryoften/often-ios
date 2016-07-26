@@ -89,7 +89,8 @@ PODS:
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
 DEPENDENCIES:
-  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`)
+  - Analytics/Flurry (from `https://github.com/October-Labs/analytics-ios.git`, commit
+    `5bf4e22`)
   - CSStickyHeaderFlowLayout
   - DateTools (~> 1.6)
   - Facebook-iOS-SDK
@@ -103,15 +104,16 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   Analytics:
+    :commit: 5bf4e22
     :git: https://github.com/October-Labs/analytics-ios.git
 
 CHECKOUT OPTIONS:
   Analytics:
-    :commit: f55c68031f7c92235f861ccc744623f9897db989
+    :commit: 5bf4e22
     :git: https://github.com/October-Labs/analytics-ios.git
 
 SPEC CHECKSUMS:
-  Analytics: 312834d62f1991895c5ef2b0f6d1f690a53e91f1
+  Analytics: 6e53981fe158e51df2b52270b38dcb159f605088
   Bolts: 89c0c6dd1b9c975a3452a62d57a6be6739e5f433
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
