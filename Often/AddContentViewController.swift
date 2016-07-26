@@ -64,8 +64,8 @@ class AddContentViewController: UIViewController {
         }
 
         if sender.isEqual(addContentView.addQuoteButton) {
-            print("quote")
+            vc = AddQuoteViewController(viewModel: UserPackService.defaultInstance)
+            navigationController?.pushViewController(vc, animated: true)
         }
-
     }
 }
