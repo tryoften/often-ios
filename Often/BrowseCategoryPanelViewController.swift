@@ -53,7 +53,7 @@ class BrowseCategoryPanelViewController: UIViewController {
         view.addSubview(navigationDismissalView)
         categoryTableViewController.view.addSubview(borderLine)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseCategoryPanelViewController.cancelButtonDidTap), name: "didSelectBrowseCategory", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowseCategoryPanelViewController.cancelButtonDidTap), name: "ego", object: nil)
         
         setupLayout()
     }
