@@ -1,5 +1,5 @@
 //
-//  GifDetailViewController.swift
+//  CategoryAssignmentViewController.swift
 //  Often
 //
 //  Created by Kervins Valcourt on 7/21/16.
@@ -13,7 +13,7 @@ class CategoryAssignmentViewController: UIViewController,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
     AssignCategoryViewModelDelegate {
-    private var gifImageView: GifCollectionViewCell
+    private var imageView: GifCollectionViewCell
     private var headerView: UILabel
     private var viewModel: AssignCategoryViewModel
     private var categoryCollectionView: UICollectionView
@@ -22,8 +22,8 @@ class CategoryAssignmentViewController: UIViewController,
     init(viewModel: AssignCategoryViewModel) {
         self.viewModel = viewModel
 
-        gifImageView = GifCollectionViewCell()
-        gifImageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView = GifCollectionViewCell()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
 
         headerView = UILabel()
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,7 +47,7 @@ class CategoryAssignmentViewController: UIViewController,
 
         setupNavBar()
 
-        view.addSubview(gifImageView)
+        view.addSubview(imageView)
         view.addSubview(headerView)
         view.addSubview(categoryCollectionView)
 
@@ -72,7 +72,7 @@ class CategoryAssignmentViewController: UIViewController,
         super.viewWillAppear(animated)
 
         if let gif = self.viewModel.mediaItem as? GifMediaItem, url = gif.largeImageURL {
-            self.gifImageView.setImageWith(url)
+            self.imageView.setImageWith(url)
         }
     }
 
@@ -126,12 +126,12 @@ class CategoryAssignmentViewController: UIViewController,
 
     func setupLayout() {
         view.addConstraints([
-            gifImageView.al_top == view.al_top,
-            gifImageView.al_left == view.al_left,
-            gifImageView.al_right == view.al_right,
-            gifImageView.al_height == UIScreen.mainScreen().bounds.height / 3,
+            imageView.al_top == view.al_top,
+            imageView.al_left == view.al_left,
+            imageView.al_right == view.al_right,
+            imageView.al_height == UIScreen.mainScreen().bounds.height / 3,
 
-            headerView.al_top == gifImageView.al_bottom,
+            headerView.al_top == imageView.al_bottom,
             headerView.al_left == view.al_left,
             headerView.al_right == view.al_right,
             headerView.al_height == 33,

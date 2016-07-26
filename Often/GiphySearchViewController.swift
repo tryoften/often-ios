@@ -179,7 +179,7 @@ class GiphySearchViewController: UIViewController,
             return
         }
 
-        let vc = GifDetailViewController(viewModel: AssignCategoryViewModel(mediaItem: gif))
+        let vc = CategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: gif))
          navigationController?.pushViewController(vc, animated: true)
 
     }
