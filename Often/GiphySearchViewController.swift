@@ -220,11 +220,11 @@ class GiphySearchViewController: UIViewController,
     }
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.giphyResluts.count
+        return viewModel.giphyResults.count
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        if viewModel.giphyResluts.count == 0 {
+        if viewModel.giphyResults.count == 0 {
             return UICollectionViewCell()
         }
 
@@ -232,7 +232,7 @@ class GiphySearchViewController: UIViewController,
             return UICollectionViewCell()
         }
 
-        guard let gif = viewModel.giphyResluts[indexPath.row] as? GifMediaItem else {
+        guard let gif = viewModel.giphyResults[indexPath.row] as? GifMediaItem else {
             return cell
         }
 
@@ -265,7 +265,7 @@ class GiphySearchViewController: UIViewController,
             updateNextButtonState(!cell.searchOverlayView.hidden)
 
             if !cell.searchOverlayView.hidden {
-                viewModel.selectGifAddToPack(viewModel.giphyResluts[indexPath.row])
+                viewModel.selectGifAddToPack(viewModel.giphyResults[indexPath.row])
             } else {
                 viewModel.selectGifAddToPack(nil)
             }
