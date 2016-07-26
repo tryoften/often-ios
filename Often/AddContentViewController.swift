@@ -65,7 +65,8 @@ class AddContentViewController: UIViewController, UIImagePickerControllerDelegat
         }
 
         if sender.isEqual(addContentView.addQuoteButton) {
-            print("quote")
+            let vc = AddQuoteViewController(viewModel: UserPackService.defaultInstance)
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 
