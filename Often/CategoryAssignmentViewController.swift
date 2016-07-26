@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GifDetailViewController: UIViewController,
+class CategoryAssignmentViewController: UIViewController,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
@@ -31,7 +31,7 @@ class GifDetailViewController: UIViewController,
         headerView.setTextWith(UIFont(name: "Montserrat", size: 9)!, letterSpacing: 1.0, color: UIColor.oftBlackColor(), text: "PICK A CATEGORY")
         headerView.backgroundColor = UIColor.oftWhiteColor()
 
-        categoryCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: GifDetailViewController.provideCollectionViewLayout())
+        categoryCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: CategoryAssignmentViewController.provideCollectionViewLayout())
         categoryCollectionView.translatesAutoresizingMaskIntoConstraints = false
         categoryCollectionView.backgroundColor = VeryLightGray
 
@@ -88,7 +88,7 @@ class GifDetailViewController: UIViewController,
 
         navigationItem.titleView = brandLabel
 
-        let topLeftBarButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(GifDetailViewController.backButtonDidTap))
+        let topLeftBarButton = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: #selector(CategoryAssignmentViewController.backButtonDidTap))
         topLeftBarButton.setTitleTextAttributes(([
             NSKernAttributeName: NSNumber(float: 0.2),
             NSFontAttributeName: UIFont(name: "OpenSans", size: 15)!,
@@ -105,7 +105,7 @@ class GifDetailViewController: UIViewController,
     }
 
     func updateAddButtonState(enable: Bool) {
-        let topRightBarButton = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: #selector(GifDetailViewController.addButtonDidTap))
+        let topRightBarButton = UIBarButtonItem(title: "Add", style: .Plain, target: self, action: #selector(CategoryAssignmentViewController.addButtonDidTap))
         topRightBarButton.setTitleTextAttributes(([
             NSKernAttributeName: NSNumber(float: 0.2),
             NSFontAttributeName: UIFont(name: "OpenSans", size: 15)!,
@@ -148,7 +148,15 @@ class GifDetailViewController: UIViewController,
     }
 
     func addButtonDidTap() {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
 
+        viewModel.submitNewMediaItem()
+
+        delay(0.5) {
+            PKHUD.sharedHUD.hide(animated: true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -178,8 +186,7 @@ class GifDetailViewController: UIViewController,
         }
 
         updateAddButtonState(cell.selected)
-
-
+        viewModel.updateMediaItemCategory(indexPath.row)
     }
 
     func assignCategoryViewModelDelegateDataDidLoad(viewModel: AssignCategoryViewModel, categories: [Category]?) {

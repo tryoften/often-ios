@@ -138,7 +138,8 @@ class PacksService: PackItemViewModel {
 
         let currentInstallation = PFInstallation.currentInstallation()
         currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
-        currentInstallation.saveInBackground()    }
+        currentInstallation.saveInBackground()
+    }
 
     func addToGlobalPushNotifications() {
         FIRMessaging.messaging().subscribeToTopic("/topics/global")
