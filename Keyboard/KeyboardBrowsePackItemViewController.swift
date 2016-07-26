@@ -176,16 +176,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             let height = width * (4/7)
             return CGSizeMake(width, height)
         case .Quote:
-            var width: CGFloat
-            
-            if screenHeight > screenWidth {
-                width = screenWidth / 2 - 15.5
-            } else {
-                width = screenWidth / 3 - 15.5
-            }
-            
-            let height = screenHeight / 4
-            return CGSizeMake(width, height)
+            return CGSizeMake(screenWidth, 75)
         default:
             return CGSizeZero
         }
@@ -264,15 +255,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
         }
         
-        return UIEdgeInsets(top: 9.0, left: 12.0, bottom: 60, right: 12.0)
-    }
-    
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 7.0
-    }
-    
-    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 7.0
+        return UIEdgeInsets(top: 0, left: 0, bottom: 60, right: 0)
     }
 
     func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {

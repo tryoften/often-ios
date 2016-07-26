@@ -149,7 +149,7 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         case .Quote:
             let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
             cell.style = .Cell
-            cell.type = .Metadata
+            cell.type = .NoMetadata
             return cell
         default:
             return UICollectionViewCell()

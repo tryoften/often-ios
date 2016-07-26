@@ -46,7 +46,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225)
+        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
