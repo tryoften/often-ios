@@ -243,18 +243,18 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             let lyric = (result as! LyricMediaItem)
             cell.leftHeaderLabel.text = lyric.artist_name
             cell.rightHeaderLabel.text = lyric.track_title
-            cell.mainTextLabel.text = lyric.text
+            cell.mainTextLabel.text = "\"\(lyric.text)\""
             cell.leftMetadataLabel.text = lyric.created?.timeAgoSinceNow()
-            cell.mainTextLabel.textAlignment = .Center
+            cell.mainTextLabel.textAlignment = .Right
             cell.showImageView = false
             cell.avatarImageURL =  lyric.smallImageURL
         case .Quote:
             let quote = (result as! QuoteMediaItem)
-            cell.leftHeaderLabel.text = quote.owner_name
+            cell.leftHeaderLabel.text = quote.origin_name
             cell.rightHeaderLabel.text = quote.origin_name
             cell.mainTextLabel.text = quote.text
-            cell.leftMetadataLabel.text = quote.created?.timeAgoSinceNow()
-            cell.mainTextLabel.textAlignment = .Center
+            cell.leftMetadataLabel.text = quote.owner_name
+            cell.mainTextLabel.textAlignment = .Right
             cell.showImageView = false
             cell.avatarImageURL =  quote.smallImageURL
         default:
