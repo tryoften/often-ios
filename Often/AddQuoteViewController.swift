@@ -63,13 +63,18 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     
     func addButtonDidTap() {
         navigationController?.popViewControllerAnimated(true)
-        var quote = QuoteMediaItem(data: [
+        let quote = QuoteMediaItem(data: [
             "text": cardView.quoteTextView.text,
+            "type": "quote",
+            "owner_id": viewModel.userId
         ])
         
-        if let source = cardView.sourceTextField.text {
-            quote.owner_name = source
+        if let source = cardView.sourceTextField.text, name = viewModel.currentUser?.name {
+            quote.origin_name = source
+            quote.owner_name = name
         }
+        
+        quote.toDictionary()
         
         viewModel.addItem(quote)
     }
