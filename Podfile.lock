@@ -7,12 +7,12 @@ PODS:
     - FlurrySDK (= 4.4.0)
   - Analytics/Segmentio (1.11.3):
     - Analytics/Core-iOS
-  - Bolts (1.8.1):
-    - Bolts/AppLinks (= 1.8.1)
-    - Bolts/Tasks (= 1.8.1)
-  - Bolts/AppLinks (1.8.1):
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.8.1)
+  - Bolts/Tasks (1.8.4)
   - CSStickyHeaderFlowLayout (0.2.10)
   - DateTools (1.7.0)
   - Facebook-iOS-SDK (4.1.0):
@@ -83,8 +83,8 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
-  - Parse (1.13.0):
-    - Bolts/Tasks (~> 1.6)
+  - Parse (1.14.2):
+    - Bolts/Tasks (~> 1.8)
   - Reveal-iOS-SDK (1.6.2)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
 
@@ -114,7 +114,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Analytics: 6e53981fe158e51df2b52270b38dcb159f605088
-  Bolts: 89c0c6dd1b9c975a3452a62d57a6be6739e5f433
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   CSStickyHeaderFlowLayout: 5366582779d8b7c9ba9b9cc729c218cc23888776
   DateTools: 53288ee8b905fdc75897a1e6b5cc0144b14cba60
   Facebook-iOS-SDK: f42dfb27283bf5f05e3a9edc88459a75b9892d99
@@ -132,7 +132,7 @@ SPEC CHECKSUMS:
   GoogleParsingUtilities: 30b3896f9ee167dc78747f013d3de157ced1cadf
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  Parse: 4335d65f40cb3d43190d723144bbe1afb9c38230
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
 

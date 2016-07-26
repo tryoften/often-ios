@@ -56,7 +56,6 @@ class AddContentViewController: UIViewController {
         if sender.isEqual(addContentView.addGifButton) {
             vc = GiphySearchViewController(viewModel: GiphySearchViewModel())
             navigationController?.pushViewController(vc, animated: true)
-
         }
 
         if sender.isEqual(addContentView.addImageButton) {
