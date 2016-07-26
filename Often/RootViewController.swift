@@ -79,8 +79,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             userProfileVC = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: sessionManager))
         } else {
             userProfileVC = ContainerNavigationController(
-                rootViewController: UserProfileViewController(viewModel: PacksService.defaultInstance)
-            )
+                rootViewController: AddContentViewController())
         }
 
         let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController(viewModel: PacksViewModel()))
