@@ -277,7 +277,6 @@
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
-		641F8152BA9A88951350C6C4 /* libPods-Keyboard (Dev).a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6990D966B31A352C7413844 /* libPods-Keyboard (Dev).a */; };
 		690553341CA78E04004680CA /* BrowsePackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* BrowsePackHeaderView.swift */; };
 		690553361CA78E25004680CA /* BrowsePackSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */; };
 		69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -477,7 +476,6 @@
 		810EA56A1C8579D1005A6C6D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		810EA56B1C8579D1005A6C6D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		810EA56C1C8579D1005A6C6D /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
-		810EA56D1C8579D1005A6C6D /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		810EA56F1C8579D1005A6C6D /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		810EA5701C8579D1005A6C6D /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
 		810EA5711C8579D1005A6C6D /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -576,7 +574,6 @@
 		810EA62E1C8579F1005A6C6D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		810EA62F1C8579F1005A6C6D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED61A81E621009D4A71 /* AudioToolbox.framework */; };
 		810EA6301C8579F1005A6C6D /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
-		810EA6311C8579F1005A6C6D /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
 		810EA6331C8579F1005A6C6D /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		810EA6341C8579F1005A6C6D /* Oswald-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1A61B1A653100EA1925 /* Oswald-Bold.ttf */; };
 		810EA6351C8579F1005A6C6D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
@@ -809,6 +806,7 @@
 		81ABD2571CA0793C0026B59E /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
 		81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */; };
 		81B19EAC1B30AD9900D3575C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B19EAA1B30AD9900D3575C /* User.swift */; };
+		81B920FA1D46895200F45BD9 /* UserPackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B920F91D46895200F45BD9 /* UserPackService.swift */; };
 		81BDA7171C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */; };
 		81BDA7181C3F00DD00198AF8 /* MediaItemGroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */; };
 		81BDA71B1C3F011F00198AF8 /* MediaItemGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */; };
@@ -905,7 +903,6 @@
 		81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED41A81E613009D4A71 /* CFNetwork.framework */; };
 		81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81164A8A1A9D67AC00AE5B30 /* StoreKit.framework */; };
 		81DA3F501C24BE85006822D3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81794ED21A81E607009D4A71 /* Accounts.framework */; };
-		81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		81DA3F551C24BE85006822D3 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 695FEEAC1B74277F0048E5B7 /* Montserrat-Regular.ttf */; };
 		81DA3F561C24BE85006822D3 /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1911B1A5D3700EA1925 /* OpenSans-SemiboldItalic.ttf */; };
 		81DA3F571C24BE85006822D3 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */; };
@@ -939,6 +936,8 @@
 		81F833571C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */; };
 		81F8335C1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */; };
 		81F833861C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */; };
+		9A9D1806D8CDBDF7049A8164 /* libPods-Keyboard (Dev).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 608BBF54B982ECB628A000F3 /* libPods-Keyboard (Dev).a */; };
+		B6D2F18D6DC77B3785B477D7 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 449E8A2556D420A8E411A1F2 /* libPods-Often.a */; };
 		BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF0A4BF21CB6DF0800824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF18A40A1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
@@ -993,6 +992,8 @@
 		BFD8778C1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
 		BFD8778D1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
 		BFD8778E1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */; };
+		F0A3B9C1619A211B08363229 /* libPods-Often (Dev).a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB47F1CA5F5689502064B0CB /* libPods-Often (Dev).a */; };
+		FD3072611EA9EBAE3B9502BE /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06726AC7E425935D4B4A5771 /* libPods-Keyboard.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1119,14 +1120,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.release.xcconfig"; sourceTree = "<group>"; };
-		0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.debug.xcconfig"; sourceTree = "<group>"; };
-		18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.crashlytics.xcconfig"; sourceTree = "<group>"; };
-		199C4312257A18D37E7AE2A6 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
+		06726AC7E425935D4B4A5771 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		072BF14CD4CD0004373263B2 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
+		0A87A01D1430AD55A3B9C0E2 /* Pods-Keyboard (Dev).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).debug.xcconfig"; sourceTree = "<group>"; };
 		30E00C761BC86C3D00DDF24C /* Spring.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spring.framework; path = Carthage/Build/iOS/Spring.framework; sourceTree = "<group>"; };
 		30E00C791BC86CEA00DDF24C /* delay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = delay.swift; path = ../Often/delay.swift; sourceTree = "<group>"; };
-		31D1A5ACBAE5BBB333F057FD /* libPods-Often (Dev).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often (Dev).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B0D11581D21C66400B58F13 /* DFCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFCache.framework; path = Carthage/Build/iOS/DFCache.framework; sourceTree = "<group>"; };
 		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -1227,7 +1225,12 @@
 		3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifcationAlertView.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManagerFlags.swift; sourceTree = "<group>"; };
-		45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.release.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.release.xcconfig"; sourceTree = "<group>"; };
+		40A94224F70D782B17F7D666 /* Pods-Often (Dev).crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).crashlytics.xcconfig"; sourceTree = "<group>"; };
+		449E8A2556D420A8E411A1F2 /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BFC6A53B36C4350F2B769C6 /* Pods-Often.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.production.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.production.xcconfig"; sourceTree = "<group>"; };
+		52F6EB0BCF84A0E7CA9BAE48 /* Pods-Keyboard (Dev).production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).production.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).production.xcconfig"; sourceTree = "<group>"; };
+		532F10BEF4060767A45E12D7 /* Pods-Often.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.crashlytics.xcconfig"; sourceTree = "<group>"; };
+		608BBF54B982ECB628A000F3 /* libPods-Keyboard (Dev).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard (Dev).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
 		690553331CA78E04004680CA /* BrowsePackHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackHeaderView.swift; sourceTree = "<group>"; };
 		690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -1261,6 +1264,9 @@
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackImagePickerViewController.swift; sourceTree = "<group>"; };
 		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		776B2A588F91263E3CCE0731 /* Pods-Keyboard.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.crashlytics.xcconfig"; sourceTree = "<group>"; };
+		79376D4E6F74D6885345325D /* Pods-Often (Dev).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).debug.xcconfig"; sourceTree = "<group>"; };
+		796A275789A8E9921EE16351 /* Pods-Keyboard (Dev).crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).crashlytics.xcconfig"; sourceTree = "<group>"; };
 		8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseConfig.swift; path = ../Often/ParseConfig.swift; sourceTree = "<group>"; };
 		810B04F11C43181800BA731B /* BrowseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseViewModel.swift; path = ../Keyboard/Sources/BrowseViewModel.swift; sourceTree = "<group>"; };
 		810B04F91C4327B400BA731B /* Keyboard-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Keyboard-Bridging-Header.h"; path = "Sources/Keyboard-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1345,6 +1351,7 @@
 		81B19E8D1B30A66700D3575C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		81B19E8F1B30A71500D3575C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		81B19EAA1B30AD9900D3575C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User.swift; sourceTree = "<group>"; };
+		81B920F91D46895200F45BD9 /* UserPackService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserPackService.swift; path = Core/UserPackService.swift; sourceTree = "<group>"; };
 		81BD904E1BD58834002F7D32 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		81BDA7151C3F00DD00198AF8 /* MediaItemGroupViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaItemGroupViewModel.swift; sourceTree = "<group>"; };
 		81BDA7191C3F011F00198AF8 /* MediaItemGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemGroup.swift; path = Core/MediaItemGroup.swift; sourceTree = "<group>"; };
@@ -1378,15 +1385,11 @@
 		81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsKeyboardContainerViewController.swift; path = Sources/MediaItemsKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseKeyboardContainerViewController.swift; path = Sources/BaseKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseMediaItemCollectionViewCell.swift; path = Sources/BrowseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
-		90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.release.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.release.xcconfig"; sourceTree = "<group>"; };
-		928E8AB5169157015D98D681 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.release.xcconfig"; sourceTree = "<group>"; };
-		9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
-		B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-October.debug.xcconfig"; path = "Pods/Target Support Files/Pods-October/Pods-October.debug.xcconfig"; sourceTree = "<group>"; };
-		BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.release.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.release.xcconfig"; sourceTree = "<group>"; };
+		854F6132E5C6BDB65150B868 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
+		8633F3E96A522683FF6C2CC7 /* Pods-Often.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.release.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.release.xcconfig"; sourceTree = "<group>"; };
+		8A1E2F7C2F7DB1D597203133 /* Pods-Often (Dev).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).release.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).release.xcconfig"; sourceTree = "<group>"; };
+		926A03DF2298806F8697DEAD /* Pods-Keyboard.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.production.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.production.xcconfig"; sourceTree = "<group>"; };
+		BCBD048A4462355B625BA5F6 /* Pods-Keyboard (Dev).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).release.xcconfig"; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
@@ -1396,12 +1399,9 @@
 		BF99715E1CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
 		BFD877831CA9B41300DCDA08 /* PacksViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PacksViewModel.swift; sourceTree = "<group>"; };
 		BFD877891CAAE9F200DCDA08 /* PackMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackMediaItem.swift; sourceTree = "<group>"; };
-		C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Surf.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Surf/Pods-Surf.debug.xcconfig"; sourceTree = "<group>"; };
-		D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Drizzy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Drizzy/Pods-Drizzy.debug.xcconfig"; sourceTree = "<group>"; };
-		F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Core.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Core/Pods-Core.debug.xcconfig"; sourceTree = "<group>"; };
-		F6990D966B31A352C7413844 /* libPods-Keyboard (Dev).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard (Dev).a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.crashlytics.xcconfig"; sourceTree = "<group>"; };
-		FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CustomKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CustomKeyboard/Pods-CustomKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
+		D5B38ABA84763D56644C6132 /* Pods-Often (Dev).production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).production.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).production.xcconfig"; sourceTree = "<group>"; };
+		E456636BE6E3D4DE49371B4B /* Pods-Often.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.debug.xcconfig"; sourceTree = "<group>"; };
+		FB47F1CA5F5689502064B0CB /* libPods-Often (Dev).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often (Dev).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1451,9 +1451,8 @@
 				81C080F51CC57207009DA5E8 /* NukeAlamofirePlugin.framework in Frameworks */,
 				810EA56B1C8579D1005A6C6D /* StoreKit.framework in Frameworks */,
 				810EA56C1C8579D1005A6C6D /* Accounts.framework in Frameworks */,
-				810EA56D1C8579D1005A6C6D /* libPods-Often.a in Frameworks */,
 				3B25C6DD1C861F3A00C1BD74 /* TwitterKit.framework in Frameworks */,
-				76A1115F11119F9F066CC01B /* libPods-Often (Dev).a in Frameworks */,
+				F0A3B9C1619A211B08363229 /* libPods-Often (Dev).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1497,10 +1496,9 @@
 				3B25C6B61C861F3A00C1BD74 /* CoreMedia.framework in Frameworks */,
 				3B25C6E81C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */,
 				810EA6301C8579F1005A6C6D /* Accounts.framework in Frameworks */,
-				810EA6311C8579F1005A6C6D /* libPods-Keyboard.a in Frameworks */,
 				3B25C6A71C861F3A00C1BD74 /* Social.framework in Frameworks */,
 				3B25C6D91C861F3A00C1BD74 /* Fabric.framework in Frameworks */,
-				641F8152BA9A88951350C6C4 /* libPods-Keyboard (Dev).a in Frameworks */,
+				9A9D1806D8CDBDF7049A8164 /* libPods-Keyboard (Dev).a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1549,8 +1547,8 @@
 				81C081011CC57462009DA5E8 /* NukeAlamofirePlugin.framework in Frameworks */,
 				81164A8B1A9D67AC00AE5B30 /* StoreKit.framework in Frameworks */,
 				81794ED31A81E607009D4A71 /* Accounts.framework in Frameworks */,
-				8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */,
 				3B25C6DA1C861F3A00C1BD74 /* TwitterKit.framework in Frameworks */,
+				B6D2F18D6DC77B3785B477D7 /* libPods-Often.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1589,9 +1587,9 @@
 				3B25C6B41C861F3A00C1BD74 /* CoreMedia.framework in Frameworks */,
 				3B25C6E61C861F3A00C1BD74 /* TwitterCore.framework in Frameworks */,
 				81794EF51A81EC58009D4A71 /* Accounts.framework in Frameworks */,
-				74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */,
 				3B25C6A51C861F3A00C1BD74 /* Social.framework in Frameworks */,
 				3B25C6D71C861F3A00C1BD74 /* Fabric.framework in Frameworks */,
+				FD3072611EA9EBAE3B9502BE /* libPods-Keyboard.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1631,7 +1629,6 @@
 				81DA3F4D1C24BE85006822D3 /* CFNetwork.framework in Frameworks */,
 				81DA3F4F1C24BE85006822D3 /* StoreKit.framework in Frameworks */,
 				81DA3F501C24BE85006822D3 /* Accounts.framework in Frameworks */,
-				81DA3F511C24BE85006822D3 /* libPods-Often.a in Frameworks */,
 				3B25C6AE1C861F3A00C1BD74 /* Security.framework in Frameworks */,
 				3B0D11691D21C95900B58F13 /* Preheat.framework in Frameworks */,
 				3B25C6D11C861F3A00C1BD74 /* Foundation.framework in Frameworks */,
@@ -1644,32 +1641,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3A906368B7CA46AA11C157BA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D5794374D5B3F63155309941 /* Pods-Drizzy.debug.xcconfig */,
-				03776BC2F64FC0C6FCC35217 /* Pods-Drizzy.release.xcconfig */,
-				FC730322356BE0E01786455E /* Pods-CustomKeyboard.debug.xcconfig */,
-				945F3F740DDB47C042946050 /* Pods-CustomKeyboard.release.xcconfig */,
-				9BF0982CA290F7F64B55A124 /* Pods.debug.xcconfig */,
-				928E8AB5169157015D98D681 /* Pods.release.xcconfig */,
-				F0DD50C141D01B72F4932753 /* Pods-Core.debug.xcconfig */,
-				90CC34E177E03E45A67CAEEB /* Pods-Core.release.xcconfig */,
-				B572A5F5C8EC3F1079186288 /* Pods-October.debug.xcconfig */,
-				45889CCBD226D5CCF8CE7976 /* Pods-October.release.xcconfig */,
-				881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */,
-				FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */,
-				7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */,
-				C85359BC0D2B9C5AAD1BD2F3 /* Pods-Surf.debug.xcconfig */,
-				18A18D358A8CB3AA1878D360 /* Pods-Surf.crashlytics.xcconfig */,
-				BEC12DCEE632999D04018E5B /* Pods-Surf.release.xcconfig */,
-				0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */,
-				245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */,
-				B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		3B2BF1CF1D2EBE1600F6B65B /* Local Pack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1699,6 +1670,7 @@
 		3B58FAD21C4451AE00A38F9E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				81B920F91D46895200F45BD9 /* UserPackService.swift */,
 				3BA0214F1C6A999600FE9009 /* Analytics.swift */,
 				816D500F1C861000007B3249 /* CategoryService.swift */,
 				81F15C0C1CB2B5B700D074CB /* PacksService.swift */,
@@ -1858,10 +1830,10 @@
 				81794ED61A81E621009D4A71 /* AudioToolbox.framework */,
 				81794ED41A81E613009D4A71 /* CFNetwork.framework */,
 				81794ED21A81E607009D4A71 /* Accounts.framework */,
-				85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */,
-				199C4312257A18D37E7AE2A6 /* libPods-Often.a */,
-				F6990D966B31A352C7413844 /* libPods-Keyboard (Dev).a */,
-				31D1A5ACBAE5BBB333F057FD /* libPods-Often (Dev).a */,
+				06726AC7E425935D4B4A5771 /* libPods-Keyboard.a */,
+				608BBF54B982ECB628A000F3 /* libPods-Keyboard (Dev).a */,
+				449E8A2556D420A8E411A1F2 /* libPods-Often.a */,
+				FB47F1CA5F5689502064B0CB /* libPods-Often (Dev).a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2169,8 +2141,8 @@
 				8180E60A1A142157007FA1CF /* Container App */,
 				81331E161A1806BB003E4609 /* Vendors */,
 				8180E6091A142157007FA1CF /* Products */,
-				3A906368B7CA46AA11C157BA /* Pods */,
 				7F93937CEF33AF0CDDEE7D74 /* Frameworks */,
+				D831CF92E2AB26DA057AA2B6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2384,6 +2356,29 @@
 			name = Prod;
 			sourceTree = "<group>";
 		};
+		D831CF92E2AB26DA057AA2B6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				072BF14CD4CD0004373263B2 /* Pods-Keyboard.debug.xcconfig */,
+				776B2A588F91263E3CCE0731 /* Pods-Keyboard.crashlytics.xcconfig */,
+				926A03DF2298806F8697DEAD /* Pods-Keyboard.production.xcconfig */,
+				854F6132E5C6BDB65150B868 /* Pods-Keyboard.release.xcconfig */,
+				0A87A01D1430AD55A3B9C0E2 /* Pods-Keyboard (Dev).debug.xcconfig */,
+				796A275789A8E9921EE16351 /* Pods-Keyboard (Dev).crashlytics.xcconfig */,
+				52F6EB0BCF84A0E7CA9BAE48 /* Pods-Keyboard (Dev).production.xcconfig */,
+				BCBD048A4462355B625BA5F6 /* Pods-Keyboard (Dev).release.xcconfig */,
+				E456636BE6E3D4DE49371B4B /* Pods-Often.debug.xcconfig */,
+				532F10BEF4060767A45E12D7 /* Pods-Often.crashlytics.xcconfig */,
+				4BFC6A53B36C4350F2B769C6 /* Pods-Often.production.xcconfig */,
+				8633F3E96A522683FF6C2CC7 /* Pods-Often.release.xcconfig */,
+				79376D4E6F74D6885345325D /* Pods-Often (Dev).debug.xcconfig */,
+				40A94224F70D782B17F7D666 /* Pods-Often (Dev).crashlytics.xcconfig */,
+				D5B38ABA84763D56644C6132 /* Pods-Often (Dev).production.xcconfig */,
+				8A1E2F7C2F7DB1D597203133 /* Pods-Often (Dev).release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2391,18 +2386,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 810EA58B1C8579D1005A6C6D /* Build configuration list for PBXNativeTarget "Often (Dev)" */;
 			buildPhases = (
-				810EA49B1C8579D1005A6C6D /* Check Pods Manifest.lock */,
+				0EADF99A9633AD828520F2E0 /* Check Pods Manifest.lock */,
 				810EA49C1C8579D1005A6C6D /* Sources */,
 				810EA5581C8579D1005A6C6D /* Frameworks */,
 				810EA56E1C8579D1005A6C6D /* Resources */,
-				810EA5831C8579D1005A6C6D /* Copy Pods Resources */,
 				810EA5841C8579D1005A6C6D /* Upload symbols to crashlytics */,
 				810EA5851C8579D1005A6C6D /* Embed Frameworks */,
 				810EA5871C8579D1005A6C6D /* Run SwiftLint */,
 				810EA5881C8579D1005A6C6D /* Copy Frameworks (Carthage) */,
-				810EA5891C8579D1005A6C6D /* Embed Pods Frameworks */,
 				810EA58A1C8579D1005A6C6D /* Run carthage strip */,
 				810EA6541C857A36005A6C6D /* Embed App Extensions */,
+				F41F3F15F00E800DD7F287BE /* Embed Pods Frameworks */,
+				E35D366D10385633A4EA75A2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2418,17 +2413,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 810EA64B1C8579F1005A6C6D /* Build configuration list for PBXNativeTarget "Keyboard (Dev)" */;
 			buildPhases = (
-				810EA5951C8579F1005A6C6D /* Check Pods Manifest.lock */,
+				36B9193D38675610EF60AE3B /* Check Pods Manifest.lock */,
 				810EA5961C8579F1005A6C6D /* Sources */,
 				810EA61E1C8579F1005A6C6D /* Frameworks */,
 				810EA6321C8579F1005A6C6D /* Resources */,
-				810EA6441C8579F1005A6C6D /* Copy Pods Resources */,
 				810EA6451C8579F1005A6C6D /* CopyFiles */,
 				810EA6461C8579F1005A6C6D /* ShellScript */,
 				810EA6471C8579F1005A6C6D /* Run SwiftLint */,
-				810EA6481C8579F1005A6C6D /* Embed Pods Frameworks */,
 				810EA6491C8579F1005A6C6D /* Run Script */,
 				810EA64A1C8579F1005A6C6D /* Upload symbols to crashlytics */,
+				EF17E820548336D2481F25A0 /* Embed Pods Frameworks */,
+				9A59701E6999BC7C0EAAEED4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2443,17 +2438,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8180E6271A142158007FA1CF /* Build configuration list for PBXNativeTarget "Often" */;
 			buildPhases = (
-				816D50F31C8A378F007B3249 /* Check Pods Manifest.lock */,
+				E3B77A1ECF6847D3E9E7E4AD /* Check Pods Manifest.lock */,
 				816D50381C8A00E3007B3249 /* Sources */,
 				8180E6051A142157007FA1CF /* Frameworks */,
 				8180E6061A142157007FA1CF /* Resources */,
 				8180E63D1A142199007FA1CF /* Embed App Extensions */,
-				45728D1C2D72036A77085D41 /* Copy Pods Resources */,
 				812E3F021B4BB95100C0F3BE /* Upload symbols to crashlytics */,
 				30E00C701BC8523500DDF24C /* Embed Frameworks */,
 				81B2EE761BF49FDA00C9B15B /* Copy Frameworks (Carthage) */,
-				538C40B7EA60A0E56AAE2EF0 /* Embed Pods Frameworks */,
 				8192A7C01C62390D00B25AC6 /* Run carthage strip */,
+				66F5AF8F1EEABB6CE086C671 /* Embed Pods Frameworks */,
+				FCA596CAB5339AE825326644 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2469,14 +2464,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8180E63A1A142199007FA1CF /* Build configuration list for PBXNativeTarget "Keyboard" */;
 			buildPhases = (
-				194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */,
+				E035B014A061466C0AAF3DAE /* Check Pods Manifest.lock */,
 				8180E62D1A142199007FA1CF /* Sources */,
 				8180E62E1A142199007FA1CF /* Frameworks */,
 				8180E62F1A142199007FA1CF /* Resources */,
-				5E81146B4BB9D2702D75E23C /* Copy Pods Resources */,
 				813B27DF1C69A9F3003B6110 /* Upload symbols to crashlytics */,
-				9E8AD1A6983BB88BF76ACB5A /* Embed Pods Frameworks */,
 				8192A7C41C62404D00B25AC6 /* Run Script */,
+				9C8477C3A91657844A838067 /* Embed Pods Frameworks */,
+				27A78C24A33309FE1E56D696 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2491,12 +2486,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 81DA3F751C24BE85006822D3 /* Build configuration list for PBXNativeTarget "Often (Keyboard Debug)" */;
 			buildPhases = (
-				81DA3E9E1C24BE85006822D3 /* Check Pods Manifest.lock */,
 				81DA3E9F1C24BE85006822D3 /* Sources */,
 				81DA3F371C24BE85006822D3 /* Frameworks */,
 				81DA3F541C24BE85006822D3 /* Resources */,
 				81DA3F681C24BE85006822D3 /* Embed App Extensions */,
-				81DA3F6A1C24BE85006822D3 /* Copy Pods Resources */,
 				81DA3F6C1C24BE85006822D3 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -2786,7 +2779,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		194ABAC59D0290C32B9EF891 /* Check Pods Manifest.lock */ = {
+		0EADF99A9633AD828520F2E0 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2801,37 +2794,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		45728D1C2D72036A77085D41 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		538C40B7EA60A0E56AAE2EF0 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5E81146B4BB9D2702D75E23C /* Copy Pods Resources */ = {
+		27A78C24A33309FE1E56D696 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2846,7 +2809,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		810EA49B1C8579D1005A6C6D /* Check Pods Manifest.lock */ = {
+		36B9193D38675610EF60AE3B /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2861,19 +2824,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		810EA5831C8579D1005A6C6D /* Copy Pods Resources */ = {
+		66F5AF8F1EEABB6CE086C671 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev)-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		810EA5841C8579D1005A6C6D /* Upload symbols to crashlytics */ = {
@@ -2919,21 +2882,6 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		810EA5891C8579D1005A6C6D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev)-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		810EA58A1C8579D1005A6C6D /* Run carthage strip */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2947,36 +2895,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		810EA5951C8579F1005A6C6D /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		810EA6441C8579F1005A6C6D /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev)-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		810EA6461C8579F1005A6C6D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3004,21 +2922,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		810EA6481C8579F1005A6C6D /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev)-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		810EA6491C8579F1005A6C6D /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3076,20 +2979,6 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run e869c8341ef7380d0df5ebd7131f8b82beb9ee82 b8c3e2bcef09c0f926026f95157f53330c66afa4aa940bc1c4ab0d62c584a496";
 		};
-		816D50F31C8A378F007B3249 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\ncat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\nexit 1\nfi";
-		};
 		8192A7C01C62390D00B25AC6 /* Run carthage strip */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3141,7 +3030,37 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		81DA3E9E1C24BE85006822D3 /* Check Pods Manifest.lock */ = {
+		9A59701E6999BC7C0EAAEED4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev)-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C8477C3A91657844A838067 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E035B014A061466C0AAF3DAE /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3156,7 +3075,67 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		81DA3F6A1C24BE85006822D3 /* Copy Pods Resources */ = {
+		E35D366D10385633A4EA75A2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev)-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3B77A1ECF6847D3E9E7E4AD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EF17E820548336D2481F25A0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F41F3F15F00E800DD7F287BE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev)-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FCA596CAB5339AE825326644 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3169,21 +3148,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9E8AD1A6983BB88BF76ACB5A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3512,6 +3476,7 @@
 				816D508A1C8A0583007B3249 /* FacebookAccountManager.swift in Sources */,
 				816D50621C8A04F4007B3249 /* NoResultsEmptyStateView.swift in Sources */,
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,
+				81B920FA1D46895200F45BD9 /* UserPackService.swift in Sources */,
 				69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
 				816D50831C8A0557007B3249 /* UIColor+Often.swift in Sources */,
 				816D504E1C8A04D9007B3249 /* AnimatedLoaderView.swift in Sources */,
@@ -3916,7 +3881,7 @@
 		};
 		695262701B4AEADD00D4C6FC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */;
+			baseConfigurationReference = 8633F3E96A522683FF6C2CC7 /* Pods-Often.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3959,7 +3924,7 @@
 		};
 		695262711B4AEADD00D4C6FC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */;
+			baseConfigurationReference = 854F6132E5C6BDB65150B868 /* Pods-Keyboard.release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4003,7 +3968,7 @@
 		};
 		810EA58C1C8579D1005A6C6D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */;
+			baseConfigurationReference = 79376D4E6F74D6885345325D /* Pods-Often (Dev).debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4043,7 +4008,7 @@
 		};
 		810EA58D1C8579D1005A6C6D /* Crashlytics */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
+			baseConfigurationReference = 40A94224F70D782B17F7D666 /* Pods-Often (Dev).crashlytics.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4083,7 +4048,7 @@
 		};
 		810EA58E1C8579D1005A6C6D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */;
+			baseConfigurationReference = 8A1E2F7C2F7DB1D597203133 /* Pods-Often (Dev).release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4129,7 +4094,7 @@
 		};
 		810EA64C1C8579F1005A6C6D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */;
+			baseConfigurationReference = 0A87A01D1430AD55A3B9C0E2 /* Pods-Keyboard (Dev).debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4171,7 +4136,7 @@
 		};
 		810EA64D1C8579F1005A6C6D /* Crashlytics */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */;
+			baseConfigurationReference = 796A275789A8E9921EE16351 /* Pods-Keyboard (Dev).crashlytics.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4214,7 +4179,7 @@
 		};
 		810EA64E1C8579F1005A6C6D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */;
+			baseConfigurationReference = BCBD048A4462355B625BA5F6 /* Pods-Keyboard (Dev).release.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4307,7 +4272,7 @@
 		};
 		8124CF8E1CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
+			baseConfigurationReference = 4BFC6A53B36C4350F2B769C6 /* Pods-Often.production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4344,7 +4309,6 @@
 		};
 		8124CF8F1CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4384,7 +4348,7 @@
 		};
 		8124CF901CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */;
+			baseConfigurationReference = 926A03DF2298806F8697DEAD /* Pods-Keyboard.production.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4427,7 +4391,7 @@
 		};
 		8124CF911CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
+			baseConfigurationReference = D5B38ABA84763D56644C6132 /* Pods-Often (Dev).production.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4467,7 +4431,7 @@
 		};
 		8124CF921CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */;
+			baseConfigurationReference = 52F6EB0BCF84A0E7CA9BAE48 /* Pods-Keyboard (Dev).production.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4559,7 +4523,7 @@
 		};
 		812E3F1C1B4DE6AD00C0F3BE /* Crashlytics */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
+			baseConfigurationReference = 532F10BEF4060767A45E12D7 /* Pods-Often.crashlytics.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4596,7 +4560,7 @@
 		};
 		812E3F1D1B4DE6AD00C0F3BE /* Crashlytics */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB605ECF29EF659FB4C49324 /* Pods-Keyboard.crashlytics.xcconfig */;
+			baseConfigurationReference = 776B2A588F91263E3CCE0731 /* Pods-Keyboard.crashlytics.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4689,7 +4653,7 @@
 		};
 		8180E6281A142158007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */;
+			baseConfigurationReference = E456636BE6E3D4DE49371B4B /* Pods-Often.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4726,7 +4690,7 @@
 		};
 		8180E63B1A142199007FA1CF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 881DAADCE950D0B0D3A901F8 /* Pods-Keyboard.debug.xcconfig */;
+			baseConfigurationReference = 072BF14CD4CD0004373263B2 /* Pods-Keyboard.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4768,7 +4732,6 @@
 		};
 		81DA3F761C24BE85006822D3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AC56B3E820F4111F432C702 /* Pods-Often.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4808,7 +4771,6 @@
 		};
 		81DA3F771C24BE85006822D3 /* Crashlytics */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 245E2EA6768B80702AEBB68B /* Pods-Often.crashlytics.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4848,7 +4810,6 @@
 		};
 		81DA3F781C24BE85006822D3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B4DF508823C17B8EE26BAAB7 /* Pods-Often.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
