@@ -9,6 +9,7 @@
 import UIKit
 import MessageUI
 import Firebase
+import FirebaseStorage
 
 enum ProfileSettingsSection: Int {
     case Account = 0
