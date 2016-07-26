@@ -69,8 +69,11 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
             "owner_id": viewModel.userId
         ])
         
-        if let source = cardView.sourceTextField.text, name = viewModel.currentUser?.name {
+        if let source = cardView.sourceTextField.text {
             quote.origin_name = source
+        }
+        
+        if let name = viewModel.currentUser?.name {
             quote.owner_name = name
         }
         
