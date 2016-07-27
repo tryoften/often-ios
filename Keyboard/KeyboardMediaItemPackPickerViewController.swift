@@ -49,7 +49,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             self?.centerOnDefaultCard()
         }
         
-        view.backgroundColor = ClearColor
         collectionView?.backgroundColor = VeryLightGray
         
         view.addSubview(packSliderView)
@@ -98,7 +97,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             cancelBarView.al_top == view.al_top + KeyboardPackPickerDismissalViewHeight,
             cancelBarView.al_bottom == view.al_bottom,
             cancelBarView.al_width == 31
-            ])
+        ])
     }
     
     class func provideLayout() -> UICollectionViewFlowLayout {
@@ -155,7 +154,6 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
             cell.style = .Keyboard
             cell.shareButton.tag = indexPath.row
             cell.shareButton.addTarget(self, action: #selector(sharePackButtonDidTap), forControlEvents: .TouchUpInside)
-            
             
             if let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem, let packId = pack.pack_id, let currentPackID = viewModel.pack?.pack_id {
                 if packId == currentPackID {
