@@ -27,6 +27,8 @@
 		3B0D116E1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B0D116F1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
+		3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
+		3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -369,9 +371,6 @@
 		69F386721D41325E00EB90E6 /* PackImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */; };
 		69F386731D41325E00EB90E6 /* PackImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */; };
 		69F386741D41325E00EB90E6 /* PackImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */; };
-		74B46ED97EE15B4FBDAA2A92 /* libPods-Keyboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 85B0E8E0DFF8DD2355ED5901 /* libPods-Keyboard.a */; };
-		76A1115F11119F9F066CC01B /* libPods-Often (Dev).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D1A5ACBAE5BBB333F057FD /* libPods-Often (Dev).a */; };
-		8028658C18BB1231564CBB16 /* libPods-Often.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 199C4312257A18D37E7AE2A6 /* libPods-Often.a */; };
 		810703711BFD05AC00FDBF57 /* ParseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8107036F1BFD05AB00FDBF57 /* ParseConfig.swift */; };
 		810B04F31C43181800BA731B /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B04F11C43181800BA731B /* BrowseViewModel.swift */; };
 		810B04F41C43181800BA731B /* BrowseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810B04F11C43181800BA731B /* BrowseViewModel.swift */; };
@@ -1157,6 +1156,7 @@
 		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
+		3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingRootViewController.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1301,7 +1301,6 @@
 		69E633151D11C6A000C34BE5 /* BrowseCategorySelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCategorySelectionView.swift; sourceTree = "<group>"; };
 		69E7FD841B8E0611003BC281 /* AppSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppSettingsViewController.swift; sourceTree = "<group>"; };
 		69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackImagePickerViewController.swift; sourceTree = "<group>"; };
-		7220824ECF692A14F73511D0 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		776B2A588F91263E3CCE0731 /* Pods-Keyboard.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.crashlytics.xcconfig"; sourceTree = "<group>"; };
 		79376D4E6F74D6885345325D /* Pods-Often (Dev).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).debug.xcconfig"; sourceTree = "<group>"; };
 		796A275789A8E9921EE16351 /* Pods-Keyboard (Dev).crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).crashlytics.xcconfig"; sourceTree = "<group>"; };
@@ -2094,6 +2093,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */,
+				3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */,
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
 				3B97896F1D4694A8001DD156 /* AddContentViewController.swift */,
 				3BD971E01B9FD374007EAB5A /* LogInViewController.swift */,
@@ -3310,6 +3310,7 @@
 				810EA50C1C8579D1005A6C6D /* LoginView.swift in Sources */,
 				810EA50D1C8579D1005A6C6D /* SessionManager.swift in Sources */,
 				810EA5141C8579D1005A6C6D /* FacebookAccountManager.swift in Sources */,
+				3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				810EA5161C8579D1005A6C6D /* AnimatedLoaderView.swift in Sources */,
 				BF9971501CBEF030008351C7 /* GifCollectionViewCell.swift in Sources */,
 				810EA5181C8579D1005A6C6D /* String+Utils.swift in Sources */,
@@ -3649,6 +3650,7 @@
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,
 				816D50721C8A051B007B3249 /* ConnectivityObservable.swift in Sources */,
 				3B309D781CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
+				3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				816D508C1C8A0583007B3249 /* AccountManager.swift in Sources */,
 				816D50881C8A0583007B3249 /* EmailAccountManager.swift in Sources */,
 				816D50AE1C8A0596007B3249 /* SettingsWebViewController.swift in Sources */,
