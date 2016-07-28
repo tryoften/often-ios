@@ -9,35 +9,29 @@
 import Foundation
 
 class AddQuoteViewController : UIViewController, UITextViewDelegate {
-    var navigationView: AddQuoteNavigationView
+    var navigationView: AddContentNavigationView
     var cardView: AddQuoteView
-    var gradientView: UIImageView
+    var viewModel: UserPackService
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    init(viewModel: UserPackService) {
         
-        navigationView = AddQuoteNavigationView()
+        self.viewModel = viewModel
+        
+        navigationView = AddContentNavigationView()
         navigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationView.addButton.enabled = false
+        navigationView.rightButton.enabled = false
+        navigationView.setTitleText("Add Quote")
         
         cardView = AddQuoteView()
         cardView.translatesAutoresizingMaskIntoConstraints = false
         
-        gradientView = UIImageView()
-        gradientView.translatesAutoresizingMaskIntoConstraints = false
-        gradientView.contentMode = .ScaleAspectFill
-        gradientView.clipsToBounds = true
-        gradientView.image = UIImage(named: "gradient")
-        gradientView.layer.cornerRadius = 4.0
-        
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        super.init(nibName: nil, bundle: nil)
         
         view.backgroundColor = UIColor.oftLightPinkColor()
         
         cardView.quoteTextView.delegate = self
-        navigationView.cancelButton.addTarget(self, action: #selector(AddQuoteViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
-        navigationView.addButton.addTarget(self, action: #selector(AddQuoteViewController.addButtonDidTap), forControlEvents: .TouchUpInside)
-        
-//        view.addSubview(gradientView)
+        navigationView.leftButton.addTarget(self, action: #selector(AddQuoteViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        navigationView.rightButton.addTarget(self, action: #selector(AddQuoteViewController.nextButtonDidTap), forControlEvents: .TouchUpInside)
         
         view.addSubview(navigationView)
         view.addSubview(cardView)
@@ -51,10 +45,6 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     
     func setupLayout() {
         view.addConstraints([
-//            gradientView.al_top == view.al_top,
-//            gradientView.al_left == view.al_left,
-//            gradientView.al_right == view.al_right,
-//            gradientView.al_bottom == view.al_bottom,
             
             navigationView.al_top == view.al_top,
             navigationView.al_left == view.al_left,
@@ -69,23 +59,42 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     }
     
     func cancelButtonDidTap() {
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
     
-    func addButtonDidTap() {
-        // add quotes
+    func nextButtonDidTap() {        
+        let quote = QuoteMediaItem(data: [
+            "text": cardView.quoteTextView.text,
+            "type": "quote",
+            "owner_id": viewModel.userId
+            ])
+        
+        if let source = cardView.sourceTextField.text {
+            quote.origin_name = source
+        }
+        
+        if let name = viewModel.currentUser?.name {
+            quote.owner_name = name
+        }
+        
+        quote.toDictionary()
+        
+        let vc = QuoteCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: quote))
+        navigationController?.pushViewController(vc, animated: true)
+        
+        
     }
     
     func textViewDidChange(textView: UITextView) {
         let isText = textView.text.length > 0
         cardView.placeholderLabel.hidden = isText
-        navigationView.addButton.enabled = isText
+        navigationView.rightButton.enabled = isText
     }
     
     func textViewDidEndEditing(textView: UITextView) {
         let isText = textView.text.length > 0
         cardView.placeholderLabel.hidden = isText
-        navigationView.addButton.enabled = isText
+        navigationView.rightButton.enabled = isText
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

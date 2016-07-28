@@ -20,4 +20,3 @@
 #import <DFCache/DFCache.h>
 #import "NJKScrollFullScreen.h"
 #import "UIViewController+NJKFullScreenSupport.h"
-#import <AssetsLibrary/AssetsLibrary.h>

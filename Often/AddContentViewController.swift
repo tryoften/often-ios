@@ -35,6 +35,7 @@ class AddContentViewController: UIViewController {
         addContentView.addGifButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         addContentView.addQuoteButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         addContentView.cancelButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+
     }
 
     func setupLayout() {
@@ -52,9 +53,16 @@ class AddContentViewController: UIViewController {
         navigationController?.navigationBar.hidden = true
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        addContentView.animateButtons() 
+    }
+
     func actionButtonDidTap(sender: UIButton) {
         if sender.isEqual(addContentView.addGifButton) {
             let vc = ContainerNavigationController(rootViewController:GiphySearchViewController(viewModel: GiphySearchViewModel()))
+            vc.navigationBar.hidden = true
             presentViewController(vc, animated: true, completion: nil)
         }
 
@@ -63,14 +71,14 @@ class AddContentViewController: UIViewController {
         }
 
         if sender.isEqual(addContentView.addQuoteButton) {
-            let vc = ContainerNavigationController(rootViewController: AddQuoteViewController())
+            let vc = ContainerNavigationController(rootViewController: AddQuoteViewController(viewModel: UserPackService.defaultInstance))
+            vc.navigationBar.hidden = true
             presentViewController(vc, animated: true, completion: nil)
 
         }
 
         if sender.isEqual(addContentView.cancelButton) {
             dismissViewControllerAnimated(true, completion: nil)
-
         }
     }
 }

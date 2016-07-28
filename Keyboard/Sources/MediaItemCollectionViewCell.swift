@@ -84,7 +84,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         bottomSeperator = UIView()
         bottomSeperator.backgroundColor = DarkGrey
 
-        contentEdgeInsets = UIEdgeInsets(top: 16, left: 18, bottom: 16, right: 18)
+        contentEdgeInsets = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         
         sourceLogoView = UIImageView()
         sourceLogoView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +103,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 12.0)
+        leftHeaderLabel.font = UIFont(name: "OpenSans-Semibold", size: 10.5)
         leftHeaderLabel.textColor = BlackColor.colorWithAlphaComponent(0.74)
 
         rightHeaderLabel = UILabel()
@@ -113,9 +113,9 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
 
         mainTextLabel = UILabel()
         mainTextLabel.translatesAutoresizingMaskIntoConstraints = false
-        mainTextLabel.font = UIFont(name: "Montserrat", size: 14.0)
+        mainTextLabel.font = UIFont(name: "OpenSans", size: 12.5)
         mainTextLabel.textColor = BlackColor.colorWithAlphaComponent(0.90)
-        mainTextLabel.numberOfLines = 5
+        mainTextLabel.numberOfLines = 3
         
         centerMetadataLabel = UILabel()
         centerMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +124,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         
         leftMetadataLabel = UILabel()
         leftMetadataLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftMetadataLabel.font = UIFont(name: "OpenSans", size: 10.5)
+        leftMetadataLabel.font = UIFont(name: "OpenSans", size: 10.0)
         leftMetadataLabel.textColor = BlackColor.colorWithAlphaComponent(0.54)
         
         rightMetadataLabel = UILabel()
@@ -166,6 +166,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
 
         avatarImageURL = nil
 
+
         contentView.clipsToBounds = false
         contentView.addSubview(metadataContentView)
         contentView.addSubview(contentPlaceholderImageView)
@@ -202,7 +203,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         leftHeaderLabel.text = ""
         rightHeaderLabel.text = ""
         mainTextLabel.text = ""
-        mainTextLabel.textAlignment = .Right
+        mainTextLabel.textAlignment = .Left
         leftMetadataLabel.text = ""
         centerMetadataLabel.text = ""
         rightMetadataLabel.text = ""
@@ -218,20 +219,17 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         contentImageView.hidden = hasNoMetadata
         sourceLogoView.hidden = hasNoMetadata
         leftHeaderLabel.hidden = hasNoMetadata
-        rightHeaderLabel.hidden = true
+        rightHeaderLabel.hidden = hasNoMetadata
         mainTextLabelCenterConstraint?.constant = hasNoMetadata ? 0 : 5
     }
 
     func setupCellStyle() {
         switch style {
         case .Cell:
-            contentView.layer.cornerRadius = 2.0
-            layer.cornerRadius = 2.0
-            layer.shadowOffset = CGSizeMake(0, 1)
-            backgroundColor = WhiteColor
-            layer.shadowOpacity = 0.14
-            layer.shadowRadius = 1
-            bottomSeperator.hidden = true
+            contentView.layer.cornerRadius = 0.0
+            layer.cornerRadius = 0.0
+            backgroundColor = VeryLightGray
+            layer.shadowOpacity = 0.0
         case .Card:
             contentView.layer.cornerRadius = 2.0
             backgroundColor = WhiteColor
@@ -267,11 +265,10 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
             sourceLogoView.al_top == metadataContentView.al_top + contentEdgeInsets.top,
             avatarImageViewWidthConstraint,
             sourceLogoView.al_height == 18,
-            
-            leftHeaderLabel.al_left == leftMetadataLabel.al_left,
-            leftHeaderLabel.al_bottom == leftMetadataLabel.al_top,
+            leftHeaderLabelLeftPaddingConstraint!,
+            leftHeaderLabel.al_centerY == sourceLogoView.al_centerY,
             leftHeaderLabel.al_height == 16,
-            leftHeaderLabel.al_right <= al_right,
+            leftHeaderLabel.al_right <= metadataContentView.al_centerX,
 
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,
@@ -286,15 +283,14 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
 
             leftMetadataLabel.al_left == metadataContentView.al_left + contentEdgeInsets.left,
             leftMetadataLabel.al_bottom == metadataContentView.al_bottom - contentEdgeInsets.bottom,
-            leftMetadataLabel.al_height == 14,
+            leftMetadataLabel.al_height == 12,
             
             centerMetadataLabel.al_left == leftMetadataLabel.al_right + 12,
             centerMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,
 
-            mainTextLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
+            mainTextLabel.al_right == metadataContentView.al_right - 24,
             mainTextLabel.al_left == metadataContentView.al_left + 24,
-            mainTextLabel.al_top == al_top + contentEdgeInsets.top,
-            mainTextLabel.al_bottom <= leftMetadataLabel.al_bottom,
+            mainTextLabelCenterConstraint!,
 
             rightMetadataLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightMetadataLabel.al_centerY == leftMetadataLabel.al_centerY,

@@ -21,6 +21,7 @@ class GiphySearchViewController: UIViewController,
     private var HUDMaskView: UIView?
     private var hudTimer: NSTimer?
     private var giphyLogo: PowerByGiphyView
+    private var navigationView: AddContentNavigationView
 
     init(viewModel: GiphySearchViewModel) {
         self.viewModel = viewModel
@@ -35,12 +36,17 @@ class GiphySearchViewController: UIViewController,
         giphyResultCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: GiphySearchViewController.provideLayout())
         giphyResultCollectionView.translatesAutoresizingMaskIntoConstraints = false
         giphyResultCollectionView.backgroundColor = MainBackgroundColor
-
+        
+        navigationView = AddContentNavigationView()
+        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        navigationView.setTitleText("Add GIF")
+        
         super.init(nibName: nil, bundle: nil)
         view.backgroundColor = MainBackgroundColor
 
-        setupNavBar()
-
+        navigationView.leftButton.addTarget(self, action: #selector(GiphySearchViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        navigationView.rightButton.addTarget(self, action: #selector(GiphySearchViewController.nextButtonDidTap), forControlEvents: .TouchUpInside)
+        
         viewModel.delegate = self
 
         searchBar.textField.delegate = self
@@ -53,6 +59,7 @@ class GiphySearchViewController: UIViewController,
 
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GiphySearchViewController.showHUD), userInfo: nil, repeats: false)
 
+        view.addSubview(navigationView)
         view.addSubview(searchBar)
         view.addSubview(giphyResultCollectionView)
         view.addSubview(giphyLogo)
@@ -77,57 +84,14 @@ class GiphySearchViewController: UIViewController,
         return layout
     }
 
-    func setupNavBar() {
-        navigationItem.setHidesBackButton(true, animated: false)
-
-        let brandLabel = UILabel(frame: CGRectMake(0, 0, 64, 20))
-        brandLabel.textAlignment = .Center
-        brandLabel.setTextWith(UIFont(name: "Montserrat-Regular", size: 15)!,
-                               letterSpacing: 1.0,
-                               color: UIColor.oftBlackColor(),
-                               text: "Add GIF")
-
-        navigationItem.titleView = brandLabel
-
-        let topLeftBarButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(GiphySearchViewController.cancelButtonDidTap))
-        topLeftBarButton.setTitleTextAttributes(([
-            NSKernAttributeName: NSNumber(float: 0.2),
-            NSFontAttributeName: UIFont(name: "OpenSans", size: 15)!,
-            NSForegroundColorAttributeName: UIColor.oftBlackColor()
-            ]), forState: .Normal)
-
-
-        updateNextButtonState(false)
-
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-        fixedSpace.width = 19
-
-        navigationItem.leftBarButtonItems = [fixedSpace, topLeftBarButton]
-    }
-
-    func updateNextButtonState(enable: Bool) {
-        let topRightBarButton = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: #selector(GiphySearchViewController.nextButtonDidTap))
-        topRightBarButton.setTitleTextAttributes(([
-            NSKernAttributeName: NSNumber(float: 0.2),
-            NSFontAttributeName: UIFont(name: "OpenSans", size: 15)!,
-            NSForegroundColorAttributeName: UIColor.oftWhiteTwoColor()
-            ]), forState: .Disabled)
-        topRightBarButton.setTitleTextAttributes(([
-            NSKernAttributeName: NSNumber(float: 0.2),
-            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 15)!,
-            NSForegroundColorAttributeName: UIColor.oftVividPurpleColor()
-            ]), forState: .Normal)
-        topRightBarButton.enabled = enable
-
-        let fixedSpace = UIBarButtonItem(barButtonSystemItem: .FixedSpace, target: nil, action: nil)
-        fixedSpace.width = 19
-
-        navigationItem.rightBarButtonItems = [fixedSpace, topRightBarButton]
-    }
-
     func setupLayout() {
         view.addConstraints([
-            searchBar.al_top == view.al_top + 9,
+            navigationView.al_top == view.al_top,
+            navigationView.al_left == view.al_left,
+            navigationView.al_right == view.al_right,
+            navigationView.al_height == 65,
+            
+            searchBar.al_top == navigationView.al_bottom + 9,
             searchBar.al_left == view.al_left + 9,
             searchBar.al_right == view.al_right - 9,
             searchBar.al_height == 44,
@@ -143,18 +107,6 @@ class GiphySearchViewController: UIViewController,
             giphyLogo.al_bottom == view.al_bottom - 23.5
             
             ])
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        navigationController?.navigationBar.hidden =  false
-        navigationController?.navigationBar.translucent = false
-        navigationController?.navigationBar.barStyle = .Default
-        navigationController?.navigationBar.tintColor = WhiteColor
-        navigationController?.navigationBar.barTintColor = MainBackgroundColor
-
     }
 
     override func viewDidLoad() {
@@ -173,20 +125,21 @@ class GiphySearchViewController: UIViewController,
         hudTimer?.invalidate()
         PKHUD.sharedHUD.hide(animated: true)
     }
+    
+    func cancelButtonDidTap() {
+        navigationController?.popViewControllerAnimated(true)
+    }
 
     func nextButtonDidTap() {
         guard let gif = viewModel.selectedGif else {
             return
         }
 
-        let vc = CategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: gif))
+        let vc = GifCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: gif))
          navigationController?.pushViewController(vc, animated: true)
 
     }
 
-    func cancelButtonDidTap() {
-        navigationController?.popViewControllerAnimated(true)
-    }
 
     func searchButtonDidTap() {
         UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
@@ -262,7 +215,7 @@ class GiphySearchViewController: UIViewController,
 
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
             cell.searchOverlayView.hidden = !cell.searchOverlayView.hidden
-            updateNextButtonState(!cell.searchOverlayView.hidden)
+            navigationView.rightButton.enabled = !cell.searchOverlayView.hidden
 
             if !cell.searchOverlayView.hidden {
                 viewModel.selectGifAddToPack(viewModel.giphyResults[indexPath.row])

@@ -23,7 +23,6 @@ class AppSettingsViewController: UIViewController,
     TableViewCellDelegate {
     var appSettingView: AppSettingsView
     var viewModel: SettingsViewModel
-
     var accountSettings = [
         "Name",
         "Email",
@@ -51,12 +50,11 @@ class AppSettingsViewController: UIViewController,
         appSettingView.translatesAutoresizingMaskIntoConstraints = false
         appSettingView.tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
 
-
         super.init(nibName: nil, bundle: nil)
         
         appSettingView.tableView.delegate = self
         appSettingView.tableView.dataSource = self
-        
+
         view.addSubview(appSettingView)
         
         navigationItem.title = "settings".uppercaseString
@@ -287,7 +285,7 @@ class AppSettingsViewController: UIViewController,
     func switchToggled(sender: UISwitch) {
         SessionManager.defaultManager.updateUserPushNotificationStatus(sender.on)
     }
-    
+
     // MARK: UIActionSheetDelegate
     func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
         switch buttonIndex {
@@ -306,4 +304,5 @@ class AppSettingsViewController: UIViewController,
     func didFinishEditingName(newName: String) {
         viewModel.currentUser?.name = newName
     }
+    
 }

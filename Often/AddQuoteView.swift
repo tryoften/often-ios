@@ -56,13 +56,13 @@ class AddQuoteView: UIView {
     
     func setupLayout() {
         addConstraints([
-            quoteTextView.al_top == al_top + 35,
+            quoteTextView.al_top == al_top + 29,
             quoteTextView.al_right == al_right - 35,
             quoteTextView.al_width == 230,
             quoteTextView.al_height == 230,
             
-            placeholderLabel.al_top == al_top + 41,
-            placeholderLabel.al_right == al_right - 41,
+            placeholderLabel.al_top == al_top + 40,
+            placeholderLabel.al_right == al_right - 40,
             
             sourceTextField.al_left == al_left + 35,
             sourceTextField.al_bottom == al_bottom - 35,
