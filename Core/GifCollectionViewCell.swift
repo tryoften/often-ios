@@ -19,6 +19,8 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         return backgroundImageView.animatedImage
     }
 
+    var searchOverlayView: SearchOverlayView
+
     override var overlayVisible: Bool {
         didSet {
             if overlayVisible {
@@ -40,6 +42,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         }
     }
 
+
     
     override init(frame: CGRect) {
         backgroundImageView = FLAnimatedImageView()
@@ -47,6 +50,10 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         overlayView = GifCellOverlayView()
         overlayView.hidden = true
         overlayView.translatesAutoresizingMaskIntoConstraints = false
+
+        searchOverlayView = SearchOverlayView()
+        searchOverlayView.hidden = true
+        searchOverlayView.translatesAutoresizingMaskIntoConstraints = false
 
         progressView = UIProgressView()
         progressView.progressTintColor = TealColor
@@ -62,6 +69,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         addSubview(backgroundImageView)
         addSubview(progressView)
         addSubview(overlayView)
+        addSubview(searchOverlayView)
 
         setupLayout()
         layer.cornerRadius = 2.0
@@ -78,6 +86,11 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
             overlayView.al_bottom == contentView.al_bottom,
             overlayView.al_left == contentView.al_left,
             overlayView.al_right == contentView.al_right,
+
+            searchOverlayView.al_top == contentView.al_top,
+            searchOverlayView.al_bottom == contentView.al_bottom,
+            searchOverlayView.al_left == contentView.al_left,
+            searchOverlayView.al_right == contentView.al_right,
 
             progressView.al_bottom == contentView.al_bottom,
             progressView.al_left == contentView.al_left,
@@ -105,6 +118,7 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         super.prepareForReuse()
 
         overlayView.hidden = true
+        searchOverlayView.hidden = true
         backgroundImageView.nk_displayImage(nil)
         backgroundImageView.nk_cancelLoading()
         progressView.progress = 0

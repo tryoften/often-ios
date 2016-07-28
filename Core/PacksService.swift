@@ -137,23 +137,24 @@ class PacksService: PackItemViewModel {
         FIRMessaging.messaging().subscribeToTopic("/topics/\(pack.id)")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
-        currentInstallation.saveInBackground()    }
+        currentInstallation?.addUniqueObject("p\(pack.id)", forKey: "channels")
+        currentInstallation?.saveInBackground()
+    }
 
     func addToGlobalPushNotifications() {
         FIRMessaging.messaging().subscribeToTopic("/topics/global")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.addUniqueObject("pglobal", forKey: "channels")
-        currentInstallation.saveInBackground()
+        currentInstallation?.addUniqueObject("pglobal", forKey: "channels")
+        currentInstallation?.saveInBackground()
     }
 
     func removeFromGlobalPushNotifications() {
         FIRMessaging.messaging().unsubscribeFromTopic("/topics/global")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.removeObject("pglobal", forKey: "channels")
-        currentInstallation.saveInBackground()
+        currentInstallation?.removeObject("pglobal", forKey: "channels")
+        currentInstallation?.saveInBackground()
     }
 
     func removePack(pack: PackMediaItem) {
@@ -162,8 +163,8 @@ class PacksService: PackItemViewModel {
         FIRMessaging.messaging().unsubscribeFromTopic("/topics/\(pack.id)")
 
         let currentInstallation = PFInstallation.currentInstallation()
-        currentInstallation.removeObject("p\(pack.id)", forKey: "channels")
-        currentInstallation.saveInBackground()
+        currentInstallation?.removeObject("p\(pack.id)", forKey: "channels")
+        currentInstallation?.saveInBackground()
     }
 
     func checkPack(result: MediaItem) -> Bool {
