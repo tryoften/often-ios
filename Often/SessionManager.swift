@@ -20,20 +20,20 @@ class SessionManager: NSObject, AccountManagerDelegate {
     var currentUser: User? {
         return accountManager.currentUser
     }
-
-     override init() {
+    
+    override init() {
         Analytics.setupWithConfiguration(SEGAnalyticsConfiguration.init(writeKey: AnalyticsWriteKey))
         Analytics.sharedAnalytics().screen("Service_Loaded")
         Flurry.startSession(FlurryClientKey)
-
+        
         _ = ParseConfig.defaultConfig
         firebase = FIRDatabase.database().reference()
         accountManager = AccountManager(firebase: firebase)
-
+        
         super.init()
-
+        
         accountManager.delegate = self
-
+        
         if let userID = sessionManagerFlags.userId {
             Analytics.sharedAnalytics().identify(userID)
             let crashlytics = Crashlytics.sharedInstance()
@@ -41,7 +41,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
             accountManager.isUserLoggedIn()
         }
     }
-
+    
     func login(accountManagerControllerClass: AccountManager.Type, userData: UserAuthData?, completion: (results: ResultType) -> Void) throws {
         accountManager = accountManagerControllerClass.init(firebase: firebase)
         accountManager.delegate = self
@@ -53,23 +53,23 @@ class SessionManager: NSObject, AccountManagerDelegate {
             }
         })
     }
-
+    
     func updateUserPushNotificationStatus(status: Bool)  {
         guard let user = currentUser, let userId = currentUser?.id else {
             return
         }
-
+        
         user.pushNotificationStatus = status
         SessionManagerFlags.defaultManagerFlags.userNotificationSettings = status
-
+        
         let userRef = FIRDatabase.database().reference().child("users/\(userId)")
         let pushNotificationTokenEndPoint = userRef.child("firebasePushNotificationToken")
         let pushNotificationStatusEndPoint = userRef.child("pushNotificationStatus")
-
-
+        
+        
         if status {
             PacksService.defaultInstance.addToGlobalPushNotifications()
-
+            
             UIApplication.sharedApplication().registerUserNotificationSettings( UIUserNotificationSettings(forTypes: [.Sound, .Alert, .Badge], categories: []))
             UIApplication.sharedApplication().registerForRemoteNotifications()
         } else {
@@ -77,16 +77,16 @@ class SessionManager: NSObject, AccountManagerDelegate {
             
             UIApplication.sharedApplication().unregisterForRemoteNotifications()
         }
-
+        
         if let token = FIRInstanceID.instanceID().token() {
             currentUser?.firebasePushNotificationToken = token
         }
-
+        
         pushNotificationTokenEndPoint.setValue(user.firebasePushNotificationToken)
         pushNotificationStatusEndPoint.setValue(status)
     }
-
-
+    
+    
     func logout() {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.logout))
         PFUser.logOut()
@@ -94,7 +94,7 @@ class SessionManager: NSObject, AccountManagerDelegate {
         try! FIRAuth.auth()!.signOut()
         accountManager.delegate = nil
         sessionManagerFlags.clearSessionFlags()
-
+        
         guard let directory: NSURL = NSFileManager.defaultManager().containerURLForSecurityApplicationGroupIdentifier(AppSuiteName) else {
             return
         }
@@ -106,28 +106,29 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
     
     func checkForUsername() {
-        if let name = currentUser?.username {
-            if !name.isEmpty {
-                PacksService().usernameDoesExist(name, completion:  { exists in
-                    self.sessionManagerFlags.userHasUsername = exists
-                    if exists {
-                        PacksService().saveUsername(name)
-                    }
-                })
-            }
+        
+        guard let name = currentUser?.username where !name.isEmpty else {
+            return
         }
+        
+        PacksService().usernameDoesExist(name, completion:  { exists in
+            self.sessionManagerFlags.userHasUsername = exists
+            if exists {
+                PacksService().saveUsername(name)
+            }
+        })
         
         self.sessionManagerFlags.userHasUsername = false
     }
-
+    
     func accountManagerUserDidLogin(accountManager: AccountManagerProtocol, user: User) {
         delegate?.sessionManagerDidLoginUser(self, user: user)
         checkForUsername()
     }
-
+    
     func accountManagerUserDidLogout(accountManager: AccountManagerProtocol, user: User) {
     }
-
+    
     func accountManagerNoUserFound(accountManager: AccountManagerProtocol) {
         delegate?.sessionManagerNoUserFound(self)
     }

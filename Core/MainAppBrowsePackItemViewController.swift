@@ -80,6 +80,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.viewDidLoad()
         showHud()
         loadPackData()
+        
+        
 
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
@@ -121,6 +123,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if let backgroundColor = pack.backgroundColor {
             header.packBackgroundColor.backgroundColor = backgroundColor
         }
+        
+        header.tabContainerView.mediaTypes = Array(pack.availableMediaType.keys)
 
         header.primaryButton.title = pack.callToActionText()
         header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
@@ -137,8 +141,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
         navigationItem.rightBarButtonItem = topRightBarButton
-
-        updateFilterBar(true)
     }
     
     func primaryButtonTapped(sender: UIButton) {
@@ -171,7 +173,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func topRightButtonTapped(sender: UIButton) {
-        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else  {
+        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else {
             return
         }
 
@@ -204,45 +206,27 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
     }
-    
-    func leftTabSelected() {
+
+    func gifTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
         
         if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
             packViewModel.typeFilter = .Gif
         }
+
     }
     
-    func rightTabSelected() {
+    func quotesTabSelected() {
         collectionView?.setContentOffset(CGPointZero, animated: true)
         
         if packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
             packViewModel.typeFilter = .Quote
         }
+
     }
     
-    func updateFilterBar(withAnimation: Bool) {
-        guard let headerView = headerView as? PackPageHeaderView else {
-            return
-        }
-        
-        if !packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
-            headerView.tabContainerView.disableButtonFor(.Quote, withAnimation: withAnimation)
-        }
-        
-        if !packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
-            headerView.tabContainerView.disableButtonFor(.Gif, withAnimation: withAnimation)
-            
-        }
-        
-        if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) && packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
-            headerView.tabContainerView.resetTabButtons()
-        }
-    }
-    
-    override func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
-        super.mediaItemGroupViewModelDataDidLoad(viewModel, groups: groups)
-        
-        updateFilterBar(false)
+    func imagesTabSelected() {
+        // TODO: filter by image
+        return
     }
 }

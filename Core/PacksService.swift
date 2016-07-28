@@ -136,14 +136,15 @@ class PacksService: PackItemViewModel {
         
         FIRMessaging.messaging().subscribeToTopic("/topics/\(pack.id)")
         
-        let currentInstallation = PFInstallation.currentInstallation()
+        let currentInstallation = PFInstallation.currentInstallation()!
         currentInstallation.addUniqueObject("p\(pack.id)", forKey: "channels")
-        currentInstallation.saveInBackground()    }
-    
+        currentInstallation.saveInBackground()
+    }
+
     func addToGlobalPushNotifications() {
         FIRMessaging.messaging().subscribeToTopic("/topics/global")
         
-        let currentInstallation = PFInstallation.currentInstallation()
+        let currentInstallation = PFInstallation.currentInstallation()!
         currentInstallation.addUniqueObject("pglobal", forKey: "channels")
         currentInstallation.saveInBackground()
     }
@@ -151,7 +152,7 @@ class PacksService: PackItemViewModel {
     func removeFromGlobalPushNotifications() {
         FIRMessaging.messaging().unsubscribeFromTopic("/topics/global")
         
-        let currentInstallation = PFInstallation.currentInstallation()
+        let currentInstallation = PFInstallation.currentInstallation()!
         currentInstallation.removeObject("pglobal", forKey: "channels")
         currentInstallation.saveInBackground()
     }
@@ -161,7 +162,7 @@ class PacksService: PackItemViewModel {
         
         FIRMessaging.messaging().unsubscribeFromTopic("/topics/\(pack.id)")
         
-        let currentInstallation = PFInstallation.currentInstallation()
+        let currentInstallation = PFInstallation.currentInstallation()!
         currentInstallation.removeObject("p\(pack.id)", forKey: "channels")
         currentInstallation.saveInBackground()
     }
