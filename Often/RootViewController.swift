@@ -28,7 +28,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     init() {
 
         super.init(nibName: nil, bundle: nil)
-        
+
         styleTabBar()
         setupTabBarItems()
     }
