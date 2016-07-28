@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import Spring
 
 class AddContentView: UIView {
     private var gifTitleLabel: UILabel
     private var imageTitleLabel: UILabel
     private var quoteTitleLabel: UILabel
-    var addImageButton: UIButton
-    var addGifButton: UIButton
-    var addQuoteButton: UIButton
+    var addImageButton: SpringButton
+    var addGifButton: SpringButton
+    var addQuoteButton: SpringButton
     var cancelButton: UIButton
 
     override init(frame: CGRect) {
@@ -33,7 +34,7 @@ class AddContentView: UIView {
         quoteTitleLabel.setTextWith(UIFont(name: "Montserrat", size: 14.5)!, letterSpacing: 0.5, color: UIColor.oftWhiteColor(), text: " Quote")
         quoteTitleLabel.textAlignment = .Center
 
-        addGifButton = UIButton()
+        addGifButton = SpringButton()
         addGifButton.translatesAutoresizingMaskIntoConstraints = false
         addGifButton.setImage(StyleKit.imageOfGifMenuButton(scale: 0.8, color: UIColor(fromHexString: "#FF7D92")), forState: .Normal)
         addGifButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 6)
@@ -41,7 +42,7 @@ class AddContentView: UIView {
         addGifButton.layer.cornerRadius = 32.5
         addGifButton.clipsToBounds = true
 
-        addImageButton = UIButton()
+        addImageButton = SpringButton()
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
         addImageButton.setImage(StyleKit.imageOfCamera(scale:0.4), forState: .Normal)
         addImageButton.backgroundColor = UIColor(fromHexString: "#D7EEF4")
@@ -49,7 +50,7 @@ class AddContentView: UIView {
         addImageButton.layer.cornerRadius = 32.5
         addImageButton.clipsToBounds = true
 
-        addQuoteButton = UIButton()
+        addQuoteButton = SpringButton()
         addQuoteButton.translatesAutoresizingMaskIntoConstraints = false
         addQuoteButton.setImage(StyleKit.imageOfQuotesMenuButton(scale: 0.8, color: UIColor(fromHexString: "#FFA960")), forState: .Normal)
         addQuoteButton.backgroundColor = UIColor(fromHexString: "#FFF2E7")
@@ -59,6 +60,14 @@ class AddContentView: UIView {
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.setImage(StyleKit.imageOfTabBarCancel(), forState: .Normal)
+
+        let buttons = [addGifButton, addImageButton, addQuoteButton]
+        for button in buttons {
+            button.hidden = true
+            button.animation = "slideUp"
+            button.duration = 0.5
+            button.curve = "easeIn"
+        }
 
         super.init(frame: frame)
 
@@ -75,6 +84,14 @@ class AddContentView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func animateButtons() {
+        let buttons = [addGifButton, addImageButton, addQuoteButton]
+        for button in buttons {
+            button.hidden = false
+            button.animate()
+        }
     }
 
     func setupLayout() {
