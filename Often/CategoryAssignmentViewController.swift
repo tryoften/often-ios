@@ -13,11 +13,12 @@ class CategoryAssignmentViewController: UIViewController,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
     AssignCategoryViewModelDelegate {
-    private var imageView: GifCollectionViewCell
     private var headerView: UILabel
     private var viewModel: AssignCategoryViewModel
     private var categoryCollectionView: UICollectionView
+    var imageView: GifCollectionViewCell
 
+    var dlurl = NSURL()
 
     init(viewModel: AssignCategoryViewModel) {
         self.viewModel = viewModel
@@ -71,7 +72,16 @@ class CategoryAssignmentViewController: UIViewController,
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        navigationController?.navigationBar.hidden =  false
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.barStyle = .Default
+        navigationController?.navigationBar.tintColor = WhiteColor
+        navigationController?.navigationBar.barTintColor = MainBackgroundColor
+        
         if let gif = self.viewModel.mediaItem as? GifMediaItem, url = gif.largeImageURL {
+            self.imageView.setImageWith(url)
+        } else if let image = self.viewModel.mediaItem as? ImageMediaItem, url = image.largeImageURL {
             self.imageView.setImageWith(url)
         }
     }
@@ -140,7 +150,7 @@ class CategoryAssignmentViewController: UIViewController,
             categoryCollectionView.al_right == view.al_right,
             categoryCollectionView.al_left == view.al_left,
             categoryCollectionView.al_bottom == view.al_bottom
-            ])
+        ])
     }
 
     func backButtonDidTap() {

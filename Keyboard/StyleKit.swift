@@ -1957,7 +1957,7 @@ public class StyleKit : NSObject {
 
         //// icon
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 7, 4)
+        CGContextTranslateCTM(context, 7, 0)
         CGContextScaleCTM(context, scale, scale)
 
 

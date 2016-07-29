@@ -40,7 +40,7 @@ class AddContentViewController: UIViewController {
             addContentView.al_left == view.al_left,
             addContentView.al_right == view.al_right,
             addContentView.al_bottom == view.al_bottom
-            ])
+        ])
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -59,7 +59,8 @@ class AddContentViewController: UIViewController {
         }
 
         if sender.isEqual(addContentView.addImageButton) {
-            print("Image")
+            vc = ImageUploaderViewController(viewModel: UserPackService.defaultInstance)
+            navigationController?.pushViewController(vc, animated: true)
 
         }
 
