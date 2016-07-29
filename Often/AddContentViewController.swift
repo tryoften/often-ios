@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class AddContentViewController: UIViewController {
     var addContentView: AddContentView
 
@@ -17,6 +18,7 @@ class AddContentViewController: UIViewController {
 
         super.init(nibName: nil, bundle: nil)
 
+        view.backgroundColor = UIColor.oftBlackColor().colorWithAlphaComponent(0.5)
         view.addSubview(addContentView)
 
         setupLayout()
@@ -32,6 +34,8 @@ class AddContentViewController: UIViewController {
         addContentView.addImageButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         addContentView.addGifButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         addContentView.addQuoteButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+        addContentView.cancelButton.addTarget(self, action: #selector(AddContentViewController.actionButtonDidTap(_:)), forControlEvents: .TouchUpInside)
+
     }
 
     func setupLayout() {
@@ -47,25 +51,34 @@ class AddContentViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.navigationBar.hidden = true
-        
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        addContentView.animateButtons() 
     }
 
     func actionButtonDidTap(sender: UIButton) {
-        var vc: UIViewController
-
         if sender.isEqual(addContentView.addGifButton) {
-            vc = GiphySearchViewController(viewModel: GiphySearchViewModel())
-            navigationController?.pushViewController(vc, animated: true)
+            let vc = ContainerNavigationController(rootViewController:GiphySearchViewController(viewModel: GiphySearchViewModel()))
+            vc.navigationBar.hidden = true
+            presentViewController(vc, animated: true, completion: nil)
         }
 
         if sender.isEqual(addContentView.addImageButton) {
-            print("Image")
 
         }
 
         if sender.isEqual(addContentView.addQuoteButton) {
-            vc = AddQuoteViewController(viewModel: UserPackService.defaultInstance)
-            navigationController?.pushViewController(vc, animated: true)
+            let vc = ContainerNavigationController(rootViewController: AddQuoteViewController(viewModel: UserPackService.defaultInstance))
+            vc.navigationBar.hidden = true
+            presentViewController(vc, animated: true, completion: nil)
+
+        }
+
+        if sender.isEqual(addContentView.cancelButton) {
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 }
