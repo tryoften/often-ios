@@ -94,7 +94,7 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
             let compareString: NSString = info[UIImagePickerControllerReferenceURL]?.absoluteString {
             
-            var uploadTask: FIRStorageUploadTask = FIRStorageUploadTask()
+            var uploadTask = FIRStorageUploadTask()
             uploadTask = imageRepresentationForImage(image, compareString: compareString)
 
             uploadTask.observeStatus(.Progress) { snapshot in
@@ -135,8 +135,6 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     }
     
     func imageRepresentationForImage(image: UIImage, compareString: NSString) -> FIRStorageUploadTask {
-        let storageRef = FIRStorage.storage().referenceForURL("gs://firebase-often-dev.appspot.com/")
-        
         let date = NSDate().timeIntervalSince1970
         print(date)
         
@@ -144,16 +142,20 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         let pngRange: NSRange = compareString.rangeOfString("png", options: [.BackwardsSearch, .CaseInsensitiveSearch])
         if pngRange.location != NSNotFound {
             if let imageData: NSData = UIImagePNGRepresentation(image) {
-                let imageRef = storageRef.child("images/users/\(viewModel.userId)/packPhoto-\(date).png")
-                return imageRef.putData(imageData)
+                return FIRStorage.storage()
+                                .referenceForURL("gs://firebase-often-dev.appspot.com/")
+                                .child("images/users/\(viewModel.userId)/packPhoto-\(date).png")
+                                .putData(imageData)
             }
         }
         
         let jpgRange: NSRange = compareString.rangeOfString("jpg", options: [.BackwardsSearch, .CaseInsensitiveSearch])
         if jpgRange.location != NSNotFound {
             if let imageData: NSData = UIImageJPEGRepresentation(image, 1.0) {
-                let imageRef = storageRef.child("images/users/\(viewModel.userId)/packPhoto-\(date).jpg")
-                return imageRef.putData(imageData)
+                return FIRStorage.storage()
+                                .referenceForURL("gs://firebase-often-dev.appspot.com/")
+                                .child("images/users/\(viewModel.userId)/packPhoto-\(date).jpg")
+                                .putData(imageData)
             }
         }
 
@@ -186,9 +188,9 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
                 
                 self.imageProcessed = true
                 
-                let vc = CategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: image))
-                vc.imageView.backgroundImageView.contentMode = .ScaleAspectFill
-                vc.imageView.setImage(localImage)
+                let vc = GifCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: image))
+                vc.gifView.backgroundImageView.contentMode = .ScaleAspectFill
+                vc.gifView.setImage(localImage)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         })
