@@ -111,10 +111,10 @@ class SessionManager: NSObject, AccountManagerDelegate {
             return
         }
         
-        PacksService().usernameDoesExist(name, completion:  { exists in
+        PacksService.defaultInstance.usernameDoesExist(name, completion:  { exists in
             self.sessionManagerFlags.userHasUsername = exists
             if exists {
-                PacksService().saveUsername(name)
+                PacksService.defaultInstance.saveUsername(name)
             }
         })
         
