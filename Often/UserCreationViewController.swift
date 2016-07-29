@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserCreationViewController: UIViewController, LoginViewModelDelegate {
+class UserCreationViewController: PresentingRootViewController, LoginViewModelDelegate {
     var viewModel: LoginViewModel
 
     init (viewModel: LoginViewModel) {

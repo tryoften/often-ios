@@ -27,6 +27,8 @@
 		3B0D116E1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B0D116F1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
+		3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
+		3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -1152,6 +1154,7 @@
 		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
+		3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingRootViewController.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -2088,6 +2091,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */,
+				3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */,
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
 				3B97896F1D4694A8001DD156 /* AddContentViewController.swift */,
 				3BD971E01B9FD374007EAB5A /* LogInViewController.swift */,
@@ -3306,6 +3310,7 @@
 				810EA50C1C8579D1005A6C6D /* LoginView.swift in Sources */,
 				810EA50D1C8579D1005A6C6D /* SessionManager.swift in Sources */,
 				810EA5141C8579D1005A6C6D /* FacebookAccountManager.swift in Sources */,
+				3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				810EA5161C8579D1005A6C6D /* AnimatedLoaderView.swift in Sources */,
 				BF9971501CBEF030008351C7 /* GifCollectionViewCell.swift in Sources */,
 				810EA5181C8579D1005A6C6D /* String+Utils.swift in Sources */,
@@ -3645,6 +3650,7 @@
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,
 				816D50721C8A051B007B3249 /* ConnectivityObservable.swift in Sources */,
 				3B309D781CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
+				3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				816D508C1C8A0583007B3249 /* AccountManager.swift in Sources */,
 				816D50881C8A0583007B3249 /* EmailAccountManager.swift in Sources */,
 				816D50AE1C8A0596007B3249 /* SettingsWebViewController.swift in Sources */,

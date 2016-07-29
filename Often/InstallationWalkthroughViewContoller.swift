@@ -8,7 +8,7 @@
 
 import Foundation
 
-class InstallationWalkthroughViewContoller: UIViewController {
+class InstallationWalkthroughViewContoller: PresentingRootViewController {
     var installView: KeyboardInstallWalkthroughView
     var loader: AnimatedLoaderView?
     var completionView: KeyboardWalkthroughSuccessMessageView
@@ -131,8 +131,7 @@ class InstallationWalkthroughViewContoller: UIViewController {
         PKHUD.sharedHUD.show()
 
         viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
-        presentViewController(RootViewController(), animated: true, completion: nil)
 
+        presentRootViewController(RootViewController())
     }
-
 }
