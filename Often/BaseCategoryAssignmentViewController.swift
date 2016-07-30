@@ -8,7 +8,11 @@
 
 import Foundation
 
-class BaseCategoryAssignmentViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, AssignCategoryViewModelDelegate {
+class BaseCategoryAssignmentViewController: UIViewController,
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout,
+    AssignCategoryViewModelDelegate {
     
     var viewModel: AssignCategoryViewModel
     var navigationView: AddContentNavigationView
@@ -97,7 +101,7 @@ class BaseCategoryAssignmentViewController: UIViewController, UICollectionViewDe
         
         delay(0.5) {
             PKHUD.sharedHUD.hide(animated: true)
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     

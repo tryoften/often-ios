@@ -23,7 +23,6 @@ class AppSettingsViewController: UIViewController,
     TableViewCellDelegate {
     var appSettingView: AppSettingsView
     var viewModel: SettingsViewModel
-    
     var accountSettings = [
         "Name",
         "Email",
@@ -50,7 +49,7 @@ class AppSettingsViewController: UIViewController,
         appSettingView = AppSettingsView()
         appSettingView.translatesAutoresizingMaskIntoConstraints = false
         appSettingView.tableView.registerClass(UserProfileSettingsTableViewCell.self, forCellReuseIdentifier: "settingCell")
-        
+
         super.init(nibName: nil, bundle: nil)
         
         appSettingView.tableView.delegate = self

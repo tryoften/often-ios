@@ -15,9 +15,14 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     private var imagePicker: UIImagePickerController
     private var viewModel: UserPackService
     private var imageProcessed: Bool = false
+    private var navigationView: AddContentNavigationView
     
     init(viewModel: UserPackService) {
         imagePicker = UIImagePickerController()
+        
+        navigationView = AddContentNavigationView()
+        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        navigationView.setTitleText("Add GIF")
         
         self.viewModel = viewModel
         
@@ -25,9 +30,15 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         
         imagePicker.delegate = self
         
-        view.addSubview(imagePicker.view)
+        navigationView.leftButton.addTarget(self, action: #selector(GiphySearchViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+        navigationView.rightButton.addTarget(self, action: #selector(GiphySearchViewController.nextButtonDidTap), forControlEvents: .TouchUpInside)
         
-        setupNavBar()
+        view.backgroundColor = MainBackgroundColor
+        
+        view.addSubview(imagePicker.view)
+        view.addSubview(navigationView)
+        
+        setupLayout()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,14 +69,13 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         navigationController?.navigationBar.barStyle = .Default
     }
     
-    func setupNavBar() {
-        imagePicker.navigationBar.translucent = false
-        imagePicker.navigationBar.barTintColor = MainBackgroundColor
-        imagePicker.navigationBar.tintColor = UIColor.oftBlackColor()
-        imagePicker.navigationBar.barStyle = .Default
-        imagePicker.navigationBar.titleTextAttributes = [
-            NSForegroundColorAttributeName : UIColor.oftBlackColor()
-        ]
+    func setupLayout() {
+        view.addConstraints([
+            navigationView.al_top == view.al_top,
+            navigationView.al_left == view.al_left,
+            navigationView.al_right == view.al_right,
+            navigationView.al_height == 65
+        ])
     }
     
     func generateUniqueID() -> String {

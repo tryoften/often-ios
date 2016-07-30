@@ -9,7 +9,6 @@
 import Foundation
 
 class AddContentNavigationView: UIView {
-
     var leftButton: UIButton
     var rightButton: UIButton
     var titleLabel: UILabel

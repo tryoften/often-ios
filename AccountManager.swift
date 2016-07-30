@@ -39,7 +39,7 @@ class AccountManager: AccountManagerProtocol, ConnectivityObservable {
             if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
                 self.currentUser = User()
                 self.currentUser?.setValuesForKeysWithDictionary(value)
-                if let currentUser = self.currentUser {                    
+                if let currentUser = self.currentUser {
                     self.delegate?.accountManagerUserDidLogin(self, user: currentUser)
                 }
 

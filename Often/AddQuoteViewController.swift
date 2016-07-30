@@ -59,7 +59,7 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     }
     
     func cancelButtonDidTap() {
-        navigationController?.popViewControllerAnimated(true)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func nextButtonDidTap() {        

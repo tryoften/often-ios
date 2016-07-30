@@ -28,7 +28,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     init() {
 
         super.init(nibName: nil, bundle: nil)
-        
+
         styleTabBar()
         setupTabBarItems()
     }
@@ -79,28 +79,28 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             userProfileVC = SkipSignupViewController(viewModel: LoginViewModel(sessionManager: sessionManager))
         } else {
             userProfileVC = ContainerNavigationController(
-                rootViewController: AddContentViewController())
+                rootViewController: UserProfileViewController(viewModel: PacksService.defaultInstance))
         }
 
         let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController(viewModel: PacksViewModel()))
         
-        let settingVC = ContainerNavigationController(rootViewController: AppSettingsViewController(
-            viewModel: SettingsViewModel(sessionManager: sessionManager)))
+        let settingVC = ContainerNavigationController(rootViewController: AddContentViewController())
 
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.55), tag: 0)
         browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 20, -4, -20)
 
-        userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 1)
+        settingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPluscopy(scale: 0.8), tag: 1)
+        settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0)
+        settingVC.navigationBar.tintColor = TealColor
+
+        userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 2)
         userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
 
-        settingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfSettings(scale: 0.45), tag: 2)
-        settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
-        settingVC.navigationBar.tintColor = BlackColor
 
         viewControllers = [
             browseVC,
-            userProfileVC,
-            settingVC
+            settingVC,
+            userProfileVC
         ]
         
         selectedIndex = 0
