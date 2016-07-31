@@ -23,7 +23,6 @@ class AssignCategoryViewModel: BaseViewModel {
     override func fetchData(completion: ((Bool) -> Void)?) {
         categories = []
         ref.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
             if let data = snapshot.value as? NSDictionary {
                 self.categories = Category.modelsFromDictionary(data)
                 self.delegate?.assignCategoryViewModelDelegateDataDidLoad(self, categories: self.categories)

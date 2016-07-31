@@ -71,10 +71,6 @@ class BaseCategoryAssignmentViewController: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     func setupLayout() {
         view.addConstraints([
             navigationView.al_top == view.al_top,
@@ -90,8 +86,7 @@ class BaseCategoryAssignmentViewController: UIViewController,
             categoryCollectionView.al_right == view.al_right,
             categoryCollectionView.al_left == view.al_left,
             categoryCollectionView.al_bottom == view.al_bottom
-            
-            ])
+        ])
     }
     
     func backButtonDidTap() {

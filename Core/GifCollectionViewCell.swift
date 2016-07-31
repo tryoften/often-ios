@@ -12,8 +12,8 @@ import FLAnimatedImage
 
 class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
     private var overlayView: GifCellOverlayView
-    private var backgroundImageView: FLAnimatedImageView
     private var progressView: UIProgressView
+    var backgroundImageView: FLAnimatedImageView
     
     var animatedImage: FLAnimatedImage? {
         return backgroundImageView.animatedImage
@@ -125,6 +125,10 @@ class GifCollectionViewCell: BaseMediaItemCollectionViewCell {
         progressView.alpha = 1
     }
 
+    func setImage(image: UIImage) {
+        backgroundImageView.image = image
+    }
+    
     func setImageWith(URL: NSURL) {
         self.setImageWith(ImageRequest(URL: URL))
     }
