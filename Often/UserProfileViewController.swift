@@ -22,13 +22,13 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
 
         viewModel.delegate = self
-
         viewModel.fetchCollection()
 
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
         }
-        
+
+        collectionView?.contentInset = UIEdgeInsetsZero
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
     }
@@ -44,10 +44,10 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 84)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
         flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
-        flowLayout.parallaxHeaderAlwaysOnTop = true
+        flowLayout.parallaxHeaderAlwaysOnTop = false
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
         flowLayout.minimumLineSpacing = 6.0
@@ -75,7 +75,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.hidden = true
         }
@@ -86,11 +86,11 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+        return .Default
     }
-    
+
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

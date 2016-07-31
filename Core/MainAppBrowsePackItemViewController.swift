@@ -64,7 +64,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -69,7 +69,7 @@ class SettingsWebViewController: UIViewController {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
     
     func closeTapped() {

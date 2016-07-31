@@ -88,7 +88,7 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
     
     func scrollToNextPage() {
