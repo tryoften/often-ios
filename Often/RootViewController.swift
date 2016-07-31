@@ -10,6 +10,8 @@ import UIKit
 
 class RootViewController: UITabBarController, UIViewControllerTransitioningDelegate {
     let sessionManager = SessionManager.defaultManager
+    private let imageView: UIImageView
+    private let dummyTabBar: UIView
 
     private var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -26,11 +28,29 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
     
     init() {
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "tabBarLip")
+        imageView.contentMode = .ScaleAspectFit
+
+        dummyTabBar = UIView()
+        dummyTabBar.backgroundColor = UIColor.oftWhiteColor()
+        dummyTabBar.layer.shadowOffset = CGSizeMake(0, 0)
+        dummyTabBar.layer.shadowOpacity = 0.8
+        dummyTabBar.layer.shadowColor = DarkGrey.CGColor
+        dummyTabBar.layer.shadowRadius = 4
 
         super.init(nibName: nil, bundle: nil)
 
+        dummyTabBar.frame = tabBar.frame
+        
         styleTabBar()
         setupTabBarItems()
+        view.insertSubview(imageView, belowSubview: tabBar)
+        view.insertSubview(dummyTabBar, belowSubview: imageView)
+
+        setupLayout()
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +62,15 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         delay(0.3) {
             self.showAlert()
         }
+    }
+
+    func setupLayout() {
+        view.addConstraints([
+            imageView.al_centerX == view.al_centerX,
+            imageView.al_bottom == view.al_bottom,
+            imageView.al_height == 80,
+            imageView.al_width == 80
+            ])
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
@@ -66,13 +95,9 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         tabBar.backgroundImage = UIImage()
         tabBar.translucent = false
         tabBar.tintColor = BlackColor
-        tabBar.layer.shadowOffset = CGSizeMake(0, 0)
-        tabBar.layer.shadowOpacity = 0.8
-        tabBar.layer.shadowColor = DarkGrey.CGColor
-        tabBar.layer.shadowRadius = 4
     }
-
     func setupTabBarItems() {
+
         var userProfileVC: UIViewController
 
         if SessionManagerFlags.defaultManagerFlags.userIsAnonymous {
@@ -84,22 +109,22 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
 
         let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController(viewModel: PacksViewModel()))
         
-        let settingVC = ContainerNavigationController(rootViewController: AddContentViewController())
+        let addContentVC = ContainerNavigationController(rootViewController: AddContentViewController())
 
         browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.55), tag: 0)
         browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 20, -4, -20)
 
-        settingVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPluscopy(scale: 0.8), tag: 1)
-        settingVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0)
-        settingVC.navigationBar.tintColor = TealColor
+        addContentVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPluscopy(scale: 0.8), tag: 1)
+        addContentVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0)
+        addContentVC.navigationBar.tintColor = TealColor
 
         userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 2)
-        userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, 0, -8, 0)
+        userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
 
 
         viewControllers = [
             browseVC,
-            settingVC,
+            addContentVC,
             userProfileVC
         ]
         
