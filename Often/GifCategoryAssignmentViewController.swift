@@ -45,7 +45,6 @@ class GifCategoryAssignmentViewController: BaseCategoryAssignmentViewController 
             gifView.al_height == UIScreen.mainScreen().bounds.height / 3,
             
             headerView.al_top == gifView.al_bottom
-            
         ])
     }
 }

@@ -44,7 +44,7 @@ class AddContentViewController: UIViewController {
             addContentView.al_left == view.al_left,
             addContentView.al_right == view.al_right,
             addContentView.al_bottom == view.al_bottom
-            ])
+        ])
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -67,7 +67,10 @@ class AddContentViewController: UIViewController {
         }
 
         if sender.isEqual(addContentView.addImageButton) {
-
+            let vc = ContainerNavigationController(rootViewController: ImageUploaderViewController(viewModel: UserPackService.defaultInstance))
+            navigationController?.pushViewController(vc, animated: true)
+            vc.navigationBar.hidden = true
+            presentViewController(vc, animated: true, completion: nil)
         }
 
         if sender.isEqual(addContentView.addQuoteButton) {
