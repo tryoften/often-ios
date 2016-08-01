@@ -58,7 +58,6 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNeedsStatusBarAppearanceUpdate()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -97,7 +96,7 @@ class BrowseMediaItemViewController: MediaItemsCollectionBaseViewController,
         let topMargin = CGFloat(41.0)
     #else
         let topMargin = CGFloat(0.0)
-        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 98)
+        layout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 118)
         layout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, UIScreen.mainScreen().bounds.size.height/4 * 3 - 4)
         layout.parallaxHeaderAlwaysOnTop = true
     #endif

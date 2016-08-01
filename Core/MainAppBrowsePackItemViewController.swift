@@ -36,7 +36,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         setupFilterViews()
         setLayout()
     }
-    
+
     deinit {
         packCollectionListener = nil
     }
@@ -64,9 +64,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
@@ -80,8 +80,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.viewDidLoad()
         showHud()
         loadPackData()
-        
-        
 
         filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
@@ -92,7 +90,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             filterButton.al_height == 30,
             filterButton.al_width == 94,
             filterButton.al_bottom == view.al_bottom - 23.5
-            ])
+        ])
     }
     
     func filterButtonDidTap(sender: UIButton) {
@@ -149,7 +147,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
 
         showHud()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: #selector(MediaItemsCollectionBaseViewController.hideHud), userInfo: nil, repeats: false)
 
         if let pack = packViewModel.pack {
             if PacksService.defaultInstance.checkPack(pack) {
@@ -213,7 +211,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
             packViewModel.typeFilter = .Gif
         }
-
     }
     
     func quotesTabSelected() {
@@ -222,7 +219,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if packViewModel.doesCurrentPackContainTypeForCategory(.Quote) {
             packViewModel.typeFilter = .Quote
         }
-
     }
     
     func imagesTabSelected() {

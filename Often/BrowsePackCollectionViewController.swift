@@ -109,17 +109,11 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
-    
+
     override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
         navigationController?.navigationBar.tintColor = WhiteColor

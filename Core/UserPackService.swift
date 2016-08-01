@@ -62,7 +62,7 @@ class UserPackService: MediaItemsViewModel {
 
     func addItem(result: MediaItem) {
         ids.insert(result.id)
-        sendTask("addFavorite", result: result)
+        sendTask("add", item: result)
         
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.favorited), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
         
@@ -73,7 +73,7 @@ class UserPackService: MediaItemsViewModel {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.unfavorited), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
         
         ids.remove(result.id)
-        sendTask("removeFavorite", result: result)
+        sendTask("remove", item: result)
         mediaItems = mediaItems.filter({ $0 != result })
     }
     
@@ -106,16 +106,21 @@ class UserPackService: MediaItemsViewModel {
     }
 
     // MARK: Private Methods    
-    private func sendTask(task: String, result: MediaItem) {
+    private func sendTask(task: String, item: MediaItem) {
         guard let userId = currentUser?.id else {
             return
         }
         
         let favoriteQueueRef = baseRef.child("queues/user/tasks").childByAutoId()
         favoriteQueueRef.setValue([
+            "type": "editUserPackItems",
             "task": task,
-            "user": userId,
-            "result": result.toDictionary()
+            "userId": userId,
+            "data": [
+                "operation": task,
+                "packType": "favorite",
+                "mediaItem": item.toDictionary()
+            ]
         ])
     }
 
