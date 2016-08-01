@@ -69,7 +69,7 @@ class AlertViewController: UIViewController {
     }
 
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
 
     override func viewDidAppear(animated: Bool) {

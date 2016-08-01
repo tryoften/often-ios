@@ -222,7 +222,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             coverPhotoBottonMarginConstraint!,
             coverPhotoView.al_left == al_left,
             coverPhotoView.al_top == al_top,
-            coverPhotoView.al_height >= 64,
+            coverPhotoView.al_height >= 84,
 
             coverPhotoTintView.al_width == coverPhotoView.al_width,
             coverPhotoTintView.al_bottom == coverPhotoView.al_bottom,

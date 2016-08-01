@@ -89,7 +89,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
     
     override func setupLayout() {
         addConstraints([
-            collapseTitleLabel.al_top == al_top + 10,
+            collapseTitleLabel.al_top == al_top + 30,
             collapseTitleLabel.al_width <= al_width - 30,
             collapseTitleLabel.al_centerX == al_centerX,
             collapseTitleLabel.al_height == 22,

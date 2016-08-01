@@ -44,7 +44,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true;
+        return false
     }
     
     func didTapCancelButton(sender: UIButton) {
