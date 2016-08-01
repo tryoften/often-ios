@@ -90,6 +90,14 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
+
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
     
     func scrollToNextPage() {
         let xOffset = pageWidth * CGFloat((currentPage + 1) % pageCount)
