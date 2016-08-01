@@ -105,8 +105,7 @@ class GiphySearchViewController: UIViewController,
             giphyLogo.al_height == 30,
             giphyLogo.al_width == 156,
             giphyLogo.al_bottom == view.al_bottom - 23.5
-            
-            ])
+        ])
     }
 
     override func viewDidLoad() {
@@ -134,10 +133,9 @@ class GiphySearchViewController: UIViewController,
         guard let gif = viewModel.selectedGif else {
             return
         }
-
+        
         let vc = GifCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: gif))
-         navigationController?.pushViewController(vc, animated: true)
-
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 
