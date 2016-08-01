@@ -121,6 +121,7 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
 
                 UIView.animateWithDuration(0.2) {
                     vc.progressView.alpha = 0
+                    vc.maskView.alpha = 0
                 }
 
                 vc.imageUploaded = true
