@@ -664,6 +664,8 @@
 		8157AD901CB5A62F001D0B80 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
 		8157AD911CB5A630001D0B80 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
 		8157AD921CB5A631001D0B80 /* PackPageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */; };
+		8160F83F1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */; };
+		8160F8401D4FB835004FFA6D /* ImageCategoryAssigmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */; };
 		816D50081C860F97007B3249 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D50071C860F97007B3249 /* Category.swift */; };
 		816D50091C860F97007B3249 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D50071C860F97007B3249 /* Category.swift */; };
 		816D500A1C860F97007B3249 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D50071C860F97007B3249 /* Category.swift */; };
@@ -1354,6 +1356,7 @@
 		81459AF01AACEE9800718C09 /* UIDevice+DeviceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIDevice+DeviceList.swift"; path = "../Often/UIDevice+DeviceList.swift"; sourceTree = "<group>"; };
 		8157AD7E1CB56982001D0B80 /* PackSubscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PackSubscription.swift; path = Core/PackSubscription.swift; sourceTree = "<group>"; };
 		8157AD841CB58533001D0B80 /* BrowsePackDownloadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackDownloadButton.swift; sourceTree = "<group>"; };
+		8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCategoryAssigmentViewController.swift; sourceTree = "<group>"; };
 		816D50071C860F97007B3249 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Category.swift; path = Core/Category.swift; sourceTree = "<group>"; };
 		816D500F1C861000007B3249 /* CategoryService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryService.swift; path = Core/CategoryService.swift; sourceTree = "<group>"; };
 		816D50151C86278C007B3249 /* CategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCollectionViewController.swift; path = ../Keyboard/Sources/CategoryCollectionViewController.swift; sourceTree = "<group>"; };
@@ -2174,6 +2177,7 @@
 				BFAD7B291D493F830002670F /* BaseCategoryAssignmentViewController.swift */,
 				BFAD7B2C1D4A48920002670F /* GifCategoryAssignmentViewController.swift */,
 				BFAD7B2F1D4A53180002670F /* QuoteCategoryAssignmentViewController.swift */,
+				8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -3475,6 +3479,7 @@
 				810EA5541C8579D1005A6C6D /* MediaItemGroupViewModel.swift in Sources */,
 				3BDF89181D3FD2720043173A /* SearchBarView.swift in Sources */,
 				810EA5551C8579D1005A6C6D /* EventEmittable.swift in Sources */,
+				8160F8401D4FB835004FFA6D /* ImageCategoryAssigmentViewController.swift in Sources */,
 				BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */,
 				BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */,
 			);
@@ -3737,6 +3742,7 @@
 				816D50AD1C8A0596007B3249 /* SkipSignupViewController.swift in Sources */,
 				BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */,
 				816D50CA1C8A0722007B3249 /* TextProcessingManager.swift in Sources */,
+				8160F83F1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift in Sources */,
 				816D50B41C8A05B6007B3249 /* FuzzySearch.swift in Sources */,
 				816D50AF1C8A0596007B3249 /* AppSettingsViewController.swift in Sources */,
 				698D18AB1D4957A80025A2EF /* ImageMediaItem.swift in Sources */,
