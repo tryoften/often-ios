@@ -43,14 +43,13 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         super.init(nibName: nil, bundle: nil)
 
         dummyTabBar.frame = tabBar.frame
-        
+
         styleTabBar()
         setupTabBarItems()
         view.insertSubview(imageView, belowSubview: tabBar)
         view.insertSubview(dummyTabBar, belowSubview: imageView)
 
         setupLayout()
-
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -68,8 +67,8 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         view.addConstraints([
             imageView.al_centerX == view.al_centerX,
             imageView.al_bottom == view.al_bottom,
-            imageView.al_height == 80,
-            imageView.al_width == 80
+            imageView.al_height == 75,
+            imageView.al_width == 75
             ])
     }
     
@@ -88,7 +87,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         }
     }
 
-
     func styleTabBar() {
         tabBar.backgroundColor = WhiteColor
         tabBar.shadowImage = UIImage()
@@ -96,8 +94,8 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         tabBar.translucent = false
         tabBar.tintColor = BlackColor
     }
+    
     func setupTabBarItems() {
-
         var userProfileVC: UIViewController
 
         if SessionManagerFlags.defaultManagerFlags.userIsAnonymous {
@@ -108,19 +106,16 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         }
 
         let browseVC = ContainerNavigationController(rootViewController: BrowsePackCollectionViewController(viewModel: PacksViewModel()))
-        
         let addContentVC = ContainerNavigationController(rootViewController: AddContentViewController())
 
-        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPacktab(scale: 0.55), tag: 0)
+        browseVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfCollectionsCards(scale: 0.55), tag: 0)
         browseVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 20, -4, -20)
 
-        addContentVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPluscopy(scale: 0.8), tag: 1)
-        addContentVC.tabBarItem.imageInsets = UIEdgeInsetsMake(4, 0, -4, 0)
+        addContentVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfPluscopy().imageWithRenderingMode(.AlwaysOriginal), tag: 1)
         addContentVC.navigationBar.tintColor = TealColor
 
         userProfileVC.tabBarItem = UITabBarItem(title: "", image: StyleKit.imageOfProfile(scale: 0.45), tag: 2)
         userProfileVC.tabBarItem.imageInsets = UIEdgeInsetsMake(8, -20, -8, 20)
-
 
         viewControllers = [
             browseVC,
