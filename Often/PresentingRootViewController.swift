@@ -14,7 +14,6 @@ class PresentingRootViewController: UIViewController, UITabBarControllerDelegate
     func presentRootViewController(rootVC: RootViewController) {
         rootVC.delegate = self
         presentViewController(rootVC, animated: true, completion: nil)
-        
     }
 
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
@@ -25,8 +24,10 @@ class PresentingRootViewController: UIViewController, UITabBarControllerDelegate
             vc.modalPresentationStyle = .Custom
 
             tabBarController.presentViewController(vc, animated: true, completion: nil)
+
             return false
         }
+        
         return true
     }
 
