@@ -31,8 +31,11 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         collectionView?.contentInset = UIEdgeInsetsZero
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
+
+        extendedLayoutIncludesOpaqueBars = false
+        automaticallyAdjustsScrollViewInsets = false
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -47,7 +50,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 84)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
         flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
-        flowLayout.parallaxHeaderAlwaysOnTop = false
+        flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
         flowLayout.minimumLineSpacing = 6.0
@@ -77,6 +80,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         super.viewWillAppear(animated)
 
         if let navigationBar = navigationController?.navigationBar {
+            navigationBar.translucent = false
             navigationBar.hidden = true
         }
     }
@@ -84,7 +88,11 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
+    }
+
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .Default
     }

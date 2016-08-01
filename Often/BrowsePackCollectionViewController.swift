@@ -112,7 +112,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
