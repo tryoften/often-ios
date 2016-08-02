@@ -251,7 +251,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             collapseNameLabel.al_right == al_right - 18,
             collapseNameLabel.al_height == 30,
 
-            profileImageView.al_centerY == al_centerY,
+            profileImageView.al_centerY == nameLabel.al_centerY,
             profileImageView.al_right == al_right - (screenWidth * 0.06),
             profileImageView.al_width == profileImageViewWidth,
             profileImageView.al_height == profileImageView.al_width,
@@ -261,7 +261,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             userProfilePlaceholder.al_width == profileImageViewWidth,
             userProfilePlaceholder.al_height == profileImageView.al_width,
             
-            nameLabel.al_centerY == al_centerY,
+            nameLabel.al_bottom == leftBoldLabel.al_top - 10,
             nameLabel.al_left == al_left + (screenWidth * 0.06),
             nameLabel.al_right == al_centerX,
             nameLabel.al_height == screenWidth * 0.19,
@@ -276,7 +276,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             rightBoldLabel.al_bottom == leftDescriptorLabel.al_top,
             
             leftDescriptorLabel.al_left == nameLabel.al_left,
-            leftDescriptorLabel.al_bottom == al_bottom - (bounds.height * 0.15),
+            leftDescriptorLabel.al_bottom == al_bottom - (bounds.height * 0.10),
             
             rightDescriptorLabel.al_left == leftDescriptorLabel.al_right + 38,
             rightDescriptorLabel.al_bottom == leftDescriptorLabel.al_bottom,

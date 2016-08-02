@@ -55,7 +55,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight * 0.35)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight * 0.40)
         flowLayout.itemSize = CGSizeMake(screenWidth, 74)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false

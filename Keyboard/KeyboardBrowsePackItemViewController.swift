@@ -186,6 +186,17 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             
             let height = screenHeight / 4
             return CGSizeMake(width, height)
+        case .Image:
+            var width: CGFloat
+            
+            if screenHeight > screenWidth {
+                width = screenWidth / 2 - 12.5
+            } else {
+                width = screenWidth / 3 - 12.5
+            }
+            
+            let height = width
+            return CGSizeMake(width, height)
         default:
             return CGSizeZero
         }
@@ -246,6 +257,22 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 cell.mediaLink = gif
                 cell.delegate = self
                 return cell
+            case .Image:
+                guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                
+                guard let image = group.items[indexPath.row] as? ImageMediaItem else {
+                    return cell
+                }
+                
+                if let imageURL = image.mediumImageURL {
+                    cell.setImageWith(imageURL)
+                }
+                
+                cell.mediaLink = image
+                cell.delegate = self
+                return cell
             case .Quote:
                 let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
                 cell.style = .Cell
@@ -260,7 +287,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        if packViewModel.typeFilter == .Gif {
+        if packViewModel.typeFilter == .Gif || packViewModel.typeFilter == .Image  {
             return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
         }
         

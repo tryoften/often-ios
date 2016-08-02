@@ -143,6 +143,7 @@ class PackMediaItem: MediaItem {
     func getMediaItemGroups() -> [MediaItemGroup] {
         var gifs = [MediaItem]()
         var quotes = [MediaItem]()
+        var images = [MediaItem]()
         
         for item in items {
             switch item.type {
@@ -150,6 +151,8 @@ class PackMediaItem: MediaItem {
                 gifs.append(item)
             case .Quote, .Lyric:
                 quotes.append(item)
+            case .Image:
+                images.append(item)
             default:
                 continue
             }
@@ -168,7 +171,14 @@ class PackMediaItem: MediaItem {
             "type": MediaType.Quote.rawValue
         ])
         quoteGroup.items = quotes
-        
+
+        let imageGroup = MediaItemGroup(dictionary: [
+            "id": "images",
+            "title": "Images",
+            "type": MediaType.Image.rawValue
+        ])
+        imageGroup.items = images
+
         var groups = [MediaItemGroup]()
         
         if !gifGroup.items.isEmpty {
@@ -177,6 +187,10 @@ class PackMediaItem: MediaItem {
         
         if !quoteGroup.items.isEmpty {
             groups.append(quoteGroup)
+        }
+
+        if !imageGroup.items.isEmpty {
+            groups.append(imageGroup)
         }
         
         return groups
