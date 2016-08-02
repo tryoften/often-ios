@@ -69,7 +69,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             imageView.al_bottom == view.al_bottom,
             imageView.al_height == 75,
             imageView.al_width == 75
-            ])
+        ])
     }
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {

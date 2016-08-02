@@ -22,7 +22,7 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         
         navigationView = AddContentNavigationView()
         navigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationView.setTitleText("Add GIF")
+        navigationView.setTitleText("Add Image")
         
         self.viewModel = viewModel
         
@@ -30,9 +30,8 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         
         imagePicker.delegate = self
         
-        navigationView.leftButton.addTarget(self, action: #selector(GiphySearchViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
-        navigationView.rightButton.addTarget(self, action: #selector(GiphySearchViewController.nextButtonDidTap), forControlEvents: .TouchUpInside)
-        
+        navigationView.leftButton.addTarget(self, action: #selector(ImageUploaderViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+
         view.backgroundColor = MainBackgroundColor
         
         view.addSubview(imagePicker.view)
@@ -47,15 +46,9 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -95,11 +88,13 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         navigationController?.popViewControllerAnimated(true)
     }
-    
+
+    func cancelButtonDidTap() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        PKHUD.sharedHUD.contentView = HUDProgressView()
-        PKHUD.sharedHUD.show()
-        
         // Get the image that the user picked + source url
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
             let compareString: NSString = info[UIImagePickerControllerReferenceURL]?.absoluteString {
@@ -107,11 +102,17 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
             var uploadTask = FIRStorageUploadTask()
             uploadTask = imageRepresentationForImage(image, compareString: compareString)
 
+            let viewModel = AssignCategoryViewModel(mediaItem: ImageMediaItem(data: [:]))
+            let vc = ImageCategoryAssigmentViewController(viewModel: viewModel, localImage: image)
+
+            self.navigationController?.pushViewController(vc, animated: true)
+
             uploadTask.observeStatus(.Progress) { snapshot in
                 if let progress = snapshot.progress {
                     let percentComplete = 100.0 * Double(progress.completedUnitCount) / Double(progress.totalUnitCount)
+
                     // use percent complete to make waiting loader
-                    print(percentComplete)
+                    vc.progressView.setProgress(Float(percentComplete), animated: true)
                 }
             }
 
@@ -121,8 +122,16 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
                     let downloadURL = downloadURLs.first else {
                     return
                 }
-                
-                self.imageDidSuccessfullyUpload(downloadURL, localImage: image)
+
+                UIView.animateWithDuration(0.2) {
+                    vc.progressView.alpha = 0
+                    vc.maskView.alpha = 0
+                }
+
+                vc.imageUploaded = true
+                self.imageDidSuccessfullyUpload(downloadURL, viewModel: viewModel, completion: { success in
+                    vc.imageUploaded = vc.imageUploaded
+                })
             }
 
             uploadTask.observeStatus(.Failure) { snapshot in
@@ -172,36 +181,32 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         return FIRStorageUploadTask()
     }
     
-    func imageDidSuccessfullyUpload(downloadURL: NSURL, localImage: UIImage) {
+    func imageDidSuccessfullyUpload(downloadURL: NSURL, viewModel: AssignCategoryViewModel, completion: ((Bool) -> Void)?) {
         let databaseRef = FIRDatabase.database().reference()
         
         // Get the image from Firebase Storage + Put it in to Image Resizer
         let imageQueue = databaseRef.child("/queues/image_resizing/tasks").childByAutoId()
         let imageId = generateUniqueID()
         let processedImageRef = databaseRef.child("/images/\(imageId)")
-        
+
         processedImageRef.removeValue()
         
         imageQueue.setValue([
             "imageId": imageId,
             "url": downloadURL.absoluteString
         ])
-        
+
         // Listen on image resizer to see if it's done + Pass Image to AssignCategoryViewController
-        
         processedImageRef.observeEventType(.Value, withBlock: { snapshot in
             if let value = snapshot.value as? [String : AnyObject] where self.imageProcessed == false {
                 // make the image into an imagemediaitem and then take that to the category assign view controller
                 let image = ImageMediaItem(data: value)
-                
-                PKHUD.sharedHUD.hide()
-                
+                viewModel.updateMediaItem(image)
+
                 self.imageProcessed = true
-                
-                let vc = GifCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: image))
-                vc.gifView.backgroundImageView.contentMode = .ScaleAspectFill
-                vc.gifView.setImage(localImage)
-                self.navigationController?.pushViewController(vc, animated: true)
+                completion?(true)
+            } else {
+                completion?(false)
             }
         })
     }

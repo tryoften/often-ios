@@ -47,9 +47,9 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 84)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
+        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -180,7 +180,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         super.showHud()
         
         hudTimer?.invalidate()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideHud"), userInfo: nil, repeats: false)
     }
 
     func promptUserToRegisterPushNotifications() {
@@ -199,8 +199,10 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         var imageRequest: [ImageRequest] = []
 
         for index in indexPaths {
-            if let url = viewModel.mediaItems[index.row].smallImageURL {
-                imageRequest.append (ImageRequest(URL: url))
+            if index.row < viewModel.mediaItems.count {
+                if let url = viewModel.mediaItems[index.row].smallImageURL {
+                    imageRequest.append (ImageRequest(URL: url))
+                }
             }
         }
 
