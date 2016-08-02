@@ -25,7 +25,7 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
         
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.hidden = true
-        primaryButton.setImage(StyleKit.imageOfDeleteCanvas(color: UIColor(red: 232.0/255.0, green: 87.0/255.0, blue: 105.0/255.0, alpha: 1.0)), forState: .Normal)
+        primaryButton.setImage(StyleKit.imageOfDeleteSymbol(color: UIColor(red: 232.0/255.0, green: 87.0/255.0, blue: 105.0/255.0, alpha: 1.0)), forState: .Normal)
         
         imageView.layer.cornerRadius = 2.0
         

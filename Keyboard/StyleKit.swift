@@ -3340,7 +3340,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawSettingsDiamondCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
+    public class func drawSettingsDiamond(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -3365,12 +3365,9 @@ public class StyleKit : NSObject {
         oval17Path.stroke()
     }
 
-    public class func drawCameraIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 56, height: 47), scale: CGFloat = 0.5) {
+    public class func drawCameraIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 56, height: 47), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
-
-        //// Color Declarations
-        let strokeColor10 = UIColor(red: 0.221, green: 0.648, blue: 0.783, alpha: 1.000)
 
         //// icon
         CGContextSaveGState(context)
@@ -3401,14 +3398,14 @@ public class StyleKit : NSObject {
 
         path1Path.usesEvenOddFillRule = true;
 
-        strokeColor10.setStroke()
+        color.setStroke()
         path1Path.lineWidth = 6
         path1Path.stroke()
 
 
         //// path-3 Drawing
         let path3Path = UIBezierPath(ovalInRect: CGRect(x: 17, y: 14.84, width: 22, height: 22))
-        strokeColor10.setStroke()
+        color.setStroke()
         path3Path.lineWidth = 6
         path3Path.stroke()
 
@@ -3417,7 +3414,7 @@ public class StyleKit : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawDeleteCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
+    public class func drawDeleteSymbol(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) {
         //// Color Declarations
         let fillColor10 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
@@ -5183,19 +5180,19 @@ public class StyleKit : NSObject {
         return imageOfCollectionsCards
     }
 
-    public class func imageOfSettingsDiamondCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+    public class func imageOfSettingsDiamond(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawSettingsDiamondCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
+            StyleKit.drawSettingsDiamond(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
 
-        let imageOfSettingsDiamondCanvas = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfSettingsDiamond = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        return imageOfSettingsDiamondCanvas
+        return imageOfSettingsDiamond
     }
 
-    public class func imageOfCameraIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 56, height: 47), scale: CGFloat = 0.5) -> UIImage {
+    public class func imageOfCameraIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 56, height: 47), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawCameraIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), scale: scale)
+            StyleKit.drawCameraIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
 
         let imageOfCameraIcon = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -5203,14 +5200,14 @@ public class StyleKit : NSObject {
         return imageOfCameraIcon
     }
 
-    public class func imageOfDeleteCanvas(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
+    public class func imageOfDeleteSymbol(frame frame: CGRect = CGRect(x: 0, y: 0, width: 50, height: 50), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000)) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
-            StyleKit.drawDeleteCanvas(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
+            StyleKit.drawDeleteSymbol(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color)
 
-        let imageOfDeleteCanvas = UIGraphicsGetImageFromCurrentImageContext()
+        let imageOfDeleteSymbol = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
 
-        return imageOfDeleteCanvas
+        return imageOfDeleteSymbol
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {

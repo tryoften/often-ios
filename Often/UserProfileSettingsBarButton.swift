@@ -28,7 +28,7 @@ class UserProfileSettingsBarButton: UIButton {
         
         buttonImage = UIImageView()
         buttonImage.translatesAutoresizingMaskIntoConstraints = false
-        buttonImage.image = StyleKit.imageOfSettingsDiamondCanvas(color: UIColor.lightGrayColor())
+        buttonImage.image = StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor())
         
         super.init(frame: frame)
         

@@ -87,6 +87,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         super.viewWillAppear(animated)
 
         if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Default
             navigationBar.translucent = false
             navigationBar.hidden = true
         }
@@ -105,7 +106,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     }
 
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

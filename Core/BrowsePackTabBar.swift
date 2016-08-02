@@ -12,6 +12,7 @@ enum BrowsePackTabType: Int {
     case Keyboard = 0
     case Gifs
     case Quotes
+    case Images
     case Categories
     case Packs
     case Delete
@@ -21,6 +22,7 @@ class BrowsePackTabBar: SlideTabBar {
     var globeTabBarItem: UITabBarItem
     var gifsTabBarItem: UITabBarItem
     var quotesTabBarItem: UITabBarItem
+    var imagesTabBarItem: UITabBarItem
     var categoriesTabBarItem: UITabBarItem
     var packsTabBarItem: UITabBarItem
     var deleteTabBarItem: UITabBarItem
@@ -43,6 +45,11 @@ class BrowsePackTabBar: SlideTabBar {
         quotesTabBarItem.image = StyleKit.imageOfQuotesMenuButton(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         quotesTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         
+        imagesTabBarItem = UITabBarItem()
+        imagesTabBarItem.tag = BrowsePackTabType.Images.rawValue
+        imagesTabBarItem.image = StyleKit.imageOfCameraIcon(scale: 0.3, color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+        imagesTabBarItem.imageInsets = UIEdgeInsetsMake(13, 6, -13, -6)
+        
         categoriesTabBarItem = UITabBarItem()
         categoriesTabBarItem.tag = BrowsePackTabType.Categories.rawValue
         categoriesTabBarItem.image = StyleKit.imageOfHashtagicon(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
@@ -60,7 +67,7 @@ class BrowsePackTabBar: SlideTabBar {
         
         super.init(highlightBarEnabled: enabled)
         
-        items = [globeTabBarItem, gifsTabBarItem, quotesTabBarItem, categoriesTabBarItem, packsTabBarItem, deleteTabBarItem]
+        items = [globeTabBarItem, gifsTabBarItem, quotesTabBarItem, imagesTabBarItem, categoriesTabBarItem, packsTabBarItem, deleteTabBarItem]
         
         backgroundColor = WhiteColor
         translucent = false
@@ -78,6 +85,8 @@ class BrowsePackTabBar: SlideTabBar {
             selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) ? items![BrowsePackTabType.Gifs.rawValue]: items![BrowsePackTabType.Quotes.rawValue]
         case .Quote, .Lyric:
             selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) ? items![BrowsePackTabType.Quotes.rawValue] : items![BrowsePackTabType.Gifs.rawValue]
+        case .Image:
+            selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Image) ? items![BrowsePackTabType.Images.rawValue] : items![BrowsePackTabType.Gifs.rawValue]
         default:
             break
         }

@@ -20,7 +20,8 @@ enum MediaType: String {
     case Other = "other"
     case Pack = "pack"
     case Quote = "quote"
-
+    case Image = "image"
+    
     var isVideo: Bool {
         switch self {
         case .Video:

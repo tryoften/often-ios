@@ -81,10 +81,7 @@ class AppSettingsViewController: UIViewController,
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
-        UIApplication.sharedApplication().setStatusBarStyle(.Default, animated: false)
-        
+    override func viewWillAppear(animated: Bool) {        
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
         navigationController?.navigationBar.tintColor = WhiteColor

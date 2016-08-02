@@ -111,6 +111,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseNameLabel.textColor = WhiteColor
         collapseNameLabel.alpha = 0
         collapseNameLabel.textAlignment = .Right
+        collapseNameLabel.hidden = true
 
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +125,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         rightHeaderLabel.textAlignment = .Center
         rightHeaderLabel.numberOfLines = 3
         rightHeaderLabel.alpha = 0.54
-        rightHeaderLabel.hidden = false
+        rightHeaderLabel.hidden = true
         
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -266,7 +267,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             nameLabel.al_height == screenWidth * 0.19,
             
             leftHeaderLabel.al_left == nameLabel.al_left,
-            leftHeaderLabel.al_top == al_top + 23.5,
+            leftHeaderLabel.al_top == al_top + 43.5,
             
             leftBoldLabel.al_left == leftDescriptorLabel.al_left,
             leftBoldLabel.al_bottom == leftDescriptorLabel.al_top,

@@ -302,6 +302,15 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
                 packViewModel.typeFilter = .Gif
             }
+        case .Images:
+            if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Image) {
+                collectionView?.setContentOffset(CGPointZero, animated: true)
+                packViewModel.typeFilter = .Image
+                self.tabBar.lastSelectedTab = item
+            } else {
+                self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+                packViewModel.typeFilter = .Quote
+            }
         case .Categories:
             toggleCategoryViewController()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
