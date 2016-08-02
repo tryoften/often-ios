@@ -141,8 +141,8 @@ let ArtistCollectionViewCloseButtonBackgroundColor = UIColor(fromHexString: "#12
 let ArtistCollectionViewCellBackgroundColor = UIColor.whiteColor()
 let ArtistCollectionViewCellTitleTextColor = UIColor(fromHexString: "#121314")
 let ArtistCollectionViewCellSubtitleTextColor = UIColor.oftDarkGrey74Color()
-let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 15)
-let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 8)
+let ArtistCollectionViewCellTitleFont = UIFont(name: "OpenSans", size: 12)
+let ArtistCollectionViewCellSubtitleFont = UIFont(name: "OpenSans", size: 10.5)
 let ArtistCollectionViewCellWidth: CGFloat = 135
 let ArtistCollectionViewCellImageViewLeftMargin: CGFloat = 32
 
