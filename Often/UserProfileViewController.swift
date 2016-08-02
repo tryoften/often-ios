@@ -49,7 +49,7 @@ UICollectionViewDelegateFlowLayout {
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let flowLayout = CSStickyHeaderFlowLayout()
-        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 84)
+        flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
         flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
         flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
         flowLayout.parallaxHeaderAlwaysOnTop = true
