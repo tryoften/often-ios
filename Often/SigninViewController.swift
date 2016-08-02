@@ -41,7 +41,7 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     }
 
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
     
     func didTapSigninButton(sender: UIButton) {
@@ -71,7 +71,7 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     func createProfileViewController() {
         viewModel.sessionManager.sessionManagerFlags.userIsAnonymous = false
         
-        presentViewController(RootViewController(), animated: true, completion: nil)
+        presentRootViewController(RootViewController())
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

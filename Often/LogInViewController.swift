@@ -88,7 +88,15 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
+    }
+
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
+    }
+
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
     }
     
     func scrollToNextPage() {
@@ -211,15 +219,12 @@ class LoginViewController: UserCreationViewController, UIScrollViewDelegate {
         scrollTimer?.invalidate()
         launchScreenLoaderTimer?.invalidate()
 
-        var mainController: UIViewController
-
         if viewModel.sessionManager.sessionManagerFlags.userIsAnonymous && viewModel.isNewUser {
-            mainController = InstallationWalkthroughViewContoller(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
+           let vc = InstallationWalkthroughViewContoller(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
+            presentViewController(vc, animated: true, completion: nil)
 
         } else {
-            mainController = RootViewController()
+            presentRootViewController(RootViewController())
         }
-
-        presentViewController(mainController, animated: true, completion: nil)
     }
 }

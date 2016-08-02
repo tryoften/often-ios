@@ -13,6 +13,7 @@ class AssignCategoryViewModel: BaseViewModel {
     weak var delegate: AssignCategoryViewModelDelegate?
     var categories: [Category]
     var mediaItem: MediaItem
+    var selectedCategory: Category?
 
      init(mediaItem: MediaItem) {
         self.mediaItem = mediaItem
@@ -23,7 +24,6 @@ class AssignCategoryViewModel: BaseViewModel {
     override func fetchData(completion: ((Bool) -> Void)?) {
         categories = []
         ref.observeEventType(.Value, withBlock: { snapshot in
-            print(snapshot.value)
             if let data = snapshot.value as? NSDictionary {
                 self.categories = Category.modelsFromDictionary(data)
                 self.delegate?.assignCategoryViewModelDelegateDataDidLoad(self, categories: self.categories)
@@ -33,7 +33,8 @@ class AssignCategoryViewModel: BaseViewModel {
     }
 
     func updateMediaItemCategory(index: Int) {
-        if categories.count < index {
+        if index < categories.count {
+            selectedCategory = categories[index]
             mediaItem.category = categories[index]
         }
     }
@@ -42,7 +43,10 @@ class AssignCategoryViewModel: BaseViewModel {
         UserPackService.defaultInstance.addItem(mediaItem)
     }
 
-
+    func updateMediaItem(item: MediaItem) {
+        mediaItem = item
+        mediaItem.category = selectedCategory
+    }
 }
 
 protocol AssignCategoryViewModelDelegate: class {

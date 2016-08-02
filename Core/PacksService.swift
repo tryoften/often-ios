@@ -209,6 +209,7 @@ class PacksService: PackItemViewModel {
                     recentsPack = item
                 } else if item.isFavorites {
                     favoritesPack = item
+                    items.insert(item, atIndex: 0)
                 } else {
                     items.append(item)
                 }

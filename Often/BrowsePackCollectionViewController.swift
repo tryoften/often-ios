@@ -9,7 +9,6 @@
 import UIKit
 
 let horizontalCellReuseIdentifer = "HorizontalCellReuseIdentifier"
-let headerSize: CGFloat = 230
 
 class BrowsePackCollectionViewController: MediaItemsViewController, ConnectivityObservable, CategoryPanelControllable {
     var headerView: BrowsePackHeaderView?
@@ -21,6 +20,13 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     var screenWidth: CGFloat
     var menuOpen: Bool = false
     let interactor = CategoryPanelInteractor()
+    
+    static var headerSize: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 270.0
+        }
+        return 230.0
+    }
     
     init(viewModel: PacksViewModel) {
         screenWidth = UIScreen.mainScreen().bounds.width
@@ -70,7 +76,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
     func didSelectBrowseCategory(notification: NSNotification) {
         if let section = notification.userInfo!["section"] as? Int {
             let scrollHeight: CGFloat = CGFloat((30 + 210 + 24) * section)
-            let topOfHeader = CGPointMake(0, headerSize + scrollHeight)
+            let topOfHeader = CGPointMake(0, self.dynamicType.headerSize + scrollHeight)
             collectionView?.setContentOffset(topOfHeader, animated:true)
         }
     }
@@ -109,17 +115,11 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
-    
+
     override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
         navigationController?.navigationBar.tintColor = WhiteColor

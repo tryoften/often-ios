@@ -28,7 +28,17 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
     private var topBorderView: UIView
 
     static var padding: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 25.0
+        }
         return 50.0
+    }
+    
+    static var collectionViewHeight: CGFloat {
+        if Diagnostics.platformString().desciption == "iPhone 6 Plus" || Diagnostics.platformString().desciption == "iPhone 6S Plus" {
+            return 270.0
+        }
+        return 230.0
     }
     
     init(viewModel: MediaItemGroupViewModel = MediaItemGroupViewModel(path: "featured/packs")) {
@@ -94,7 +104,7 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
             collectionView.al_top == view.al_top,
             collectionView.al_left == view.al_left,
             collectionView.al_width == view.al_width,
-            collectionView.al_height == 230,
+            collectionView.al_height == self.dynamicType.collectionViewHeight,
             
             topBorderView.al_left == view.al_left,
             topBorderView.al_right == view.al_right,

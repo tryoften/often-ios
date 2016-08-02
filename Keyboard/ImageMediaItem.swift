@@ -2,7 +2,7 @@
 //  ImageMediaItem.swift
 //  Often
 //
-//  Created by Komran Ghahremani on 7/25/16.
+//  Created by Komran Ghahremani on 7/27/16.
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ class ImageMediaItem: MediaItem {
     var owner_name: String?
     var description: String?
     var tags: String?
-    
+
     required init(data: NSDictionary) {
         
         super.init(data: data)
