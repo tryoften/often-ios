@@ -180,7 +180,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         super.showHud()
         
         hudTimer?.invalidate()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideHud"), userInfo: nil, repeats: false)
     }
 
     func promptUserToRegisterPushNotifications() {
@@ -199,8 +199,10 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
         var imageRequest: [ImageRequest] = []
 
         for index in indexPaths {
-            if let url = viewModel.mediaItems[index.row].smallImageURL {
-                imageRequest.append (ImageRequest(URL: url))
+            if index.row < viewModel.mediaItems.count {
+                if let url = viewModel.mediaItems[index.row].smallImageURL {
+                    imageRequest.append (ImageRequest(URL: url))
+                }
             }
         }
 

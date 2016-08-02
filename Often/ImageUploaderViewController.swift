@@ -30,9 +30,8 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
         
         imagePicker.delegate = self
         
-        navigationView.leftButton.addTarget(self, action: #selector(GiphySearchViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
-        navigationView.rightButton.addTarget(self, action: #selector(GiphySearchViewController.nextButtonDidTap), forControlEvents: .TouchUpInside)
-        
+        navigationView.leftButton.addTarget(self, action: #selector(ImageUploaderViewController.cancelButtonDidTap), forControlEvents: .TouchUpInside)
+
         view.backgroundColor = MainBackgroundColor
         
         view.addSubview(imagePicker.view)
@@ -89,7 +88,12 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         navigationController?.popViewControllerAnimated(true)
     }
-    
+
+    func cancelButtonDidTap() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         // Get the image that the user picked + source url
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage,
