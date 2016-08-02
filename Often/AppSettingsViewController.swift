@@ -81,16 +81,30 @@ class AppSettingsViewController: UIViewController,
         super.viewDidLoad()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {        
         navigationController?.navigationBar.translucent = false
         navigationController?.navigationBar.barStyle = .Default
-
+        navigationController?.navigationBar.tintColor = WhiteColor
+        navigationController?.navigationBar.barTintColor = MainBackgroundColor
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(AppSettingsViewController.didDismissSettings))
+        cancelButton.tintColor = UIColor.oftBlack74Color()
+        navigationItem.rightBarButtonItem = cancelButton
+        
         appSettingView.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .Default
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return false
     }
 
     func setupLayout() {
@@ -396,5 +410,9 @@ class AppSettingsViewController: UIViewController,
     //MARK: TableViewCellDelegate
     func didFinishEditingName(newName: String) {
         viewModel.currentUser?.name = newName
+    }
+    
+    func didDismissSettings() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

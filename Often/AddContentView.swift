@@ -44,7 +44,7 @@ class AddContentView: UIView {
 
         addImageButton = SpringButton()
         addImageButton.translatesAutoresizingMaskIntoConstraints = false
-        addImageButton.setImage(StyleKit.imageOfCameraIcon(scale:0.4), forState: .Normal)
+        addImageButton.setImage(StyleKit.imageOfCameraIcon(color: UIColor(fromHexString: "#38A5C8"), scale: 0.4), forState: .Normal)
         addImageButton.backgroundColor = UIColor(fromHexString: "#D7EEF4")
         addImageButton.imageEdgeInsets = UIEdgeInsetsMake(6, 6, 0, 0)
         addImageButton.layer.cornerRadius = 32.5
