@@ -29,6 +29,7 @@ class SessionManagerFlags {
         static var lastPack = "pack"
         static var lastCategory = "category"
         static var lastFilterType = "filter"
+        static var addContentPrompt = "prompt"
     }
 
     var userNotificationSettings: Bool {
@@ -38,6 +39,16 @@ class SessionManagerFlags {
 
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userNotificationSettings)
+        }
+    }
+
+    var hasSeeAddContentPrompt: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.addContentPrompt)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.addContentPrompt)
         }
     }
     
