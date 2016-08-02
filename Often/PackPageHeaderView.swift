@@ -11,6 +11,27 @@ import Foundation
 class PackPageHeaderView: MediaItemPageHeaderView {
     var primaryButton: BrowsePackDownloadButton
     var tabContainerView: FilterTabView
+    var topRightButton: UIButton
+    
+    var style: PackPageHeaderViewStyle = .Generic {
+        didSet {
+            setupHeaderStyle()
+        }
+    }
+    
+    var rightButtonText: String? {
+        didSet {
+            let attributes: [String: AnyObject] = [
+                NSKernAttributeName: NSNumber(float: 1.0),
+                NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
+            ]
+
+                let attributedText = NSAttributedString(string: rightButtonText!, attributes: attributes)
+                topRightButton.setAttributedTitle(attributedText, forState: .Normal)
+        }
+    }
+    
 
     private var tabContainerViewHeight: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -48,12 +69,16 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         
+        topRightButton = UIButton()
+        topRightButton.translatesAutoresizingMaskIntoConstraints = false
+        
         super.init(frame: frame)
 
         subtitleLabel.numberOfLines = 2
         
         addSubview(primaryButton)
         addSubview(tabContainerView)
+        addSubview(topRightButton)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -127,7 +152,28 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             tabContainerView.al_bottom == al_bottom,
             tabContainerView.al_left == al_left,
             tabContainerView.al_right == al_right,
-            tabContainerView.al_height == tabContainerViewHeight
+            tabContainerView.al_height == tabContainerViewHeight,
+            
+            topRightButton.al_top == al_top + 25,
+            topRightButton.al_right == al_right - 45,
+            topRightButton.al_height == 30
         ])
+    }
+    
+    func setupHeaderStyle() {
+        switch style {
+        case .User:
+            primaryButton.packState = .User
+            rightButtonText = "Edit Pack".uppercaseString
+        case .Generic:
+            rightButtonText = "Share".uppercaseString
+//            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
+//            topRightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0)
+        }
+    }
+    
+    enum PackPageHeaderViewStyle {
+        case User
+        case Generic
     }
 }

@@ -109,6 +109,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
         self.hideHud()
+        
+        if pack.isFavorites {
+            header.style = .User
+            //            topRightButton.text = "Edit Profile"
+        } else {
+            header.style = .Generic
+            header.topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            
+            header.primaryButton.title = pack.callToActionText()
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+        }
 
         if let text = title {
             header.title = text
@@ -121,24 +133,20 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if let backgroundColor = pack.backgroundColor {
             header.packBackgroundColor.backgroundColor = backgroundColor
         }
+//        let topRightButton = PackHeaderButton()
+//        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
+//        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
+//        positionedButtonView.addSubview(topRightButton)
+//
+//        let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
+//        navigationItem.rightBarButtonItem = topRightBarButton
+        
         
         header.tabContainerView.mediaTypes = Array(pack.availableMediaType.keys)
 
-        header.primaryButton.title = pack.callToActionText()
-        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
 
-        let topRightButton = ShareBarButton()
-        topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-
-        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
-        positionedButtonView.addSubview(topRightButton)
-
-        let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
-        navigationItem.rightBarButtonItem = topRightBarButton
     }
     
     func primaryButtonTapped(sender: UIButton) {
