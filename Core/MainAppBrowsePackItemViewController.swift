@@ -206,7 +206,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        if packViewModel.typeFilter == .Gif {
+        if packViewModel.typeFilter == .Gif || packViewModel.typeFilter == .Image {
             return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 60.0, right: 9.0)
         }
         
@@ -244,6 +244,17 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             let height = screenHeight / 4
             return CGSizeMake(width, height)
+        case .Image:
+            var width: CGFloat
+
+            if screenHeight > screenWidth {
+                width = screenWidth / 2 - 12.5
+            } else {
+                width = screenWidth / 3 - 12.5
+            }
+
+            let height = width
+            return CGSizeMake(width, height)
         default:
             return CGSizeZero
         }
@@ -258,7 +269,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func gifTabSelected() {
-        
         collectionView?.setContentOffset(CGPointZero, animated: true)
         
         if packViewModel.doesCurrentPackContainTypeForCategory(.Gif) {
@@ -275,7 +285,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     func imagesTabSelected() {
-        // TODO: filter by image
-        return
+        collectionView?.setContentOffset(CGPointZero, animated: true)
+
+        if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
+            packViewModel.typeFilter = .Image
+        }
     }
 }
