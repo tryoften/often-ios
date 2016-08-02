@@ -23,16 +23,16 @@ class ImageMediaItem: MediaItem {
         description = data["description"] as? String
         tags = data["tags"] as? String
         
-        if let imageData = data["transforms"] as? [String : AnyObject], smallImage = imageData["small"] as? [String : AnyObject], url = smallImage["url"] as? String {
-            smallImageURL = NSURL(string: url)
+        if let imageData = data["transforms"] as? NSDictionary, smallImage = imageData["square_small"] as? NSDictionary, imageUrl = smallImage["url"] as? String {
+            smallImageURL = NSURL(string: imageUrl)
         }
         
-        if let imageData = data["transforms"] as? [String : AnyObject], mediumImage = imageData["medium"] as? [String : AnyObject], url = mediumImage["url"] as? String {
-            mediumImageURL = NSURL(string: url)
+        if let imageData = data["transforms"] as? NSDictionary, mediumImage = imageData["square_medium"] as? NSDictionary, imageUrl = mediumImage["url"] as? String {
+            mediumImageURL = NSURL(string: imageUrl)
         }
         
-        if let imageData = data["transforms"] as? [String : AnyObject], largeImage = imageData["large"] as? [String : AnyObject], url = largeImage["url"] as? String {
-            largeImageURL = NSURL(string: url)
+        if let imageData = data["transforms"] as? NSDictionary, largeImage = imageData["square"] as? NSDictionary, imageUrl = largeImage["url"] as? String {
+            largeImageURL = NSURL(string: imageUrl)
         }
     }
 }
