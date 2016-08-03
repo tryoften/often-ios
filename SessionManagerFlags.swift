@@ -30,6 +30,7 @@ class SessionManagerFlags {
         static var lastCategory = "category"
         static var lastFilterType = "filter"
         static var userHasUsername = "userHasUsername"
+        static var addContentPrompt = "prompt"
     }
 
     var userNotificationSettings: Bool {
@@ -39,6 +40,16 @@ class SessionManagerFlags {
 
         set(value) {
             setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.userNotificationSettings)
+        }
+    }
+
+    var hasSeeAddContentPrompt: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.addContentPrompt)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.addContentPrompt)
         }
     }
     
@@ -225,6 +236,7 @@ class SessionManagerFlags {
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastPack)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastCategory)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastFilterType)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.addContentPrompt)
 
         userDefaults.synchronize()
     }

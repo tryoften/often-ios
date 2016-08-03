@@ -72,7 +72,6 @@ class BrowsePackHeaderCollectionViewController: UIViewController,
             self?.preheatWindowChanged(addedIndexPaths: $0, removedIndexPaths: $1)
         }
 
-
         view.backgroundColor = UIColor.clearColor()
 
         viewModel.delegate = self

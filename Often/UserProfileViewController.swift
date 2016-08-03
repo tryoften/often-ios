@@ -17,6 +17,12 @@ UICollectionViewDelegateFlowLayout {
     var headerView: UserProfileHeaderView?
     private var packServiceListener: Listener?
     
+    var editingActive: Bool = false {
+        didSet {
+            collectionView?.reloadData()
+        }
+    }
+
     init(viewModel: PacksService) {
         self.viewModel = viewModel
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
@@ -33,6 +39,7 @@ UICollectionViewDelegateFlowLayout {
         collectionView?.contentInset = UIEdgeInsetsZero
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
+        collectionView?.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userProfileSectionHeader")
 
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
@@ -48,10 +55,11 @@ UICollectionViewDelegateFlowLayout {
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, 270)
-        flowLayout.itemSize = CGSizeMake(screenWidth / 2 - 16.5, 225) /// height of the cell
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight * 0.40)
+        flowLayout.itemSize = CGSizeMake(screenWidth, 74)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -89,6 +97,7 @@ UICollectionViewDelegateFlowLayout {
         super.viewWillAppear(animated)
 
         if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Default
             navigationBar.translucent = false
             navigationBar.hidden = true
         }
@@ -124,13 +133,34 @@ UICollectionViewDelegateFlowLayout {
             
             if headerView == nil {
                 headerView = cell
+                headerView?.rightHeaderButton.addTarget(self, action: #selector(UserProfileViewController.presentSettingsViewController), forControlEvents: .TouchUpInside)
                 viewModel.fetchCollection()
             }
             
             return headerView!
-        } else {
-            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
         }
+        
+        if kind == UICollectionElementKindSectionHeader {
+            if let sectionHeader: UserProfileSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "userProfileSectionHeader", forIndexPath: indexPath) as? UserProfileSectionHeaderView {
+                sectionHeader.titleLabel.text = "\(viewModel.mediaItems.count) PACKS"
+                sectionHeader.editButton.addTarget(self, action: #selector(UserProfileViewController.didSelectEditButton(_:)), forControlEvents: .TouchUpInside)
+                return sectionHeader
+            }
+        }
+        
+        return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, atIndexPath: indexPath)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 7.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 7.0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -140,15 +170,24 @@ UICollectionViewDelegateFlowLayout {
         
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
-        cell.primaryButton.hidden = false
+        cell.primaryButton.hidden = true
         
         if viewModel.mediaItems.count == 1 {
             cell.primaryButton.hidden = true
         }
         
+        let result = viewModel.mediaItems[indexPath.row], pack = result as? PackMediaItem
+        
+        if editingActive == true && pack?.isFavorites == false {
+            cell.disclosureIndicator.hidden = true
+            cell.primaryButton.hidden = false
+        } else {
+            cell.disclosureIndicator.hidden = false
+            cell.primaryButton.hidden = true
+        }
+        
         cell.primaryButton.addTarget(self, action: #selector(UserProfileViewController.didTapRemovePackButton(_:)), forControlEvents: .TouchUpInside)
-        
-        
+
         return cell
     }
     
@@ -164,10 +203,8 @@ UICollectionViewDelegateFlowLayout {
     
     func reloadUserData() {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
-            headerView.sharedText = "\(user.shareCount) Quotes & Gifs shared"
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
-            headerView.coverPhotoView.image = UIImage(named: user.backgroundImage)
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
@@ -189,7 +226,7 @@ UICollectionViewDelegateFlowLayout {
         super.showHud()
         
         hudTimer?.invalidate()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideHud"), userInfo: nil, repeats: false)
     }
     
     func promptUserToRegisterPushNotifications() {
@@ -215,8 +252,10 @@ UICollectionViewDelegateFlowLayout {
         var imageRequest: [ImageRequest] = []
         
         for index in indexPaths {
-            if let url = viewModel.mediaItems[index.row].smallImageURL {
-                imageRequest.append (ImageRequest(URL: url))
+            if index.row < viewModel.mediaItems.count {
+                if let url = viewModel.mediaItems[index.row].smallImageURL {
+                    imageRequest.append (ImageRequest(URL: url))
+                }
             }
         }
         
@@ -236,12 +275,23 @@ UICollectionViewDelegateFlowLayout {
         viewDidLayoutSubviews()
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
-        return 9.0 as CGFloat
-    }
-    
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
         reloadUserData()
+    }
+    
+    func didSelectEditButton(button: UserProfileSettingsBarButton) {
+        if editingActive == false {
+            editingActive = true
+            button.selected = true
+        } else {
+            editingActive = false
+            button.selected = false
+        }
+    }
+    
+    func presentSettingsViewController() {
+        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
+        presentViewController(vc, animated: true, completion: nil)
     }
 }
