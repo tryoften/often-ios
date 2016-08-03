@@ -40,7 +40,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -96,10 +96,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
             topRightButton.text = "Edit Pack"
-            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
-            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 60, bottom: 2, right: -10)
-            topRightButton.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
-            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
+            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
+            topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
+            topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
         } else {
             
             header.primaryButton.title = pack.callToActionText()

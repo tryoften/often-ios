@@ -116,7 +116,7 @@ UICollectionViewDelegateFlowLayout {
     }
 
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return false
     }
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
