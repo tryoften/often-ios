@@ -291,6 +291,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             
             rightHeaderLabel.al_right == rightHeaderButton.al_left + 13.0,
             rightHeaderLabel.al_centerY == leftHeaderLabel.al_centerY,
+            rightHeaderLabel.al_height == rightHeaderButton.al_height,
             
             rightHeaderButton.al_left == rightHeaderLabel.al_right - 50,
             rightHeaderButton.al_right == al_right  - 3.0,

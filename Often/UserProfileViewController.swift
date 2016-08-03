@@ -40,7 +40,7 @@ UICollectionViewDelegateFlowLayout {
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userProfileSectionHeader")
-
+        
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
     }
@@ -134,6 +134,10 @@ UICollectionViewDelegateFlowLayout {
             if headerView == nil {
                 headerView = cell
                 headerView?.rightHeaderButton.addTarget(self, action: #selector(UserProfileViewController.presentSettingsViewController), forControlEvents: .TouchUpInside)
+                let recognizer = UITapGestureRecognizer()
+                recognizer.addTarget(self, action: #selector(UserProfileViewController.handleSettingsTap(_:)))
+                headerView?.rightHeaderLabel.addGestureRecognizer(recognizer)
+                headerView?.rightHeaderLabel.userInteractionEnabled = true
                 viewModel.fetchCollection()
             }
             
@@ -173,8 +177,7 @@ UICollectionViewDelegateFlowLayout {
         
         let result = viewModel.mediaItems[indexPath.row], pack = result as? PackMediaItem
         
-        
-        if editingActive == true && pack?.isFavorites == false && viewModel.mediaItems.count <= 1{
+        if editingActive == true && pack?.isFavorites == false {
             cell.disclosureIndicator.hidden = true
             cell.primaryButton.hidden = false
         } else {
@@ -288,6 +291,11 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentSettingsViewController() {
+        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
+        presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func handleSettingsTap(recognizer: UITapGestureRecognizer) {
         let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
         presentViewController(vc, animated: true, completion: nil)
     }
