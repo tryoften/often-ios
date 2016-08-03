@@ -8,24 +8,22 @@
 
 import UIKit
 
-class ShareBarButton: UIButton {
+class PackHeaderButton: UIButton {
     var textLabel: UILabel
+//    var buttonImageView: UIImageView
+    
+    var text: String? {
+        didSet {
+            textLabel.setTextWith(UIFont(name: "Montserrat", size: 10.5)!, letterSpacing: 1.0, color: WhiteColor, text: text!.uppercaseString)
+        }
+    }
     
     override init(frame: CGRect) {
         textLabel = UILabel()
-        textLabel.font = UIFont(name: "Montserrat", size: 9.0)
-        textLabel.textColor = WhiteColor
-        textLabel.text = "SHARE"
-        textLabel.textAlignment = .Center
+        textLabel.textAlignment = .Left
         textLabel.backgroundColor = ClearColor
-        textLabel.frame = CGRectMake(0, 0, 100, 30)
         
         super.init(frame: frame)
-        
-        setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
-        imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0)
-        self.frame = CGRectMake(0, 0, 100, 30)
-        
         addSubview(textLabel)
     }
     

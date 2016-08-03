@@ -93,6 +93,14 @@ class AlertView: SpringView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setActionButtonEnabled(enabled: Bool) {
+        actionButton.enabled = enabled
+        actionButton.backgroundColor = LightGrey
+        if enabled {
+            actionButton.backgroundColor = TealColor
+        }
+    }
+    
     func setupLayout() {
         addConstraints([
             characterImageView.al_height == 120,

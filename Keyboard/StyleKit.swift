@@ -3466,6 +3466,49 @@ public class StyleKit : NSObject {
         path110Path.stroke()
     }
 
+    public class func drawEditIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()
+
+        //// icon
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, frame.minX + 0.49645 * frame.width, frame.minY + 0.50200 * frame.height)
+        CGContextScaleCTM(context, scale, scale)
+
+
+
+        //// Rectangle-267 Drawing
+        CGContextSaveGState(context)
+        CGContextTranslateCTM(context, 1.93, -1.93)
+        CGContextRotateCTM(context, 45 * CGFloat(M_PI) / 180)
+
+        let rectangle267Path = UIBezierPath(rect: CGRect(x: -5, y: -13, width: 10, height: 26))
+        color.setFill()
+        rectangle267Path.fill()
+
+        CGContextRestoreGState(context)
+
+
+        //// Triangle-1 Drawing
+        let triangle1Path = UIBezierPath()
+        triangle1Path.moveToPoint(CGPoint(x: -14.6, y: 13.1))
+        triangle1Path.addCurveToPoint(CGPoint(x: -13.1, y: 14.6), controlPoint1: CGPoint(x: -14.85, y: 14.18), controlPoint2: CGPoint(x: -14.17, y: 14.85))
+        triangle1Path.addLineToPoint(CGPoint(x: -5.86, y: 12.93))
+        triangle1Path.addLineToPoint(CGPoint(x: -12.93, y: 5.86))
+        triangle1Path.addLineToPoint(CGPoint(x: -14.6, y: 13.1))
+        triangle1Path.closePath()
+        triangle1Path.miterLimit = 4;
+
+        triangle1Path.usesEvenOddFillRule = true;
+
+        color.setFill()
+        triangle1Path.fill()
+
+
+
+        CGContextRestoreGState(context)
+    }
+
     public class func drawCanvas1(frame frame: CGRect = CGRect(x: 102, y: 96, width: 265, height: 276)) {
         //// Color Declarations
         let fillColor = UIColor(red: 0.072, green: 0.114, blue: 0.222, alpha: 1.000)
@@ -5253,6 +5296,16 @@ public class StyleKit : NSObject {
         UIGraphicsEndImageContext()
 
         return imageOfVerifiedCheck
+    }
+
+    public class func imageOfEditIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 100, height: 100), color: UIColor = UIColor(red: 0.095, green: 0.095, blue: 0.095, alpha: 1.000), scale: CGFloat = 0.5) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
+            StyleKit.drawEditIcon(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height), color: color, scale: scale)
+
+        let imageOfEditIcon = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return imageOfEditIcon
     }
 
     public class func imageOfEmojiSelectedIcon(frame frame: CGRect = CGRect(x: 0, y: 0, width: 52, height: 52), emojiScale: CGFloat = 1) -> UIImage {
