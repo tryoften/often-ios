@@ -226,9 +226,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             var width: CGFloat
 
             if screenHeight > screenWidth {
-                width = screenWidth / 2 - 12.5
-            } else {
                 width = screenWidth / 3 - 12.5
+            } else {
+                width = screenWidth / 4 - 12.5
             }
 
             let height = width

@@ -189,6 +189,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         cell.addedBadgeView.hidden = !PacksService.defaultInstance.checkPack(pack)
         cell.updatedContentBadge.hidden = !pack.isUpdated
         cell.newPackBadge.hidden = !pack.isNew
+        cell.checkmarkBadge.hidden = !pack.isFavorites
 
         if pack.isUpdated {
             cell.addedBadgeView.hidden = true

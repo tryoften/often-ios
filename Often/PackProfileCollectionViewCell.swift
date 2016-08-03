@@ -15,7 +15,7 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
     override var itemCount: Int? {
         didSet {
             subtitleLabel.setTextWith(UIFont(name: "OpenSans", size: 10.5)!,
-                                      letterSpacing: 1.0,
+                                      letterSpacing: 0.25,
                                       color: ArtistCollectionViewCellSubtitleTextColor,
                                       text: "\(itemCount!) Quotes & Gifs")
         }
@@ -107,7 +107,12 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
             primaryButton.al_centerY == disclosureIndicator.al_centerY,
             primaryButton.al_centerX == disclosureIndicator.al_centerX - 10,
             primaryButton.al_width == 25,
-            primaryButton.al_height == primaryButton.al_width
+            primaryButton.al_height == primaryButton.al_width,
+            
+            checkmarkBadge.al_centerX == imageView.al_right - 2,
+            checkmarkBadge.al_centerY == imageView.al_top + 2,
+            checkmarkBadge.al_width == 32,
+            checkmarkBadge.al_height == 32
         ])
     }
 }

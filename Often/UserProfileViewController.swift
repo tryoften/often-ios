@@ -58,8 +58,8 @@ UICollectionViewDelegateFlowLayout {
         let screenHeight = UIScreen.mainScreen().bounds.size.height
         let flowLayout = CSStickyHeaderFlowLayout()
         flowLayout.parallaxHeaderMinimumReferenceSize = CGSizeMake(screenWidth, 64)
-        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight * 0.40)
-        flowLayout.itemSize = CGSizeMake(screenWidth, 74)
+        flowLayout.parallaxHeaderReferenceSize = CGSizeMake(screenWidth, screenHeight * 0.50)
+        flowLayout.itemSize = CGSizeMake(screenWidth - 24, 74)
         flowLayout.parallaxHeaderAlwaysOnTop = true
         flowLayout.disableStickyHeaders = false
         flowLayout.minimumInteritemSpacing = 6.0
@@ -170,15 +170,11 @@ UICollectionViewDelegateFlowLayout {
         
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
-        cell.primaryButton.hidden = true
-        
-        if viewModel.mediaItems.count == 1 {
-            cell.primaryButton.hidden = true
-        }
         
         let result = viewModel.mediaItems[indexPath.row], pack = result as? PackMediaItem
         
-        if editingActive == true && pack?.isFavorites == false {
+        
+        if editingActive == true && pack?.isFavorites == false && viewModel.mediaItems.count <= 1{
             cell.disclosureIndicator.hidden = true
             cell.primaryButton.hidden = false
         } else {
@@ -205,6 +201,7 @@ UICollectionViewDelegateFlowLayout {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = user.name
+            headerView.leftHeaderLabel.text = "@\(user.username)"
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }

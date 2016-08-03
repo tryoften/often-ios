@@ -19,7 +19,8 @@ class UserProfileHeaderView: UICollectionReusableView {
     var collapseNameLabel: UILabel
     var collapseProfileImageView: UIImageView
     var rightHeaderLabel: UILabel
-    var rightHeaderButton: UserProfileSettingsBarButton
+    var rightHeaderButton: UIButton
+    var leftHeaderLabelConstraint: NSLayoutConstraint?
     var offsetValue: CGFloat
 
     static var preferredSize: CGSize {
@@ -108,10 +109,9 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseNameLabel = UILabel()
         collapseNameLabel.translatesAutoresizingMaskIntoConstraints = false
         collapseNameLabel.font = UIFont(name: "Montserrat", size: 12.0)
-        collapseNameLabel.textColor = WhiteColor
+        collapseNameLabel.textColor = UIColor.oftBlack74Color()
         collapseNameLabel.alpha = 0
         collapseNameLabel.textAlignment = .Right
-        collapseNameLabel.hidden = true
 
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -121,11 +121,16 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         rightHeaderLabel = UILabel()
         rightHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightHeaderLabel.font = UIFont(name: "Montserrat", size: 11.0)
         rightHeaderLabel.textAlignment = .Center
-        rightHeaderLabel.numberOfLines = 3
-        rightHeaderLabel.alpha = 0.54
-        rightHeaderLabel.hidden = true
+        rightHeaderLabel.backgroundColor = ClearColor
+        
+        let attributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 11.0)!,
+            NSForegroundColorAttributeName: UIColor.lightGrayColor()
+        ]
+        
+        rightHeaderLabel.attributedText = NSMutableAttributedString(string: "settings".uppercaseString, attributes: attributes)
         
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -159,14 +164,16 @@ class UserProfileHeaderView: UICollectionReusableView {
         rightDescriptorLabel.textColor = UIColor.lightGrayColor()
         rightDescriptorLabel.text = "Packs Following"
         
-        rightHeaderButton = UserProfileSettingsBarButton()
+        rightHeaderButton = UIButton()
         rightHeaderButton.translatesAutoresizingMaskIntoConstraints = false
+        rightHeaderButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()), forState: .Normal)
+        rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
         
         offsetValue = 0.0
         sharedText = "85 Lyrics Shared"
         
         super.init(frame: frame)
-
+        
         profileImageView.layer.cornerRadius = profileImageViewWidth / 2
         userProfilePlaceholder.layer.cornerRadius = profileImageViewWidth / 2
         collapseProfileImageView.layer.cornerRadius = collapseProfileImageViewWidth / 2
@@ -206,11 +213,11 @@ class UserProfileHeaderView: UICollectionReusableView {
             if progressiveness <= 0.58 {
                 collapseProfileImageView.image = profileImageView.image
                 collapseNameLabel.alpha = 1
-                collapseProfileImageView.alpha = 1
 
+                leftHeaderLabelConstraint?.constant = 34.5
+                
                 nameLabel.alpha = 0
                 userProfilePlaceholder.alpha = 0
-                leftHeaderLabel.alpha = 0
                 leftBoldLabel.alpha = 0
                 leftDescriptorLabel.alpha = 0
                 rightBoldLabel.alpha = 0
@@ -222,9 +229,10 @@ class UserProfileHeaderView: UICollectionReusableView {
                 collapseNameLabel.alpha = 0
                 collapseProfileImageView.alpha = 0
 
+                leftHeaderLabelConstraint?.constant = 43.5
+                
                 nameLabel.alpha = 1
                 userProfilePlaceholder.alpha = 1
-                leftHeaderLabel.alpha = 1
                 leftBoldLabel.alpha = 1
                 leftDescriptorLabel.alpha = 1
                 rightBoldLabel.alpha = 1
@@ -239,6 +247,7 @@ class UserProfileHeaderView: UICollectionReusableView {
     
     func setupLayout() {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
+        leftHeaderLabelConstraint = leftHeaderLabel.al_top == al_top + 43.5
         
         addConstraints([
             collapseProfileImageView.al_top >= al_top + 28,
@@ -247,8 +256,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             collapseProfileImageView.al_width == collapseProfileImageViewWidth,
 
             collapseNameLabel.al_top >= al_top + 28,
-            collapseNameLabel.al_left == collapseProfileImageView.al_right,
-            collapseNameLabel.al_right == al_right - 18,
+            collapseNameLabel.al_centerX == al_centerX,
             collapseNameLabel.al_height == 30,
 
             profileImageView.al_centerY == nameLabel.al_centerY,
@@ -267,7 +275,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             nameLabel.al_height == screenWidth * 0.19,
             
             leftHeaderLabel.al_left == nameLabel.al_left,
-            leftHeaderLabel.al_top == al_top + 43.5,
+            leftHeaderLabelConstraint!,
             
             leftBoldLabel.al_left == leftDescriptorLabel.al_left,
             leftBoldLabel.al_bottom == leftDescriptorLabel.al_top,
@@ -281,10 +289,11 @@ class UserProfileHeaderView: UICollectionReusableView {
             rightDescriptorLabel.al_left == leftDescriptorLabel.al_right + 38,
             rightDescriptorLabel.al_bottom == leftDescriptorLabel.al_bottom,
             
-            rightHeaderLabel.al_right == al_right - 23.5,
+            rightHeaderLabel.al_right == rightHeaderButton.al_left + 13.0,
             rightHeaderLabel.al_centerY == leftHeaderLabel.al_centerY,
             
-            rightHeaderButton.al_right == al_right - 18.0,
+            rightHeaderButton.al_left == rightHeaderLabel.al_right - 50,
+            rightHeaderButton.al_right == al_right  - 3.0,
             rightHeaderButton.al_centerY == leftHeaderLabel.al_centerY
         ])
     }
