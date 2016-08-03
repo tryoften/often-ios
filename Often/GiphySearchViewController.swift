@@ -113,6 +113,13 @@ class GiphySearchViewController: UIViewController,
         searchBar.searchButton.addTarget(self, action: #selector(GiphySearchViewController.searchButtonDidTap), forControlEvents: .TouchUpInside)
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        navigationController?.navigationBar.barStyle = .Default
+    }
+
     func showHUD() {
         hudTimer?.invalidate()
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(GiphySearchViewController.hideHUD), userInfo: nil, repeats: false)

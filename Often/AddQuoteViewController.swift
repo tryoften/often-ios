@@ -42,7 +42,14 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        navigationController?.navigationBar.barStyle = .Default
+    }
+
     func setupLayout() {
         view.addConstraints([
             
