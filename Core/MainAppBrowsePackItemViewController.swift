@@ -14,8 +14,12 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate {
     var filterButton: UIButton
+    var topRightButton: PackHeaderButton
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
+        
+        topRightButton = PackHeaderButton()
+        topRightButton.translatesAutoresizingMaskIntoConstraints = false
         filterButton = UIButton()
         
         super.init(viewModel: viewModel, textProcessor: textProcessor)
@@ -31,6 +35,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
+        
         
         view.addSubview(filterButton)
         setupFilterViews()
@@ -64,7 +69,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return false
+        return true
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -110,18 +115,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
         self.hideHud()
         
-        if pack.isFavorites {
-            header.style = .User
-            //            topRightButton.text = "Edit Profile"
-        } else {
-            header.style = .Generic
-            header.topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-            
-            header.primaryButton.title = pack.callToActionText()
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-        }
-
+        setupNavBar()
+        
         if let text = title {
             header.title = text
         }
@@ -133,19 +128,43 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if let backgroundColor = pack.backgroundColor {
             header.packBackgroundColor.backgroundColor = backgroundColor
         }
-//        let topRightButton = PackHeaderButton()
-//        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-//        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
-//        positionedButtonView.addSubview(topRightButton)
-//
-//        let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
-//        navigationItem.rightBarButtonItem = topRightBarButton
-        
         
         header.tabContainerView.mediaTypes = Array(pack.availableMediaType.keys)
 
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
+
+    }
+    
+    func setupNavBar() {
+        
+        guard let header = headerView as? PackPageHeaderView, let pack = packViewModel.pack else {
+            return
+        }
+        
+        let topRightButton = PackHeaderButton()
+        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
+        positionedButtonView.addSubview(topRightButton)
+        //        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -5, 0)
+        let item = UIBarButtonItem(customView: topRightButton)
+        navigationItem.rightBarButtonItem = item
+        
+        if pack.isFavorites {
+            header.style = .User
+//            header.primaryButton.title = "Share".uppercaseString
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            topRightButton.text = "Edit Pack"
+        } else {
+            header.style = .Generic
+            
+            header.primaryButton.title = pack.callToActionText()
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+            topRightButton.text = "Share"
+            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            
+        }
 
     }
     

@@ -11,27 +11,13 @@ import Foundation
 class PackPageHeaderView: MediaItemPageHeaderView {
     var primaryButton: BrowsePackDownloadButton
     var tabContainerView: FilterTabView
-    var topRightButton: UIButton
+//    var topRightButton: PackHeaderButton
     
     var style: PackPageHeaderViewStyle = .Generic {
         didSet {
             setupHeaderStyle()
         }
     }
-    
-    var rightButtonText: String? {
-        didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.0),
-                NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
-                NSForegroundColorAttributeName: UIColor.oftWhiteColor()
-            ]
-
-                let attributedText = NSAttributedString(string: rightButtonText!, attributes: attributes)
-                topRightButton.setAttributedTitle(attributedText, forState: .Normal)
-        }
-    }
-    
 
     private var tabContainerViewHeight: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -69,8 +55,8 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         primaryButton = BrowsePackDownloadButton()
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         
-        topRightButton = UIButton()
-        topRightButton.translatesAutoresizingMaskIntoConstraints = false
+//        topRightButton = PackHeaderButton()
+//        topRightButton.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
 
@@ -78,7 +64,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         
         addSubview(primaryButton)
         addSubview(tabContainerView)
-        addSubview(topRightButton)
+//        addSubview(topRightButton)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -154,9 +140,9 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             tabContainerView.al_right == al_right,
             tabContainerView.al_height == tabContainerViewHeight,
             
-            topRightButton.al_top == al_top + 25,
-            topRightButton.al_right == al_right - 45,
-            topRightButton.al_height == 30
+//            topRightButton.al_top == al_top + 5,
+//            topRightButton.al_right == al_right - 10,
+//            topRightButton.al_height == 30
         ])
     }
     
@@ -164,11 +150,10 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         switch style {
         case .User:
             primaryButton.packState = .User
-            rightButtonText = "Edit Pack".uppercaseString
-        case .Generic:
-            rightButtonText = "Share".uppercaseString
-//            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
-//            topRightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0)
+//            topRightButton.text = "Edit Pack"
+        case .Generic: break
+//            topRightButton.text = "Share".uppercaseString
+//            topRightButton.buttonImageView.image =  StyleKit.imageOfShare(color: WhiteColor)
         }
     }
     

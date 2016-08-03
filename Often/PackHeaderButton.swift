@@ -10,27 +10,51 @@ import UIKit
 
 class PackHeaderButton: UIButton {
     var textLabel: UILabel
-    var text: String {
+//    var buttonImageView: UIImageView
+    
+    var text: String? {
         didSet {
-            textLabel.setTextWith(UIFont(name: "Montserrat", size: 9.0)!, letterSpacing: 1.0, color: WhiteColor, text: text)
+            textLabel.setTextWith(UIFont(name: "Montserrat", size: 10.5)!, letterSpacing: 1.0, color: WhiteColor, text: text!.uppercaseString)
         }
     }
     
     override init(frame: CGRect) {
         textLabel = UILabel()
-        text = "SHARE"
         textLabel.textAlignment = .Center
         textLabel.backgroundColor = ClearColor
-        textLabel.frame = CGRectMake(0, 0, 150, 30)
+        textLabel.frame = CGRect(x: 0, y: 0, width: 70, height: 30)
+//        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+//        buttonImageView = UIImageView()
+//        buttonImageView.translatesAutoresizingMaskIntoConstraints = false
         
         super.init(frame: frame)
         
-        setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
-        imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0)
-        self.frame = CGRectMake(0, 0, 100, 30)
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: 50, bottom: 2, right: 0)
+        self.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
         
+//        addSubview(buttonImageView)
         addSubview(textLabel)
     }
+//    
+//    override func layoutSubviews() {
+//        addConstraints([
+//            textLabel.al_left == al_left,
+//            textLabel.al_centerY == al_centerY,
+////            textLabel.al_height == 25,
+//            
+//            buttonImageView.al_right == al_right,
+//            buttonImageView.al_centerY == al_centerY,
+//            buttonImageView.al_left == textLabel.al_right + 3,
+//            buttonImageView.al_width == 25,
+//            buttonImageView.al_height == buttonImageView.al_width
+//            
+//        ])
+//        
+//        
+//        
+//        
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
