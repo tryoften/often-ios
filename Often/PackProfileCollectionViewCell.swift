@@ -12,6 +12,14 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
     var primaryButton: UIButton
     var disclosureIndicator: UIImageView
     weak var delegate: PackCellDeletable?
+    override var itemCount: Int? {
+        didSet {
+            subtitleLabel.setTextWith(UIFont(name: "OpenSans", size: 10.5)!,
+                                      letterSpacing: 1.0,
+                                      color: ArtistCollectionViewCellSubtitleTextColor,
+                                      text: "\(itemCount!) Quotes & Gifs")
+        }
+    }
 
     override init(frame: CGRect) {
         primaryButton = UIButton()
@@ -26,6 +34,9 @@ class PackProfileCollectionViewCell: BrowseMediaItemCollectionViewCell {
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
         primaryButton.hidden = true
         primaryButton.setImage(StyleKit.imageOfDeleteSymbol(color: UIColor(red: 232.0/255.0, green: 87.0/255.0, blue: 105.0/255.0, alpha: 1.0)), forState: .Normal)
+        
+        titleLabel.font = UIFont(name: "OpenSans", size: 12.0)
+        subtitleLabel.font = UIFont(name: "OpenSans", size: 10.5)
         
         imageView.layer.cornerRadius = 2.0
         
