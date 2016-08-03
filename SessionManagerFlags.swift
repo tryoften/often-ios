@@ -225,6 +225,7 @@ class SessionManagerFlags {
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastPack)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastCategory)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.lastFilterType)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.addContentPrompt)
 
         userDefaults.synchronize()
     }

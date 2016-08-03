@@ -20,7 +20,7 @@ class AddContentPrompt: UIButton {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
             return 10
         }
-        return 15
+        return 12
     }
 
     private var subTitleFontSize: CGFloat {
