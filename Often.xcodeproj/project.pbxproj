@@ -29,6 +29,8 @@
 		3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
 		3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
+		3B138FFC1D5001E4002605D3 /* AddContentPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */; };
+		3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -1187,6 +1189,7 @@
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingRootViewController.swift; sourceTree = "<group>"; };
+		3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContentPrompt.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -2207,6 +2210,7 @@
 				690553371CA78E2E004680CA /* Browse Pack */,
 				69FE381D1BD82FE2007A63FB /* User Profile */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */,
 				3BDF89251D4169B10043173A /* PowerByGiphyView.swift */,
 				3B97896C1D4668BC001DD156 /* AddContentView.swift */,
 				6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */,
@@ -3381,6 +3385,7 @@
 				3B5006321CADAAE2003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				BF31C5C11D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
+				3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
@@ -3674,6 +3679,7 @@
 				816D50981C8A058D007B3249 /* LoginView.swift in Sources */,
 				816D50391C8A00FE007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				816D50CE1C8A0757007B3249 /* SessionManagerFlags.swift in Sources */,
+				3B138FFC1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				816D508A1C8A0583007B3249 /* FacebookAccountManager.swift in Sources */,
 				816D50621C8A04F4007B3249 /* NoResultsEmptyStateView.swift in Sources */,
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,

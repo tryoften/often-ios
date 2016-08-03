@@ -57,9 +57,10 @@ class BaseCategoryAssignmentViewController: UIViewController,
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
-        viewLayout.itemSize = CGSizeMake(113, 60)
+        viewLayout.itemSize = CGSizeMake(screenWidth / 3 - 12, 60)
         viewLayout.minimumInteritemSpacing = 3
         viewLayout.minimumLineSpacing = 3
         viewLayout.sectionInset = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
