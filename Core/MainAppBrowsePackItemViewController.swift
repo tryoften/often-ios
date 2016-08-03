@@ -13,15 +13,9 @@ import NukeAnimatedImagePlugin
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate {
-    var filterButton: UIButton
-    var topRightButton: PackHeaderButton
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        
-        topRightButton = PackHeaderButton()
-        topRightButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton = UIButton()
-        
+
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
@@ -35,35 +29,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
-        
-        
-        view.addSubview(filterButton)
-        setupFilterViews()
-        setLayout()
     }
 
     deinit {
         packCollectionListener = nil
     }
-    
-    func setupFilterViews() {
-        let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
-            NSForegroundColorAttributeName: BlackColor
-        ]
-        let filterString = NSAttributedString(string: "filter by".uppercaseString, attributes: attributes)
-        
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton.backgroundColor = WhiteColor
-        filterButton.layer.cornerRadius = 15
-        filterButton.layer.shadowRadius = 2
-        filterButton.layer.shadowOpacity = 0.2
-        filterButton.layer.shadowColor = MediumLightGrey.CGColor
-        filterButton.layer.shadowOffset = CGSizeMake(0, 2)
-        filterButton.setAttributedTitle(filterString, forState: .Normal)
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -85,21 +56,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.viewDidLoad()
         showHud()
         loadPackData()
-
-        filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-    }
-
-    func setLayout() {
-        view.addConstraints([
-            filterButton.al_centerX == view.al_centerX,
-            filterButton.al_height == 30,
-            filterButton.al_width == 94,
-            filterButton.al_bottom == view.al_bottom - 23.5
-        ])
-    }
-    
-    func filterButtonDidTap(sender: UIButton) {
-        toggleCategoryViewController()
     }
     
     override func headerViewDidLoad() {
