@@ -48,7 +48,7 @@ class BrowsePackTabBar: SlideTabBar {
         imagesTabBarItem = UITabBarItem()
         imagesTabBarItem.tag = BrowsePackTabType.Images.rawValue
         imagesTabBarItem.image = StyleKit.imageOfCameraIcon(scale: 0.3, color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        imagesTabBarItem.imageInsets = UIEdgeInsetsMake(13, 6, -13, -6)
+        imagesTabBarItem.imageInsets = UIEdgeInsetsMake(13, 7, -13, -7)
         
         categoriesTabBarItem = UITabBarItem()
         categoriesTabBarItem.tag = BrowsePackTabType.Categories.rawValue

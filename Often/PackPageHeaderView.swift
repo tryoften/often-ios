@@ -127,7 +127,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             tabContainerView.al_bottom == al_bottom,
             tabContainerView.al_left == al_left,
             tabContainerView.al_right == al_right,
-            tabContainerView.al_height == tabContainerViewHeight
+            tabContainerView.al_height == tabContainerViewHeight,
         ])
     }
 }

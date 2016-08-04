@@ -22,6 +22,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
     var shareButton: UIButton
     var newPackBadge: UIButton
     var updatedContentBadge: UIButton
+    var checkmarkBadge: UIImageView
     
     var itemCount: Int? {
         didSet {
@@ -120,7 +121,13 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Left
-
+        
+        checkmarkBadge = UIImageView()
+        checkmarkBadge.translatesAutoresizingMaskIntoConstraints = false
+        checkmarkBadge.contentMode = .ScaleAspectFit
+        checkmarkBadge.image = StyleKit.imageOfVerifiedCheck()
+        checkmarkBadge.hidden = true
+        
         contentEdgeInsets = UIEdgeInsets(top: 15, left: 14, bottom: 10, right: 14)
 
         super.init(frame: frame)
@@ -134,6 +141,7 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
         addSubview(shareButton)
         addSubview(newPackBadge)
         addSubview(updatedContentBadge)
+        addSubview(checkmarkBadge)
 
         backgroundColor = UIColor.whiteColor()
         self.layer.cornerRadius = 2.0
@@ -219,7 +227,12 @@ class BrowseMediaItemCollectionViewCell: UICollectionViewCell {
 
             subtitleLabel.al_top == titleLabel.al_bottom,
             subtitleLabel.al_left == titleLabel.al_left,
-            subtitleLabel.al_width == titleLabel.al_width
+            subtitleLabel.al_width == titleLabel.al_width,
+            
+            checkmarkBadge.al_centerX == imageView.al_right,
+            checkmarkBadge.al_centerY == imageView.al_top,
+            checkmarkBadge.al_width == 32,
+            checkmarkBadge.al_height == 32
         ])
     }
     

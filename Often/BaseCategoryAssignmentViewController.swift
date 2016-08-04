@@ -54,7 +54,6 @@ class BaseCategoryAssignmentViewController: UIViewController,
         view.addSubview(navigationView)
         view.addSubview(headerView)
         view.addSubview(categoryCollectionView)
-        
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
@@ -71,7 +70,17 @@ class BaseCategoryAssignmentViewController: UIViewController,
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Default
+            navigationBar.translucent = false
+            navigationBar.hidden = true
+        }
+    }
+
     func setupLayout() {
         view.addConstraints([
             navigationView.al_top == view.al_top,
