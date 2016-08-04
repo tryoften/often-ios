@@ -302,6 +302,10 @@
 		3BF60C471B83B3F100DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BF60C4B1B83B3FC00DD6E31 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF60C461B83B3F100DD6E31 /* Twitter.framework */; };
 		3BFAB2A41C0CEEE7003DE25A /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
+		3BFCDFB21D538BD6005A4BF8 /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */; };
+		3BFCDFB31D538BD6005A4BF8 /* UsernameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */; };
+		3BFCDFB51D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */; };
+		3BFCDFB61D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */; };
 		690553341CA78E04004680CA /* BrowsePackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* BrowsePackHeaderView.swift */; };
 		690553361CA78E25004680CA /* BrowsePackSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */; };
 		69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -1295,6 +1299,8 @@
 		3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifcationAlertView.swift; sourceTree = "<group>"; };
 		3BF60C461B83B3F100DD6E31 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManagerFlags.swift; sourceTree = "<group>"; };
+		3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
+		3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddUsernameViewController.swift; sourceTree = "<group>"; };
 		40027A78F6DF5CB025A41AB7 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65061792C000792CE8D1724A /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
@@ -2168,6 +2174,7 @@
 			isa = PBXGroup;
 			children = (
 				BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */,
+				3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */,
 				3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */,
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
 				3B97896F1D4694A8001DD156 /* AddContentViewController.swift */,
@@ -2210,6 +2217,7 @@
 				690553371CA78E2E004680CA /* Browse Pack */,
 				69FE381D1BD82FE2007A63FB /* User Profile */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */,
 				3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */,
 				3BDF89251D4169B10043173A /* PowerByGiphyView.swift */,
 				3B97896C1D4668BC001DD156 /* AddContentView.swift */,
@@ -3397,6 +3405,7 @@
 				BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				3B309D6F1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
+				3BFCDFB31D538BD6005A4BF8 /* UsernameView.swift in Sources */,
 				810EA4E51C8579D1005A6C6D /* UIColor+HEXString.m in Sources */,
 				810EA4E61C8579D1005A6C6D /* FilterTabView.swift in Sources */,
 				810EA4E71C8579D1005A6C6D /* TextProcessingManager.swift in Sources */,
@@ -3449,6 +3458,7 @@
 				810EA51B1C8579D1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
 				810EA51C1C8579D1005A6C6D /* MediaItemCollectionViewCell.swift in Sources */,
 				810EA5201C8579D1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
+				3BFCDFB61D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */,
 				813A1B6C1CAC45BA006BBB2E /* BrowsePackHeaderCollectionViewController.swift in Sources */,
 				698D18A51D4935470025A2EF /* ImageUploaderViewController.swift in Sources */,
 				810EA5221C8579D1005A6C6D /* ContainerNavigationBar.swift in Sources */,
@@ -3763,6 +3773,7 @@
 				3BDF89201D415A490043173A /* SearchOverlayView.swift in Sources */,
 				816D509D1C8A058D007B3249 /* SigninView.swift in Sources */,
 				816D50C51C8A061B007B3249 /* WindowRootViewController.swift in Sources */,
+				3BFCDFB51D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */,
 				816D503C1C8A04C4007B3249 /* CategoryService.swift in Sources */,
 				816D50A81C8A0596007B3249 /* CreateAccountViewController.swift in Sources */,
 				816D50C31C8A061B007B3249 /* PKHUDContentView.swift in Sources */,
@@ -3803,6 +3814,7 @@
 				BF9971591CC00942008351C7 /* PackItemViewModel.swift in Sources */,
 				816D50441C8A04CA007B3249 /* Category.swift in Sources */,
 				BF31C5C01D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,
+				3BFCDFB21D538BD6005A4BF8 /* UsernameView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

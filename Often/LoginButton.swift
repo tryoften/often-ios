@@ -17,10 +17,15 @@ class LoginButton: UIButton {
         super.init(frame: CGRectZero)
 
         translatesAutoresizingMaskIntoConstraints = false
-        setTitle(title.uppercaseString, forState: .Normal)
-        titleLabel?.font = UIFont(name: "Montserrat", size: 11)
-        setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        layer.cornerRadius = 4.0
+
+        let buttonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+        setAttributedTitle(NSAttributedString(string: title.uppercaseString, attributes: buttonAttributes), forState: .Normal)
+
+        layer.cornerRadius = 24
         clipsToBounds = true
     }
 
