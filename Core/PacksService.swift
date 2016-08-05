@@ -170,6 +170,14 @@ class PacksService: PackItemViewModel {
     func checkPack(result: MediaItem) -> Bool {
         return ids.contains(result.id)
     }
+    
+    func checkFavoritesMediaItem(result: MediaItem) -> Bool {
+        if let favorites = favoritesPack {
+            return favorites.items.contains(result)
+        }
+        
+        return false
+    }
 
     func getPackForId(packId: String) -> PackMediaItem? {
         guard let packs = mediaItems as? [PackMediaItem] else {
