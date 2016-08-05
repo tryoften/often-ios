@@ -13,11 +13,8 @@ import NukeAnimatedImagePlugin
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
-    var filterButton: UIButton
-    
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-        filterButton = UIButton()
-        
+
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
@@ -31,34 +28,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
-        
-        view.addSubview(filterButton)
-        setupFilterViews()
-        setLayout()
     }
 
     deinit {
         packCollectionListener = nil
     }
-    
-    func setupFilterViews() {
-        let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9)!,
-            NSForegroundColorAttributeName: BlackColor
-        ]
-        let filterString = NSAttributedString(string: "filter by".uppercaseString, attributes: attributes)
-        
-        filterButton.translatesAutoresizingMaskIntoConstraints = false
-        filterButton.backgroundColor = WhiteColor
-        filterButton.layer.cornerRadius = 15
-        filterButton.layer.shadowRadius = 2
-        filterButton.layer.shadowOpacity = 0.2
-        filterButton.layer.shadowColor = MediumLightGrey.CGColor
-        filterButton.layer.shadowOffset = CGSizeMake(0, 2)
-        filterButton.setAttributedTitle(filterString, forState: .Normal)
-    }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -80,21 +55,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         super.viewDidLoad()
         showHud()
         loadPackData()
-
-        filterButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.filterButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-    }
-
-    func setLayout() {
-        view.addConstraints([
-            filterButton.al_centerX == view.al_centerX,
-            filterButton.al_height == 30,
-            filterButton.al_width == 94,
-            filterButton.al_bottom == view.al_bottom - 23.5
-        ])
-    }
-    
-    func filterButtonDidTap(sender: UIButton) {
-        toggleCategoryViewController()
     }
     
     override func headerViewDidLoad() {
@@ -109,7 +69,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
         self.hideHud()
-
+        
         if let text = title {
             header.title = text
         }
@@ -124,21 +84,38 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         
         header.tabContainerView.mediaTypes = Array(pack.availableMediaType.keys)
 
-        header.primaryButton.title = pack.callToActionText()
-        header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-
-        let topRightButton = ShareBarButton()
-        topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-
+        
+        let topRightButton = PackHeaderButton()
         let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
         positionedButtonView.addSubview(topRightButton)
+        
+        if pack.isFavorites {
+            header.primaryButton.packState = .User
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            topRightButton.text = "Edit Pack"
+            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
+            topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
+            topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
+        } else {
+            
+            header.primaryButton.title = pack.callToActionText()
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
+            topRightButton.text = "Share"
+            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
+            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 40, bottom: 2, right: -10)
+            topRightButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
+            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        }
+        
+        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
+        let item = UIBarButtonItem(customView: topRightButton)
+        navigationItem.rightBarButtonItem = item
 
-        let topRightBarButton = UIBarButtonItem(customView: positionedButtonView)
-        navigationItem.rightBarButtonItem = topRightBarButton
     }
     
     func primaryButtonTapped(sender: UIButton) {
@@ -248,9 +225,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             var width: CGFloat
 
             if screenHeight > screenWidth {
-                width = screenWidth / 2 - 12.5
-            } else {
                 width = screenWidth / 3 - 12.5
+            } else {
+                width = screenWidth / 4 - 12.5
             }
 
             let height = width

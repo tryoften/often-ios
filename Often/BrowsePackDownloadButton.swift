@@ -13,6 +13,7 @@ enum BrowsePackDownloadButtonState {
     case InTrial
     case Added
     case NotAdded
+    case User
 }
 
 class BrowsePackDownloadButton: UIButton {
@@ -24,6 +25,9 @@ class BrowsePackDownloadButton: UIButton {
                 selected = true
             case .NotAdded:
                 selected = false
+            case .User:
+                selected = false
+                title = "Share".uppercaseString
             default: break
             }
         }

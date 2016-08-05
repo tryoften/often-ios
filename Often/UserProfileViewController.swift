@@ -12,10 +12,11 @@ import Preheat
 import Nuke
 
 class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaItemGroupViewModelDelegate,
-    UICollectionViewDelegateFlowLayout {
+UICollectionViewDelegateFlowLayout {
     var viewModel: PacksService
     var headerView: UserProfileHeaderView?
     private var packServiceListener: Listener?
+    
     var editingActive: Bool = false {
         didSet {
             collectionView?.reloadData()
@@ -25,10 +26,12 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     init(viewModel: PacksService) {
         self.viewModel = viewModel
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
-
+        
         viewModel.delegate = self
         viewModel.fetchCollection()
-
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
+        
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
         }
@@ -72,14 +75,21 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             collectionView.backgroundColor = VeryLightGray
             collectionView.showsVerticalScrollIndicator = false
             collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
-                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+                                         withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
         }
     }
-
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-    
-        promptUserToRegisterPushNotifications()
+        
+        
+        if let user = SessionManager.defaultManager.currentUser {
+            if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
+                promptUserToRegisterPushNotifications()
+            } else {
+                promptUserToChooseUsername()
+            }
+        }
         reloadUserData()
     }
     
@@ -92,7 +102,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             navigationBar.hidden = true
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -108,17 +118,17 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     override func prefersStatusBarHidden() -> Bool {
         return false
     }
-
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.mediaItems.count
     }
-
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
     
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
         if kind == CSStickyHeaderParallaxHeader {
             guard let cell = collectionView.dequeueReusableSupplementaryViewOfKind(kind,
-                withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
-                    return UICollectionReusableView()
+                                                                                   withReuseIdentifier: UserProfileHeaderViewReuseIdentifier, forIndexPath: indexPath) as? UserProfileHeaderView else {
+                                                                                    return UICollectionReusableView()
             }
             
             if headerView == nil {
@@ -159,7 +169,7 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell else {
-             return PackProfileCollectionViewCell()
+            return PackProfileCollectionViewCell()
         }
         
         cell.addedBadgeView.hidden = true
@@ -179,17 +189,17 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
 
         return cell
     }
-
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         guard let pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem , let id = pack.pack_id else {
             return
         }
-
+        
         let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }
-
+    
     func reloadUserData() {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.nameLabel.text = user.name
@@ -200,62 +210,71 @@ class UserProfileViewController: MediaItemsCollectionBaseViewController, MediaIt
             }
         }
     }
-
+    
     func didTapRemovePackButton(button: UIButton?) {
         guard let button = button else {
             return
         }
-
+        
         if let pack = viewModel.mediaItems[button.tag] as? PackMediaItem where button.tag < viewModel.mediaItems.count {
             showHud()
             PacksService.defaultInstance.removePack(pack)
         }
     }
-
+    
     override func showHud() {
         super.showHud()
         
         hudTimer?.invalidate()
-        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: "hideHud", userInfo: nil, repeats: false)
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(2.0, target: self, selector: Selector("hideHud"), userInfo: nil, repeats: false)
     }
-
+    
     func promptUserToRegisterPushNotifications() {
+        let AlertVC = PushNotificationAlertViewController()
+        AlertVC.transitioningDelegate = self
+        AlertVC.modalPresentationStyle = .Custom
+        presentViewController(AlertVC, animated: true, completion: nil)
+        
+    }
+    
+    func promptUserToChooseUsername() {
         if let user = SessionManager.defaultManager.currentUser {
-            if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
-                let AlertVC = PushNotificationAlertViewController()
-                AlertVC.transitioningDelegate = self
-                AlertVC.modalPresentationStyle = .Custom
-                presentViewController(AlertVC, animated: true, completion: nil)
-
+            if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+                let alertVC = UsernameAlertViewController(viewModel: viewModel)
+                alertVC.transitioningDelegate = self
+                alertVC.modalPresentationStyle = .Custom
+                presentViewController(alertVC, animated: true, completion: nil)
             }
         }
     }
-
+    
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
         var imageRequest: [ImageRequest] = []
-
+        
         for index in indexPaths {
-            if let url = viewModel.mediaItems[index.row].smallImageURL {
-                imageRequest.append (ImageRequest(URL: url))
+            if index.row < viewModel.mediaItems.count {
+                if let url = viewModel.mediaItems[index.row].smallImageURL {
+                    imageRequest.append (ImageRequest(URL: url))
+                }
             }
         }
-
+        
         return imageRequest
     }
-
+    
     // Empty States button actions
     func didTapSettingsButton() {
         if let appSettings = NSURL(string: "prefs:root=General&path=Keyboard/KEYBOARDS") {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
-
-
+    
+    
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)
         viewDidLayoutSubviews()
     }
-
+    
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         collectionView?.reloadData()
         reloadUserData()

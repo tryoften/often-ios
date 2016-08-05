@@ -54,13 +54,13 @@ class BaseCategoryAssignmentViewController: UIViewController,
         view.addSubview(navigationView)
         view.addSubview(headerView)
         view.addSubview(categoryCollectionView)
-        
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
         let viewLayout = UICollectionViewFlowLayout()
         viewLayout.scrollDirection = .Vertical
-        viewLayout.itemSize = CGSizeMake(113, 60)
+        viewLayout.itemSize = CGSizeMake(screenWidth / 3 - 12, 60)
         viewLayout.minimumInteritemSpacing = 3
         viewLayout.minimumLineSpacing = 3
         viewLayout.sectionInset = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
@@ -70,7 +70,17 @@ class BaseCategoryAssignmentViewController: UIViewController,
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .Default
+            navigationBar.translucent = false
+            navigationBar.hidden = true
+        }
+    }
+
     func setupLayout() {
         view.addConstraints([
             navigationView.al_top == view.al_top,

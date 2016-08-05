@@ -29,6 +29,8 @@
 		3B0D11701D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */; };
 		3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
 		3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */; };
+		3B138FFC1D5001E4002605D3 /* AddContentPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */; };
+		3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */; };
 		3B1D6BFA1B8F6F7A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B1D6BFB1B8F6F8A004868E5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */; };
 		3B25C6991C861F3A00C1BD74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */; };
@@ -304,14 +306,13 @@
 		690553361CA78E25004680CA /* BrowsePackSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */; };
 		69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		69088E431D1335B400870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
+		69410A4F1CFF99540036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
+		69410A511CFF9AB70036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
+		69410A521CFF9AEC0036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
+		69410A531CFF9AED0036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
+		69410A541CFF9AEE0036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
 		6936E5EE1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
-		6936E5EF1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
-		69410A4F1CFF99540036BEA9 /* ShareBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */; };
-		69410A511CFF9AB70036BEA9 /* ShareBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */; };
-		69410A521CFF9AEC0036BEA9 /* ShareBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */; };
-		69410A531CFF9AED0036BEA9 /* ShareBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */; };
-		69410A541CFF9AEE0036BEA9 /* ShareBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */; };
-		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
+		6936E5EF1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
 		6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
 		6944A5351C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
 		6944A5391C3AF09600EA57C3 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690805D21C3A1916001589A5 /* EmptyStateView.swift */; };
@@ -983,6 +984,10 @@
 		A9082C80088632DFF25E27B4 /* libPods-Keyboard (Dev).a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A551E9E5DE6A5201717A3E8 /* libPods-Keyboard (Dev).a */; };
 		BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
 		BF0A4BF21CB6DF0800824A81 /* MediaItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */; };
+		BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */; };
+		BF1858E41D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */; };
+		BF1858E61D3FE46800087872 /* UsernameAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E51D3FE46800087872 /* UsernameAlertView.swift */; };
+		BF1858E71D3FE46800087872 /* UsernameAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1858E51D3FE46800087872 /* UsernameAlertView.swift */; };
 		BF18A40A1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40B1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
 		BF18A40C1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */; };
@@ -1187,6 +1192,7 @@
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewSpacerWithText.swift; sourceTree = "<group>"; };
 		3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentingRootViewController.swift; sourceTree = "<group>"; };
+		3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContentPrompt.swift; sourceTree = "<group>"; };
 		3B1A54571C2B59F800309BDD /* ContainerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerNavigationController.swift; sourceTree = "<group>"; };
 		3B1D6BF91B8F6F7A004868E5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3B25C6891C861F3A00C1BD74 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1299,8 +1305,8 @@
 		690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackSectionHeaderView.swift; sourceTree = "<group>"; };
 		690805D21C3A1916001589A5 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmptyStateView.swift; path = ../Often/EmptyStateView.swift; sourceTree = "<group>"; };
 		69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCategorySelectionTableViewCell.swift; sourceTree = "<group>"; };
+		69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderButton.swift; sourceTree = "<group>"; };
 		6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsBarButton.swift; sourceTree = "<group>"; };
-		69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareBarButton.swift; sourceTree = "<group>"; };
 		69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
 		6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterEmptyStateView.swift; sourceTree = "<group>"; };
 		6944A53B1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoKeyboardEmptyStateView.swift; sourceTree = "<group>"; };
@@ -1452,8 +1458,9 @@
 		81F833551C163AE0001B8662 /* MediaItemsKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaItemsKeyboardContainerViewController.swift; path = Sources/MediaItemsKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F8335A1C176BD5001B8662 /* BaseKeyboardContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseKeyboardContainerViewController.swift; path = Sources/BaseKeyboardContainerViewController.swift; sourceTree = "<group>"; };
 		81F833841C18E904001B8662 /* BrowseMediaItemCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BrowseMediaItemCollectionViewCell.swift; path = Sources/BrowseMediaItemCollectionViewCell.swift; sourceTree = "<group>"; };
-		8EA99F012645DCB43966B5A6 /* Pods-Keyboard (Dev).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).debug.xcconfig"; sourceTree = "<group>"; };
-		AEABFEC38881E0D9FAFE6FAF /* Pods-Keyboard.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.production.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.production.xcconfig"; sourceTree = "<group>"; };
+		AA9266A82AA20E3732233832 /* Pods-Keyboard (Dev).debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard (Dev).debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev).debug.xcconfig"; sourceTree = "<group>"; };
+		BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameAlertViewController.swift; sourceTree = "<group>"; };
+		BF1858E51D3FE46800087872 /* UsernameAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameAlertView.swift; sourceTree = "<group>"; };
 		BF18A4091CD7BA15009732AE /* BrowsePackTabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowsePackTabBar.swift; sourceTree = "<group>"; };
 		BF31C5BF1D47CF2000D33AE0 /* AddQuoteView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuoteView.swift; sourceTree = "<group>"; };
 		BF31C5C21D47D9F000D33AE0 /* AddContentNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContentNavigationView.swift; sourceTree = "<group>"; };
@@ -1474,6 +1481,7 @@
 		CF30E2AA23D93240BD7F4BE1 /* Pods-Often (Dev).production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).production.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).production.xcconfig"; sourceTree = "<group>"; };
 		E063B0125695C97716DB37A9 /* libPods-Often (Dev).a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often (Dev).a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E58A32E705A60F5144CAA5AC /* Pods-Often.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.debug.xcconfig"; sourceTree = "<group>"; };
+		EBD50997EA208ABDD7439450 /* Pods-Keyboard.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.production.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.production.xcconfig"; sourceTree = "<group>"; };
 		F00534A7759ED3A753F408B0 /* Pods-Often (Dev).crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).crashlytics.xcconfig"; sourceTree = "<group>"; };
 		F5B94A26632DE543CFEF50A8 /* Pods-Keyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.release.xcconfig"; sourceTree = "<group>"; };
 		F6F8CA19A380119BE4A1C40B /* Pods-Keyboard.crashlytics.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.crashlytics.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.crashlytics.xcconfig"; sourceTree = "<group>"; };
@@ -1862,9 +1870,7 @@
 			children = (
 				65061792C000792CE8D1724A /* Pods-Keyboard.debug.xcconfig */,
 				F6F8CA19A380119BE4A1C40B /* Pods-Keyboard.crashlytics.xcconfig */,
-				AEABFEC38881E0D9FAFE6FAF /* Pods-Keyboard.production.xcconfig */,
 				F5B94A26632DE543CFEF50A8 /* Pods-Keyboard.release.xcconfig */,
-				8EA99F012645DCB43966B5A6 /* Pods-Keyboard (Dev).debug.xcconfig */,
 				CB8856EA18716397916B11E7 /* Pods-Keyboard (Dev).crashlytics.xcconfig */,
 				0BDD4124AC0D36A766CDDF4D /* Pods-Keyboard (Dev).production.xcconfig */,
 				FB7665AF856A3095621E4848 /* Pods-Keyboard (Dev).release.xcconfig */,
@@ -1876,6 +1882,8 @@
 				F00534A7759ED3A753F408B0 /* Pods-Often (Dev).crashlytics.xcconfig */,
 				CF30E2AA23D93240BD7F4BE1 /* Pods-Often (Dev).production.xcconfig */,
 				3A318FD24B2266D12FF76831 /* Pods-Often (Dev).release.xcconfig */,
+				EBD50997EA208ABDD7439450 /* Pods-Keyboard.production.xcconfig */,
+				AA9266A82AA20E3732233832 /* Pods-Keyboard (Dev).debug.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2190,6 +2198,7 @@
 				3B47B7A11C92004200D7A543 /* FadeInTransitionAnimator.swift */,
 				69BBD7F51D18872B0018E7DA /* BrowseCategoryPanelAnimator.swift */,
 				69C8056E1D1D7F51001EF978 /* CategoryPanelInteractor.swift */,
+				BF1858E21D3FE3D800087872 /* UsernameAlertViewController.swift */,
 				69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */,
 				3BDF89191D3FF7810043173A /* GiphySearchViewController.swift */,
 				69F9956A1D492F1E00625123 /* ImageUploaderViewController.swift */,
@@ -2207,6 +2216,7 @@
 				690553371CA78E2E004680CA /* Browse Pack */,
 				69FE381D1BD82FE2007A63FB /* User Profile */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */,
 				3BDF89251D4169B10043173A /* PowerByGiphyView.swift */,
 				3B97896C1D4668BC001DD156 /* AddContentView.swift */,
 				6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */,
@@ -2219,7 +2229,7 @@
 				3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */,
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */,
-				69410A4E1CFF99540036BEA9 /* ShareBarButton.swift */,
+				69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
 				3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
@@ -2230,6 +2240,7 @@
 				3B0DC3881C4058F8009B182F /* ViewSpacerWithText.swift */,
 				3BD971DE1B9F911E007EAB5A /* SigninView.swift */,
 				810B04FC1C4446AE00BA731B /* ContainerNavigationBar.swift */,
+				BF1858E51D3FE46800087872 /* UsernameAlertView.swift */,
 				BF31C5BF1D47CF2000D33AE0 /* AddQuoteView.swift */,
 				BF31C5C21D47D9F000D33AE0 /* AddContentNavigationView.swift */,
 			);
@@ -3335,6 +3346,7 @@
 				698D18AC1D4957A80025A2EF /* ImageMediaItem.swift in Sources */,
 				810EA49E1C8579D1005A6C6D /* DropDownErrorMessage.swift in Sources */,
 				816D50E61C8A32AB007B3249 /* CategoryCollectionViewController.swift in Sources */,
+				BF1858E71D3FE46800087872 /* UsernameAlertView.swift in Sources */,
 				816D50121C861000007B3249 /* CategoryService.swift in Sources */,
 				810EA4A11C8579D1005A6C6D /* ViewSpacerWithText.swift in Sources */,
 				810EA4A21C8579D1005A6C6D /* ConnectivityObservable.swift in Sources */,
@@ -3363,7 +3375,7 @@
 				810EA4BB1C8579D1005A6C6D /* NotificationListener.swift in Sources */,
 				810EA4BC1C8579D1005A6C6D /* PKHUDContentView.swift in Sources */,
 				3B309D7B1CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
-				69410A511CFF9AB70036BEA9 /* ShareBarButton.swift in Sources */,
+				69410A511CFF9AB70036BEA9 /* PackHeaderButton.swift in Sources */,
 				69088E431D1335B400870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
 				810EA4C01C8579D1005A6C6D /* KeyboardInstallWalkthroughView.swift in Sources */,
 				810EA4C11C8579D1005A6C6D /* UserProfileViewController.swift in Sources */,
@@ -3381,6 +3393,7 @@
 				3B5006321CADAAE2003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				BF31C5C11D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
+				3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
@@ -3431,6 +3444,7 @@
 				69E0648B1D4FC33400432836 /* UserProfileSectionHeaderView.swift in Sources */,
 				810EA50C1C8579D1005A6C6D /* LoginView.swift in Sources */,
 				810EA50D1C8579D1005A6C6D /* SessionManager.swift in Sources */,
+				BF1858E41D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				810EA5141C8579D1005A6C6D /* FacebookAccountManager.swift in Sources */,
 				3B138FFA1D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				810EA5161C8579D1005A6C6D /* AnimatedLoaderView.swift in Sources */,
@@ -3571,7 +3585,7 @@
 				BFCB58681D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */,
 				3B309D741CE3F496005B9942 /* KeyboardSectionsContainerViewController.swift in Sources */,
 				810EA5DD1C8579F1005A6C6D /* UIColor+HEXString.m in Sources */,
-				69410A541CFF9AEE0036BEA9 /* ShareBarButton.swift in Sources */,
+				69410A541CFF9AEE0036BEA9 /* PackHeaderButton.swift in Sources */,
 				810EA5DF1C8579F1005A6C6D /* KeyboardViewModel.swift in Sources */,
 				810EA5E41C8579F1005A6C6D /* MediaItemsKeyboardContainerViewController.swift in Sources */,
 				810EA5E51C8579F1005A6C6D /* BrowseViewModel.swift in Sources */,
@@ -3674,9 +3688,11 @@
 				816D50981C8A058D007B3249 /* LoginView.swift in Sources */,
 				816D50391C8A00FE007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				816D50CE1C8A0757007B3249 /* SessionManagerFlags.swift in Sources */,
+				3B138FFC1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				816D508A1C8A0583007B3249 /* FacebookAccountManager.swift in Sources */,
 				816D50621C8A04F4007B3249 /* NoResultsEmptyStateView.swift in Sources */,
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,
+				BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				3BDF89261D4169B10043173A /* PowerByGiphyView.swift in Sources */,
 				81B920FA1D46895200F45BD9 /* UserPackService.swift in Sources */,
 				69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
@@ -3742,7 +3758,7 @@
 				3BDF89121D3E8EEB0043173A /* GiphySearchViewModel.swift in Sources */,
 				816D50BE1C8A05E6007B3249 /* Emitter.swift in Sources */,
 				69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */,
-				69410A4F1CFF99540036BEA9 /* ShareBarButton.swift in Sources */,
+				69410A4F1CFF99540036BEA9 /* PackHeaderButton.swift in Sources */,
 				816D50C01C8A0609007B3249 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				816D50751C8A0521007B3249 /* MediaItemGroupViewModel.swift in Sources */,
 				816D509B1C8A058D007B3249 /* CreateAccountView.swift in Sources */,
@@ -3765,6 +3781,7 @@
 				816D506E1C8A0516007B3249 /* StyleKit.swift in Sources */,
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,
+				BF1858E61D3FE46800087872 /* UsernameAlertView.swift in Sources */,
 				816D50AD1C8A0596007B3249 /* SkipSignupViewController.swift in Sources */,
 				BF9971411CBEC310008351C7 /* GifMediaItem.swift in Sources */,
 				816D50CA1C8A0722007B3249 /* TextProcessingManager.swift in Sources */,
@@ -3888,6 +3905,7 @@
 				6944A53A1C3AF09600EA57C3 /* EmptyStateView.swift in Sources */,
 				69F386721D41325E00EB90E6 /* PackImagePickerViewController.swift in Sources */,
 				3B309D751CE3F497005B9942 /* KeyboardSectionsContainerViewController.swift in Sources */,
+				69410A531CFF9AED0036BEA9 /* PackHeaderButton.swift in Sources */,
 				69410A531CFF9AED0036BEA9 /* ShareBarButton.swift in Sources */,
 				8160F8421D510774004FFA6D /* ImageMediaItem.swift in Sources */,
 				3B50064C1CB2F67A003D4144 /* KeyboardBrowsePackItemViewController.swift in Sources */,
@@ -3928,7 +3946,7 @@
 				8157AD8A1CB59A75001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
-				69410A521CFF9AEC0036BEA9 /* ShareBarButton.swift in Sources */,
+				69410A521CFF9AEC0036BEA9 /* PackHeaderButton.swift in Sources */,
 				3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackPickerViewController.swift in Sources */,
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				3BAB168A1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */,
@@ -4314,7 +4332,7 @@
 		};
 		810EA64C1C8579F1005A6C6D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8EA99F012645DCB43966B5A6 /* Pods-Keyboard (Dev).debug.xcconfig */;
+			baseConfigurationReference = AA9266A82AA20E3732233832 /* Pods-Keyboard (Dev).debug.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
@@ -4568,7 +4586,7 @@
 		};
 		8124CF901CDD1DB700A521D5 /* Production */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEABFEC38881E0D9FAFE6FAF /* Pods-Keyboard.production.xcconfig */;
+			baseConfigurationReference = EBD50997EA208ABDD7439450 /* Pods-Keyboard.production.xcconfig */;
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;

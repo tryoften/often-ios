@@ -14,7 +14,6 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
     var viewModel: UserPackService
     
     init(viewModel: UserPackService) {
-        
         self.viewModel = viewModel
         
         navigationView = AddContentNavigationView()
@@ -36,16 +35,21 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
         view.addSubview(navigationView)
         view.addSubview(cardView)
         setupLayout()
-
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        navigationController?.navigationBar.barStyle = .Default
+    }
+
     func setupLayout() {
         view.addConstraints([
-            
             navigationView.al_top == view.al_top,
             navigationView.al_left == view.al_left,
             navigationView.al_right == view.al_right,
@@ -62,27 +66,24 @@ class AddQuoteViewController : UIViewController, UITextViewDelegate {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func nextButtonDidTap() {        
-        let quote = QuoteMediaItem(data: [
+    func nextButtonDidTap() {
+        var data = [
             "text": cardView.quoteTextView.text,
             "type": "quote",
             "owner_id": viewModel.userId
-            ])
-        
+        ]
+
         if let source = cardView.sourceTextField.text {
-            quote.origin_name = source
+            data["origin"] = source
         }
-        
+
         if let name = viewModel.currentUser?.name {
-            quote.owner_name = name
+            data["owner_name"] = name
         }
-        
-        quote.toDictionary()
-        
+
+        let quote = QuoteMediaItem(data: data)
         let vc = QuoteCategoryAssignmentViewController(viewModel: AssignCategoryViewModel(mediaItem: quote))
         navigationController?.pushViewController(vc, animated: true)
-        
-        
     }
     
     func textViewDidChange(textView: UITextView) {

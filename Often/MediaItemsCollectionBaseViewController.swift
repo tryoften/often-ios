@@ -353,6 +353,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
+
+        #if KEYBOARD
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 // Copy this data to pasteboard
                 Nuke.taskWith(url) {
@@ -360,15 +362,16 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
+
+                    if let image = $0.image {
+                        UIPasteboard.generalPasteboard().image = image
+                        gifCell.showDoneMessage()
+                    }
                 }.resume()
-                
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
-
-            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
-
-        #if !(KEYBOARD)
+        #else
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 Nuke.taskWith(url) {
                     if let image = $0.image as? AnimatedImage, let data = image.data {
@@ -381,13 +384,25 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                         activityVC.popoverPresentationController?.sourceView = self.view
                         self.presentViewController(activityVC, animated: true, completion: nil)
                     }
-                    }.resume()
-                
+
+                    if let image = $0.image {
+                        UIPasteboard.generalPasteboard().image = image
+                        gifCell.showDoneMessage()
+
+                        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+
+                        activityVC.popoverPresentationController?.sourceView = self.view
+                        self.presentViewController(activityVC, animated: true, completion: nil)
+                    }
+                }.resume()
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
             
         #endif
+
+        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
         }
     }
 

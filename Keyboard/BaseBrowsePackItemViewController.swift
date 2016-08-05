@@ -214,8 +214,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         var imageRequest: [ImageRequest] = []
 
         for index in indexPaths {
-            if let group = packViewModel.getMediaItemGroupForCurrentType(), url = group.items[index.row].smallImageURL {
-                imageRequest.append (ImageRequest(URL: url))
+            if let group = packViewModel.getMediaItemGroupForCurrentType() where index.row < group.items.count {
+                if let url = group.items[index.row].smallImageURL {
+                    imageRequest.append (ImageRequest(URL: url))
+                }
             }
         }
 
