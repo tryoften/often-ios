@@ -9,7 +9,7 @@
 import Foundation
 
 class UsernameAlertViewController: AlertViewController, UITextFieldDelegate {
-    var viewModel: PacksService
+    var viewModel: UsernameViewModel
     
     private var alertViewBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -32,11 +32,10 @@ class UsernameAlertViewController: AlertViewController, UITextFieldDelegate {
         return 42
     }
     
-    init(alertView: AlertView.Type = UsernameAlertView.self, viewModel: PacksService) {
+    init(alertView: AlertView.Type = UsernameAlertView.self, viewModel: UsernameViewModel) {
         self.viewModel = viewModel
         
         super.init(alertView: alertView)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

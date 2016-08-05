@@ -10,9 +10,9 @@ import Foundation
 
 class AddUsernameViewController: PresentingRootViewController, UITextFieldDelegate {
     var usernameView: UsernameView
-    var viewModel: LoginViewModel
+    var viewModel: UsernameViewModel
 
-    init(viewModel: LoginViewModel) {
+    init(viewModel: UsernameViewModel) {
         usernameView = UsernameView()
         usernameView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -49,9 +49,22 @@ class AddUsernameViewController: PresentingRootViewController, UITextFieldDelega
     func didTapConfirmButton(sender: UIButton) {
         UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
 
-        if sender.selected {
-            presentRootViewController(RootViewController())
+        if !sender.selected {
+            return
         }
+
+        viewModel.usernameDoesExist(usernameView.textField.text!, completion: { exists in
+            if !exists {
+                SessionManagerFlags.defaultManagerFlags.userHasUsername = true
+                self.viewModel.saveUsername(self.usernameView.textField.text!)
+                self.presentRootViewController(RootViewController())
+            } else {
+                if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+                    DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
+                }
+            }
+
+        })
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{

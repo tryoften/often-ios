@@ -94,7 +94,7 @@ class LoginViewController: UserCreationViewController {
         launchScreenLoaderTimer?.invalidate()
 
         if viewModel.isNewUser {
-           let vc = AddUsernameViewController(viewModel: LoginViewModel(sessionManager: SessionManager.defaultManager))
+           let vc = AddUsernameViewController(viewModel: UsernameViewModel())
             presentViewController(vc, animated: true, completion: nil)
 
         } else {

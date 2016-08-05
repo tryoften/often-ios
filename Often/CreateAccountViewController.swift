@@ -63,7 +63,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     func createAddUsernameViewController() {
-        let vc = AddUsernameViewController(viewModel: self.viewModel)
+        let vc = AddUsernameViewController(viewModel: UsernameViewModel())
         presentViewController(vc, animated: true, completion: nil)
     }
 
