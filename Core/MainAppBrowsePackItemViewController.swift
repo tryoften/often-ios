@@ -244,9 +244,57 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
         
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
-        #if !(KEYBOARD)
-            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        
+        if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+            // Copy this data to pasteboard
+            Nuke.taskWith(url) {
+                if let image = $0.image as? AnimatedImage, let data = image.data {
+                    let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
+                        let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
+                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+                        
+                        activityVC.popoverPresentationController?.sourceView = self.view
+                        self.presentViewController(activityVC, animated: true, completion: nil)
+                    })
+                    
+                    
+                    var packEditAction = UIAlertAction()
+                    if let quoteMediaItem = result as? QuoteMediaItem {
+                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
+                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
+                                UserPackService.defaultInstance.removeItem(quoteMediaItem)
+                            })
+                        } else {
+                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
+                                UserPackService.defaultInstance.addItem(quoteMediaItem)
+                            })
+                        }
+                    } else if let gifMediaItem = result as? GifMediaItem {
+                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
+                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
+                                UserPackService.defaultInstance.removeItem(gifMediaItem)
+                            })
+                        } else {
+                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
+                                UserPackService.defaultInstance.addItem(gifMediaItem)
+                            })
+                        }
+                    }
+                    
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
+                        actionSheet.dismissViewControllerAnimated(true, completion: nil)
+                    })
+                    
+                    actionSheet.addAction(shareAction)
+                    actionSheet.addAction(packEditAction)
+                    actionSheet.addAction(cancelAction)
+                    
+                    self.presentViewController(actionSheet, animated: true, completion: nil)
+                }
+                }.resume()
             
+        } else {
             let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
                 let activityVC = UIActivityViewController(activityItems: [result.getInsertableText()], applicationActivities: nil)
                 activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
@@ -288,10 +336,9 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             actionSheet.addAction(cancelAction)
             
             self.presentViewController(actionSheet, animated: true, completion: nil)
-        #endif
-        vc.insertText()
+        }
         
-        presentViewControllerWithCustomTransitionAnimator(vc)
+        vc.insertText()
     }
     
     override func mediaLinkCollectionViewCellDidToggleCopyButton(cell: BaseMediaItemCollectionViewCell, selected: Bool) {
@@ -316,61 +363,59 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
-            #if !(KEYBOARD)
-                if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                    Nuke.taskWith(url) {
-                        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+                Nuke.taskWith(url) {
+                    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+                    
+                    if let image = $0.image as? AnimatedImage, let data = image.data {
+                        let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
+                            UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                            let shareObjects = [data]
+                            
+                            let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+                            activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+                            
+                            activityVC.popoverPresentationController?.sourceView = self.view
+                            self.presentViewController(activityVC, animated: true, completion: nil)
+                        })
                         
-                        if let image = $0.image as? AnimatedImage, let data = image.data {
-                            let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
-                                UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
-                                let shareObjects = [data]
-                                
-                                let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
-                                activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-                                
-                                activityVC.popoverPresentationController?.sourceView = self.view
-                                self.presentViewController(activityVC, animated: true, completion: nil)
-                            })
-                            
-                            var packEditAction = UIAlertAction()
-                            if let gifMediaItem = result as? GifMediaItem {
-                                if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                                    packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                        UserPackService.defaultInstance.removeItem(gifMediaItem)
-                                    })
-                                } else {
-                                    packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                        UserPackService.defaultInstance.addItem(gifMediaItem)
-                                    })
-                                }
-                            } else if let imageMediaItem = result as? ImageMediaItem {
-                                if imageMediaItem.owner_id == UserPackService.defaultInstance.userId {
-                                    packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                        UserPackService.defaultInstance.removeItem(imageMediaItem)
-                                    })
-                                } else {
-                                    packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                        UserPackService.defaultInstance.addItem(imageMediaItem)
-                                    })
-                                }
+                        var packEditAction = UIAlertAction()
+                        if let gifMediaItem = result as? GifMediaItem {
+                            if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
+                                packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
+                                    UserPackService.defaultInstance.removeItem(gifMediaItem)
+                                })
+                            } else {
+                                packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
+                                    UserPackService.defaultInstance.addItem(gifMediaItem)
+                                })
                             }
-                            
-                            let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
-                                actionSheet.dismissViewControllerAnimated(true, completion: nil)
-                            })
-                            
-                            actionSheet.addAction(shareAction)
-                            actionSheet.addAction(packEditAction)
-                            actionSheet.addAction(cancelAction)
-                            
-                            self.presentViewController(actionSheet, animated: true, completion: nil)
+                        } else if let imageMediaItem = result as? ImageMediaItem {
+                            if imageMediaItem.owner_id == UserPackService.defaultInstance.userId {
+                                packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
+                                    UserPackService.defaultInstance.removeItem(imageMediaItem)
+                                })
+                            } else {
+                                packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
+                                    UserPackService.defaultInstance.addItem(imageMediaItem)
+                                })
+                            }
                         }
-                        }.resume()
-                } else {
-                    UIPasteboard.generalPasteboard().string = result.getInsertableText()
-                }
-            #endif
+                        
+                        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
+                            actionSheet.dismissViewControllerAnimated(true, completion: nil)
+                        })
+                        
+                        actionSheet.addAction(shareAction)
+                        actionSheet.addAction(packEditAction)
+                        actionSheet.addAction(cancelAction)
+                        
+                        self.presentViewController(actionSheet, animated: true, completion: nil)
+                    }
+                    }.resume()
+            } else {
+                UIPasteboard.generalPasteboard().string = result.getInsertableText()
+            }
         }
     }
     

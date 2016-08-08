@@ -353,8 +353,6 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
         
         if selected {
             NSNotificationCenter.defaultCenter().postNotificationName("mediaItemInserted", object: cell.mediaLink)
-
-        #if KEYBOARD
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
                 // Copy this data to pasteboard
                 Nuke.taskWith(url) {
@@ -362,50 +360,37 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
-
-                    if let image = $0.image {
-                        UIPasteboard.generalPasteboard().image = image
-                        gifCell.showDoneMessage()
-                    }
-                }.resume()
-            } else {
-                UIPasteboard.generalPasteboard().string = result.getInsertableText()
-            }
-        #else
-            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                Nuke.taskWith(url) {
-                    if let image = $0.image as? AnimatedImage, let data = image.data {
-                        UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
-                        let shareObjects = [data]
-                        
-                        let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
-                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-                        
-                        activityVC.popoverPresentationController?.sourceView = self.view
-                        self.presentViewController(activityVC, animated: true, completion: nil)
-                    }
-
-                    if let image = $0.image {
-                        UIPasteboard.generalPasteboard().image = image
-                        gifCell.showDoneMessage()
-
-                        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-
-                        activityVC.popoverPresentationController?.sourceView = self.view
-                        self.presentViewController(activityVC, animated: true, completion: nil)
-                    }
-                }.resume()
+                    }.resume()
+                
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
             
-        #endif
-
-        Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+            Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
+            
+            #if !(KEYBOARD)
+                if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+                    Nuke.taskWith(url) {
+                        if let image = $0.image as? AnimatedImage, let data = image.data {
+                            UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
+                            let shareObjects = [data]
+                            
+                            let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+                            activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+                            
+                            activityVC.popoverPresentationController?.sourceView = self.view
+                            self.presentViewController(activityVC, animated: true, completion: nil)
+                        }
+                        }.resume()
+                    
+                } else {
+                    UIPasteboard.generalPasteboard().string = result.getInsertableText()
+                }
+                
+            #endif
         }
     }
-
+    
 #if !(KEYBOARD)
     func showHud() {
         hudTimer?.invalidate()

@@ -152,6 +152,7 @@ class KeyboardMediaItemPackPickerViewController: MediaItemsCollectionBaseViewCon
         default:
             let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as BrowseMediaItemCollectionViewCell
             cell.style = .Keyboard
+            cell.checkmarkBadge.hidden = true
             cell.shareButton.tag = indexPath.row
             cell.shareButton.addTarget(self, action: #selector(sharePackButtonDidTap), forControlEvents: .TouchUpInside)
             
