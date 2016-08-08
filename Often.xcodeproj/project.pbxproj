@@ -308,6 +308,10 @@
 		3BFCDFB61D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */; };
 		3BFCDFB81D54BF7E005A4BF8 /* UsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB71D54BF7E005A4BF8 /* UsernameViewModel.swift */; };
 		3BFCDFB91D54BF7E005A4BF8 /* UsernameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFB71D54BF7E005A4BF8 /* UsernameViewModel.swift */; };
+		3BFCDFBB1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFBA1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift */; };
+		3BFCDFBC1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFBA1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift */; };
+		3BFCDFBE1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFBD1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift */; };
+		3BFCDFBF1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFCDFBD1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift */; };
 		690553341CA78E04004680CA /* BrowsePackHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553331CA78E04004680CA /* BrowsePackHeaderView.swift */; };
 		690553361CA78E25004680CA /* BrowsePackSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690553351CA78E25004680CA /* BrowsePackSectionHeaderView.swift */; };
 		69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
@@ -1308,6 +1312,8 @@
 		3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameView.swift; sourceTree = "<group>"; };
 		3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddUsernameViewController.swift; sourceTree = "<group>"; };
 		3BFCDFB71D54BF7E005A4BF8 /* UsernameViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameViewModel.swift; sourceTree = "<group>"; };
+		3BFCDFBA1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallAlertView.swift; sourceTree = "<group>"; };
+		3BFCDFBD1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardInstallAlertViewController.swift; sourceTree = "<group>"; };
 		40027A78F6DF5CB025A41AB7 /* libPods-Keyboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Keyboard.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65061792C000792CE8D1724A /* Pods-Keyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Keyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsWebViewController.swift; sourceTree = "<group>"; };
@@ -2201,6 +2207,7 @@
 				695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */,
 				3B5F255E1BF3386E00AA7A98 /* TermsOfUseViewController.swift */,
 				3BF532BC1D00DD5A00E740DC /* AlertViewController.swift */,
+				3BFCDFBD1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift */,
 				3BF041EB1D05D9CA00418484 /* PushNotificationAlertViewController.swift */,
 				695154991BF2C65700AAAFA4 /* SkipSignupViewController.swift */,
 				690003A51BD5954600C0DA9E /* SettingsWebViewController.swift */,
@@ -2244,6 +2251,7 @@
 				3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */,
 				69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
+				3BFCDFBA1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift */,
 				3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
 				3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */,
@@ -3452,6 +3460,7 @@
 				8157AD821CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				810EA5071C8579D1005A6C6D /* DropDownMessageView.swift in Sources */,
 				BF9971441CBEC310008351C7 /* GifMediaItem.swift in Sources */,
+				3BFCDFBC1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift in Sources */,
 				810EA5081C8579D1005A6C6D /* Helpers.swift in Sources */,
 				810EA50A1C8579D1005A6C6D /* SigninView.swift in Sources */,
 				810EA50B1C8579D1005A6C6D /* MediaItemGroup.swift in Sources */,
@@ -3482,6 +3491,7 @@
 				810EA5271C8579D1005A6C6D /* TrackMediaItem.swift in Sources */,
 				3B9789751D46B897001DD156 /* GiphySearchViewModel.swift in Sources */,
 				810EA5281C8579D1005A6C6D /* Event.swift in Sources */,
+				3BFCDFBF1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift in Sources */,
 				BFAD7B311D4A53180002670F /* QuoteCategoryAssignmentViewController.swift in Sources */,
 				810EA52B1C8579D1005A6C6D /* TwitterAccountManager.swift in Sources */,
 				810EA52C1C8579D1005A6C6D /* LoginButton.swift in Sources */,
@@ -3661,6 +3671,7 @@
 				8157AD851CB58533001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
 				816D50451C8A04CF007B3249 /* MediaItem.swift in Sources */,
 				816D50841C8A055C007B3249 /* AccountManagerProtocol.swift in Sources */,
+				3BFCDFBE1D54EE8F005A4BF8 /* KeyboardInstallAlertViewController.swift in Sources */,
 				816D50671C8A0506007B3249 /* UIDevice+DeviceList.swift in Sources */,
 				816D50A51C8A0596007B3249 /* LogInViewController.swift in Sources */,
 				816D50481C8A04CF007B3249 /* TrackMediaItem.swift in Sources */,
@@ -3710,6 +3721,7 @@
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				3BDF89261D4169B10043173A /* PowerByGiphyView.swift in Sources */,
+				3BFCDFBB1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift in Sources */,
 				81B920FA1D46895200F45BD9 /* UserPackService.swift in Sources */,
 				69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
 				816D50831C8A0557007B3249 /* UIColor+Often.swift in Sources */,

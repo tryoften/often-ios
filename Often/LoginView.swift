@@ -69,6 +69,8 @@ class LoginView: UIView {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = UIColor(fromHexString: "#ffffff")
+        imageView.image = UIImage(named: "signupImage")
+        imageView.contentMode = .ScaleAspectFit
 
         emailButton = UIButton()
         emailButton.translatesAutoresizingMaskIntoConstraints = false
@@ -145,11 +147,11 @@ class LoginView: UIView {
             subtitleLabel.al_height == 42,
 
             imageView.al_top == subtitleLabel.al_bottom + 58,
-            imageView.al_left == al_left + 20,
-            imageView.al_right == al_right - 20,
-            imageView.al_centerY == al_centerY,
+            imageView.al_left == al_left + 80,
+            imageView.al_right == al_right - 80,
+            imageView.al_centerY == al_centerY - 30,
 
-            emailButton.al_top == imageView.al_bottom + 10,
+            emailButton.al_top == imageView.al_bottom + 30,
             emailButton.al_left == al_left + 40.5,
             emailButton.al_right == al_right - 40.5,
             emailButton.al_height == 55,

@@ -36,7 +36,7 @@ class EmailAccountManager: AccountManager {
         guard let user = userData,
             let email = userData?.email,
             let password = userData?.password,
-            let username = userData?.username else {
+            let username = userData?.name else {
                  completion(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                 return
         }

@@ -31,7 +31,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createAccountView.usernameTextField.delegate = self
+        createAccountView.nameTextField.delegate = self
         createAccountView.passwordTextField.delegate = self
         createAccountView.emailTextField.delegate = self
         
@@ -52,7 +52,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
         
     func didTapSignupButton(sender: UIButton) {
-        viewModel.userAuthData.username = createAccountView.usernameTextField.text!
+        viewModel.userAuthData.name = createAccountView.nameTextField.text!
         viewModel.userAuthData.email = createAccountView.emailTextField.text!
         viewModel.userAuthData.password = createAccountView.passwordTextField.text!
         viewModel.userAuthData.isNewUser = true
@@ -99,7 +99,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == createAccountView.usernameTextField {
+        if textField == createAccountView.nameTextField {
             createAccountView.emailTextField.becomeFirstResponder()
             
         } else if textField == createAccountView.emailTextField {
