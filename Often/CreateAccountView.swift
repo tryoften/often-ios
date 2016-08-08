@@ -19,9 +19,6 @@ class CreateAccountView: UIView {
     let passwordTextField: UITextField
     let passwordTextFieldDivider: UIView
     let signupButton: UIButton
-    let signupTwitterButton: UIButton
-    let signupFacebookButton: UIButton
-    let orSpacer: ViewSpacerWithText
     let cancelButton: UIButton
     let termsOfUseAndPrivacyPolicyButton: UIButton
 
@@ -63,7 +60,7 @@ class CreateAccountView: UIView {
         
         usernameTextField = UITextField()
         usernameTextField.translatesAutoresizingMaskIntoConstraints = false
-        usernameTextField.placeholder = "Username"
+        usernameTextField.placeholder = "Name"
         usernameTextField.font = UIFont(name: "Montserrat", size: 11)
         
         usernameTextFieldDivider = UIView()
@@ -90,11 +87,24 @@ class CreateAccountView: UIView {
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
         signupButton = LoginButton.EmailButton()
-        signupTwitterButton = LoginButton.TwitterButton()
-        signupFacebookButton = LoginButton.FacebookButton()
-        
-        orSpacer = ViewSpacerWithText(title:"Or With")
-        orSpacer.translatesAutoresizingMaskIntoConstraints = false
+
+        let signupButtonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.grayColor()
+        ]
+
+        let signupSelectButtonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+
+        signupButton.setAttributedTitle(NSAttributedString(string: "sign up".uppercaseString, attributes: signupButtonAttributes), forState: .Normal)
+        signupButton.setAttributedTitle(NSAttributedString(string: "sign up".uppercaseString, attributes: signupSelectButtonAttributes), forState: .Selected)
+        signupButton.backgroundColor = UIColor.whiteColor()
+        signupButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
+        signupButton.layer.borderWidth = 2
 
         cancelButton = UIButton()
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
@@ -122,10 +132,7 @@ class CreateAccountView: UIView {
         addSubview(emailTextFieldDivider)
         addSubview(passwordTextField)
         addSubview(passwordTextFieldDivider)
-        addSubview(signupFacebookButton)
-        addSubview(signupTwitterButton)
         addSubview(signupButton)
-        addSubview(orSpacer)
         addSubview(cancelButton)
         addSubview(termsOfUseAndPrivacyPolicyButton)
         
@@ -187,31 +194,11 @@ class CreateAccountView: UIView {
             signupButton.al_right == al_right - 40,
             signupButton.al_height == 50,
             
-            orSpacer.al_top == signupButton.al_bottom + 5,
-            orSpacer.al_left == al_left + 40,
-            orSpacer.al_right == al_right - 40,
-            orSpacer.al_height == 40,
-
-        ])
-
-        addConstraints([
-            signupTwitterButton.al_top == orSpacer.al_bottom + 5,
-            signupTwitterButton.al_left == al_left + 40,
-            signupTwitterButton.al_right == al_centerX - 2,
-            signupTwitterButton.al_height == 50,
-
-            signupFacebookButton.al_top == signupTwitterButton.al_top,
-            signupFacebookButton.al_left == al_centerX + 2,
-            signupFacebookButton.al_right == al_right - 40,
-            signupFacebookButton.al_height == 50,
-
-            termsOfUseAndPrivacyPolicyButton.al_top == signupTwitterButton.al_bottom + 10,
+            termsOfUseAndPrivacyPolicyButton.al_top == signupButton.al_bottom + 10,
             termsOfUseAndPrivacyPolicyButton.al_left == al_left + 40,
             termsOfUseAndPrivacyPolicyButton.al_right == al_right - 40,
             termsOfUseAndPrivacyPolicyButton.al_height == 36,
-            
-            ])
-
+        ])
 
     }
 
