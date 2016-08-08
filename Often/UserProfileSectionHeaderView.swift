@@ -11,8 +11,9 @@ import UIKit
 class UserProfileSectionHeaderView: UICollectionReusableView {
     var titleLabel: UILabel
     var editButton: UIButton
-    var borderView: UIView
-    
+    var topSeperator: UIView
+    var bottomSeperator: UIView
+
     override init(frame: CGRect) {
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -26,9 +27,13 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         editButton.setTitle("edit".uppercaseString, forState: .Normal)
         editButton.setTitle("done".uppercaseString, forState: .Selected)
         
-        borderView = UIView()
-        borderView.translatesAutoresizingMaskIntoConstraints = false
-        borderView.backgroundColor = MediumGrey
+        topSeperator = UIView()
+        topSeperator.translatesAutoresizingMaskIntoConstraints = false
+        topSeperator.backgroundColor = MediumGrey
+
+        bottomSeperator = UIView()
+        bottomSeperator.translatesAutoresizingMaskIntoConstraints = false
+        bottomSeperator.backgroundColor = MediumGrey
         
         super.init(frame: frame)
         
@@ -36,8 +41,9 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
         
         addSubview(titleLabel)
         addSubview(editButton)
-        addSubview(borderView)
-        
+        addSubview(topSeperator)
+        addSubview(bottomSeperator)
+
         setupLayout()
     }
     
@@ -53,10 +59,15 @@ class UserProfileSectionHeaderView: UICollectionReusableView {
             editButton.al_right == al_right - 12,
             editButton.al_centerY == al_centerY,
             
-            borderView.al_left == al_left,
-            borderView.al_right == al_right,
-            borderView.al_top == al_top,
-            borderView.al_height == 0.5
+            topSeperator.al_top == al_top,
+            topSeperator.al_left == al_left,
+            topSeperator.al_width == al_width,
+            topSeperator.al_height == 0.6,
+
+            bottomSeperator.al_bottom == al_bottom,
+            bottomSeperator.al_left == al_left,
+            bottomSeperator.al_width == al_width,
+            bottomSeperator.al_height == 0.6
         ])
     }
 }

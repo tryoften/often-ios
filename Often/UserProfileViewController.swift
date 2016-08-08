@@ -203,8 +203,8 @@ UICollectionViewDelegateFlowLayout {
     func reloadUserData() {
         if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
             headerView.nameLabel.text = user.name
-            headerView.collapseNameLabel.text = user.name
-            headerView.leftHeaderLabel.text = "@\(user.username)"
+            headerView.collapseNameLabel.text = "@\(user.username)"
+            headerView.leftHeaderLabel.text = user.name
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
