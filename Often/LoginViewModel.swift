@@ -48,7 +48,6 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
         } catch {
 
         }
-
     }
 
     func updateReachabilityView() {
@@ -58,7 +57,6 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
     func sessionManagerDidLoginUser(sessionManager: SessionManager, user: User) {
         Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.login))
         delegate?.loginViewModelDidLoginUser(self, user: user)
-
     }
 
     func sessionManagerNoUserFound(sessionManager: SessionManager) {

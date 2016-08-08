@@ -25,12 +25,12 @@ class UserCreationViewController: PresentingRootViewController, LoginViewModelDe
         self.viewModel.delegate = nil
     }
 
-    func didTapButton(button: LoginButton?) {
+    func didTapLoginButton(button: LoginButton?) {
         guard let button = button else {
             return
         }
 
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
 
         if button.type != .Twitter {
             showHud()

@@ -61,9 +61,25 @@ class SigninView: UIView {
         passwordTextFieldDivider = UIView()
         passwordTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         passwordTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
-        
+
+        let signinButtonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.grayColor()
+        ]
+
+        let signinSelectButtonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+
         signinButton = LoginButton.EmailButton()
-        signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
+        signinButton.setAttributedTitle(NSAttributedString(string: "sign in".uppercaseString, attributes: signinButtonAttributes), forState: .Normal)
+        signinButton.setAttributedTitle(NSAttributedString(string: "sign in".uppercaseString, attributes: signinSelectButtonAttributes), forState: .Selected)
+        signinButton.backgroundColor = UIColor.whiteColor()
+        signinButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
+        signinButton.layer.borderWidth = 2
 
         signinFacebookButton = LoginButton.FacebookButton()
         signinTwitterButton = LoginButton.TwitterButton()
@@ -169,6 +185,5 @@ class SigninView: UIView {
             orSpacer.al_right == al_right - 40,
             orSpacer.al_height == 40,
             ])
-    }
-    
+    }    
 }
