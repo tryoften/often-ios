@@ -19,7 +19,7 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
         self.sessionManager = sessionManager
 
         isNewUser = false
-        userAuthData = UserAuthData(username: "", email: "",  password: "", isNewUser: false)
+        userAuthData = UserAuthData(name: "", email: "",  password: "", isNewUser: false)
 
         super.init()
 

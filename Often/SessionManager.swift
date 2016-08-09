@@ -106,7 +106,6 @@ class SessionManager: NSObject, AccountManagerDelegate {
     }
     
     func checkForUsername() {
-        
         guard let name = currentUser?.username where !name.isEmpty else {
             return
         }
