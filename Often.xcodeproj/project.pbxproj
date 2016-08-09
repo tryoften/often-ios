@@ -308,7 +308,6 @@
 		69088E431D1335B400870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		6936E5EE1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
 		6936E5EF1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
-		69410A4F1CFF99540036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
 		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
 		6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
 		6944A5351C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
@@ -1053,7 +1052,6 @@
 		BFB278511D53E067000C82E1 /* ReactionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB278501D53E067000C82E1 /* ReactionsCollectionViewController.swift */; };
 		BFB278521D53E067000C82E1 /* ReactionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB278501D53E067000C82E1 /* ReactionsCollectionViewController.swift */; };
 		BFB278531D53E067000C82E1 /* ReactionsCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB278501D53E067000C82E1 /* ReactionsCollectionViewController.swift */; };
-		BFB278561D58B9D8000C82E1 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
 		BFCB58671D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		BFCB58681D22D14B00F8A212 /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		BFCB58691D22D26400F8A212 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
@@ -1321,7 +1319,6 @@
 		690805D21C3A1916001589A5 /* EmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmptyStateView.swift; path = ../Often/EmptyStateView.swift; sourceTree = "<group>"; };
 		69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseCategorySelectionTableViewCell.swift; sourceTree = "<group>"; };
 		6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsBarButton.swift; sourceTree = "<group>"; };
-		69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderButton.swift; sourceTree = "<group>"; };
 		69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyboardViewModel.swift; path = Sources/KeyboardViewModel.swift; sourceTree = "<group>"; };
 		6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterEmptyStateView.swift; sourceTree = "<group>"; };
 		6944A53B1C3B08C300EA57C3 /* NoKeyboardEmptyStateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoKeyboardEmptyStateView.swift; sourceTree = "<group>"; };
@@ -2248,7 +2245,6 @@
 				3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */,
 				3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */,
 				3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */,
-				69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */,
 				3BEB40AD1BCDBC2300D36C4D /* AlertView.swift */,
 				3BF532BF1D0228A100E740DC /* PushNotifcationAlertView.swift */,
 				3BD971D51B9E642D007EAB5A /* LoginView.swift */,
@@ -3455,7 +3451,6 @@
 				3B50063D1CADABDB003D4144 /* MainAppBrowsePackItemViewController.swift in Sources */,
 				810EA5021C8579D1005A6C6D /* CreateAccountViewController.swift in Sources */,
 				810EA5031C8579D1005A6C6D /* AppDelegate.swift in Sources */,
-				BFB278561D58B9D8000C82E1 /* PackHeaderButton.swift in Sources */,
 				8157AD821CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				810EA5071C8579D1005A6C6D /* DropDownMessageView.swift in Sources */,
 				BF9971441CBEC310008351C7 /* GifMediaItem.swift in Sources */,
@@ -3785,7 +3780,6 @@
 				3BDF89121D3E8EEB0043173A /* GiphySearchViewModel.swift in Sources */,
 				816D50BE1C8A05E6007B3249 /* Emitter.swift in Sources */,
 				69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */,
-				69410A4F1CFF99540036BEA9 /* PackHeaderButton.swift in Sources */,
 				816D50C01C8A0609007B3249 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				816D50751C8A0521007B3249 /* MediaItemGroupViewModel.swift in Sources */,
 				816D509B1C8A058D007B3249 /* CreateAccountView.swift in Sources */,
