@@ -43,6 +43,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         super.init(nibName: nil, bundle: nil)
 
         dummyTabBar.frame = tabBar.frame
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()
@@ -62,7 +63,17 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             self.showAlert()
         }
     }
-
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
+    }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if selectedIndex == 2 {
+            
+        }
+    }
+    
     func setupLayout() {
         view.addConstraints([
             imageView.al_centerX == view.al_centerX,
@@ -70,10 +81,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             imageView.al_height == 75,
             imageView.al_width == 75
         ])
-    }
-    
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.Fade
     }
 
     func showAlert() {
@@ -134,5 +141,10 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         let animator = FadeInTransitionAnimator(presenting: false)
 
         return animator
+    }
+    
+    func addContentViewDidDismiss() {
+        selectedIndex = 2
+        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
     }
 }

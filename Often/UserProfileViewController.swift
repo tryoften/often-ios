@@ -22,6 +22,14 @@ UICollectionViewDelegateFlowLayout {
             collectionView?.reloadData()
         }
     }
+    
+    var presentFavorites: Bool = false {
+        didSet {
+            if viewModel.mediaItems.count > 0 {
+                collectionView(collectionView!, didSelectItemAtIndexPath: NSIndexPath(index: 0))
+            }
+        }
+    }
 
     init(viewModel: PacksService) {
         self.viewModel = viewModel
@@ -31,6 +39,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.fetchCollection()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack), name: AddContentTabDismissedEvent, object: nil)
         
         packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
@@ -234,7 +243,6 @@ UICollectionViewDelegateFlowLayout {
         AlertVC.transitioningDelegate = self
         AlertVC.modalPresentationStyle = .Custom
         presentViewController(AlertVC, animated: true, completion: nil)
-        
     }
     
     func promptUserToChooseUsername() {
@@ -246,6 +254,10 @@ UICollectionViewDelegateFlowLayout {
                 presentViewController(alertVC, animated: true, completion: nil)
             }
         }
+    }
+    
+    func presentFavoritesPack() {
+        collectionView(collectionView!, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
     }
     
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
