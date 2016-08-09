@@ -87,38 +87,38 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-        
-        let topRightButton = PackHeaderButton()
-        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.addSubview(topRightButton)
-        
+
         if pack.isFavorites {
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+
+            let topRightButton = PackHeaderButton()
             topRightButton.text = "Edit Pack"
             topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
             topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
             topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
             topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
+
+            let item = UIBarButtonItem(customView: topRightButton)
+            navigationItem.rightBarButtonItem = item
         } else {
-            
             header.primaryButton.title = pack.callToActionText()
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
             header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-            topRightButton.text = "Share"
-            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 40, bottom: 2, right: -10)
-            topRightButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
-            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
-            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        }
-        
-        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
-        let item = UIBarButtonItem(customView: topRightButton)
-        navigationItem.rightBarButtonItem = item
 
+            let topRightButton = PackHeaderProfileButton()
+            if let owner = pack.owner, let username = owner["username"] as? String {
+                topRightButton.text = "@\(username)"
+            }
+
+            topRightButton.frame = CGRect(origin: CGPointZero, size: topRightButton.intrinsicContentSize())
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+
+            let item = UIBarButtonItem(customView: topRightButton)
+            navigationItem.rightBarButtonItem = item
+        }
     }
-    
+
     func primaryButtonTapped(sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return

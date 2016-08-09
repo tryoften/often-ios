@@ -10,7 +10,6 @@ import UIKit
 
 class PackHeaderButton: UIButton {
     var textLabel: UILabel
-//    var buttonImageView: UIImageView
     
     var text: String? {
         didSet {
@@ -31,4 +30,14 @@ class PackHeaderButton: UIButton {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func intrinsicContentSize() -> CGSize {
+        guard let titleLabel = titleLabel, let imageView = imageView else {
+            return CGSizeZero
+        }
+
+        let textSize = titleLabel.intrinsicContentSize()
+        let imageSize = imageView.intrinsicContentSize()
+
+        return CGSizeMake(textSize.width + imageSize.width, max(textSize.height, imageSize.height))
+    }
 }

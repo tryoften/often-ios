@@ -47,12 +47,24 @@ class TwitterAccountManager: AccountManager {
                     if user == nil {
                         completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
                     } else {
+                        guard let user = user else {
+                            return
+                        }
+
                         var firebaseData = [String: AnyObject]()
                         firebaseData["id"] = "twitter:\(userID)"
-                        firebaseData["profileImageURL"] = user?.profileImageLargeURL
-                        firebaseData["name"] = user?.name
-                        firebaseData["username"] = user?.screenName
+                        firebaseData["profileImageSmall"] = user.profileImageURL
+                        firebaseData["profileImageLarge"] = user.profileImageLargeURL
+                        firebaseData["image"] = [
+                            "small_url": user.profileImageURL,
+                            "large_url": user.profileImageLargeURL
+                        ]
+                        firebaseData["name"] = user.name
+                        firebaseData["username"] = user.screenName
                         firebaseData["backgroundImage"] = "user-profile-bg-1"
+
+                        let firstName = user.name.componentsSeparatedByString(" ")[0]
+                        firebaseData["first_name"] = firstName
 
                         if self.sessionManagerFlags.userId == nil {
                             guard let userIDWithProvider = firebaseData["id"] as? String else {
