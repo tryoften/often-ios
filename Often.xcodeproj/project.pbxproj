@@ -1012,6 +1012,11 @@
 		BF496FCF1D59806B0016EA2F /* FilteredCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */; };
 		BF496FD01D59806B0016EA2F /* FilteredCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */; };
 		BF496FD21D59806B0016EA2F /* FilteredCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */; };
+		BF5EA1F11D5A89F500670CBC /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */; };
+		BF5EA1F21D5A89F500670CBC /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */; };
+		BF5EA1F31D5A89F500670CBC /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */; };
+		BF5EA1F41D5A89F500670CBC /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */; };
+		BF5EA1F51D5A89F500670CBC /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */; };
 		BF6A03E91D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
 		BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */; };
 		BF9861531CDA9AEA005AB2BB /* FilterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BE0BC881BEBFA9200037E21 /* FilterTabView.swift */; };
@@ -1479,6 +1484,7 @@
 		BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddQuoteViewController.swift; sourceTree = "<group>"; };
 		BF496FC71D58F3C00016EA2F /* ReactionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactionsViewModel.swift; path = ../ReactionsViewModel.swift; sourceTree = "<group>"; };
 		BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredCollectionViewController.swift; sourceTree = "<group>"; };
+		BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderButton.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
 		BF99714C1CBEF030008351C7 /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -2258,6 +2264,7 @@
 				BF1858E51D3FE46800087872 /* UsernameAlertView.swift */,
 				BF31C5BF1D47CF2000D33AE0 /* AddQuoteView.swift */,
 				BF31C5C21D47D9F000D33AE0 /* AddContentNavigationView.swift */,
+				BF5EA1F01D5A89F500670CBC /* PackHeaderButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3450,6 +3457,7 @@
 				810EA5011C8579D1005A6C6D /* Listener.swift in Sources */,
 				3B50063D1CADABDB003D4144 /* MainAppBrowsePackItemViewController.swift in Sources */,
 				810EA5021C8579D1005A6C6D /* CreateAccountViewController.swift in Sources */,
+				BF5EA1F41D5A89F500670CBC /* PackHeaderButton.swift in Sources */,
 				810EA5031C8579D1005A6C6D /* AppDelegate.swift in Sources */,
 				8157AD821CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				810EA5071C8579D1005A6C6D /* DropDownMessageView.swift in Sources */,
@@ -3564,6 +3572,7 @@
 				8157AD8C1CB59A76001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
 				810EA5AF1C8579F1005A6C6D /* NJKScrollFullScreen.m in Sources */,
 				BFD877881CA9B41300DCDA08 /* PacksViewModel.swift in Sources */,
+				BF5EA1F51D5A89F500670CBC /* PackHeaderButton.swift in Sources */,
 				810EA5B31C8579F1005A6C6D /* ArticleMediaItem.swift in Sources */,
 				810EA5B41C8579F1005A6C6D /* EmitterListener.swift in Sources */,
 				810EA5B61C8579F1005A6C6D /* (null) in Sources */,
@@ -3794,6 +3803,7 @@
 				3BDF89201D415A490043173A /* SearchOverlayView.swift in Sources */,
 				816D509D1C8A058D007B3249 /* SigninView.swift in Sources */,
 				816D50C51C8A061B007B3249 /* WindowRootViewController.swift in Sources */,
+				BF5EA1F11D5A89F500670CBC /* PackHeaderButton.swift in Sources */,
 				816D503C1C8A04C4007B3249 /* CategoryService.swift in Sources */,
 				816D50A81C8A0596007B3249 /* CreateAccountViewController.swift in Sources */,
 				816D50C31C8A061B007B3249 /* PKHUDContentView.swift in Sources */,
@@ -3855,6 +3865,7 @@
 				8133236B1C1F8A1A0084918B /* SlideTabBar.swift in Sources */,
 				3B309D6E1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
 				816D50271C862E86007B3249 /* UIColor+Often.swift in Sources */,
+				BF5EA1F31D5A89F500670CBC /* PackHeaderButton.swift in Sources */,
 				3BA7D8341CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				8192A7E11C62410300B25AC6 /* Signal.swift in Sources */,
 				698674191C4A911900826FAA /* DropDownMessageView.swift in Sources */,
@@ -3971,6 +3982,7 @@
 				81DA3EB11C24BE85006822D3 /* ParseConfig.swift in Sources */,
 				3BA7D8331CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				3B5006471CB2E50B003D4144 /* KeyboardMediaItemPackPickerViewController.swift in Sources */,
+				BF5EA1F21D5A89F500670CBC /* PackHeaderButton.swift in Sources */,
 				81DA3EB41C24BE85006822D3 /* ArticleMediaItem.swift in Sources */,
 				3BAB168A1CAB2CA600904185 /* KeyboardMediaItemPackHeaderView.swift in Sources */,
 				81DA3EB91C24BE85006822D3 /* MediaItemsSectionHeaderView.swift in Sources */,
