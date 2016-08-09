@@ -43,10 +43,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         HUDMaskView?.frame = view.bounds
     }
 
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         loadPackData()
@@ -131,20 +127,71 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return UICollectionViewCell()
         }
         
-        switch group.type {
+        guard let item = group.items[indexPath.row] as? MediaItem else {
+            return UICollectionViewCell()
+        }
+
+        return setupCell(group, item: item, indexPath: indexPath, collectionView: collectionView)
+        
+//        switch item.type {
+//        case .Gif:
+//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
+//                return UICollectionViewCell()
+//            }
+//
+//            guard let gif = item as? GifMediaItem else {
+//                return cell
+//            }
+//
+//            if let imageURL = gif.mediumImageURL {
+//                cell.setImageWith(imageURL)
+//            }
+//
+//            cell.mediaLink = gif
+//            cell.delegate = self
+//            return cell
+//        case .Image:
+//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
+//                return UICollectionViewCell()
+//            }
+//
+//            guard let image = item as? ImageMediaItem else {
+//                return cell
+//            }
+//
+//            if let imageURL = image.mediumImageURL {
+//                cell.setImageWith(imageURL)
+//            }
+//
+//            cell.mediaLink = image
+//            cell.delegate = self
+//            return cell
+//        case .Quote:
+//            let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
+//            cell.style = .Cell
+//            cell.type = .Metadata
+//            return cell
+//        default:
+//            return UICollectionViewCell()
+//        }
+
+    }
+    
+    func setupCell(group: MediaItemGroup, item: MediaItem, indexPath: NSIndexPath, collectionView: UICollectionView) -> UICollectionViewCell {
+        switch item.type {
         case .Gif:
             guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
                 return UICollectionViewCell()
             }
-
-            guard let gif = group.items[indexPath.row] as? GifMediaItem else {
+            
+            guard let gif = item as? GifMediaItem else {
                 return cell
             }
-
+            
             if let imageURL = gif.mediumImageURL {
                 cell.setImageWith(imageURL)
             }
-
+            
             cell.mediaLink = gif
             cell.delegate = self
             return cell
@@ -152,15 +199,15 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
                 return UICollectionViewCell()
             }
-
-            guard let image = group.items[indexPath.row] as? ImageMediaItem else {
+            
+            guard let image = item as? ImageMediaItem else {
                 return cell
             }
-
+            
             if let imageURL = image.mediumImageURL {
                 cell.setImageWith(imageURL)
             }
-
+            
             cell.mediaLink = image
             cell.delegate = self
             return cell
@@ -172,7 +219,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         default:
             return UICollectionViewCell()
         }
-
     }
 
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -225,13 +271,14 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
     }
 
     func toggleCategoryViewController() {
-        guard let pack = packViewModel.pack  else {
-            return
-        }
 
-        let categoriesVC = CategoryCollectionViewController(viewModel: packViewModel, categories: pack.categories)
-        categoriesVC.delegate = self
-        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
+        
+        
+//        navigationController?.pushViewController(ReactionsCollectionViewController(viewModel: packViewModel, reactions: pack.categories), animated: false)
+
+//        let categoriesVC = CategoryCollectionViewController(viewModel: packViewModel, categories: pack.categories)
+//        categoriesVC.delegate = self
+//        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
