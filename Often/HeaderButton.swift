@@ -1,5 +1,5 @@
 //
-//  PackHeaderButton.swift
+//  HeaderButton.swift
 //  Often
 //
 //  Created by Katelyn Findlay on 8/9/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PackHeaderButton: UIButton {
+class HeaderButton: UIButton {
     var textLabel: UILabel
     //    var buttonImageView: UIImageView
     
