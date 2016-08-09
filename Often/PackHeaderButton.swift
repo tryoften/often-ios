@@ -10,7 +10,7 @@ import UIKit
 
 class PackHeaderButton: UIButton {
     var textLabel: UILabel
-//    var buttonImageView: UIImageView
+    //    var buttonImageView: UIImageView
     
     var text: String? {
         didSet {
@@ -30,5 +30,4 @@ class PackHeaderButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }
