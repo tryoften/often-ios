@@ -84,14 +84,10 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
             return
         }
 
-        let toggleDrawerSelector = #selector(BaseBrowsePackItemViewController.toggleCategoryViewController)
-        let hudRecognizer = UITapGestureRecognizer(target: self, action: toggleDrawerSelector)
-
         HUDMaskView = UIView()
         HUDMaskView?.backgroundColor = UIColor.oftBlack74Color()
         HUDMaskView?.hidden = true
         HUDMaskView?.userInteractionEnabled = true
-        HUDMaskView?.addGestureRecognizer(hudRecognizer)
 
         view.addSubview(HUDMaskView!)
     }
@@ -132,48 +128,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         }
 
         return setupCell(group, item: item, indexPath: indexPath, collectionView: collectionView)
-        
-//        switch item.type {
-//        case .Gif:
-//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(gifCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//
-//            guard let gif = item as? GifMediaItem else {
-//                return cell
-//            }
-//
-//            if let imageURL = gif.mediumImageURL {
-//                cell.setImageWith(imageURL)
-//            }
-//
-//            cell.mediaLink = gif
-//            cell.delegate = self
-//            return cell
-//        case .Image:
-//            guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
-//                return UICollectionViewCell()
-//            }
-//
-//            guard let image = item as? ImageMediaItem else {
-//                return cell
-//            }
-//
-//            if let imageURL = image.mediumImageURL {
-//                cell.setImageWith(imageURL)
-//            }
-//
-//            cell.mediaLink = image
-//            cell.delegate = self
-//            return cell
-//        case .Quote:
-//            let cell = parseMediaItemData(group.items, indexPath: indexPath, collectionView: collectionView)
-//            cell.style = .Cell
-//            cell.type = .Metadata
-//            return cell
-//        default:
-//            return UICollectionViewCell()
-//        }
 
     }
     
@@ -268,17 +222,6 @@ class BaseBrowsePackItemViewController: BrowseMediaItemViewController, Categorie
         }
 
         return imageRequest
-    }
-
-    func toggleCategoryViewController() {
-
-        
-        
-//        navigationController?.pushViewController(ReactionsCollectionViewController(viewModel: packViewModel, reactions: pack.categories), animated: false)
-
-//        let categoriesVC = CategoryCollectionViewController(viewModel: packViewModel, categories: pack.categories)
-//        categoriesVC.delegate = self
-//        presentViewControllerWithCustomTransitionAnimator(categoriesVC, direction: .Left, duration: 0.25)
     }
 
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {

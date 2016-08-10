@@ -101,9 +101,6 @@ class ReactionsViewModel: BaseViewModel {
     func generateFilteredGroups(reaction: Category) {
         currentReaction = reaction
         filteredGroups = filterItemsForReaction(reaction)
-//        for group in mediaItemGroups {
-//            group.filterMediaItems(reaction)
-//        }
     }
     
     func filterItemsForReaction(reaction: Category) -> [MediaItemGroup] {
