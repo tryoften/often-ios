@@ -87,7 +87,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
         
-        let topRightButton = PackHeaderButton()
+        let topRightButton = HeaderButton()
         let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
         positionedButtonView.addSubview(topRightButton)
         
