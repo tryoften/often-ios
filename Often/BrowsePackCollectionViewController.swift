@@ -59,6 +59,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didSelectBrowseCategory(_:)), name: "didSelectBrowseCategory", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.didClickPackLink(_:)), name: "didClickPackLink", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowsePackCollectionViewController.displayUserProfile(_:)), name: "displayUserProfile", object: nil)
         
         collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: horizontalCellReuseIdentifer)
         view.addSubview(reachabilityView)
@@ -71,6 +72,16 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
             navigationController?.navigationBar.hidden = false
             navigationController?.pushViewController(packVC, animated: true)
         }
+    }
+
+    func displayUserProfile(notification: NSNotification) {
+        guard let id = notification.userInfo?["userId"] as? String else {
+            return
+        }
+
+        let packsService = PacksService(userId: id)
+        let profileVC = UserProfileViewController(viewModel: packsService)
+        navigationController?.pushViewController(profileVC, animated: true)
     }
     
     func didSelectBrowseCategory(notification: NSNotification) {

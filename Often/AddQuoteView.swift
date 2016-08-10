@@ -14,7 +14,6 @@ class AddQuoteView: UIView {
     var placeholderLabel: UILabel
     
     override init(frame: CGRect) {
-        
         quoteTextView = UITextView()
         quoteTextView.translatesAutoresizingMaskIntoConstraints = false
         quoteTextView.textAlignment = .Right

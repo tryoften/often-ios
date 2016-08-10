@@ -59,23 +59,11 @@ class User: NSObject {
         if let profileImageSmallString = keyedValues["profileImageSmall"] as? String {
             profileImageSmall = profileImageSmallString
         }
-        
-        if let profileImageSmallString = keyedValues["profile_pic_small"] as? String {
-            profileImageSmall = profileImageSmallString
-        }
-        
+
         if let profileImageLargeString = keyedValues["profileImageLarge"] as? String {
             profileImageLarge = profileImageLargeString
         }
-        
-        if let profileImageLargeString = keyedValues["profileImageURL"] as? String {
-            profileImageLarge = profileImageLargeString
-        }
-        
-        if let profileImageLargeString = keyedValues["profile_pic_large"] as? String {
-            profileImageLarge = profileImageLargeString
-        }
-        
+
         if let phoneString = keyedValues["phone"] as? String {
             phone = phoneString
         }
@@ -104,13 +92,17 @@ class User: NSObject {
         setupCrashlytics()
     }
     
-    func dataChangedToDictionary() -> [String: String] {
-       let userData = [
+    func dataChangedToDictionary() -> [String: AnyObject] {
+        let userData: [String: AnyObject] = [
             "id": id,
             "name": name,
             "username": username,
             "profileImageSmall": profileImageSmall,
             "profileImageLarge": profileImageLarge,
+            "image": [
+                "small_url": profileImageSmall,
+                "large_url": profileImageLarge
+            ],
             "email": email,
             "phone": phone,
             "description": userDescription,

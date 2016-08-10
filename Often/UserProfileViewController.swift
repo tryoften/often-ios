@@ -36,20 +36,23 @@ UICollectionViewDelegateFlowLayout {
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
         
         viewModel.delegate = self
-        viewModel.fetchCollection()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack), name: AddContentTabDismissedEvent, object: nil)
         
-        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+        packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
+            self.reloadUserData()
         }
 
         collectionView?.contentInset = UIEdgeInsetsZero
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userProfileSectionHeader")
-        
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
+                                     withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
     }
@@ -79,13 +82,7 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let collectionView = collectionView {
-            collectionView.backgroundColor = VeryLightGray
-            collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
-                                         withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
-        }
+        viewModel.fetchData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -110,6 +107,12 @@ UICollectionViewDelegateFlowLayout {
             navigationBar.translucent = false
             navigationBar.hidden = true
         }
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        navigationController?.navigationBar.hidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -147,7 +150,7 @@ UICollectionViewDelegateFlowLayout {
                 recognizer.addTarget(self, action: #selector(UserProfileViewController.handleSettingsTap(_:)))
                 headerView?.rightHeaderLabel.addGestureRecognizer(recognizer)
                 headerView?.rightHeaderLabel.userInteractionEnabled = true
-                viewModel.fetchCollection()
+                viewModel.fetchData()
             }
             
             return headerView!
@@ -210,10 +213,10 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func reloadUserData() {
-        if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
+        if let headerView = headerView, let user = viewModel.currentUser {
             headerView.nameLabel.text = user.name
-            headerView.collapseNameLabel.text = user.name
-            headerView.leftHeaderLabel.text = "@\(user.username)"
+            headerView.collapseNameLabel.text = "@\(user.username)"
+            headerView.leftHeaderLabel.text = user.name
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
@@ -280,7 +283,6 @@ UICollectionViewDelegateFlowLayout {
             UIApplication.sharedApplication().openURL(appSettings)
         }
     }
-    
     
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)

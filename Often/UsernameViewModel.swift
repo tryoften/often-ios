@@ -10,18 +10,8 @@ import Foundation
 import Firebase
 
 class UsernameViewModel: BaseViewModel {
-    let userId: String
-    let userRef: FIRDatabaseReference
 
     init() {
-        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
-            self.userId = userId
-        } else {
-            self.userId = "default"
-        }
-
-        userRef = FIRDatabase.database().reference().child("users/\(userId)")
-
         super.init()
 
         do {

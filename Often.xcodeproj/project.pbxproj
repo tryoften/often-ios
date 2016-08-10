@@ -852,6 +852,8 @@
 		817F784D1BC085440087EBE8 /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
 		8180E6151A142157007FA1CF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8180E6141A142157007FA1CF /* Images.xcassets */; };
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		819099731D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
+		819099741D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
 		8192A7D11C62410300B25AC6 /* ChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C61C62410300B25AC6 /* ChangeListener.swift */; };
 		8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C71C62410300B25AC6 /* Emitter.swift */; };
 		8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C91C62410300B25AC6 /* EmitterListener.swift */; };
@@ -1431,6 +1433,7 @@
 		8180E6311A142199007FA1CF /* Keyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Keyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsSectionHeaderView.swift; sourceTree = "<group>"; };
+		819099721D591E5500AC119D /* PackHeaderProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderProfileButton.swift; sourceTree = "<group>"; };
 		8192A7C61C62410300B25AC6 /* ChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListener.swift; sourceTree = "<group>"; };
 		8192A7C71C62410300B25AC6 /* Emitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		8192A7C81C62410300B25AC6 /* EmitterKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterKit.h; sourceTree = "<group>"; };
@@ -1918,6 +1921,7 @@
 				698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */,
 				69E064891D4FC33400432836 /* UserProfileSectionHeaderView.swift */,
 				696D8A5C1B93E8890016073C /* UserProfileSettingsTableViewCell.swift */,
+				6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */,
 			);
 			name = "User Profile";
 			sourceTree = "<group>";
@@ -2245,7 +2249,6 @@
 				3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */,
 				3BDF89251D4169B10043173A /* PowerByGiphyView.swift */,
 				3B97896C1D4668BC001DD156 /* AddContentView.swift */,
-				6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */,
 				3BDF891F1D415A490043173A /* SearchOverlayView.swift */,
 				3BDF89161D3FD2720043173A /* SearchBarView.swift */,
 				69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */,
@@ -2270,6 +2273,7 @@
 				BF1858E51D3FE46800087872 /* UsernameAlertView.swift */,
 				BF31C5BF1D47CF2000D33AE0 /* AddQuoteView.swift */,
 				BF31C5C21D47D9F000D33AE0 /* AddContentNavigationView.swift */,
+				819099721D591E5500AC119D /* PackHeaderProfileButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3511,6 +3515,7 @@
 				3BF532BE1D00DD5A00E740DC /* AlertViewController.swift in Sources */,
 				69F386731D41325E00EB90E6 /* PackImagePickerViewController.swift in Sources */,
 				BFAD7B2B1D493F830002670F /* BaseCategoryAssignmentViewController.swift in Sources */,
+				819099741D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */,
 				BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */,
 				810EA5381C8579D1005A6C6D /* Validation.swift in Sources */,
 				810EA5391C8579D1005A6C6D /* WindowRootViewController.swift in Sources */,
@@ -3795,6 +3800,7 @@
 				69D1126C1CA73DBB0030EB79 /* BrowsePackHeaderCollectionViewController.swift in Sources */,
 				816D50C01C8A0609007B3249 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				816D50751C8A0521007B3249 /* MediaItemGroupViewModel.swift in Sources */,
+				819099731D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */,
 				3BFCDFB81D54BF7E005A4BF8 /* UsernameViewModel.swift in Sources */,
 				816D509B1C8A058D007B3249 /* CreateAccountView.swift in Sources */,
 				69E633141D11C67D00C34BE5 /* BrowseCategorySelectionTableViewController.swift in Sources */,

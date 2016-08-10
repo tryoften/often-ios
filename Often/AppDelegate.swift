@@ -88,16 +88,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.absoluteString.hasPrefix("fb") {
+        let urlString = url.absoluteString
+        if urlString.hasPrefix("fb") {
             return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
         }
         
-        if url.absoluteString.containsString("pack/") {
+        else if urlString.containsString("pack/") {
             guard let id = url.lastPathComponent else {
                 return false
             }
 
             NSNotificationCenter.defaultCenter().postNotificationName("didClickPackLink", object: nil, userInfo: ["packid" : id])
+        }
+
+        else if urlString.containsString("user/") {
+            guard let id = url.lastPathComponent else {
+                return false
+            }
+
+            NSNotificationCenter.defaultCenter().postNotificationName("displayUserProfile", object: nil, userInfo: ["userId" : id])
         }
 
         return false

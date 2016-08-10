@@ -110,7 +110,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         collapseNameLabel.translatesAutoresizingMaskIntoConstraints = false
         collapseNameLabel.font = UIFont(name: "Montserrat", size: 12.0)
         collapseNameLabel.textColor = UIColor.oftBlack74Color()
-        collapseNameLabel.alpha = 0
         collapseNameLabel.textAlignment = .Right
 
         nameLabel = UILabel()
@@ -123,15 +122,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         rightHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         rightHeaderLabel.textAlignment = .Center
         rightHeaderLabel.backgroundColor = ClearColor
-        
-        let attributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "Montserrat", size: 11.0)!,
-            NSForegroundColorAttributeName: UIColor.lightGrayColor()
-        ]
-        
-        rightHeaderLabel.attributedText = NSMutableAttributedString(string: "settings".uppercaseString, attributes: attributes)
-        
+
         leftHeaderLabel = UILabel()
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         leftHeaderLabel.font = UIFont(name: "Montserrat", size: 12.0)
@@ -154,15 +145,18 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         leftDescriptorLabel = UILabel()
         leftDescriptorLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftDescriptorLabel.font = UIFont(name: "OpenSans", size: 10.5)
-        leftDescriptorLabel.textColor = UIColor.lightGrayColor()
-        leftDescriptorLabel.text = "Pack Followers"
-        
+        leftDescriptorLabel.setTextWith(UIFont(name: "OpenSans", size: 10.5),
+                                        letterSpacing: 0.5,
+                                        color: UIColor.lightGrayColor(),
+                                        text: "Followers".uppercaseString)
+
         rightDescriptorLabel = UILabel()
         rightDescriptorLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightDescriptorLabel.font = UIFont(name: "OpenSans", size: 10.5)
-        rightDescriptorLabel.textColor = UIColor.lightGrayColor()
-        rightDescriptorLabel.text = "Packs Following"
+        rightDescriptorLabel.setTextWith(UIFont(name: "OpenSans", size: 10.5),
+                                         letterSpacing: 0.5,
+                                         color: UIColor.lightGrayColor(),
+                                         text: "Following".uppercaseString)
+
         
         rightHeaderButton = UIButton()
         rightHeaderButton.translatesAutoresizingMaskIntoConstraints = false
@@ -212,9 +206,7 @@ class UserProfileHeaderView: UICollectionReusableView {
 
             if progressiveness <= 0.58 {
                 collapseProfileImageView.image = profileImageView.image
-                collapseNameLabel.alpha = 1
-
-                leftHeaderLabelConstraint?.constant = 34.5
+                leftHeaderLabel.alpha = 1
                 
                 nameLabel.alpha = 0
                 userProfilePlaceholder.alpha = 0
@@ -226,11 +218,9 @@ class UserProfileHeaderView: UICollectionReusableView {
                 rightHeaderLabel.alpha = 0
 
             } else {
-                collapseNameLabel.alpha = 0
                 collapseProfileImageView.alpha = 0
+                leftHeaderLabel.alpha = 0
 
-                leftHeaderLabelConstraint?.constant = 43.5
-                
                 nameLabel.alpha = 1
                 userProfilePlaceholder.alpha = 1
                 leftBoldLabel.alpha = 1
@@ -247,7 +237,7 @@ class UserProfileHeaderView: UICollectionReusableView {
     
     func setupLayout() {
         let screenWidth = UIScreen.mainScreen().bounds.size.width
-        leftHeaderLabelConstraint = leftHeaderLabel.al_top == al_top + 43.5
+        leftHeaderLabelConstraint = leftHeaderLabel.al_top == al_top + 34.5
         
         addConstraints([
             collapseProfileImageView.al_top >= al_top + 28,
@@ -257,7 +247,7 @@ class UserProfileHeaderView: UICollectionReusableView {
 
             collapseNameLabel.al_top >= al_top + 28,
             collapseNameLabel.al_centerX == al_centerX,
-            collapseNameLabel.al_height == 30,
+            collapseNameLabel.al_centerY == leftHeaderLabel.al_centerY,
 
             profileImageView.al_centerY == nameLabel.al_centerY,
             profileImageView.al_right == al_right - (screenWidth * 0.06),
