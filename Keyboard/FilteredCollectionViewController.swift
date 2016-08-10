@@ -12,6 +12,7 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
     
     var reactionsViewModel: ReactionsViewModel
     var reaction: Category
+    var backButton: UIButton
     
     init(viewModel: ReactionsViewModel, reaction: Category, textProcessor: TextProcessingManager?) {
         
@@ -19,13 +20,25 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
         self.reaction = reaction
         reactionsViewModel.generateFilteredGroups(reaction)
         
+        backButton = UIButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(StyleKit.imageOfBackarrow(scale: 0.4), forState: .Normal)
+        
         super.init(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
         
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
         
+        
+        backButton.addTarget(self, action: #selector(FilteredCollectionViewController.didTapBackButton), forControlEvents: .TouchUpInside)
         collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+        
+        view.addSubview(backButton)
+        view.addConstraints([
+            backButton.al_left == view.al_left,
+            backButton.al_top == view.al_top - 6
+        ])
         
     }
     
@@ -65,7 +78,6 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
             if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
                 
                 sectionView.middleText = reaction.name.uppercaseString
-                // add back button
                 return sectionView
             }
         }
@@ -135,7 +147,8 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
         return 7.0
     }
     
-    
-    
+    func didTapBackButton() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
 }

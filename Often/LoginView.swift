@@ -10,14 +10,15 @@
 import Foundation
 
 class LoginView: UIView {
-    let titleLabel: UILabel
-    var subtitleLabel: UILabel
-    var scrollView: UIScrollView
-    let pageControl: UIPageControl
-    let createAccountButton: UIButton
-    let skipButton: UIButton
-    var launchScreenLoader: UIImageView
+    private let titleLabel: UILabel
+    private var subtitleLabel: UILabel
+    private var imageView: UIImageView
+    private let orSpacer: ViewSpacerWithText
+    let emailButton: UIButton
     let signinButton: UIButton
+    let twitterButton: UIButton
+    let facebookButton: UIButton
+    var launchScreenLoader: UIImageView
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -27,10 +28,10 @@ class LoginView: UIView {
     }
     
     override init(frame: CGRect) {
-        let titleString = "Share lyrics, quotes & GIFS"
+        let titleString = "Your own personal keyboard"
         let titleRange = NSMakeRange(0, titleString.characters.count)
         let title = NSMutableAttributedString(string: titleString)
-        let subtitleString = "Pick packs from TV Shows, Artists, \n Movies, Tweets, Sports & More"
+        let subtitleString = "Create your very own keyboard with GIFs, \n Images, & Quotes for friends to use"
         let subtitleRange = NSMakeRange(0, subtitleString.characters.count)
         let subtitle = NSMutableAttributedString(string: subtitleString)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -42,6 +43,12 @@ class LoginView: UIView {
 
         title.addAttribute(NSFontAttributeName, value: UIFont(name: "Montserrat", size: 14)!, range: titleRange)
         title.addAttribute(NSKernAttributeName, value: 1, range: titleRange)
+
+        let signupEmailButtonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.oftBlackColor()
+        ]
         
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +56,7 @@ class LoginView: UIView {
         titleLabel.textColor = SignupViewTitleLabelFontColor
         titleLabel.textAlignment = .Center
         titleLabel.attributedText = title
-        
+
         subtitleLabel = UILabel()
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = SignupViewAppDescriptionLabelFont
@@ -59,38 +66,33 @@ class LoginView: UIView {
         subtitleLabel.textAlignment = .Center
         subtitleLabel.alpha = 0.54
         
-        scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.pagingEnabled = true
-        scrollView.backgroundColor = UIColor(fromHexString: "#ffffff")
-        scrollView.showsHorizontalScrollIndicator = false
-        
-        pageControl = UIPageControl()
-        pageControl.currentPageIndicatorTintColor = SignupViewPageControlHighlightColor
-        pageControl.numberOfPages = 5
-        pageControl.pageIndicatorTintColor = UIColor(fromHexString: "#DDDDDD")
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        
-        createAccountButton = UIButton()
-        createAccountButton.translatesAutoresizingMaskIntoConstraints = false
-        createAccountButton.backgroundColor = SignupViewCreateAccountButtonColor
-        createAccountButton.setTitle("sign up".uppercaseString, forState: .Normal)
-        createAccountButton.titleLabel!.font = UIFont(name: "Montserrat-Regular", size: 11)
-        createAccountButton.setTitleColor(UIColor.whiteColor() , forState: .Normal)
-        createAccountButton.layer.cornerRadius = 0
-        createAccountButton.clipsToBounds = true
-        
-        skipButton = LoginButton.AnonymousButton()
-        skipButton.setTitle("skip".uppercaseString, forState: .Normal)
-        skipButton.setTitleColor(UIColor(fromHexString: "#202020") , forState: .Normal)
-        skipButton.alpha = 0.54
-        
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = UIColor(fromHexString: "#ffffff")
+        imageView.image = UIImage(named: "signupImage")
+        imageView.contentMode = .ScaleAspectFit
+
+        emailButton = UIButton()
+        emailButton.translatesAutoresizingMaskIntoConstraints = false
+        emailButton.backgroundColor = UIColor.whiteColor()
+        emailButton.setAttributedTitle( NSAttributedString(string: "sign up w/ email".uppercaseString, attributes: signupEmailButtonAttributes), forState: .Normal)
+        emailButton.layer.cornerRadius = 25
+        emailButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
+        emailButton.layer.borderWidth = 2
+        emailButton.clipsToBounds = true
+
         signinButton = UIButton()
         signinButton.translatesAutoresizingMaskIntoConstraints = false
         signinButton.setTitle("sign in".uppercaseString, forState: .Normal)
         signinButton.titleLabel!.font = UIFont(name: "Montserrat", size: 11)
         signinButton.setTitleColor(UIColor(fromHexString: "#202020")  , forState: .Normal)
         signinButton.alpha = 0.54
+
+        facebookButton = LoginButton.FacebookButton()
+        twitterButton = LoginButton.TwitterButton()
+
+        orSpacer = ViewSpacerWithText(title:"Or With")
+        orSpacer.translatesAutoresizingMaskIntoConstraints = false
         
         var splashImage: UIImage = UIImage(named: "LaunchImage-800-667h@2x")!
         
@@ -110,13 +112,14 @@ class LoginView: UIView {
         
         backgroundColor = UIColor(fromHexString: "#ffffff")
         
-        addSubview(scrollView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
-        addSubview(pageControl)
-        addSubview(createAccountButton)
-        addSubview(skipButton)
+        addSubview(imageView)
+        addSubview(emailButton)
+        addSubview(orSpacer)
         addSubview(signinButton)
+        addSubview(facebookButton)
+        addSubview(twitterButton)
         addSubview(launchScreenLoader)
         
         setupLayout()
@@ -127,42 +130,47 @@ class LoginView: UIView {
     }
     
     func setupLayout() {
-        var constraints = [
-            skipButton.al_left == al_left + 25,
-            skipButton.al_top == al_top + 25,
-            skipButton.al_height == 25,
-            skipButton.al_width == 49.6,
-            
-            signinButton.al_centerY == skipButton.al_centerY,
+        let constraints = [
+            signinButton.al_top == al_top + 25,
             signinButton.al_right == al_right - 25,
-            signinButton.al_height == skipButton.al_height,
-            signinButton.al_width == skipButton.al_width,
+            signinButton.al_height == 25,
+            signinButton.al_width == 49.6,
             
-            scrollView.al_top == skipButton.al_bottom,
-            scrollView.al_left == al_left + 20,
-            scrollView.al_right == al_right - 20,
-            scrollView.al_bottom == titleLabel.al_top,
-            
-            titleLabel.al_bottom == subtitleLabel.al_top - 10,
+            titleLabel.al_top == al_top + 82,
             titleLabel.al_left == al_left,
             titleLabel.al_right == al_right,
             titleLabel.al_height == 16.5,
-            
-            subtitleLabel.al_bottom == pageControl.al_top - 18.5,
+
+            subtitleLabel.al_top == titleLabel.al_bottom + 5,
             subtitleLabel.al_left == al_left + 45,
             subtitleLabel.al_right == al_right - 45,
             subtitleLabel.al_height == 42,
-            
-            pageControl.al_bottom == createAccountButton.al_top - 34,
-            pageControl.al_centerX == al_centerX,
-            pageControl.al_height == 2,
-            pageControl.al_width == 40,
-            
-            createAccountButton.al_bottom == al_bottom,
-            createAccountButton.al_left == al_left,
-            createAccountButton.al_right == al_right,
-            createAccountButton.al_height == 55,
-            
+
+            imageView.al_top == subtitleLabel.al_bottom + 58,
+            imageView.al_left == al_left + 80,
+            imageView.al_right == al_right - 80,
+            imageView.al_centerY == al_centerY - 30,
+
+            emailButton.al_top == imageView.al_bottom + 30,
+            emailButton.al_left == al_left + 40.5,
+            emailButton.al_right == al_right - 40.5,
+            emailButton.al_height == 55,
+
+            orSpacer.al_top == emailButton.al_bottom + 18,
+            orSpacer.al_left == al_left + 40.5,
+            orSpacer.al_right == al_right - 40.5,
+            orSpacer.al_height == 20,
+
+            twitterButton.al_top == orSpacer.al_bottom + 18,
+            twitterButton.al_left == al_left + 40,
+            twitterButton.al_right == al_centerX - 2,
+            twitterButton.al_height == 50,
+
+            facebookButton.al_top == twitterButton.al_top,
+            facebookButton.al_left == al_centerX + 2,
+            facebookButton.al_right == al_right - 40,
+            facebookButton.al_height == 50,
+
             launchScreenLoader.al_bottom == al_bottom,
             launchScreenLoader.al_top == al_top,
             launchScreenLoader.al_left == al_left,
@@ -170,18 +178,6 @@ class LoginView: UIView {
             launchScreenLoader.al_centerX == al_centerX,
             launchScreenLoader.al_centerY == al_centerY,
         ]
-        
-        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            constraints += [
-                skipButton.al_bottom == al_bottom - 10,
-                scrollView.al_bottom == pageControl.al_top - 18,
-            ]
-        } else {
-            constraints += [
-                skipButton.al_bottom == al_bottom - 30,
-                scrollView.al_bottom == pageControl.al_top - 3,
-            ]
-        }
         
         addConstraints(constraints)
     }

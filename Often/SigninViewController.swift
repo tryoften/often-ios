@@ -11,7 +11,6 @@ import Foundation
 class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     var signinView: SigninView
 
-    
     override init (viewModel: LoginViewModel) {
         signinView = SigninView()
         signinView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,11 +32,11 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
         signinView.emailTextField.delegate = self
         signinView.passwordTextField.delegate = self
         
-        signinView.cancelButton.addTarget(self,  action: "didTapcancelButton:", forControlEvents: .TouchUpInside)
-        signinView.signinButton.addTarget(self, action: "didTapSigninButton:", forControlEvents: .TouchUpInside)
-        signinView.signinButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        signinView.signinFacebookButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
-        signinView.signinTwitterButton.addTarget(self, action:"didTapButton:", forControlEvents: .TouchUpInside)
+        signinView.cancelButton.addTarget(self,  action: #selector(SigninViewController.didTapcancelButton(_:)), forControlEvents: .TouchUpInside)
+        signinView.signinButton.addTarget(self, action: #selector(SigninViewController.didTapSigninButton(_:)), forControlEvents: .TouchUpInside)
+        signinView.signinButton.addTarget(self, action: #selector(UserCreationViewController.didTapLoginButton(_:)), forControlEvents: .TouchUpInside)
+        signinView.signinFacebookButton.addTarget(self, action:#selector(UserCreationViewController.didTapLoginButton(_:)), forControlEvents: .TouchUpInside)
+        signinView.signinTwitterButton.addTarget(self, action:#selector(UserCreationViewController.didTapLoginButton(_:)), forControlEvents: .TouchUpInside)
     }
 
     override func prefersStatusBarHidden() -> Bool {
@@ -77,9 +76,14 @@ class SigninViewController: UserCreationViewController, UITextFieldDelegate {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         let characterCount = signinView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
+            signinView.signinButton.selected = true
+            signinView.signinButton.layer.borderWidth = 0
             signinView.signinButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {
-            signinView.signinButton.backgroundColor = CreateAccountViewSignupButtonColor
+            signinView.signinButton.backgroundColor = UIColor.whiteColor()
+            signinView.signinButton.selected = false
+            signinView.signinButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
+            signinView.signinButton.layer.borderWidth = 2
         }
         
         return true

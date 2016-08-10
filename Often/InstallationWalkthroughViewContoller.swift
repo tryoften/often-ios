@@ -45,6 +45,10 @@ class InstallationWalkthroughViewContoller: PresentingRootViewController {
         setupLayout()
     }
 
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     func setupLayout() {
         view.addConstraints([
             installView.al_top  == view.al_top,
@@ -131,7 +135,8 @@ class InstallationWalkthroughViewContoller: PresentingRootViewController {
         PKHUD.sharedHUD.show()
 
         viewModel.sessionManager.sessionManagerFlags.userSeenKeyboardInstallWalkthrough = true
+        NSNotificationCenter.defaultCenter().postNotificationName("CompletedWalkthrough", object: self)
 
-        presentRootViewController(RootViewController())
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

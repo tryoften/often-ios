@@ -80,12 +80,9 @@ class ReactionsCollectionViewController: BaseBrowsePackItemViewController, React
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        // new vc
+
         let vc = FilteredCollectionViewController(viewModel: reactionsViewModel, reaction: reactionsViewModel.reactions[indexPath.row], textProcessor: textProcessor)
-        vc.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - 44.5)
-        navigationController?.pushViewController(vc, animated: true)
-        presentViewControllerWithCustomTransitionAnimator(vc, direction: .Left, duration: 0.2)
-        
+        presentViewController(vc, animated: true, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -118,7 +115,6 @@ class ReactionsCollectionViewController: BaseBrowsePackItemViewController, React
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 7.0
     }
-    
     
     func reactionsViewModelDelegateDataDidLoad(viewModel: ReactionsViewModel, reactions: [Category]?) {
         collectionView?.reloadData()

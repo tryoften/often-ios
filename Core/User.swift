@@ -129,7 +129,7 @@ class User: NSObject {
 }
 
 struct UserAuthData {
-    var username: String
+    var name: String
     var email: String
     var password: String
     var isNewUser: Bool
