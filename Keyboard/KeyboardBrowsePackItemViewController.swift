@@ -153,11 +153,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
     }
-    
-//    override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
-//        collectionView?.setContentOffset(CGPointZero, animated: true)
-//        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
-//    }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         guard let group = packViewModel.getMediaItemGroupForCurrentType() else {
