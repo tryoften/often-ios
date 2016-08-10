@@ -16,7 +16,7 @@ class ViewSpacerWithText: UIView {
      init(title: String) {
         orLabel = UILabel()
         orLabel.textAlignment = .Center
-        orLabel.font = UIFont(name: "OpenSans-Italic", size: 10)
+        orLabel.font = UIFont(name: "OpenSans-Italic", size: 10.5)
         orLabel.textColor = UIColor(fromHexString: "#A0A0A0")
         orLabel.translatesAutoresizingMaskIntoConstraints = false
         orLabel.text = title

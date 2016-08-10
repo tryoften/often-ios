@@ -240,7 +240,7 @@ UICollectionViewDelegateFlowLayout {
     func promptUserToChooseUsername() {
         if let user = SessionManager.defaultManager.currentUser {
             if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
-                let alertVC = UsernameAlertViewController(viewModel: viewModel)
+                let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
                 alertVC.transitioningDelegate = self
                 alertVC.modalPresentationStyle = .Custom
                 presentViewController(alertVC, animated: true, completion: nil)

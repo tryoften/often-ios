@@ -31,16 +31,14 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createAccountView.usernameTextField.delegate = self
+        createAccountView.nameTextField.delegate = self
         createAccountView.passwordTextField.delegate = self
         createAccountView.emailTextField.delegate = self
         
-        createAccountView.cancelButton.addTarget(self,  action: "didTapCancelButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupButton.addTarget(self, action: "didTapSignupButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupFacebookButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.signupTwitterButton.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
-        createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: "didTapTermsOfUseButton:", forControlEvents: .TouchUpInside)
+        createAccountView.cancelButton.addTarget(self,  action: #selector(CreateAccountViewController.didTapCancelButton(_:)), forControlEvents: .TouchUpInside)
+        createAccountView.signupButton.addTarget(self, action: #selector(CreateAccountViewController.didTapSignupButton(_:)), forControlEvents: .TouchUpInside)
+        createAccountView.signupButton.addTarget(self, action: #selector(UserCreationViewController.didTapLoginButton(_:)), forControlEvents: .TouchUpInside)
+        createAccountView.termsOfUseAndPrivacyPolicyButton.addTarget(self, action: #selector(CreateAccountViewController.didTapTermsOfUseButton(_:)), forControlEvents: .TouchUpInside)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -48,37 +46,38 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     func didTapCancelButton(sender: UIButton) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
 
         dismissViewControllerAnimated(true, completion: nil)
     }
         
     func didTapSignupButton(sender: UIButton) {
-        viewModel.userAuthData.username = createAccountView.usernameTextField.text!
+        viewModel.userAuthData.name = createAccountView.nameTextField.text!
         viewModel.userAuthData.email = createAccountView.emailTextField.text!
         viewModel.userAuthData.password = createAccountView.passwordTextField.text!
         viewModel.userAuthData.isNewUser = true
-
-
     }
     
     func didTapTermsOfUseButton(sender: UIButton) {
         self.presentViewController(TermsOfUseViewController(title: "terms of use & privacy policy", website: "http://tryoften.com/privacy"), animated: true, completion: nil)
-        
     }
     
-    func createKeyboardInstallationWalkthroughViewController() {
-        let keyboardInstallationWalkthrough = InstallationWalkthroughViewContoller(viewModel: self.viewModel)
-        self.presentViewController(keyboardInstallationWalkthrough, animated: true, completion: nil)
-
+    func createAddUsernameViewController() {
+        let vc = AddUsernameViewController(viewModel: UsernameViewModel())
+        presentViewController(vc, animated: true, completion: nil)
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         let characterCount = createAccountView.passwordTextField.text!.characters.count
         if characterCount >= 3 {
+            createAccountView.signupButton.selected = true
+            createAccountView.signupButton.layer.borderWidth = 0
             createAccountView.signupButton.backgroundColor = UIColor(fromHexString: "#152036")
         } else {
-            createAccountView.signupButton.backgroundColor = CreateAccountViewSignupButtonColor
+            createAccountView.signupButton.backgroundColor = UIColor.whiteColor()
+            createAccountView.signupButton.selected = false
+            createAccountView.signupButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
+            createAccountView.signupButton.layer.borderWidth = 2
         }
         
         return true
@@ -96,11 +95,11 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        UIApplication.sharedApplication().sendAction("resignFirstResponder", to: nil, from: nil, forEvent: nil)
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == createAccountView.usernameTextField {
+        if textField == createAccountView.nameTextField {
             createAccountView.emailTextField.becomeFirstResponder()
             
         } else if textField == createAccountView.emailTextField {
@@ -114,7 +113,7 @@ class CreateAccountViewController: UserCreationViewController, UITextFieldDelega
 
     override func loginViewModelDidLoginUser(userProfileViewModel: LoginViewModel, user: User?) {
         super.loginViewModelDidLoginUser(userProfileViewModel, user: user)
-        createKeyboardInstallationWalkthroughViewController()
+        createAddUsernameViewController()
     }
 
 }
