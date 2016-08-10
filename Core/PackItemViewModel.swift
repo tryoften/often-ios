@@ -31,9 +31,9 @@ class PackItemViewModel: BrowseViewModel {
         }
     }
 
-    init(packId: String) {
+    init(userId: String? = nil, packId: String) {
         self.packId = packId
-        super.init(path: "packs/\(packId)")
+        super.init(userId: userId, path: "packs/\(packId)")
     }
     
     override func fetchData(completion: ((Bool) -> Void)? = nil) {

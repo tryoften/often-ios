@@ -64,6 +64,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         coverPhotoContainer.layer.shadowOffset = CGSizeMake(0, 1)
 
         coverPhoto = UIImageView()
+        coverPhoto.backgroundColor = VeryLightGray
         coverPhoto.translatesAutoresizingMaskIntoConstraints = false
         coverPhoto.contentMode = .ScaleAspectFill
         coverPhoto.layer.cornerRadius = 4.0
@@ -77,7 +78,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         packBackgroundColor.translatesAutoresizingMaskIntoConstraints = false
         packBackgroundColor.backgroundColor = BlackColor
 
-        var layer = CAShapeLayer()
+        let layer = CAShapeLayer()
         layer.path = MediaItemPageHeaderView.drawPackBackgroundMask().CGPath
         layer.fillColor = UIColor.whiteColor().CGColor
         layer.backgroundColor = UIColor.clearColor().CGColor

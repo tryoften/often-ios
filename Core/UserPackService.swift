@@ -14,14 +14,9 @@ class UserPackService: MediaItemsViewModel {
     static let defaultInstance = UserPackService()
     private(set) var ids: Set<String> = []
 
-    let userRef: FIRDatabaseReference
-    let userId: String
     let didChangeItems = Event<[MediaItem]>()
 
     init() {
-        userId = SessionManagerFlags.defaultManagerFlags.userId!
-        userRef = FIRDatabase.database().reference().child("users/\(userId)")
-
         super.init(collectionType: .Favorites)
 
         do {
@@ -106,11 +101,7 @@ class UserPackService: MediaItemsViewModel {
     }
 
     // MARK: Private Methods    
-    private func sendTask(task: String, item: MediaItem) {
-        guard let userId = currentUser?.id else {
-            return
-        }
-        
+    private func sendTask(task: String, item: MediaItem) {        
         let favoriteQueueRef = baseRef.child("queues/user/tasks").childByAutoId()
         favoriteQueueRef.setValue([
             "type": "editUserPackItems",

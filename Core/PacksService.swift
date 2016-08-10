@@ -14,12 +14,10 @@ import FirebaseInstanceID
 
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
-    let userRef: FIRDatabaseReference
-    let userId: String
     let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
     
-    internal var collectionEndpoint: FIRDatabaseReference
+    internal var collectionEndpoint: FIRDatabaseReference!
     private var subscriptionsRef: FIRDatabaseReference!
     private var subscriptions: [PackSubscription] = []
     private(set) var ids: Set<String> = []
@@ -32,40 +30,44 @@ class PacksService: PackItemViewModel {
             delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: self.mediaItemGroups)
         }
     }
-    
-    init() {
-        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
-            self.userId = userId
-        } else {
-            self.userId = "default"
-        }
-        
+
+    init(userId: String) {
         mediaItems = []
-        userRef = FIRDatabase.database().reference().child("users/\(userId)")
+
+        super.init(userId: userId, packId: "")
         collectionEndpoint = userRef.child("packs")
-        
-        super.init(packId: "")
-        
+
         if let lastPack = SessionManagerFlags.defaultManagerFlags.lastPack {
             packId = lastPack
         }
-        
+
         if let lastFilterType = SessionManagerFlags.defaultManagerFlags.lastFilterType,
             let type = MediaType(rawValue: lastFilterType) {
             typeFilter = type
         }
-        
+
         currentCategory = Category.all
-        
+
         do {
             try setupUser { inner in
             }
         } catch _ {
         }
-        
+
         subscriptionsRef = userRef.childByAppendingPath("subscriptions")
         subscriptionsRef.observeEventType(.Value, withBlock: self.onSubscriptionsChanged)
         subscriptionsRef.keepSynced(true)
+    }
+    
+    convenience init() {
+        var id: String
+        if let userId = SessionManagerFlags.defaultManagerFlags.userId {
+            id = userId
+        } else {
+            id = "default"
+        }
+
+        self.init(userId: id)
     }
     
     func fetchCollection(completion: ((Bool) -> Void)? = nil) {
@@ -120,6 +122,14 @@ class PacksService: PackItemViewModel {
             }
             
         }
+    }
+
+    func isManagingCurrentUser() -> Bool {
+        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId else {
+            return false
+        }
+        
+        return userId == currentUserId
     }
     
     func generateMediaItemGroups() -> [MediaItemGroup] {
