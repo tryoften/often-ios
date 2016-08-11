@@ -27,6 +27,7 @@ class PackMediaItem: MediaItem {
     var isUpdated: Bool = false
     var isNew: Bool = false
     var backgroundColor: UIColor?
+    var owner: NSDictionary?
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -123,6 +124,10 @@ class PackMediaItem: MediaItem {
 
         if let backgroundColor = data["backgroundColor"] as? String {
             self.backgroundColor = UIColor(fromHexString: backgroundColor)
+        }
+
+        if let owner = data["owner"] as? [String: AnyObject] {
+            self.owner = owner
         }
     }
 

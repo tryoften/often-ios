@@ -33,7 +33,7 @@ class BrowsePackDownloadButton: UIButton {
         }
     }
 
-    var title: String = "Download".uppercaseString {
+    var title: String = "Follow".uppercaseString {
         didSet {
             let text = NSAttributedString(string: title, attributes: [
                 NSKernAttributeName: NSNumber(float: 1.0),
@@ -52,11 +52,11 @@ class BrowsePackDownloadButton: UIButton {
                 if self.selected {
                     self.backgroundColor = WhiteColor
                     self.textColor = BlackColor
-                    self.title = "Remove".uppercaseString
+                    self.title = "Unfollow".uppercaseString
                 } else {
                     self.backgroundColor = TealColor
                     self.textColor = UIColor.oftWhiteColor()
-                    self.title = "Download".uppercaseString
+                    self.title = "Follow".uppercaseString
                 }
             }
         }

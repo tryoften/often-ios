@@ -17,15 +17,25 @@ class BaseViewModel {
 
     let sessionManagerFlags = SessionManagerFlags.defaultManagerFlags
     var currentUser: User?
-    private var userId: String
-    private var userRef: FIRDatabaseReference?
+    var userId: String
+    private(set) var userRef: FIRDatabaseReference
 
-    init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String? = nil) {
+    init(userId: String? = nil, baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String? = nil) {
         self.baseRef = baseRef
         self.path = path
         ref = path != nil ? baseRef.child(path!) : baseRef
         isDataLoaded = false
-        userId = ""
+
+        if let id = userId {
+            self.userId = id
+        } else if let sessionId = sessionManagerFlags.userId {
+            self.userId = sessionId
+        } else {
+            self.userId = "default"
+        }
+
+        userRef = baseRef.child("users/\(self.userId)")
+        userRef.keepSynced(true)
     }
 
     /**
@@ -44,21 +54,11 @@ class BaseViewModel {
      http://appventure.me/2015/06/19/swift-try-catch-asynchronous-closures/
      */
     func setupUser(completion: (() throws -> User) -> ()) throws {
-        guard let userId = sessionManagerFlags.userId else {
-            throw MediaItemsViewModelError.NoUser
-        }
-
         if !sessionManagerFlags.openSession {
             throw MediaItemsViewModelError.NoUser
         }
 
-    #if KEYBOARD
-        self.userId = userId
-
-        userRef = ref.child("users/\(userId)")
-        userRef?.keepSynced(true)
-
-        userRef?.observeEventType(.Value, withBlock: { snapshot in
+        userRef.observeEventType(.Value, withBlock: { snapshot in
             if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
                 self.currentUser = User()
                 self.currentUser?.setValuesForKeysWithDictionary(value)
@@ -67,13 +67,5 @@ class BaseViewModel {
                 completion({ throw MediaItemsViewModelError.NoUser })
             }
         })
-    #else
-        currentUser = SessionManager.defaultManager.currentUser
-        if let user = currentUser {
-            completion({ return user })
-        } else {
-            completion({ throw MediaItemsViewModelError.NoUser })
-        }
-    #endif
     }
 }

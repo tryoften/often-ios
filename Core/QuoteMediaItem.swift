@@ -26,7 +26,6 @@ class QuoteMediaItem: MediaItem {
         owner_image_url = data["owner_image_url"] as? String
         owner_name = data["owner_name"] as? String
         origin_name = data["origin"] as? String
-
     }
 
     override func getInsertableText() -> String {

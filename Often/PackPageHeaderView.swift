@@ -73,7 +73,6 @@ class PackPageHeaderView: MediaItemPageHeaderView {
                 coverPhoto.alpha = 0
                 titleLabel.alpha = 0
                 collapseTitleLabel.alpha = 1
-
             } else {
                 titleLabel.alpha = 1
                 coverPhoto.alpha = 1

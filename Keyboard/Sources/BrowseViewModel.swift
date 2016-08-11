@@ -13,8 +13,8 @@ class BrowseViewModel: MediaItemGroupViewModel {
     let didUpdateCurrentMediaItem = Event<[MediaItemGroup]>()
     var currentCategory: Category?
     
-    init(path: String = "trending") {
-        super.init(baseRef: FIRDatabase.database().reference(), path: path)
+    init(userId: String? = nil, path: String = "trending") {
+        super.init(userId: userId, baseRef: FIRDatabase.database().reference(), path: path)
     }
 
     func applyFilter(filter: Category) {
