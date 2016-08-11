@@ -124,7 +124,6 @@ class AlertView: SpringView {
             actionButton.al_right == al_right - actionButtonLeftRightMargin,
             actionButton.al_height == 40,
             actionButton.al_top == subtitleLabel.al_bottom + 18
-
-            ])
+        ])
     }
 }
