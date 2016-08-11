@@ -126,11 +126,16 @@ class MediaItem: Equatable {
         var data: [String: AnyObject] = [
             "_id": id,
             "id": id,
-            "type": type.rawValue
+            "type": type.rawValue,
         ]
         
         if let time = created {
             data["time_added"] = time
+        }
+        
+        if let category = category {
+            data["category"] = ["id": category.id,
+                                "name": category.name]
         }
         
         for (key, value) in self.data {
