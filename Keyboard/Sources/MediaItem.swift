@@ -126,7 +126,7 @@ class MediaItem: Equatable {
         var data: [String: AnyObject] = [
             "_id": id,
             "id": id,
-            "type": type.rawValue,
+            "type": type.rawValue
         ]
         
         if let time = created {

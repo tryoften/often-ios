@@ -12,17 +12,17 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
     
     var reactionsViewModel: ReactionsViewModel
     var reaction: Category
-    var backButton: UIButton
+    var filterHeaderView: FilterCollectionHeaderView
     
     init(viewModel: ReactionsViewModel, reaction: Category, textProcessor: TextProcessingManager?) {
         
-        reactionsViewModel = viewModel
         self.reaction = reaction
+        reactionsViewModel = viewModel
         reactionsViewModel.generateFilteredGroups(reaction)
         
-        backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(StyleKit.imageOfBackarrow(scale: 0.4), forState: .Normal)
+        filterHeaderView = FilterCollectionHeaderView()
+        filterHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        filterHeaderView.titleText = reaction.name
         
         super.init(viewModel: PacksService.defaultInstance, textProcessor: textProcessor)
         
@@ -30,14 +30,20 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
             navigationBar.removeFromSuperview()
         }
         
+        filterHeaderView.dismissButton.addTarget(self, action: #selector(FilteredCollectionViewController.didTapBackButton), forControlEvents: .TouchUpInside)
         
-        backButton.addTarget(self, action: #selector(FilteredCollectionViewController.didTapBackButton), forControlEvents: .TouchUpInside)
-        collectionView?.registerClass(MediaItemsSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier)
+        view.addSubview(filterHeaderView)
+        setLayout()
         
-        view.addSubview(backButton)
+    }
+    
+    func setLayout() {
+        
         view.addConstraints([
-            backButton.al_left == view.al_left,
-            backButton.al_top == view.al_top - 6
+            filterHeaderView.al_top == view.al_top,
+            filterHeaderView.al_left == view.al_left,
+            filterHeaderView.al_right == view.al_right,
+            filterHeaderView.al_height == 33,
         ])
         
     }
@@ -55,9 +61,6 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        
-        // render by section
-        
         guard let item = reactionsViewModel.filteredGroups[indexPath.section].items[indexPath.row] as? MediaItem else {
             return UICollectionViewCell()
         }
@@ -66,23 +69,7 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if section == 0 {
-            return CGSizeMake(UIScreen.mainScreen().bounds.width, 36)
-        }
         return CGSizeZero
-    }
-    
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
-            // Create Header
-            if let sectionView: MediaItemsSectionHeaderView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: MediaItemsSectionHeaderViewReuseIdentifier, forIndexPath: indexPath) as? MediaItemsSectionHeaderView {
-                
-                sectionView.middleText = reaction.name.uppercaseString
-                return sectionView
-            }
-        }
-        
-        return UICollectionReusableView()
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -133,10 +120,15 @@ class FilteredCollectionViewController: BaseBrowsePackItemViewController {
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         let group = reactionsViewModel.filteredGroups[section]
         
-        if group.type == .Gif || group.type == .Image {
-            return UIEdgeInsets(top: 9.0, left: 9.0, bottom: 0.0, right: 9.0)
+        var topHeight: CGFloat = 9.0
+        if section == 0 {
+            topHeight = 42.0
         }
-        return UIEdgeInsets(top: 9.0, left: 12.0, bottom: 0.0, right: 12.0)
+        
+        if group.type == .Gif || group.type == .Image {
+            return UIEdgeInsets(top: topHeight, left: 9.0, bottom: 0.0, right: 9.0)
+        }
+        return UIEdgeInsets(top: topHeight, left: 12.0, bottom: 0.0, right: 12.0)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
