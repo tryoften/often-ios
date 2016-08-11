@@ -22,6 +22,20 @@ UICollectionViewDelegateFlowLayout {
             collectionView?.reloadData()
         }
     }
+    
+    var presentFavorites: Bool = false {
+        didSet {
+            if viewModel.mediaItems.count > 0 {
+                guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+                    return
+                }
+                
+                let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+                navigationController?.navigationBar.hidden = false
+                navigationController?.pushViewController(packVC, animated: true)
+            }
+        }
+    }
 
     init(viewModel: PacksService) {
         self.viewModel = viewModel
@@ -30,6 +44,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack), name: AddContentTabDismissedEvent, object: nil)
         
         packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
@@ -230,7 +245,6 @@ UICollectionViewDelegateFlowLayout {
         AlertVC.transitioningDelegate = self
         AlertVC.modalPresentationStyle = .Custom
         presentViewController(AlertVC, animated: true, completion: nil)
-        
     }
     
     func promptUserToChooseUsername() {
@@ -245,6 +259,16 @@ UICollectionViewDelegateFlowLayout {
             presentViewController(alertVC, animated: true, completion: nil)
         }
 
+    }
+    
+    func presentFavoritesPack() {
+        guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+            return
+        }
+        
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        navigationController?.navigationBar.hidden = false
+        navigationController?.pushViewController(packVC, animated: true)
     }
     
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {

@@ -111,6 +111,7 @@ class BaseCategoryAssignmentViewController: UIViewController,
         
         delay(0.5) {
             PKHUD.sharedHUD.hide(animated: true)
+            NSNotificationCenter.defaultCenter().postNotificationName(AddContentViewDismissedEvent, object: nil)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }

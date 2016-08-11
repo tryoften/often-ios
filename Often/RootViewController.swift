@@ -12,6 +12,11 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     let sessionManager = SessionManager.defaultManager
     private let imageView: UIImageView
     private let dummyTabBar: UIView
+    private enum SelectedTab: Int {
+        case Browse = 0
+        case AddContent = 1
+        case UserProfile = 2
+    }
 
     private var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -43,6 +48,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         super.init(nibName: nil, bundle: nil)
 
         dummyTabBar.frame = tabBar.frame
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()
@@ -62,7 +68,11 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             self.showAlert()
         }
     }
-
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return UIStatusBarAnimation.Fade
+    }
+    
     func setupLayout() {
         view.addConstraints([
             imageView.al_centerX == view.al_centerX,
@@ -70,10 +80,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             imageView.al_height == 75,
             imageView.al_width == 75
         ])
-    }
-    
-    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
-        return UIStatusBarAnimation.Fade
     }
 
     func showAlert() {
@@ -124,7 +130,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             userProfileVC
         ]
         
-        selectedIndex = 0
+        selectedIndex = SelectedTab.Browse.rawValue
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -135,5 +141,10 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         let animator = FadeInTransitionAnimator(presenting: false)
 
         return animator
+    }
+    
+    func addContentViewDidDismiss() {
+        selectedIndex = SelectedTab.UserProfile.rawValue
+        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
     }
 }
