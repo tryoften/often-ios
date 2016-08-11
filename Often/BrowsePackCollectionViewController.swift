@@ -82,6 +82,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         let packsService = PacksService(userId: id)
         let profileVC = UserProfileViewController(viewModel: packsService)
         navigationController?.pushViewController(profileVC, animated: true)
+        tabBarController?.selectedIndex = 0
     }
     
     func didSelectBrowseCategory(notification: NSNotification) {
@@ -135,6 +136,7 @@ class BrowsePackCollectionViewController: MediaItemsViewController, Connectivity
         navigationController?.navigationBar.barStyle = .Default
         navigationController?.navigationBar.tintColor = WhiteColor
         navigationController?.navigationBar.barTintColor = MainBackgroundColor
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidAppear(animated: Bool) {

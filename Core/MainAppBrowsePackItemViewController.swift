@@ -45,6 +45,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -87,7 +88,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
 
-        if pack.isFavorites {
+        if pack.isFavorites && packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
 
@@ -246,7 +247,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
-        if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+        if let _ = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
             // Copy this data to pasteboard
             Nuke.taskWith(url) {
                 if let image = $0.image as? AnimatedImage, let data = image.data {
@@ -260,26 +261,15 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                     
                     
                     var packEditAction = UIAlertAction()
-                    if let quoteMediaItem = result as? QuoteMediaItem {
-                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.removeItem(quoteMediaItem)
-                            })
-                        } else {
-                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.addItem(quoteMediaItem)
-                            })
-                        }
-                    } else if let gifMediaItem = result as? GifMediaItem {
-                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.removeItem(gifMediaItem)
-                            })
-                        } else {
-                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.addItem(gifMediaItem)
-                            })
-                        }
+
+                    if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
+                        packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
+                            UserPackService.defaultInstance.removeItem(result)
+                        })
+                    } else {
+                        packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
+                            UserPackService.defaultInstance.addItem(result)
+                        })
                     }
                     
                     let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in

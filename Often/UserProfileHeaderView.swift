@@ -20,8 +20,16 @@ class UserProfileHeaderView: UICollectionReusableView {
     var collapseProfileImageView: UIImageView
     var rightHeaderLabel: UILabel
     var rightHeaderButton: UIButton
+    var backButton: UIButton
     var leftHeaderLabelConstraint: NSLayoutConstraint?
     var offsetValue: CGFloat
+
+    var isCurrentUser: Bool {
+        didSet {
+            leftHeaderLabel.hidden = !isCurrentUser
+            backButton.hidden = isCurrentUser
+        }
+    }
 
     static var preferredSize: CGSize {
         return CGSizeMake(
@@ -162,9 +170,19 @@ class UserProfileHeaderView: UICollectionReusableView {
         rightHeaderButton.translatesAutoresizingMaskIntoConstraints = false
         rightHeaderButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()), forState: .Normal)
         rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
-        
+
+        backButton = UIButton()
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setImage(StyleKit.imageOfBackarrow(
+            color: BlackColor,
+            rotate: 0,
+            scale: 1.3), forState: .Normal)
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
+        backButton.hidden = true
+
+        isCurrentUser = true
         offsetValue = 0.0
-        sharedText = "85 Lyrics Shared"
+        sharedText = ""
         
         super.init(frame: frame)
         
@@ -185,6 +203,7 @@ class UserProfileHeaderView: UICollectionReusableView {
         addSubview(rightDescriptorLabel)
         addSubview(rightHeaderLabel)
         addSubview(rightHeaderButton)
+        addSubview(backButton)
         addSubview(collapseNameLabel)
         addSubview(collapseProfileImageView)
 
@@ -249,6 +268,9 @@ class UserProfileHeaderView: UICollectionReusableView {
             collapseNameLabel.al_centerX == al_centerX,
             collapseNameLabel.al_centerY == leftHeaderLabel.al_centerY,
 
+            backButton.al_centerY == leftHeaderLabel.al_centerY,
+            backButton.al_left == al_left,
+
             profileImageView.al_centerY == nameLabel.al_centerY,
             profileImageView.al_right == al_right - (screenWidth * 0.06),
             profileImageView.al_width == profileImageViewWidth,
@@ -284,7 +306,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             rightHeaderLabel.al_height == rightHeaderButton.al_height,
             
             rightHeaderButton.al_left == rightHeaderLabel.al_right - 50,
-            rightHeaderButton.al_right == al_right  - 3.0,
+            rightHeaderButton.al_right == al_right - 3.0,
             rightHeaderButton.al_centerY == leftHeaderLabel.al_centerY
         ])
     }

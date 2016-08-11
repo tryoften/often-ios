@@ -92,22 +92,12 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.barStyle = .Default
-            navigationBar.translucent = false
-            navigationBar.hidden = true
-        }
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func viewWillDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-
-        navigationController?.navigationBar.hidden = true
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
@@ -137,10 +127,8 @@ UICollectionViewDelegateFlowLayout {
             if headerView == nil {
                 headerView = cell
                 headerView?.rightHeaderButton.addTarget(self, action: #selector(UserProfileViewController.presentSettingsViewController), forControlEvents: .TouchUpInside)
-                let recognizer = UITapGestureRecognizer()
-                recognizer.addTarget(self, action: #selector(UserProfileViewController.handleSettingsTap(_:)))
-                headerView?.rightHeaderLabel.addGestureRecognizer(recognizer)
-                headerView?.rightHeaderLabel.userInteractionEnabled = true
+                headerView?.backButton.addTarget(self, action:
+                    #selector(UserProfileViewController.didTapBackButton), forControlEvents: .TouchUpInside)
                 viewModel.fetchData()
             }
             
@@ -205,6 +193,7 @@ UICollectionViewDelegateFlowLayout {
     
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
+            headerView.isCurrentUser = viewModel.isCurrentUser
             headerView.nameLabel.text = user.name
             headerView.collapseNameLabel.text = "@\(user.username)"
             headerView.leftHeaderLabel.text = user.name
@@ -212,6 +201,10 @@ UICollectionViewDelegateFlowLayout {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
         }
+    }
+
+    func didTapBackButton(button: UIButton?) {
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func didTapRemovePackButton(button: UIButton?) {
@@ -241,14 +234,17 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func promptUserToChooseUsername() {
-        if let user = SessionManager.defaultManager.currentUser {
-            if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
-                let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
-                alertVC.transitioningDelegate = self
-                alertVC.modalPresentationStyle = .Custom
-                presentViewController(alertVC, animated: true, completion: nil)
-            }
+        guard let _ = SessionManager.defaultManager.currentUser else {
+            return
         }
+
+        if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+            let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
+            alertVC.transitioningDelegate = self
+            alertVC.modalPresentationStyle = .Custom
+            presentViewController(alertVC, animated: true, completion: nil)
+        }
+
     }
     
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
@@ -293,12 +289,9 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentSettingsViewController() {
-        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
-        presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func handleSettingsTap(recognizer: UITapGestureRecognizer) {
-        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
-        presentViewController(vc, animated: true, completion: nil)
+        if viewModel.isCurrentUser {
+            let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
+            presentViewController(vc, animated: true, completion: nil)
+        }
     }
 }
