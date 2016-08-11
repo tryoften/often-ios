@@ -31,6 +31,14 @@ class PacksService: PackItemViewModel {
         }
     }
 
+    override var isCurrentUser: Bool {
+        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId else {
+            return false
+        }
+
+        return userId == currentUserId
+    }
+
     init(userId: String) {
         mediaItems = []
 
@@ -122,14 +130,6 @@ class PacksService: PackItemViewModel {
             }
             
         }
-    }
-
-    func isManagingCurrentUser() -> Bool {
-        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId else {
-            return false
-        }
-        
-        return userId == currentUserId
     }
     
     func generateMediaItemGroups() -> [MediaItemGroup] {
@@ -347,7 +347,6 @@ class PacksService: PackItemViewModel {
                 completion?(exists)
             }
         })
-        
     }
     
     func saveUsername(username: String) {

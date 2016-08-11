@@ -12,6 +12,7 @@ import Nuke
 class MediaItemsSectionHeaderView: UICollectionReusableView {
     var leftLabel: UILabel
     var rightLabel: UILabel
+    var middleLabel: UILabel
     var topSeperator: UIView
     var bottomSeperator: UIView
     var artistImageView: UIImageView
@@ -21,27 +22,30 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
     private var artistImageViewWidthConstraint: NSLayoutConstraint
     private var leftHeaderLabelLeftPaddingConstraint: NSLayoutConstraint?
 
+    let attributes: [String: AnyObject] = [
+        NSKernAttributeName: NSNumber(float: 1.25),
+        NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
+        NSForegroundColorAttributeName: UIColor.oftBlack74Color()
+    ]
+    
     var leftText: String? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1.25),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
-                NSForegroundColorAttributeName: UIColor.oftBlack74Color()
-            ]
             let attributedString = NSAttributedString(string: leftText!.uppercaseString, attributes: attributes)
             leftLabel.attributedText = attributedString
         }
     }
     var rightText: String? {
         didSet {
-            let attributes: [String: AnyObject] = [
-                NSKernAttributeName: NSNumber(float: 1),
-                NSFontAttributeName: UIFont(name: "OpenSans-Semibold", size: 9.5)!,
-                NSForegroundColorAttributeName: UIColor.oftBlack74Color()
-            ]
             let attributedString = NSAttributedString(string: rightText!.uppercaseString, attributes: attributes)
             rightLabel.attributedText = attributedString
             rightLabel.textAlignment = .Right
+        }
+    }
+    
+    var middleText: String? {
+        didSet {
+            let attributedString = NSAttributedString(string: middleText!.uppercaseString, attributes: attributes)
+            middleLabel.attributedText = attributedString
         }
     }
     
@@ -63,6 +67,9 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         
         leftLabel = UILabel()
         leftLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        middleLabel = UILabel()
+        middleLabel.translatesAutoresizingMaskIntoConstraints = false
 
         rightLabel = UILabel()
         rightLabel.textAlignment = .Right
@@ -96,6 +103,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         leftHeaderLabelLeftPaddingConstraint = leftLabel.al_left == al_left + contentEdgeInsets.left
 
         addSubview(artistView)
+        addSubview(middleLabel)
         addSubview(rightLabel)
         addSubview(topSeperator)
         addSubview(bottomSeperator)
@@ -126,6 +134,10 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
             leftLabel.al_height == 16,
             leftLabel.al_right == artistView.al_right,
             leftLabel.al_width >= al_width / 3 - 20,
+            
+            middleLabel.al_centerX == al_centerX,
+            middleLabel.al_centerY == al_centerY,
+            middleLabel.al_height == leftLabel.al_height,
 
             rightLabel.al_right == al_right - 10,
             rightLabel.al_left == leftLabel.al_right + 10,
@@ -148,6 +160,7 @@ class MediaItemsSectionHeaderView: UICollectionReusableView {
         artistImageView.image = nil
         rightLabel.text = nil
         leftLabel.text = nil
+        middleLabel.text = nil
     }
 
 }
