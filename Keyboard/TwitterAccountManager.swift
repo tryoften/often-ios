@@ -51,20 +51,24 @@ class TwitterAccountManager: AccountManager {
                             return
                         }
 
+                        let smallImage = user.profileImageURL
+                        let largeImage = user.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "")
+
                         var firebaseData = [String: AnyObject]()
                         firebaseData["id"] = "twitter:\(userID)"
-                        firebaseData["profileImageSmall"] = user.profileImageURL
-                        firebaseData["profileImageLarge"] = user.profileImageLargeURL
+                        firebaseData["profileImageSmall"] = smallImage
+                        firebaseData["profileImageLarge"] = largeImage
                         firebaseData["image"] = [
-                            "small_url": user.profileImageURL,
-                            "large_url": user.profileImageLargeURL
+                            "small_url": smallImage,
+                            "large_url": largeImage
                         ]
                         firebaseData["name"] = user.name
                         firebaseData["username"] = user.screenName
                         firebaseData["backgroundImage"] = "user-profile-bg-1"
 
-                        let firstName = user.name.componentsSeparatedByString(" ")[0]
-                        firebaseData["first_name"] = firstName
+                        let names = user.name.componentsSeparatedByString(" ")
+                        firebaseData["first_name"] = names[0]
+                        firebaseData["last_name"] = names[1]
 
                         if self.sessionManagerFlags.userId == nil {
                             guard let userIDWithProvider = firebaseData["id"] as? String else {
@@ -73,7 +77,7 @@ class TwitterAccountManager: AccountManager {
                             }
 
                             self.sessionManagerFlags.userId = userIDWithProvider
-                            self.userRef = self.firebase.childByAppendingPath("users/\(userIDWithProvider)")
+                            self.userRef = self.firebase.child("users/\(userIDWithProvider)")
 
                             self.currentUser = User()
                             self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
