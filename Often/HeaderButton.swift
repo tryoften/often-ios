@@ -1,14 +1,14 @@
 //
-//  ShareBarButton.swift
+//  HeaderButton.swift
 //  Often
 //
-//  Created by Komran Ghahremani on 6/1/16.
+//  Created by Katelyn Findlay on 8/9/16.
 //  Copyright © 2016 Surf Inc. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class PackHeaderButton: UIButton {
+class HeaderButton: UIButton {
     var textLabel: UILabel
     
     var text: String? {
@@ -41,3 +41,4 @@ class PackHeaderButton: UIButton {
         return CGSizeMake(textSize.width + imageSize.width, max(textSize.height, imageSize.height))
     }
 }
+

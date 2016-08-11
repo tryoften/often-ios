@@ -13,11 +13,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
     var fullAccessButton: UIButton?
+    var reactionsViewController: ReactionsCollectionViewController
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         tabBar = BrowsePackTabBar(highlightBarEnabled: true)
+        reactionsViewController = ReactionsCollectionViewController(viewModel: ReactionsViewModel(), textProcessor: textProcessor)
         
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
@@ -29,18 +31,15 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.onOrientationChanged), name: KeyboardOrientationChangeEvent, object: nil)
         
-        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
-            self?.tabBar.updateTabBarSelectedItem()
-            self?.packViewModel.checkCurrentPackContents()
-            self?.hideLoadingView()
-            self?.collectionView?.reloadData()
-        }
+        setupListener()
         
         if let navigationBar = navigationBar {
             navigationBar.removeFromSuperview()
         }
 
-        tabBar.updateTabBarSelectedItem()
+        reactionsViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - 44.5)
+        view.addSubview(reactionsViewController.view)
+        reactionsViewController.view.hidden = true
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -58,6 +57,16 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
 
     override func didReceiveMemoryWarning() {
     }
+    
+    func setupListener() {
+        tabBar.updateTabBarSelectedItem()
+        packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
+            self?.tabBar.updateTabBarSelectedItem()
+            self?.packViewModel.checkCurrentPackContents()
+            self?.hideLoadingView()
+            self?.collectionView?.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +75,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         delay(0.5) {
             self.showLocalPackIfNeeded()
         }
-    }
-
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-
     }
 
     override func viewWillLayoutSubviews() {
@@ -148,11 +152,6 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
         collectionView?.setContentOffset(CGPointZero, animated: true)
         PacksService.defaultInstance.switchCurrentPack(pack.id)
         loadPackData()
-    }
-    
-    override func categoriesCollectionViewControllerDidSwitchCategory(CategoriesViewController: CategoryCollectionViewController, category: Category, categoryIndex: Int) {
-        collectionView?.setContentOffset(CGPointZero, animated: true)
-        SessionManagerFlags.defaultManagerFlags.lastCategoryIndex = categoryIndex
     }
 
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -312,6 +311,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
+            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Gif
@@ -321,6 +321,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
             }
         case .Quotes:
+            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) {
                  collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Quote
@@ -330,6 +331,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 packViewModel.typeFilter = .Gif
             }
         case .Images:
+            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Image) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Image
@@ -338,15 +340,15 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
                 packViewModel.typeFilter = .Quote
             }
-        case .Categories:
-            toggleCategoryViewController()
-            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
+        case .Reactions:
+            self.tabBar.selectedItem = item
+            self.tabBar.lastSelectedTab = item
+            reactionsViewController.view.hidden = false
         case .Packs:
             togglePack()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Delete:
            textProcessor?.deleteBackward()
-           
            self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         }
     }
