@@ -133,6 +133,11 @@ class MediaItem: Equatable {
             data["time_added"] = time
         }
         
+        if let category = category {
+            data["category"] = ["id": category.id,
+                                "name": category.name]
+        }
+        
         for (key, value) in self.data {
             data[key as! String] = value
         }
