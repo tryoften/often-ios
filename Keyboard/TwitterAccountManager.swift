@@ -67,28 +67,33 @@ class TwitterAccountManager: AccountManager {
                         firebaseData["backgroundImage"] = "user-profile-bg-1"
 
                         let names = user.name.componentsSeparatedByString(" ")
-                        firebaseData["first_name"] = names[0]
-                        firebaseData["last_name"] = names[1]
 
-                        if self.sessionManagerFlags.userId == nil {
-                            guard let userIDWithProvider = firebaseData["id"] as? String else {
-                                completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
-                                return
-                            }
-
-                            self.sessionManagerFlags.userId = userIDWithProvider
-                            self.userRef = self.firebase.child("users/\(userIDWithProvider)")
-
-                            self.currentUser = User()
-                            self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
-
-                            if let user = self.currentUser {
-                                self.userRef?.updateChildValues(user.dataChangedToDictionary())
-                                completion?(results: ResultType.Success(r: true))
-                                self.delegate?.accountManagerUserDidLogin(self, user: user)
-                            }
-                            self.initiateUserWithPacks()
+                        if let firstName = names.first {
+                            firebaseData["first_name"] = firstName
                         }
+
+                        if let lastName = names.last {
+                            firebaseData["last_name"] = lastName
+                        }
+
+
+                        guard let userIDWithProvider = firebaseData["id"] as? String else {
+                            completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+                            return
+                        }
+
+                        self.sessionManagerFlags.userId = userIDWithProvider
+                        self.userRef = self.firebase.child("users/\(userIDWithProvider)")
+
+                        self.currentUser = User()
+                        self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
+
+                        if let user = self.currentUser {
+                            self.userRef?.updateChildValues(user.dataChangedToDictionary())
+                            completion?(results: ResultType.Success(r: true))
+                            self.delegate?.accountManagerUserDidLogin(self, user: user)
+                        }
+                        self.initiateUserWithPacks()
                     }
                 }
             }

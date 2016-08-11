@@ -98,7 +98,7 @@ class User: NSObject {
     }
     
     func dataChangedToDictionary() -> [String: AnyObject] {
-        let userData: [String: AnyObject] = [
+        var userData: [String: AnyObject] = [
             "id": id,
             "name": name,
             "first_name": firstName,
@@ -110,13 +110,20 @@ class User: NSObject {
                 "small_url": profileImageSmall,
                 "large_url": profileImageLarge
             ],
-            "email": email,
-            "phone": phone,
-            "password": password,
-            "backgroundImage": backgroundImage,
-            "favoritesPackId": favoritesPackId,
-            "recentsPackId": recentsPackId
+            "backgroundImage": backgroundImage
         ]
+
+        if !email.isEmpty {
+            userData["email"] = email
+        }
+
+        if !favoritesPackId.isEmpty {
+            userData["favoritesPackId"] = favoritesPackId
+        }
+
+        if !recentsPackId.isEmpty {
+            userData["recentsPackId"] = recentsPackId
+        }
 
         return userData
     }
