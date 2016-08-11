@@ -12,6 +12,11 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     let sessionManager = SessionManager.defaultManager
     private let imageView: UIImageView
     private let dummyTabBar: UIView
+    private enum SelectedTab: Int {
+        case Browse = 0
+        case AddContent = 1
+        case UserProfile = 2
+    }
 
     private var alertViewTopAndBottomMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -66,12 +71,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
         return UIStatusBarAnimation.Fade
-    }
-    
-    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-        if selectedIndex == 2 {
-            
-        }
     }
     
     func setupLayout() {
@@ -131,7 +130,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             userProfileVC
         ]
         
-        selectedIndex = 0
+        selectedIndex = SelectedTab.Browse.rawValue
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -145,7 +144,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
     
     func addContentViewDidDismiss() {
-        selectedIndex = 2
+        selectedIndex = SelectedTab.UserProfile.rawValue
         NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
     }
 }
