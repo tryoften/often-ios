@@ -12,22 +12,10 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     let sessionManager = SessionManager.defaultManager
     private let imageView: UIImageView
     private let dummyTabBar: UIView
-    private var selectedTab: TabType = .Browse {
-        didSet {
-            switch selectedTab {
-            case .Browse:
-                selectedIndex = 0
-            case .AddContent:
-                selectedIndex = 1
-            case .UserProfile:
-                selectedIndex = 2
-            }
-        }
-    }
-    private enum TabType {
-        case Browse
-        case AddContent
-        case UserProfile
+    private enum SelectedTab: Int {
+        case Browse = 0
+        case AddContent = 1
+        case UserProfile = 2
     }
 
     private var alertViewTopAndBottomMargin: CGFloat {
@@ -142,7 +130,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             userProfileVC
         ]
         
-        selectedTab = .Browse
+        selectedIndex = SelectedTab.Browse.rawValue
     }
 
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
@@ -156,7 +144,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
     
     func addContentViewDidDismiss() {
-        selectedTab = .UserProfile
+        selectedIndex = SelectedTab.UserProfile.rawValue
         NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
     }
 }
