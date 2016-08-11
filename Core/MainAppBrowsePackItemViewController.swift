@@ -46,6 +46,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -87,15 +88,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-        
-        let topRightButton = HeaderButton()
-        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.addSubview(topRightButton)
-        
-        if pack.isFavorites {
+
+        if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-            
+
             let topRightButton = HeaderButton()
             topRightButton.text = "Edit Pack"
             topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)

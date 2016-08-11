@@ -52,7 +52,7 @@ class BrowsePackDownloadButton: UIButton {
                 if self.selected {
                     self.backgroundColor = WhiteColor
                     self.textColor = BlackColor
-                    self.title = "Remove".uppercaseString
+                    self.title = "Unfollow".uppercaseString
                 } else {
                     self.backgroundColor = TealColor
                     self.textColor = UIColor.oftWhiteColor()

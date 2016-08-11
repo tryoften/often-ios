@@ -156,32 +156,19 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
     func imageRepresentationForImage(image: UIImage, compareString: NSString) -> FIRStorageUploadTask {
         let date = NSDate().timeIntervalSince1970
         let userId = viewModel.userId
-        
-        // Check if the image is a PNG or a JPG and user respective methods + Put in Firebase Storage
-        let pngRange: NSRange = compareString.rangeOfString("png", options: [.BackwardsSearch, .CaseInsensitiveSearch])
-        if pngRange.location != NSNotFound {
-            if let imageData: NSData = UIImagePNGRepresentation(UIImage(CGImage: image.CGImage!, scale: 1, orientation: image.imageOrientation)) {
-                return FIRStorage.storage()
-                                .referenceForURL("gs://firebase-often-dev.appspot.com/")
-                                .child("images/users/\(userId)/packPhoto-\(date).png")
-                                .putData(imageData)
-            }
-        }
-        
-        let jpgRange: NSRange = compareString.rangeOfString("jpg", options: [.BackwardsSearch, .CaseInsensitiveSearch])
-        if jpgRange.location != NSNotFound {
-            if let imageData: NSData = UIImagePNGRepresentation(UIImage(CGImage: image.CGImage!, scale: 1, orientation: .Up)) {
-                return FIRStorage.storage()
-                                .referenceForURL("gs://firebase-often-dev.appspot.com/")
-                                .child("images/users/\(userId)/packPhoto-\(date).jpg")
-                                .putData(imageData)
-            }
+        let fixedImage = ImageUploaderViewController.rotateCameraImageToProperOrientation(image, maxResolution: 320)
+
+        if let data = UIImagePNGRepresentation(fixedImage) {
+            return FIRStorage.storage()
+                            .referenceForURL("gs://firebase-often-dev.appspot.com/")
+                            .child("images/users/\(userId)/packPhoto-\(date).png")
+                            .putData(data)
         }
 
         return FIRStorageUploadTask()
     }
 
-    class func rotateCameraImageToProperOrientation(imageSource : UIImage, maxResolution : CGFloat) -> UIImage {
+    class func rotateCameraImageToProperOrientation(imageSource: UIImage, maxResolution: CGFloat) -> UIImage {
         let imgRef = imageSource.CGImage
 
         let width = CGFloat(CGImageGetWidth(imgRef))
