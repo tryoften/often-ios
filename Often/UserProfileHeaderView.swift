@@ -74,8 +74,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         }
         return 0
     }
-    
-
 
     private var profileImageViewWidth: CGFloat {
         if Diagnostics.platformString().number == 6 {
@@ -84,7 +82,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         return 68
     }
-
 
     private var collapseProfileImageViewWidth: CGFloat {
         return 30

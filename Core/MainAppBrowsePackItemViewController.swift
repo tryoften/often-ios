@@ -268,8 +268,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
-                    }.resume()
-                
+                }.resume()
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
