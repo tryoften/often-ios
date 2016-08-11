@@ -88,7 +88,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
 
-        if pack.isFavorites && packViewModel.isCurrentUser {
+        if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
 
