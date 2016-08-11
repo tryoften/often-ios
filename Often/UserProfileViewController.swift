@@ -26,7 +26,13 @@ UICollectionViewDelegateFlowLayout {
     var presentFavorites: Bool = false {
         didSet {
             if viewModel.mediaItems.count > 0 {
-                collectionView(collectionView!, didSelectItemAtIndexPath: NSIndexPath(index: 0))
+                guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+                    return
+                }
+                
+                let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+                navigationController?.navigationBar.hidden = false
+                navigationController?.pushViewController(packVC, animated: true)
             }
         }
     }
@@ -260,7 +266,13 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentFavoritesPack() {
-        collectionView(collectionView!, didSelectItemAtIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+            return
+        }
+        
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        navigationController?.navigationBar.hidden = false
+        navigationController?.pushViewController(packVC, animated: true)
     }
     
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
