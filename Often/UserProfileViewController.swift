@@ -174,16 +174,16 @@ UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell else {
+        guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell,
+                pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem else {
             return PackProfileCollectionViewCell()
         }
-        
+
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
+        cell.checkmarkBadge.hidden = !(pack.isFavorites && pack.isUserPackOwner(viewModel.currentUser))
         
-        let result = viewModel.mediaItems[indexPath.row], pack = result as? PackMediaItem
-        
-        if editingActive == true && pack?.isFavorites == false {
+        if editingActive && !pack.isUserPackOwner(viewModel.currentUser) {
             cell.disclosureIndicator.hidden = true
             cell.primaryButton.hidden = false
         } else {

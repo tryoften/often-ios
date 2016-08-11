@@ -227,9 +227,9 @@ class PacksService: PackItemViewModel {
         for (id, item) in data {
             ids.insert(id)
             if let dict = item as? NSDictionary, let item = MediaItem.mediaItemFromType(dict) as? PackMediaItem {
-                if item.isRecents {
+                if item.isRecents && item.isUserPackOwner(currentUser) {
                     recentsPack = item
-                } else if item.isFavorites {
+                } else if item.isFavorites && item.isUserPackOwner(currentUser) {
                     favoritesPack = item
                     items.insert(item, atIndex: 0)
                 } else {
