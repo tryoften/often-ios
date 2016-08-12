@@ -9,6 +9,7 @@
 import UIKit
 import Nuke
 import NukeAnimatedImagePlugin
+import Firebase
 
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
@@ -45,6 +46,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -86,38 +88,38 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         header.imageURL = imageURL
         header.tabContainerView.delegate = self
-        
-        let topRightButton = PackHeaderButton()
-        let positionedButtonView = UIView(frame: CGRectMake(0, 0, 100, 30))
-        positionedButtonView.addSubview(topRightButton)
-        
-        if pack.isFavorites {
+
+        if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+
+            let topRightButton = HeaderButton()
             topRightButton.text = "Edit Pack"
             topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
             topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
             topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
             topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
+
+            let item = UIBarButtonItem(customView: topRightButton)
+            navigationItem.rightBarButtonItem = item
         } else {
-            
             header.primaryButton.title = pack.callToActionText()
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
             header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-            topRightButton.text = "Share"
-            topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-            topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 40, bottom: 2, right: -10)
-            topRightButton.frame = CGRect(x: 0, y: 0, width: 60, height: 30)
-            topRightButton.setImage(StyleKit.imageOfShare(color: WhiteColor), forState: .Normal)
-            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-        }
-        
-        positionedButtonView.bounds = CGRectOffset(positionedButtonView.bounds, -10, 0)
-        let item = UIBarButtonItem(customView: topRightButton)
-        navigationItem.rightBarButtonItem = item
 
+            let topRightButton = PackHeaderProfileButton()
+            if let owner = pack.owner, let username = owner["username"] as? String {
+                topRightButton.text = "@\(username)"
+            }
+
+            topRightButton.frame = CGRect(origin: CGPointZero, size: topRightButton.intrinsicContentSize())
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+
+            let item = UIBarButtonItem(customView: topRightButton)
+            navigationItem.rightBarButtonItem = item
+        }
     }
-    
+
     func primaryButtonTapped(sender: UIButton) {
         guard let button = sender as? BrowsePackDownloadButton else {
             return
@@ -148,16 +150,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func topRightButtonTapped(sender: UIButton) {
-        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink else {
+        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink, id = pack.pack_id else {
             return
         }
-
-        let shareObjects = ["Yo check out this \(name) keyboard I found on Often! \(link)"]
         
-        let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
-        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-        activityVC.popoverPresentationController?.sourceView = sender
-        presentViewController(activityVC, animated: true, completion: nil)
+        let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
+        presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -244,97 +242,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         }
         
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
-        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
         if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
             // Copy this data to pasteboard
-            Nuke.taskWith(url) {
-                if let image = $0.image as? AnimatedImage, let data = image.data {
-                    let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
-                        let activityVC = UIActivityViewController(activityItems: [data], applicationActivities: nil)
-                        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-                        
-                        activityVC.popoverPresentationController?.sourceView = self.view
-                        self.presentViewController(activityVC, animated: true, completion: nil)
-                    })
-                    
-                    
-                    var packEditAction = UIAlertAction()
-                    if let quoteMediaItem = result as? QuoteMediaItem {
-                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.removeItem(quoteMediaItem)
-                            })
-                        } else {
-                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.addItem(quoteMediaItem)
-                            })
-                        }
-                    } else if let gifMediaItem = result as? GifMediaItem {
-                        if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                            packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.removeItem(gifMediaItem)
-                            })
-                        } else {
-                            packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                UserPackService.defaultInstance.addItem(gifMediaItem)
-                            })
-                        }
-                    }
-                    
-                    let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
-                        actionSheet.dismissViewControllerAnimated(true, completion: nil)
-                    })
-                    
-                    actionSheet.addAction(shareAction)
-                    actionSheet.addAction(packEditAction)
-                    actionSheet.addAction(cancelAction)
-                    
-                    self.presentViewController(actionSheet, animated: true, completion: nil)
-                }
-                }.resume()
-            
+            let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+            self.presentViewController(actionSheet, animated: true, completion: nil)
         } else {
-            let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
-                let activityVC = UIActivityViewController(activityItems: [result.getInsertableText()], applicationActivities: nil)
-                activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-                
-                activityVC.popoverPresentationController?.sourceView = self.view
-                self.presentViewController(activityVC, animated: true, completion: nil)
-            })
-            
-            
-            var packEditAction = UIAlertAction()
-            if let quoteMediaItem = result as? QuoteMediaItem {
-                if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                    packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                        UserPackService.defaultInstance.removeItem(quoteMediaItem)
-                    })
-                } else {
-                    packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                        UserPackService.defaultInstance.addItem(quoteMediaItem)
-                    })
-                }
-            } else if let gifMediaItem = result as? GifMediaItem {
-                if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                    packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                        UserPackService.defaultInstance.removeItem(gifMediaItem)
-                    })
-                } else {
-                    packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                        UserPackService.defaultInstance.addItem(gifMediaItem)
-                    })
-                }
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
-                actionSheet.dismissViewControllerAnimated(true, completion: nil)
-            })
-            
-            actionSheet.addAction(shareAction)
-            actionSheet.addAction(packEditAction)
-            actionSheet.addAction(cancelAction)
-            
+            let actionSheet = UIAlertController().tapStateActionSheet(result, url: nil)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
         
@@ -364,55 +277,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                Nuke.taskWith(url) {
-                    let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-                    
-                    if let image = $0.image as? AnimatedImage, let data = image.data {
-                        let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
-                            UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
-                            let shareObjects = [data]
-                            
-                            let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
-                            activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-                            
-                            activityVC.popoverPresentationController?.sourceView = self.view
-                            self.presentViewController(activityVC, animated: true, completion: nil)
-                        })
-                        
-                        var packEditAction = UIAlertAction()
-                        if let gifMediaItem = result as? GifMediaItem {
-                            if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
-                                packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                    UserPackService.defaultInstance.removeItem(gifMediaItem)
-                                })
-                            } else {
-                                packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                    UserPackService.defaultInstance.addItem(gifMediaItem)
-                                })
-                            }
-                        } else if let imageMediaItem = result as? ImageMediaItem {
-                            if imageMediaItem.owner_id == UserPackService.defaultInstance.userId {
-                                packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
-                                    UserPackService.defaultInstance.removeItem(imageMediaItem)
-                                })
-                            } else {
-                                packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
-                                    UserPackService.defaultInstance.addItem(imageMediaItem)
-                                })
-                            }
-                        }
-                        
-                        let cancelAction = UIAlertAction(title: "Cancel", style: .Destructive, handler: { alert in
-                            actionSheet.dismissViewControllerAnimated(true, completion: nil)
-                        })
-                        
-                        actionSheet.addAction(shareAction)
-                        actionSheet.addAction(packEditAction)
-                        actionSheet.addAction(cancelAction)
-                        
-                        self.presentViewController(actionSheet, animated: true, completion: nil)
-                    }
-                    }.resume()
+                let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+                self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }

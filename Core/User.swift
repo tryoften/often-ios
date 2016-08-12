@@ -12,12 +12,13 @@ class User: NSObject {
     var id: String = ""
     var isNew: Bool = false
     var name: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
     var username: String = ""
     var profileImageSmall: String = ""
     var profileImageLarge: String = ""
     var email: String = ""
     var phone: String = ""
-    var userDescription: String = ""
     var password: String = ""
     var backgroundImage: String = ""
     var favoritesPackId: String = ""
@@ -26,97 +27,103 @@ class User: NSObject {
     var pushNotificationStatus: Bool = false
     var firebasePushNotificationToken: String = ""
 
-    override func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject]) {
+    override func setValuesForKeysWithDictionary(data: [String : AnyObject]) {
 
-        if let nameString = keyedValues["displayName"] as? String {
+        if let nameString = data["displayName"] as? String {
             name = nameString
         }
         
-        if let nameString = keyedValues["name"] as? String {
+        if let nameString = data["name"] as? String {
             name = nameString
         }
+
+        if let firstNameString = data["first_name"] as? String {
+            firstName = firstNameString
+        }
+
+        if let lastNameString = data["last_name"] as? String {
+            lastName = lastNameString
+        }
         
-        if let usernameString = keyedValues["username"] as? String {
+        if let usernameString = data["username"] as? String {
             username = usernameString
         }
-            
-        if let userDescriptionString = keyedValues["description"] as? String {
-            userDescription = userDescriptionString
-        }
         
-        if let idString = keyedValues["id"] as? String {
+        if let idString = data["id"] as? String {
             id = idString
         }
         
-        if let emailString = keyedValues["email"] as? String {
+        if let emailString = data["email"] as? String {
             email = emailString
         }
 
-        if let backgroundImageString =  keyedValues["backgroundImage"] as? String {
+        if let backgroundImageString =  data["backgroundImage"] as? String {
             backgroundImage = backgroundImageString
         }
 
-        if let profileImageSmallString = keyedValues["profileImageSmall"] as? String {
+        if let profileImageSmallString = data["profileImageSmall"] as? String {
             profileImageSmall = profileImageSmallString
         }
-        
-        if let profileImageSmallString = keyedValues["profile_pic_small"] as? String {
-            profileImageSmall = profileImageSmallString
-        }
-        
-        if let profileImageLargeString = keyedValues["profileImageLarge"] as? String {
+
+        if let profileImageLargeString = data["profileImageLarge"] as? String {
             profileImageLarge = profileImageLargeString
         }
-        
-        if let profileImageLargeString = keyedValues["profileImageURL"] as? String {
-            profileImageLarge = profileImageLargeString
-        }
-        
-        if let profileImageLargeString = keyedValues["profile_pic_large"] as? String {
-            profileImageLarge = profileImageLargeString
-        }
-        
-        if let phoneString = keyedValues["phone"] as? String {
+
+        if let phoneString = data["phone"] as? String {
             phone = phoneString
         }
 
-        if let favsId = keyedValues["favoritesPackId"] as? String {
+        if let favsId = data["favoritesPackId"] as? String {
             favoritesPackId = favsId
         }
 
-        if let recentsId = keyedValues["recentsPackId"] as? String {
+        if let recentsId = data["recentsPackId"] as? String {
             recentsPackId = recentsId
         }
 
-        if let shareCount = keyedValues["shareCount"] as? Int {
+        if let shareCount = data["shareCount"] as? Int {
             self.shareCount = shareCount
         }
 
-        if let pushNotificationStatus = keyedValues["pushNotificationStatus"] as? Bool {
+        if let pushNotificationStatus = data["pushNotificationStatus"] as? Bool {
             self.pushNotificationStatus = pushNotificationStatus
             SessionManagerFlags.defaultManagerFlags.userNotificationSettings = pushNotificationStatus
         }
 
-        if let firebasePushNotificationToken = keyedValues["firebasePushNotificationToken"] as? String {
+        if let firebasePushNotificationToken = data["firebasePushNotificationToken"] as? String {
             self.firebasePushNotificationToken = firebasePushNotificationToken
         }
 
         setupCrashlytics()
     }
     
-    func dataChangedToDictionary() -> [String: String] {
-       let userData = [
+    func dataChangedToDictionary() -> [String: AnyObject] {
+        var userData: [String: AnyObject] = [
             "id": id,
             "name": name,
+            "first_name": firstName,
+            "last_name": lastName,
             "username": username,
             "profileImageSmall": profileImageSmall,
             "profileImageLarge": profileImageLarge,
-            "email": email,
-            "phone": phone,
-            "description": userDescription,
-            "password": password,
+            "image": [
+                "small_url": profileImageSmall,
+                "large_url": profileImageLarge
+            ],
             "backgroundImage": backgroundImage
         ]
+
+        if !email.isEmpty {
+            userData["email"] = email
+        }
+
+        if !favoritesPackId.isEmpty {
+            userData["favoritesPackId"] = favoritesPackId
+        }
+
+        if !recentsPackId.isEmpty {
+            userData["recentsPackId"] = recentsPackId
+        }
 
         return userData
     }

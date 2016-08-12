@@ -71,6 +71,6 @@ class PushNotifcationAlertView: AlertView {
             actionButton.al_right == al_right - 27,
             actionButton.al_height == 40,
             actionButton.al_top == subtitleLabel.al_bottom + 18,
-            ])
+        ])
     }
 }

@@ -25,7 +25,8 @@ class AssignCategoryViewModel: BaseViewModel {
         categories = []
         ref.observeEventType(.Value, withBlock: { snapshot in
             if let data = snapshot.value as? NSDictionary {
-                self.categories = Category.modelsFromDictionary(data)
+                let unsortedCategries = Category.modelsFromDictionary(data)
+                self.categories = unsortedCategries.sort{$0.name < $1.name}
                 self.delegate?.assignCategoryViewModelDelegateDataDidLoad(self, categories: self.categories)
                 completion?(true)
             }
