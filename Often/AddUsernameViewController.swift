@@ -8,7 +8,7 @@
 
 import Foundation
 
-class AddUsernameViewController: PresentingRootViewController, UITextFieldDelegate {
+class AddUsernameViewController: UIViewController, UITextFieldDelegate {
     var usernameView: UsernameView
     var viewModel: UsernameViewModel
 
@@ -57,19 +57,17 @@ class AddUsernameViewController: PresentingRootViewController, UITextFieldDelega
             if !exists {
                 SessionManagerFlags.defaultManagerFlags.userHasUsername = true
                 self.viewModel.saveUsername(self.usernameView.textField.text!)
-                self.presentRootViewController(RootViewController())
+                let vc = SetUserProfilePictureViewController(viewModel: UsernameViewModel())
+                self.presentViewController(vc, animated: true, completion: nil)
             } else {
-                if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
                     DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
-                }
             }
-
         })
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
         let characterCount = usernameView.textField.text!.characters.count
-        if characterCount >= 3 {
+        if characterCount >= 2 {
             usernameView.confirmButton.selected = true
             usernameView.confirmButton.layer.borderWidth = 0
             usernameView.confirmButton.backgroundColor = UIColor(fromHexString: "#152036")

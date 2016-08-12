@@ -223,6 +223,7 @@ class SessionManagerFlags {
     func clearSessionFlags() {
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userID)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userEmail)
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userHasUsername)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.messageSentCount)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.openSession)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.keyboardOpen)
