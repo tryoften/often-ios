@@ -29,6 +29,7 @@ class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDele
         
         userProfileDescription.titleTextField.delegate = self
         onboardingHeader.nextButton.addTarget(self, action: #selector(SetUserProfileDescriptionViewController.didTapNextButton(_:)), forControlEvents: .TouchUpInside)
+        onboardingHeader.skipButton.addTarget(self, action: #selector(SetUserProfileDescriptionViewController.didTapSkipButton(_:)), forControlEvents: .TouchUpInside)
 
         view.backgroundColor = UIColor.oftWhiteColor()
 
