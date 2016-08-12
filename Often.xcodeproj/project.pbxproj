@@ -195,6 +195,16 @@
 		3B5006531CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064E1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift */; };
 		3B62E0361D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */; };
 		3B62E0371D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */; };
+		3B62E0391D5E4A420083D9E9 /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0381D5E4A420083D9E9 /* OnboardingHeader.swift */; };
+		3B62E03A1D5E4A420083D9E9 /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0381D5E4A420083D9E9 /* OnboardingHeader.swift */; };
+		3B62E03C1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E03B1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift */; };
+		3B62E03D1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E03B1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift */; };
+		3B62E03F1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E03E1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift */; };
+		3B62E0401D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E03E1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift */; };
+		3B62E0421D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0411D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift */; };
+		3B62E0431D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0411D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift */; };
+		3B62E0451D5E8C340083D9E9 /* AddSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0441D5E8C340083D9E9 /* AddSelectedImageViewController.swift */; };
+		3B62E0461D5E8C340083D9E9 /* AddSelectedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0441D5E8C340083D9E9 /* AddSelectedImageViewController.swift */; };
 		3B6871151D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871161D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871181D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
@@ -1297,6 +1307,11 @@
 		3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccountManager.swift; sourceTree = "<group>"; };
 		3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountManagerProtocol.swift; path = ../AccountManagerProtocol.swift; sourceTree = "<group>"; };
 		3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackProfileImageUploaderViewController.swift; sourceTree = "<group>"; };
+		3B62E0381D5E4A420083D9E9 /* OnboardingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeader.swift; sourceTree = "<group>"; };
+		3B62E03B1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSelectedGifsViewController.swift; sourceTree = "<group>"; };
+		3B62E03E1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingMediaItemPickerViewcontroller.swift; sourceTree = "<group>"; };
+		3B62E0411D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSelectedQuotesViewController.swift; sourceTree = "<group>"; };
+		3B62E0441D5E8C340083D9E9 /* AddSelectedImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSelectedImageViewController.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFCacheExtensions.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleKit.swift; path = ../Keyboard/StyleKit.swift; sourceTree = "<group>"; };
@@ -2262,6 +2277,10 @@
 				3BFCDFD31D5C3366005A4BF8 /* SetUserProfileBackgroundColorViewController.swift */,
 				3BFCDFD61D5CC965005A4BF8 /* SetUserProfileDescriptionViewController.swift */,
 				BF3D343A1D46B51600C33436 /* AddQuoteViewController.swift */,
+				3B62E03B1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift */,
+				3B62E0411D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift */,
+				3B62E0441D5E8C340083D9E9 /* AddSelectedImageViewController.swift */,
+				3B62E03E1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift */,
 				3BFCDFB41D53BA6A005A4BF8 /* AddUsernameViewController.swift */,
 				3B138FF81D4A8C12002605D3 /* PresentingRootViewController.swift */,
 				3BC55ABA1C8A261300363AB0 /* MediaItemDetailViewController.swift */,
@@ -2343,6 +2362,7 @@
 				BF31C5BF1D47CF2000D33AE0 /* AddQuoteView.swift */,
 				BF31C5C21D47D9F000D33AE0 /* AddContentNavigationView.swift */,
 				819099721D591E5500AC119D /* PackHeaderProfileButton.swift */,
+				3B62E0381D5E4A420083D9E9 /* OnboardingHeader.swift */,
 				696DC86B1D5BF401004D3C0B /* ReportAlertView.swift */,
 				BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */,
 			);
@@ -3451,6 +3471,7 @@
 				3BFCDFCC1D5A6C08005A4BF8 /* SetUserProfilePictureView.swift in Sources */,
 				698D18AC1D4957A80025A2EF /* ImageMediaItem.swift in Sources */,
 				810EA49E1C8579D1005A6C6D /* DropDownErrorMessage.swift in Sources */,
+				3B62E0401D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift in Sources */,
 				816D50E61C8A32AB007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				3BFCDFD51D5C3366005A4BF8 /* SetUserProfileBackgroundColorViewController.swift in Sources */,
 				BF1858E71D3FE46800087872 /* UsernameAlertView.swift in Sources */,
@@ -3486,6 +3507,7 @@
 				810EA4BC1C8579D1005A6C6D /* PKHUDContentView.swift in Sources */,
 				3B309D7B1CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
 				69088E431D1335B400870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
+				3B62E03D1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift in Sources */,
 				810EA4C01C8579D1005A6C6D /* KeyboardInstallWalkthroughView.swift in Sources */,
 				696DC8731D5D00B5004D3C0B /* UIAlertController+ActionSheet.swift in Sources */,
 				810EA4C11C8579D1005A6C6D /* UserProfileViewController.swift in Sources */,
@@ -3506,6 +3528,7 @@
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
 				3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
+				3B62E0431D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift in Sources */,
 				810EA4D71C8579D1005A6C6D /* AnonymousAccountManager.swift in Sources */,
 				810EA4D81C8579D1005A6C6D /* AlertView.swift in Sources */,
 				810EA4D91C8579D1005A6C6D /* EmitterListener.swift in Sources */,
@@ -3570,9 +3593,11 @@
 				813A1B7B1CAC5A6A006BBB2E /* (null) in Sources */,
 				BF3FA1EC1CACAA6800DBB87B /* (null) in Sources */,
 				3BD2E4181D47F4730021F558 /* AssignCategoryViewModel.swift in Sources */,
+				3B62E0461D5E8C340083D9E9 /* AddSelectedImageViewController.swift in Sources */,
 				810EA5191C8579D1005A6C6D /* NoKeyboardEmptyStateView.swift in Sources */,
 				3B5006411CADACB9003D4144 /* PackPageHeaderView.swift in Sources */,
 				810EA51B1C8579D1005A6C6D /* MediaItemGroupsViewController.swift in Sources */,
+				3B62E03A1D5E4A420083D9E9 /* OnboardingHeader.swift in Sources */,
 				810EA51C1C8579D1005A6C6D /* MediaItemCollectionViewCell.swift in Sources */,
 				810EA5201C8579D1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
 				3BFCDFB61D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */,
@@ -3795,6 +3820,7 @@
 				816D50A01C8A058D007B3249 /* ContainerNavigationBar.swift in Sources */,
 				816D503E1C8A04CA007B3249 /* MediaItemGroup.swift in Sources */,
 				BF3D343B1D46B51600C33436 /* AddQuoteViewController.swift in Sources */,
+				3B62E03C1D5E4D2F0083D9E9 /* AddSelectedGifsViewController.swift in Sources */,
 				3BA7D8321CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
 				816D503A1C8A04C4007B3249 /* Analytics.swift in Sources */,
 				816D508E1C8A0589007B3249 /* SettingsViewModel.swift in Sources */,
@@ -3806,6 +3832,7 @@
 				BFAD7B301D4A53180002670F /* QuoteCategoryAssignmentViewController.swift in Sources */,
 				81F15C0D1CB2B5B700D074CB /* PacksService.swift in Sources */,
 				3B6871151D106E7100AFF61F /* DFCacheExtensions.swift in Sources */,
+				3B62E0451D5E8C340083D9E9 /* AddSelectedImageViewController.swift in Sources */,
 				816D50CC1C8A0735007B3249 /* BrowseViewModel.swift in Sources */,
 				69F386701D4131A500EB90E6 /* PackImagePickerViewController.swift in Sources */,
 				816D50461C8A04CF007B3249 /* ArtistMediaItem.swift in Sources */,
@@ -3860,6 +3887,7 @@
 				816D505F1C8A04F4007B3249 /* FavoritesEmptyStateView.swift in Sources */,
 				816D50E91C8A3354007B3249 /* CategoryCollectionViewCell.swift in Sources */,
 				816D50C21C8A0612007B3249 /* PKHUDAssets.swift in Sources */,
+				3B62E0421D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift in Sources */,
 				816D505E1C8A04F4007B3249 /* NoKeyboardEmptyStateView.swift in Sources */,
 				69D7BC761D17A79700F06797 /* BrowseCategoryPanelViewController.swift in Sources */,
 				816D50871C8A057C007B3249 /* Validation.swift in Sources */,
@@ -3953,6 +3981,7 @@
 				3B309D781CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
 				3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
 				816D508C1C8A0583007B3249 /* AccountManager.swift in Sources */,
+				3B62E03F1D5E7FA30083D9E9 /* OnboardingMediaItemPickerViewcontroller.swift in Sources */,
 				816D50881C8A0583007B3249 /* EmailAccountManager.swift in Sources */,
 				816D50AE1C8A0596007B3249 /* SettingsWebViewController.swift in Sources */,
 				816D503F1C8A04CA007B3249 /* MediaType.swift in Sources */,
@@ -3965,6 +3994,7 @@
 				816D50441C8A04CA007B3249 /* Category.swift in Sources */,
 				BF31C5C01D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,
 				3BFCDFB21D538BD6005A4BF8 /* UsernameView.swift in Sources */,
+				3B62E0391D5E4A420083D9E9 /* OnboardingHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

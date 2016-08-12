@@ -39,8 +39,8 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         userProfilePictureView.skipButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.skipButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 

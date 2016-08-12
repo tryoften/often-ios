@@ -42,7 +42,6 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameView.textField.delegate = self
-
         usernameView.confirmButton.addTarget(self,  action: #selector(AddUsernameViewController.didTapConfirmButton(_:)), forControlEvents: .TouchUpInside)
     }
 
