@@ -193,6 +193,8 @@
 		3B5006511CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064E1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift */; };
 		3B5006521CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064E1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift */; };
 		3B5006531CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B50064E1CB6BE0C003D4144 /* BaseBrowsePackItemViewController.swift */; };
+		3B62E0361D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */; };
+		3B62E0371D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */; };
 		3B6871151D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871161D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
 		3B6871181D106E7100AFF61F /* DFCacheExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */; };
@@ -336,7 +338,6 @@
 		69088E431D1335B400870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */; };
 		6936E5EE1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
 		6936E5EF1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6936E5ED1D4FEC0700246DA9 /* UserProfileSettingsBarButton.swift */; };
-		69410A531CFF9AED0036BEA9 /* PackHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69410A4E1CFF99540036BEA9 /* PackHeaderButton.swift */; };
 		69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
 		6944A5341C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
 		6944A5351C3AF03E00EA57C3 /* TwitterEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6944A5321C3AF03E00EA57C3 /* TwitterEmptyStateView.swift */; };
@@ -1295,6 +1296,7 @@
 		3B5F25611BF3E85300AA7A98 /* SkipSignupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkipSignupView.swift; sourceTree = "<group>"; };
 		3B5F25671BF4032500AA7A98 /* AnonymousAccountManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnonymousAccountManager.swift; sourceTree = "<group>"; };
 		3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountManagerProtocol.swift; path = ../AccountManagerProtocol.swift; sourceTree = "<group>"; };
+		3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackProfileImageUploaderViewController.swift; sourceTree = "<group>"; };
 		3B64A1941BC593560057F795 /* DropDownErrorMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownErrorMessage.swift; sourceTree = "<group>"; };
 		3B6871141D106E7100AFF61F /* DFCacheExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DFCacheExtensions.swift; sourceTree = "<group>"; };
 		3B6B6FFD1BB0899300669ACD /* StyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StyleKit.swift; path = ../Keyboard/StyleKit.swift; sourceTree = "<group>"; };
@@ -2291,6 +2293,7 @@
 				69F3866F1D4131A500EB90E6 /* PackImagePickerViewController.swift */,
 				3BDF89191D3FF7810043173A /* GiphySearchViewController.swift */,
 				69F9956A1D492F1E00625123 /* ImageUploaderViewController.swift */,
+				3B62E0351D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift */,
 				BFAD7B291D493F830002670F /* BaseCategoryAssignmentViewController.swift */,
 				BFAD7B2C1D4A48920002670F /* GifCategoryAssignmentViewController.swift */,
 				BFAD7B2F1D4A53180002670F /* QuoteCategoryAssignmentViewController.swift */,
@@ -3530,6 +3533,7 @@
 				810EA4F11C8579D1005A6C6D /* AccountManagerProtocol.swift in Sources */,
 				810EA4F21C8579D1005A6C6D /* MediaItemsViewController.swift in Sources */,
 				3B7A50D91D17B803009E6B47 /* ImageManagerExtension.swift in Sources */,
+				3B62E0371D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */,
 				3BFCDFD21D5BE9F9005A4BF8 /* SetUserProfileDescriptionView.swift in Sources */,
 				810EA4F31C8579D1005A6C6D /* MediaType.swift in Sources */,
 				810EA4F51C8579D1005A6C6D /* (null) in Sources */,
@@ -3846,6 +3850,7 @@
 				69C8056F1D1D7F51001EF978 /* CategoryPanelInteractor.swift in Sources */,
 				816D50B31C8A059A007B3249 /* AppDelegate.swift in Sources */,
 				816D50951C8A058D007B3249 /* FilterTabView.swift in Sources */,
+				3B62E0361D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */,
 				816D50C41C8A061B007B3249 /* Window.swift in Sources */,
 				696DC8691D5BF125004D3C0B /* ReportAlertViewController.swift in Sources */,
 				816D50681C8A0506007B3249 /* delay.swift in Sources */,
@@ -3866,7 +3871,6 @@
 				816D50991C8A058D007B3249 /* KeyboardInstallWalkthroughView.swift in Sources */,
 				816D50D41C8A084A007B3249 /* BrowseMediaItemCollectionViewCell.swift in Sources */,
 				816D50B81C8A05E3007B3249 /* Helpers.swift in Sources */,
-				695AE3C91D5909E600E4B54B /* PackHeaderButton.swift in Sources */,
 				3BFCDFD71D5CC965005A4BF8 /* SetUserProfileDescriptionViewController.swift in Sources */,
 				816D506D1C8A050F007B3249 /* UIColor+HEXString.m in Sources */,
 				3B43D88B1CB750CE0012CE5F /* BrowsePackHeaderCollectionViewCell.swift in Sources */,

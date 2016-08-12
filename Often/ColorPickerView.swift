@@ -11,7 +11,7 @@ import Foundation
 class ColorPickerView: UIView {
     var currentSelectionX: CGFloat = 0
     var selectedColor: UIColor!
-    var delegate: ColorPickerDelegate?
+    weak var delegate: ColorPickerDelegate?
 
     override func drawRect(rect: CGRect) {
         UIColor.blackColor().set()
@@ -74,6 +74,6 @@ class ColorPickerView: UIView {
     }
 }
 
- protocol ColorPickerDelegate {
+protocol ColorPickerDelegate: class {
     func colorPickerViewDidSetColor(picker: ColorPickerView, color: UIColor)
 }

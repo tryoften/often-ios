@@ -39,9 +39,9 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
-        userProfilePictureView.skipButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.skipButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.skipButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -77,8 +77,6 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
 
         userProfilePictureView.nextButton.selected = true
         userProfilePictureView.nextButton.layer.borderWidth = 0
-        userProfilePictureView.nextButton.backgroundColor = UIColor(fromHexString: "#152036")
-        userProfilePictureView.nextButton.setTitleColor(WhiteColor, forState: .Normal)
-
+        userProfilePictureView.nextButton.backgroundColor = TealColor
     }
 }
