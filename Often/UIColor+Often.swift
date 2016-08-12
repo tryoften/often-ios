@@ -64,6 +64,10 @@ extension UIColor {
         return UIColor(white: 247.0 / 255.0, alpha: 1.0)
     }
     
+    class func oftWhiteFiveColor() -> UIColor {
+        return UIColor(white: 227.0 / 255.0, alpha: 1.0)
+    }
+    
     class func oftVeryLightPinkColor() -> UIColor {
         return UIColor(red: 255.0 / 255.0, green: 242.0 / 255.0, blue: 231.0 / 255.0, alpha: 1.0)
     }

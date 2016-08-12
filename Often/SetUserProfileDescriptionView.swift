@@ -15,6 +15,7 @@ class SetUserProfileDescriptionView: UIView {
     var descriptionLabel: UILabel
     var descriptionTextField: UITextField
     var descriptionTextFieldDivider: UIView
+    var progressBar: OnboardingProgressBar
     
     override init(frame: CGRect) {
 
@@ -45,6 +46,9 @@ class SetUserProfileDescriptionView: UIView {
         descriptionTextFieldDivider = UIView()
         descriptionTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
+        
+        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)
 
@@ -54,6 +58,7 @@ class SetUserProfileDescriptionView: UIView {
         addSubview(descriptionLabel)
         addSubview(descriptionTextField)
         addSubview(descriptionTextFieldDivider)
+        addSubview(progressBar)
 
         setupLayout()
     }
@@ -91,6 +96,11 @@ class SetUserProfileDescriptionView: UIView {
             descriptionTextFieldDivider.al_left == al_left + 18,
             descriptionTextFieldDivider.al_right == al_right - 18,
             descriptionTextFieldDivider.al_height == 1,
+            
+            progressBar.al_left == al_left,
+            progressBar.al_right == al_right,
+            progressBar.al_bottom == al_bottom,
+            progressBar.al_height == 5
 
             ])
     }

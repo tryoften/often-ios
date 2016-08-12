@@ -1055,6 +1055,8 @@
 		BF5DA1A31D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
 		BF5DA1A51D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
 		BF5DA1A61D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
+		BF5DA1A81D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */; };
+		BF5DA1A91D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */; };
 		BF5EA1F11D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
 		BF5EA1F21D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
 		BF5EA1F31D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
@@ -1548,6 +1550,7 @@
 		BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredCollectionViewController.swift; sourceTree = "<group>"; };
 		BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHeaderView.swift; sourceTree = "<group>"; };
 		BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeader.swift; sourceTree = "<group>"; };
+		BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
 		BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderButton.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
@@ -2349,6 +2352,7 @@
 				819099721D591E5500AC119D /* PackHeaderProfileButton.swift */,
 				696DC86B1D5BF401004D3C0B /* ReportAlertView.swift */,
 				BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */,
+				BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3517,6 +3521,7 @@
 				810EA4DD1C8579D1005A6C6D /* PKHUD.swift in Sources */,
 				810EA4DF1C8579D1005A6C6D /* Analytics.swift in Sources */,
 				81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */,
+				BF5DA1A91D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */,
 				BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				3B309D6F1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
@@ -3855,6 +3860,7 @@
 				3BDF89171D3FD2720043173A /* SearchBarView.swift in Sources */,
 				69C8056F1D1D7F51001EF978 /* CategoryPanelInteractor.swift in Sources */,
 				816D50B31C8A059A007B3249 /* AppDelegate.swift in Sources */,
+				BF5DA1A81D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */,
 				816D50951C8A058D007B3249 /* FilterTabView.swift in Sources */,
 				3B62E0361D5DB90D0083D9E9 /* PackProfileImageUploaderViewController.swift in Sources */,
 				816D50C41C8A061B007B3249 /* Window.swift in Sources */,
