@@ -40,7 +40,7 @@ class TwitterAccountManager: AccountManager {
     }
     
     func fetchData(completion: ((results: ResultType) -> Void)? = nil) {
-        if let userID = Twitter.sharedInstance().sessionStore.session()?.userID {
+        func parseTwitterData(userID: String) {
             let client = TWTRAPIClient(userID: userID)
             client.loadUserWithID(userID) { (user, error) -> Void in
                 if error == nil {
@@ -76,16 +76,6 @@ class TwitterAccountManager: AccountManager {
                             firebaseData["last_name"] = lastName
                         }
 
-
-                        guard let userIDWithProvider = firebaseData["id"] as? String else {
-                            completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
-                            return
-                        }
-
-                        self.sessionManagerFlags.userId = userIDWithProvider
-                        self.userRef = self.firebase.child("users/\(userIDWithProvider)")
-
-                        self.currentUser = User()
                         self.currentUser?.setValuesForKeysWithDictionary(firebaseData)
 
                         if let user = self.currentUser {
@@ -98,6 +88,26 @@ class TwitterAccountManager: AccountManager {
                 }
             }
         }
+
+        guard let userID = Twitter.sharedInstance().sessionStore.session()?.userID else {
+            completion?(results: ResultType.Error(e: AccountManagerError.ReturnedEmptyUserObject))
+            return
+        }
+
+        userRef = firebase.child("users/twitter:\(userID)")
+        sessionManagerFlags.userId = "twitter:\(userID)"
+        self.currentUser = User()
+
+        userRef?.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if let value = snapshot.value as? [String: AnyObject] where snapshot.exists() {
+                self.currentUser?.setValuesForKeysWithDictionary(value)
+
+            } else {
+                self.currentUser?.isNew = true
+            }
+
+            parseTwitterData(userID)
+        })
     }
 
 }
