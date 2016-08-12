@@ -93,7 +93,7 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        setupNavBar()
         
         if let user = SessionManager.defaultManager.currentUser {
             if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
@@ -103,11 +103,6 @@ UICollectionViewDelegateFlowLayout {
             }
         }
         reloadUserData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -317,5 +312,17 @@ UICollectionViewDelegateFlowLayout {
             let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
             presentViewController(vc, animated: true, completion: nil)
         }
+    }
+    
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = UIColor.lightGrayColor()
+        
+        let rightHeaderButton = UIBarButtonItem(image: StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()),
+                                                style: .Plain,
+                                                target: self,
+                                                action: #selector(UserProfileViewController.presentSettingsViewController))
+        rightHeaderButton.imageInsets = UIEdgeInsetsMake(13.0, 26.0, 13.0, 0.0)
+        rightHeaderButton.tintColor = UIColor.lightGrayColor()
+        navigationItem.rightBarButtonItem = rightHeaderButton
     }
 }

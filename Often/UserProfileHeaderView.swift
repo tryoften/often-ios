@@ -135,7 +135,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         leftHeaderLabel.font = UIFont(name: "Montserrat", size: 12.0)
         leftHeaderLabel.textColor = UIColor.lightGrayColor()
-        leftHeaderLabel.text = "@komreezy"
         
         leftBoldLabel = UILabel()
         leftBoldLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -164,12 +163,12 @@ class UserProfileHeaderView: UICollectionReusableView {
                                          letterSpacing: 0.5,
                                          color: UIColor.lightGrayColor(),
                                          text: "Following".uppercaseString)
-
         
         rightHeaderButton = UIButton()
         rightHeaderButton.translatesAutoresizingMaskIntoConstraints = false
         rightHeaderButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()), forState: .Normal)
-        rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
+        rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(13.0, 13.0, 13.0, 13.0)
+        rightHeaderButton.hidden = true
 
         backButton = UIButton()
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -286,7 +285,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             nameLabel.al_right == al_centerX,
             nameLabel.al_height == screenWidth * 0.19,
             
-            leftHeaderLabel.al_left == nameLabel.al_left,
+            leftHeaderLabel.al_left == nameLabel.al_left + 5,
             leftHeaderLabelConstraint!,
             
             leftBoldLabel.al_left == leftDescriptorLabel.al_left,
