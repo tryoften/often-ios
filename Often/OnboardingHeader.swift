@@ -11,6 +11,18 @@ import Foundation
 class OnboardingHeader: UIView {
     private var title: UILabel
     private var subtitle: UILabel
+    
+    var titleText: String? {
+        didSet {
+            title.setTextWith(UIFont(name: "Montserrat-Regular", size: 18)!, letterSpacing: 1.0, color: UIColor.oftBlackColor(), text: titleText!)
+        }
+    }
+    
+    var subtitleText: String? {
+        didSet {
+            subtitle.setTextWith(UIFont(name: "OpenSans", size: 13)!, letterSpacing: 0.5, color: UIColor.oftBlack74Color(), text: subtitleText!)
+        }
+    }
 
     var skipButton: UIButton
     var nextButton: UIButton
@@ -36,8 +48,9 @@ class OnboardingHeader: UIView {
         nextButton = UIButton()
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         nextButton.setTitle("Next", forState: .Normal)
-        nextButton.titleLabel?.font = UIFont(name: "OpenSans", size: 15.0)
+        nextButton.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 15.0)
         nextButton.setTitleColor(UIColor.oftBlack90Color(), forState: .Normal)
+        nextButton.setTitleColor(UIColor.lightGrayColor(), forState: .Disabled)
         
         super.init(frame: frame)
 
@@ -56,8 +69,7 @@ class OnboardingHeader: UIView {
     func setupLayout() {
         addConstraints([
             title.al_top == al_top + 109,
-            title.al_left == al_left + 72,
-            title.al_right == al_right - 72,
+            title.al_centerX == al_centerX,
             title.al_height == 20,
 
             subtitle.al_top == title.al_bottom + 5,

@@ -8,17 +8,31 @@
 
 import Foundation
 
-class SetUserProfileDescriptionViewController: UIViewController {
+class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDelegate {
     var userProfileDescription: SetUserProfileDescriptionView
+    var onboardingHeader: OnboardingHeader
+    var viewModel: PacksService
 
-    init(viewModel: UsernameViewModel) {
+    init(viewModel: PacksService) {
+        self.viewModel = viewModel
+    
         userProfileDescription = SetUserProfileDescriptionView()
         userProfileDescription.translatesAutoresizingMaskIntoConstraints = false
+        
+        onboardingHeader = OnboardingHeader()
+        onboardingHeader.translatesAutoresizingMaskIntoConstraints = false
+        onboardingHeader.titleText = "Add a title & description"
+        onboardingHeader.subtitleText = "Tell your friends why they should follow you and what you’ll be sharing!"
+        onboardingHeader.nextButton.enabled = false
 
         super.init(nibName: nil, bundle: nil)
+        
+        userProfileDescription.titleTextField.delegate = self
+        onboardingHeader.nextButton.addTarget(self, action: #selector(SetUserProfileDescriptionViewController.didTapNextButton(_:)), forControlEvents: .TouchUpInside)
 
         view.backgroundColor = UIColor.oftWhiteColor()
 
+        view.addSubview(onboardingHeader)
         view.addSubview(userProfileDescription)
 
         setupLayout()
@@ -26,11 +40,48 @@ class SetUserProfileDescriptionViewController: UIViewController {
 
     func setupLayout()  {
         view.addConstraints([
-            userProfileDescription.al_top == view.al_top,
+            onboardingHeader.al_top == view.al_top,
+            onboardingHeader.al_left == view.al_left,
+            onboardingHeader.al_right == view.al_right,
+            onboardingHeader.al_height == 213,
+            
+            userProfileDescription.al_top == onboardingHeader.al_bottom + 40,
             userProfileDescription.al_bottom == view.al_bottom,
             userProfileDescription.al_left == view.al_left,
             userProfileDescription.al_right == view.al_right
             ])
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
+        
+        if textField.hasText() {
+            onboardingHeader.nextButton.enabled = true
+        } else {
+            onboardingHeader.nextButton.enabled = false
+        }
+        
+        return true
+    }
+    
+    func didTapNextButton(sender: UIButton) {
+        guard let titleText = userProfileDescription.titleTextField.text else {
+            return
+        }
+        
+        var descriptionText = ""
+        if let text = userProfileDescription.descriptionTextField.text {
+            descriptionText = text
+        }
+        
+        viewModel.updatePackTitleAndDescription(titleText, description: descriptionText)
+        let vc = SetUserProfileBackgroundColorViewController(viewModel: UsernameViewModel())
+        presentViewController(vc, animated: true, completion: nil)
+        
+    }
+    
+    func didTapSkipButton(sender: UIButton) {
+        let vc = SetUserProfileBackgroundColorViewController(viewModel: UsernameViewModel())
+        presentViewController(vc, animated: true, completion: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {

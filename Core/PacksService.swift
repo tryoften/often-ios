@@ -385,6 +385,18 @@ class PacksService: PackItemViewModel {
             ])
     }
     
+    func updatePackTitleAndDescription(title: String, description: String) {
+        guard let favPackID = currentUser?.favoritesPackId else {
+            return
+        }
+        
+        let ref = userRef.child("packs/\(favPackID)")
+        ref.updateChildValues([
+            "name": title,
+            "description": description
+            ])
+    }
+    
     func encodeString(username: String) -> String {
         let plainData = (username as NSString).dataUsingEncoding(NSUTF8StringEncoding)
         if let base64String = plainData?.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0)) {

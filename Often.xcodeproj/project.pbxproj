@@ -1053,6 +1053,8 @@
 		BF5DA1A11D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
 		BF5DA1A21D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
 		BF5DA1A31D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
+		BF5DA1A51D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
+		BF5DA1A61D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
 		BF5EA1F11D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
 		BF5EA1F21D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
 		BF5EA1F31D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
@@ -1545,6 +1547,7 @@
 		BF496FC71D58F3C00016EA2F /* ReactionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactionsViewModel.swift; path = ../ReactionsViewModel.swift; sourceTree = "<group>"; };
 		BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredCollectionViewController.swift; sourceTree = "<group>"; };
 		BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHeaderView.swift; sourceTree = "<group>"; };
+		BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeader.swift; sourceTree = "<group>"; };
 		BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderButton.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
 		BF9971401CBEC310008351C7 /* GifMediaItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifMediaItem.swift; sourceTree = "<group>"; };
@@ -2316,6 +2319,7 @@
 				3B97896C1D4668BC001DD156 /* AddContentView.swift */,
 				3BDF891F1D415A490043173A /* SearchOverlayView.swift */,
 				3BDF89161D3FD2720043173A /* SearchBarView.swift */,
+				BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */,
 				69088E411D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift */,
 				813323991C249A410084918B /* AppSettingsView.swift */,
 				3B50063F1CADACB9003D4144 /* PackPageHeaderView.swift */,
@@ -3579,6 +3583,7 @@
 				813A1B6C1CAC45BA006BBB2E /* BrowsePackHeaderCollectionViewController.swift in Sources */,
 				698D18A51D4935470025A2EF /* ImageUploaderViewController.swift in Sources */,
 				696DC86D1D5BF401004D3C0B /* ReportAlertView.swift in Sources */,
+				BF5DA1A61D5E65A500D2215E /* OnboardingHeader.swift in Sources */,
 				810EA5221C8579D1005A6C6D /* ContainerNavigationBar.swift in Sources */,
 				810EA5251C8579D1005A6C6D /* UIKit+Guard.swift in Sources */,
 				810EA5261C8579D1005A6C6D /* RecentsEmptyStateView.swift in Sources */,
@@ -3793,6 +3798,7 @@
 				690553361CA78E25004680CA /* BrowsePackSectionHeaderView.swift in Sources */,
 				816D509C1C8A058D007B3249 /* ViewSpacerWithText.swift in Sources */,
 				816D50A01C8A058D007B3249 /* ContainerNavigationBar.swift in Sources */,
+				BF5DA1A51D5E65A500D2215E /* OnboardingHeader.swift in Sources */,
 				816D503E1C8A04CA007B3249 /* MediaItemGroup.swift in Sources */,
 				BF3D343B1D46B51600C33436 /* AddQuoteViewController.swift in Sources */,
 				3BA7D8321CB6F4A200C7E5C7 /* UILabel+AttributeText.swift in Sources */,
