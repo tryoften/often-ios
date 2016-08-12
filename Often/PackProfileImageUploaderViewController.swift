@@ -34,7 +34,9 @@ class PackProfileImageUploaderViewController: ImageUploaderViewController {
                 }
 
                 self.imageDidSuccessfullyUpload(downloadURL, viewModel: viewModel, completion: { success in
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    if success {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
                 })
             }
 

@@ -13,12 +13,6 @@ class UsernameViewModel: BaseViewModel {
 
     init() {
         super.init()
-
-        do {
-            try setupUser { inner in
-            }
-        } catch _ {
-        }
     }
 
     func generateSuggestedUsername() -> String {

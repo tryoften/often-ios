@@ -372,9 +372,9 @@ class PacksService: PackItemViewModel {
     }
 
     func updatePackProfileImage(image: ImageMediaItem) {
-        guard let favPackID = favoritesPack?.id,
-            smallImage = image.smallImageURL,
-            largeImage = image.largeImageURL else {
+        guard let favPackID = currentUser?.favoritesPackId,
+            smallImage = image.smallImageURL?.absoluteString,
+            largeImage = image.largeImageURL?.absoluteString else {
             return
         }
 
