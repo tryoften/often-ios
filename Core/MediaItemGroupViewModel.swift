@@ -11,13 +11,7 @@ import Firebase
 
 class MediaItemGroupViewModel: BaseViewModel {
     weak var delegate: MediaItemGroupViewModelDelegate?
-    var mediaItemGroups: [MediaItemGroup]
-
-    override init(baseRef: FIRDatabaseReference = FIRDatabase.database().reference(), path: String?) {
-        mediaItemGroups = []
-        
-        super.init(baseRef: baseRef, path: path)
-    }
+    var mediaItemGroups: [MediaItemGroup] = []
 
     override func fetchData(completion: ((Bool) -> Void)? = nil) {
         ref.observeEventType(.Value, withBlock: { snapshot in

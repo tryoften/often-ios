@@ -22,25 +22,43 @@ UICollectionViewDelegateFlowLayout {
             collectionView?.reloadData()
         }
     }
+    
+    var presentFavorites: Bool = false {
+        didSet {
+            if viewModel.mediaItems.count > 0 {
+                guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+                    return
+                }
+                
+                let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+                navigationController?.navigationBar.hidden = false
+                navigationController?.pushViewController(packVC, animated: true)
+            }
+        }
+    }
 
     init(viewModel: PacksService) {
         self.viewModel = viewModel
         super.init(collectionViewLayout: self.dynamicType.provideCollectionViewLayout())
         
         viewModel.delegate = self
-        viewModel.fetchCollection()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack), name: AddContentTabDismissedEvent, object: nil)
         
-        packServiceListener = PacksService.defaultInstance.didUpdatePacks.on { items in
+        packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
+            self.reloadUserData()
         }
 
         collectionView?.contentInset = UIEdgeInsetsZero
         collectionView?.backgroundColor = VeryLightGray
         collectionView?.registerClass(PackProfileCollectionViewCell.self, forCellWithReuseIdentifier: BrowseMediaItemCollectionViewCellReuseIdentifier)
         collectionView?.registerClass(UserProfileSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userProfileSectionHeader")
-        
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
+                                     withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
+
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
     }
@@ -70,13 +88,7 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let collectionView = collectionView {
-            collectionView.backgroundColor = VeryLightGray
-            collectionView.showsVerticalScrollIndicator = false
-            collectionView.registerClass(UserProfileHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader,
-                                         withReuseIdentifier: UserProfileHeaderViewReuseIdentifier)
-        }
+        viewModel.fetchData()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -95,16 +107,12 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-
-        if let navigationBar = navigationController?.navigationBar {
-            navigationBar.barStyle = .Default
-            navigationBar.translucent = false
-            navigationBar.hidden = true
-        }
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
@@ -134,11 +142,9 @@ UICollectionViewDelegateFlowLayout {
             if headerView == nil {
                 headerView = cell
                 headerView?.rightHeaderButton.addTarget(self, action: #selector(UserProfileViewController.presentSettingsViewController), forControlEvents: .TouchUpInside)
-                let recognizer = UITapGestureRecognizer()
-                recognizer.addTarget(self, action: #selector(UserProfileViewController.handleSettingsTap(_:)))
-                headerView?.rightHeaderLabel.addGestureRecognizer(recognizer)
-                headerView?.rightHeaderLabel.userInteractionEnabled = true
-                viewModel.fetchCollection()
+                headerView?.backButton.addTarget(self, action:
+                    #selector(UserProfileViewController.didTapBackButton), forControlEvents: .TouchUpInside)
+                viewModel.fetchData()
             }
             
             return headerView!
@@ -168,16 +174,16 @@ UICollectionViewDelegateFlowLayout {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell else {
+        guard let cell =  parsePackItemData(viewModel.mediaItems, indexPath: indexPath, collectionView: collectionView) as? PackProfileCollectionViewCell,
+                pack = viewModel.mediaItems[indexPath.row] as? PackMediaItem else {
             return PackProfileCollectionViewCell()
         }
-        
+
         cell.addedBadgeView.hidden = true
         cell.primaryButton.tag = indexPath.row
+        cell.checkmarkBadge.hidden = !(pack.isFavorites && pack.isUserPackOwner(viewModel.currentUser))
         
-        let result = viewModel.mediaItems[indexPath.row], pack = result as? PackMediaItem
-        
-        if editingActive == true && pack?.isFavorites == false {
+        if editingActive && !pack.isUserPackOwner(viewModel.currentUser) {
             cell.disclosureIndicator.hidden = true
             cell.primaryButton.hidden = false
         } else {
@@ -201,14 +207,19 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func reloadUserData() {
-        if let headerView = headerView, let user = SessionManager.defaultManager.currentUser {
+        if let headerView = headerView, let user = viewModel.currentUser {
+            headerView.isCurrentUser = viewModel.isCurrentUser
             headerView.nameLabel.text = user.name
-            headerView.collapseNameLabel.text = user.name
-            headerView.leftHeaderLabel.text = "@\(user.username)"
+            headerView.collapseNameLabel.text = "@\(user.username)"
+            headerView.leftHeaderLabel.text = user.name
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
         }
+    }
+
+    func didTapBackButton(button: UIButton?) {
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func didTapRemovePackButton(button: UIButton?) {
@@ -234,18 +245,30 @@ UICollectionViewDelegateFlowLayout {
         AlertVC.transitioningDelegate = self
         AlertVC.modalPresentationStyle = .Custom
         presentViewController(AlertVC, animated: true, completion: nil)
-        
     }
     
     func promptUserToChooseUsername() {
-        if let user = SessionManager.defaultManager.currentUser {
-            if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
-                let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
-                alertVC.transitioningDelegate = self
-                alertVC.modalPresentationStyle = .Custom
-                presentViewController(alertVC, animated: true, completion: nil)
-            }
+        guard let _ = SessionManager.defaultManager.currentUser else {
+            return
         }
+
+        if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+            let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
+            alertVC.transitioningDelegate = self
+            alertVC.modalPresentationStyle = .Custom
+            presentViewController(alertVC, animated: true, completion: nil)
+        }
+
+    }
+    
+    func presentFavoritesPack() {
+        guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+            return
+        }
+        
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        navigationController?.navigationBar.hidden = false
+        navigationController?.pushViewController(packVC, animated: true)
     }
     
     override func requestForIndexPaths(indexPaths: [NSIndexPath]) -> [ImageRequest]? {
@@ -269,7 +292,6 @@ UICollectionViewDelegateFlowLayout {
         }
     }
     
-    
     override func showEmptyStateViewForState(state: UserState, animated: Bool = false, completion: ((EmptyStateView) -> Void)? = nil) {
         super.showEmptyStateViewForState(state, animated: animated, completion: completion)
         viewDidLayoutSubviews()
@@ -291,12 +313,9 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentSettingsViewController() {
-        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
-        presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func handleSettingsTap(recognizer: UITapGestureRecognizer) {
-        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
-        presentViewController(vc, animated: true, completion: nil)
+        if viewModel.isCurrentUser {
+            let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
+            presentViewController(vc, animated: true, completion: nil)
+        }
     }
 }

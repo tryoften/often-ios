@@ -21,6 +21,8 @@ class AddContentViewController: UIViewController {
         view.backgroundColor = UIColor.oftBlackColor().colorWithAlphaComponent(0.5)
         view.addSubview(addContentView)
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContentViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
+        
         setupLayout()
     }
     
@@ -66,7 +68,7 @@ class AddContentViewController: UIViewController {
          AddContentPrompt().dismissAllPrompt()
 
         if sender.isEqual(addContentView.addGifButton) {
-            let vc = ContainerNavigationController(rootViewController:GiphySearchViewController(viewModel: GiphySearchViewModel()))
+            let vc = ContainerNavigationController(rootViewController: GiphySearchViewController(viewModel: GiphySearchViewModel()))
             vc.navigationBar.hidden = true
             presentViewController(vc, animated: true, completion: nil)
         }
@@ -87,5 +89,9 @@ class AddContentViewController: UIViewController {
         if sender.isEqual(addContentView.cancelButton) {
             dismissViewControllerAnimated(true, completion: nil)
         }
+    }
+    
+    func addContentViewDidDismiss() {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }

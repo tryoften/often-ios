@@ -9,7 +9,7 @@
 import Foundation
 
 extension UILabel {
-    func setTextWith(font: UIFont, letterSpacing: Float, color: UIColor, lineHeight: CGFloat = 1.0, text: String) {
+    func setTextWith(font: UIFont?, letterSpacing: Float, color: UIColor, lineHeight: CGFloat = 1.0, text: String) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.0
         paragraphStyle.lineHeightMultiple = lineHeight
@@ -17,7 +17,7 @@ extension UILabel {
 
         let attributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: letterSpacing),
-            NSFontAttributeName: font,
+            NSFontAttributeName: font!,
             NSForegroundColorAttributeName: color,
             NSParagraphStyleAttributeName: paragraphStyle
         ]

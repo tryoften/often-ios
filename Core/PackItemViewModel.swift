@@ -31,9 +31,18 @@ class PackItemViewModel: BrowseViewModel {
         }
     }
 
-    init(packId: String) {
+    var isCurrentUser: Bool {
+        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId,
+            let ownerId = pack?.owner?["id"] as? String else {
+            return false
+        }
+
+        return ownerId == currentUserId
+    }
+
+    init(userId: String? = nil, packId: String) {
         self.packId = packId
-        super.init(path: "packs/\(packId)")
+        super.init(userId: userId, path: "packs/\(packId)")
     }
     
     override func fetchData(completion: ((Bool) -> Void)? = nil) {
