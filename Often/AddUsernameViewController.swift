@@ -57,7 +57,7 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
             if !exists {
                 SessionManagerFlags.defaultManagerFlags.userHasUsername = true
                 self.viewModel.saveUsername(self.usernameView.textField.text!)
-                let vc = SetUserProfilePictureViewController(viewModel: UsernameViewModel())
+                let vc = SetUserProfilePictureViewController(viewModel: PacksService.defaultInstance)
                 self.presentViewController(vc, animated: true, completion: nil)
             } else {
                     DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))

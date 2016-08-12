@@ -15,6 +15,7 @@ class SetUserProfilePictureView: UIView {
 
     var skipButton: UIButton
     var nextButton: UIButton
+    var imageView: UIImageView
     var addPhotoButton: UploadPhotoButton
 
     override init(frame: CGRect) {
@@ -28,6 +29,10 @@ class SetUserProfilePictureView: UIView {
         subtitle.numberOfLines = 0
         subtitle.textAlignment = .Center
         subtitle.setTextWith(UIFont(name: "OpenSans", size: 13)!, letterSpacing: 0.5, color: UIColor.oftBlack74Color(), text: "Choose a cover pic for your keyboard! Your friends will see this btw")
+
+        imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .ScaleAspectFit
 
         loadingBar = UIView()
         loadingBar.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +77,7 @@ class SetUserProfilePictureView: UIView {
         addSubview(skipButton)
         addSubview(nextButton)
         addSubview(addPhotoButton)
+        addSubview(imageView)
         addSubview(loadingBar)
 
         setupLayout()
@@ -98,6 +104,12 @@ class SetUserProfilePictureView: UIView {
             addPhotoButton.al_centerX == al_centerX,
             addPhotoButton.al_height == 175,
             addPhotoButton.al_width == 175,
+
+            imageView.al_top == addPhotoButton.al_top ,
+            imageView.al_centerY == addPhotoButton.al_centerY,
+            imageView.al_centerX == addPhotoButton.al_centerX,
+            imageView.al_height == addPhotoButton.al_height,
+            imageView.al_width == addPhotoButton.al_width,
 
             skipButton.al_left == al_left + 40.5,
             skipButton.al_right == al_centerX - 3.5,
