@@ -315,6 +315,7 @@ UICollectionViewDelegateFlowLayout {
         navigationController?.navigationBar.tintColor = UIColor.oftBlack74Color()
         navigationController?.navigationBar.barTintColor = UIColor.clearColor()
         navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.barStyle = .Default
         
         
         if let user = viewModel.currentUser {
