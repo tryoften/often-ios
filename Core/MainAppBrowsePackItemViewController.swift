@@ -190,8 +190,22 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
         
+        if packViewModel.isCurrentUser {
+            shareTapped(sender, link: link)
+            return
+        }
+        
         let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
         presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func shareTapped(sender: UIButton, link: String) {
+        let shareObjects = ["Yo check out my keyboard Often! \(link)"]
+        
+        let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+        activityVC.popoverPresentationController?.sourceView = sender
+        self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

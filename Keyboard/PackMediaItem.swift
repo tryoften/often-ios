@@ -140,6 +140,15 @@ class PackMediaItem: MediaItem {
         }
     }
 
+    func isUserPackOwner(user: User?) -> Bool {
+        guard let ownerId = owner?.id,
+            let currentUserId = user?.id else {
+                return false
+        }
+
+        return ownerId == currentUserId
+    }
+
     func callToActionText() -> String {
         if premium {
             if price == 0.0 {
