@@ -20,14 +20,12 @@ class UserProfileHeaderView: UICollectionReusableView {
     var collapseProfileImageView: UIImageView
     var rightHeaderLabel: UILabel
     var rightHeaderButton: UIButton
-    var backButton: UIButton
     var leftHeaderLabelConstraint: NSLayoutConstraint?
     var offsetValue: CGFloat
 
     var isCurrentUser: Bool {
         didSet {
             leftHeaderLabel.hidden = !isCurrentUser
-            backButton.hidden = isCurrentUser
         }
     }
 
@@ -135,7 +133,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         leftHeaderLabel.translatesAutoresizingMaskIntoConstraints = false
         leftHeaderLabel.font = UIFont(name: "Montserrat", size: 12.0)
         leftHeaderLabel.textColor = UIColor.lightGrayColor()
-        leftHeaderLabel.text = "@komreezy"
         
         leftBoldLabel = UILabel()
         leftBoldLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -164,21 +161,12 @@ class UserProfileHeaderView: UICollectionReusableView {
                                          letterSpacing: 0.5,
                                          color: UIColor.lightGrayColor(),
                                          text: "Following".uppercaseString)
-
         
         rightHeaderButton = UIButton()
         rightHeaderButton.translatesAutoresizingMaskIntoConstraints = false
         rightHeaderButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()), forState: .Normal)
-        rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
-
-        backButton = UIButton()
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setImage(StyleKit.imageOfBackarrow(
-            color: BlackColor,
-            rotate: 0,
-            scale: 1.3), forState: .Normal)
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0)
-        backButton.hidden = true
+        rightHeaderButton.imageEdgeInsets = UIEdgeInsetsMake(13.0, 13.0, 13.0, 13.0)
+        rightHeaderButton.hidden = true
 
         isCurrentUser = true
         offsetValue = 0.0
@@ -203,7 +191,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         addSubview(rightDescriptorLabel)
         addSubview(rightHeaderLabel)
         addSubview(rightHeaderButton)
-        addSubview(backButton)
         addSubview(collapseNameLabel)
         addSubview(collapseProfileImageView)
 
@@ -268,9 +255,6 @@ class UserProfileHeaderView: UICollectionReusableView {
             collapseNameLabel.al_centerX == al_centerX,
             collapseNameLabel.al_centerY == leftHeaderLabel.al_centerY,
 
-            backButton.al_centerY == leftHeaderLabel.al_centerY,
-            backButton.al_left == al_left,
-
             profileImageView.al_centerY == nameLabel.al_centerY,
             profileImageView.al_right == al_right - (screenWidth * 0.06),
             profileImageView.al_width == profileImageViewWidth,
@@ -286,7 +270,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             nameLabel.al_right == al_centerX,
             nameLabel.al_height == screenWidth * 0.19,
             
-            leftHeaderLabel.al_left == nameLabel.al_left,
+            leftHeaderLabel.al_left == nameLabel.al_left + 5,
             leftHeaderLabelConstraint!,
             
             leftBoldLabel.al_left == leftDescriptorLabel.al_left,

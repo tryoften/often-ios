@@ -49,6 +49,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
 
         dummyTabBar.frame = tabBar.frame
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: PresentUserProfileEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()

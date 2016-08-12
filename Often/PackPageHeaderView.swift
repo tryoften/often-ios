@@ -11,6 +11,7 @@ import Foundation
 class PackPageHeaderView: MediaItemPageHeaderView {
     var primaryButton: BrowsePackDownloadButton
     var tabContainerView: FilterTabView
+    var isFavorites: Bool = false
 
     private var tabContainerViewHeight: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -72,7 +73,9 @@ class PackPageHeaderView: MediaItemPageHeaderView {
                 coverPhotoContainer.alpha = 0
                 coverPhoto.alpha = 0
                 titleLabel.alpha = 0
-                collapseTitleLabel.alpha = 1
+                if !isFavorites {
+                    collapseTitleLabel.alpha = 1
+                }
             } else {
                 titleLabel.alpha = 1
                 coverPhoto.alpha = 1

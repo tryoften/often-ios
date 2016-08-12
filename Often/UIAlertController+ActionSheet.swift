@@ -47,6 +47,7 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
         } else {
             packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
                 UserPackService.defaultInstance.addItem(result)
+                NSNotificationCenter.defaultCenter().postNotificationName(PresentUserProfileEvent, object: nil)
             })
         }
         
