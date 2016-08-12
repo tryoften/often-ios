@@ -51,6 +51,8 @@ class AddContentPrompt: UIButton {
         addPackImageView.translatesAutoresizingMaskIntoConstraints = false
         addPackImageView.backgroundColor = VeryLightGray
         addPackImageView.layer.cornerRadius = 3
+        addPackImageView.image = UIImage(named: "addContentPromptImage")
+        addPackImageView.contentMode = .ScaleAspectFit
 
         title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false

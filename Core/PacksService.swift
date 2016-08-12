@@ -369,7 +369,20 @@ class PacksService: PackItemViewModel {
         ref.updateChildValues([
             "username": username
             ])
-        
+    }
+
+    func updatePackProfileImage(image: ImageMediaItem) {
+        guard let favPackID = favoritesPack?.id,
+            smallImage = image.smallImageURL,
+            largeImage = image.largeImageURL else {
+            return
+        }
+
+        let ref = userRef.child("packs/\(favPackID)/image")
+        ref.updateChildValues([
+            "large_url": largeImage,
+            "small_url": smallImage
+            ])
     }
     
     func encodeString(username: String) -> String {
