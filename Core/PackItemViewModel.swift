@@ -32,8 +32,7 @@ class PackItemViewModel: BrowseViewModel {
     }
 
     var isCurrentUser: Bool {
-        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId,
-            let ownerId = pack?.owner?["id"] as? String else {
+        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId, let ownerId = pack?.owner?.id else {
             return false
         }
 
