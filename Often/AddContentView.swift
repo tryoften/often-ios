@@ -37,7 +37,7 @@ class AddContentView: UIView {
         addGifButton = SpringButton()
         addGifButton.translatesAutoresizingMaskIntoConstraints = false
         addGifButton.setImage(StyleKit.imageOfGifMenuButton(scale: 0.8, color: UIColor(fromHexString: "#FF7D92")), forState: .Normal)
-        addGifButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 4, 6)
+        addGifButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         addGifButton.backgroundColor = UIColor(fromHexString: "#FFE6EA")
         addGifButton.layer.cornerRadius = 32.5
         addGifButton.clipsToBounds = true

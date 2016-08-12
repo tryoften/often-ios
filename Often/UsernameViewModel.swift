@@ -13,12 +13,6 @@ class UsernameViewModel: BaseViewModel {
 
     init() {
         super.init()
-
-        do {
-            try setupUser { inner in
-            }
-        } catch _ {
-        }
     }
 
     func generateSuggestedUsername() -> String {
@@ -26,7 +20,12 @@ class UsernameViewModel: BaseViewModel {
 
         if let user = currentUser {
             if !user.username.isEmpty {
-                username = user.username
+                if user.username.containsString("@") {
+                    let components = user.username.componentsSeparatedByString("@")
+                    username = components[0]
+                } else {
+                    username = user.username
+                }
             } else {
                 username = user.name.stringByReplacingOccurrencesOfString(" ", withString: ".").lowercaseString
             }

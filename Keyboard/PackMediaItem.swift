@@ -27,7 +27,16 @@ class PackMediaItem: MediaItem {
     var isUpdated: Bool = false
     var isNew: Bool = false
     var backgroundColor: UIColor?
-    var owner: NSDictionary?
+    var owner: Owner?
+    
+    struct Owner {
+        var id: String = ""
+        var image: UIImage = UIImage()
+        var name: String = ""
+        var username: String = ""
+        var isAdmin: Bool = false
+        var firstName: String = ""
+    }
 
     required init(data: NSDictionary) {
         super.init(data: data)
@@ -127,12 +136,12 @@ class PackMediaItem: MediaItem {
         }
 
         if let owner = data["owner"] as? [String: AnyObject] {
-            self.owner = owner
+            self.owner = setValuesForOwnerKeys(owner)
         }
     }
 
     func isUserPackOwner(user: User?) -> Bool {
-        guard let ownerId = owner?["id"] as? String,
+        guard let ownerId = owner?.id,
             let currentUserId = user?.id else {
                 return false
         }
@@ -152,6 +161,36 @@ class PackMediaItem: MediaItem {
         }
         
         return "Download"
+    }
+    
+    func setValuesForOwnerKeys(data: [String : AnyObject]) -> Owner {
+        var owner = Owner()
+        
+        if let id = data["id"] as? String {
+            owner.id = id
+        }
+        
+        if let image = data["image"] as? UIImage {
+            owner.image = image
+        }
+        
+        if let name = data["name"] as? String {
+            owner.name = name
+        }
+        
+        if let username = data["username"] as? String {
+            owner.username = username
+        }
+        
+        if let isAdmin = data["isAdmin"] as? Bool {
+            owner.isAdmin = isAdmin
+        }
+        
+        if let firstName = data["firstName"] as? String {
+            owner.firstName = firstName
+        }
+        
+        return owner
     }
     
     func getMediaItemGroups() -> [MediaItemGroup] {

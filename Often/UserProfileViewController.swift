@@ -44,7 +44,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack), name: AddContentTabDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: AddContentTabDismissedEvent, object: nil)
         
         packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
@@ -93,7 +93,7 @@ UICollectionViewDelegateFlowLayout {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        setupNavBar()
         
         if let user = SessionManager.defaultManager.currentUser {
             if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
@@ -103,11 +103,6 @@ UICollectionViewDelegateFlowLayout {
             }
         }
         reloadUserData()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -142,8 +137,6 @@ UICollectionViewDelegateFlowLayout {
             if headerView == nil {
                 headerView = cell
                 headerView?.rightHeaderButton.addTarget(self, action: #selector(UserProfileViewController.presentSettingsViewController), forControlEvents: .TouchUpInside)
-                headerView?.backButton.addTarget(self, action:
-                    #selector(UserProfileViewController.didTapBackButton), forControlEvents: .TouchUpInside)
                 viewModel.fetchData()
             }
             
@@ -210,8 +203,6 @@ UICollectionViewDelegateFlowLayout {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.isCurrentUser = viewModel.isCurrentUser
             headerView.nameLabel.text = user.name
-            headerView.collapseNameLabel.text = "@\(user.username)"
-            headerView.leftHeaderLabel.text = user.name
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
@@ -261,11 +252,12 @@ UICollectionViewDelegateFlowLayout {
 
     }
     
-    func presentFavoritesPack() {
-        guard let pack = viewModel.favoritesPack, let id = pack.pack_id else {
+    func presentFavoritesPack(notification: NSNotification) {
+        guard let pack = viewModel.favoritesPack, let id = pack.pack_id, let mediaItem = notification.object as? MediaItem else {
             return
         }
         
+        let mediaType = mediaItem.type
         let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
@@ -313,9 +305,35 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentSettingsViewController() {
-        if viewModel.isCurrentUser {
+        if viewModel.pack?.isFavorites == true {
             let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
             presentViewController(vc, animated: true, completion: nil)
         }
+    }
+    
+    func setupNavBar() {
+        navigationController?.navigationBar.tintColor = UIColor.oftBlack74Color()
+        navigationController?.navigationBar.barTintColor = UIColor.clearColor()
+        navigationController?.navigationBar.translucent = true
+        
+        
+        if let user = viewModel.currentUser {
+            let handleLabel = UILabel()
+            handleLabel.frame = CGRectMake(0, 0, 100, 30)
+            handleLabel.font = UIFont(name: "Montserrat", size: 14.0)
+            handleLabel.text = "@\(user.username)"
+            handleLabel.textColor = UIColor.oftBlack74Color()
+            handleLabel.textAlignment = .Center
+            
+            navigationItem.titleView = handleLabel
+        }
+        
+        let rightHeaderButton = UIBarButtonItem(image: StyleKit.imageOfSettingsDiamond(color: UIColor.lightGrayColor()),
+                                                style: .Plain,
+                                                target: self,
+                                                action: #selector(UserProfileViewController.presentSettingsViewController))
+        rightHeaderButton.imageInsets = UIEdgeInsetsMake(13.0, 26.0, 13.0, 0.0)
+        rightHeaderButton.tintColor = UIColor.lightGrayColor()
+        navigationItem.rightBarButtonItem = rightHeaderButton
     }
 }
