@@ -240,5 +240,4 @@ class SessionManagerFlags {
 
         userDefaults.synchronize()
     }
-    
 }
