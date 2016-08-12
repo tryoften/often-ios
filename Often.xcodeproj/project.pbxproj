@@ -870,6 +870,10 @@
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		819099731D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
 		819099741D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
+		819099761D5E535D00AC119D /* PackEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099751D5E535D00AC119D /* PackEditFormViewController.swift */; };
+		819099771D5E535D00AC119D /* PackEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099751D5E535D00AC119D /* PackEditFormViewController.swift */; };
+		819099791D5E5F1300AC119D /* PackEditFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099781D5E5F1300AC119D /* PackEditFormView.swift */; };
+		8190997A1D5E5F1300AC119D /* PackEditFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099781D5E5F1300AC119D /* PackEditFormView.swift */; };
 		8192A7D11C62410300B25AC6 /* ChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C61C62410300B25AC6 /* ChangeListener.swift */; };
 		8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C71C62410300B25AC6 /* Emitter.swift */; };
 		8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C91C62410300B25AC6 /* EmitterListener.swift */; };
@@ -1486,6 +1490,8 @@
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsSectionHeaderView.swift; sourceTree = "<group>"; };
 		819099721D591E5500AC119D /* PackHeaderProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderProfileButton.swift; sourceTree = "<group>"; };
+		819099751D5E535D00AC119D /* PackEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackEditFormViewController.swift; sourceTree = "<group>"; };
+		819099781D5E5F1300AC119D /* PackEditFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackEditFormView.swift; sourceTree = "<group>"; };
 		8192A7C61C62410300B25AC6 /* ChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListener.swift; sourceTree = "<group>"; };
 		8192A7C71C62410300B25AC6 /* Emitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		8192A7C81C62410300B25AC6 /* EmitterKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterKit.h; sourceTree = "<group>"; };
@@ -2299,6 +2305,7 @@
 				BFAD7B2F1D4A53180002670F /* QuoteCategoryAssignmentViewController.swift */,
 				8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */,
 				696DC8681D5BF125004D3C0B /* ReportAlertViewController.swift */,
+				819099751D5E535D00AC119D /* PackEditFormViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2345,6 +2352,7 @@
 				819099721D591E5500AC119D /* PackHeaderProfileButton.swift */,
 				696DC86B1D5BF401004D3C0B /* ReportAlertView.swift */,
 				BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */,
+				819099781D5E5F1300AC119D /* PackEditFormView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -3513,6 +3521,7 @@
 				810EA4DD1C8579D1005A6C6D /* PKHUD.swift in Sources */,
 				810EA4DF1C8579D1005A6C6D /* Analytics.swift in Sources */,
 				81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */,
+				819099771D5E535D00AC119D /* PackEditFormViewController.swift in Sources */,
 				BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				3B309D6F1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
@@ -3610,6 +3619,7 @@
 				BFD8778D1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
 				3BC55AC51C8A264600363AB0 /* MediaItemDetailView.swift in Sources */,
 				810EA53B1C8579D1005A6C6D /* suffixNumber.swift in Sources */,
+				8190997A1D5E5F1300AC119D /* PackEditFormView.swift in Sources */,
 				810EA53C1C8579D1005A6C6D /* User.swift in Sources */,
 				810EA53E1C8579D1005A6C6D /* SettingsViewModel.swift in Sources */,
 				810EA53F1C8579D1005A6C6D /* SigninViewController.swift in Sources */,
@@ -3924,8 +3934,10 @@
 				816D503C1C8A04C4007B3249 /* CategoryService.swift in Sources */,
 				816D50A81C8A0596007B3249 /* CreateAccountViewController.swift in Sources */,
 				816D50C31C8A061B007B3249 /* PKHUDContentView.swift in Sources */,
+				819099791D5E5F1300AC119D /* PackEditFormView.swift in Sources */,
 				816D50BD1C8A05E6007B3249 /* ChangeListener.swift in Sources */,
 				816D50AB1C8A0596007B3249 /* TermsOfUseViewController.swift in Sources */,
+				819099761D5E535D00AC119D /* PackEditFormViewController.swift in Sources */,
 				816D506E1C8A0516007B3249 /* StyleKit.swift in Sources */,
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,

@@ -11,9 +11,9 @@ import UIKit
 class MediaItemPageHeaderView: UICollectionReusableView {
     var screenWidth: CGFloat
     var coverPhoto: UIImageView
-    var titleLabel: UITextField
+    var titleLabel: UILabel
     var collapseTitleLabel: UILabel
-    var subtitleLabel: UITextView
+    var subtitleLabel: UILabel
     var packBackgroundColor: UIView
     var coverPhotoContainer: UIView
 
@@ -95,11 +95,11 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         layer.backgroundColor = UIColor.clearColor().CGColor
         packBackgroundColor.layer.mask = layer
 
-        titleLabel = UITextField()
+        titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = TrendingHeaderViewArtistNameLabelTextFont
         titleLabel.textColor = BlackColor
-//        titleLabel.lineBreakMode = .ByTruncatingTail
+        titleLabel.lineBreakMode = .ByTruncatingTail
         titleLabel.textAlignment = .Center
 
         collapseTitleLabel = UILabel()
@@ -110,16 +110,15 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         collapseTitleLabel.textAlignment = .Center
         collapseTitleLabel.alpha = 0
         
-        subtitleLabel = UITextView()
+        subtitleLabel = UILabel()
         subtitleLabel.font = TrendingHeaderViewSongTitleLabelTextFont
         subtitleLabel.textColor = TrendingHeaderViewNameLabelTextColor
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Center
         subtitleLabel.alpha = 0.74
+        subtitleLabel.numberOfLines = 2
 
         super.init(frame: frame)
-        
-//        subtitleLabel.numberOfLines = 2
 
         backgroundColor = UIColor.oftWhiteColor()
 
