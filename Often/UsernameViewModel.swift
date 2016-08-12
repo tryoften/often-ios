@@ -42,7 +42,7 @@ class UsernameViewModel: BaseViewModel {
         let ref = baseRef.child("usernames/\(encodedString)")
         var exists: Bool = true
 
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
 
             if let _ = snapshot.value as? NSDictionary {
                 exists = true

@@ -11,12 +11,11 @@ import Firebase
 import FirebaseStorage
 
 class ImageUploaderViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
     private var imagePicker: UIImagePickerController
     private var viewModel: UserPackService
-    private var imageProcessed: Bool = false
     private var navigationView: AddContentNavigationView
-    
+    var imageProcessed: Bool = false
+
     init(viewModel: UserPackService) {
         imagePicker = UIImagePickerController()
         
