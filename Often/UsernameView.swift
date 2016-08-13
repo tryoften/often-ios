@@ -59,8 +59,8 @@ class UsernameView: UIView {
         ]
 
         confirmButton = LoginButton.EmailButton()
-        confirmButton.setAttributedTitle(NSAttributedString(string: "confirm".uppercaseString, attributes: signinButtonAttributes), forState: .Normal)
-        confirmButton.setAttributedTitle(NSAttributedString(string: "confirm".uppercaseString, attributes: signinSelectButtonAttributes), forState: .Selected)
+        confirmButton.setAttributedTitle(NSAttributedString(string: "next".uppercaseString, attributes: signinButtonAttributes), forState: .Normal)
+        confirmButton.setAttributedTitle(NSAttributedString(string: "next".uppercaseString, attributes: signinSelectButtonAttributes), forState: .Selected)
         confirmButton.backgroundColor = UIColor.whiteColor()
         confirmButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
         confirmButton.layer.borderWidth = 2

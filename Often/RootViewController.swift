@@ -12,6 +12,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     let sessionManager = SessionManager.defaultManager
     private let imageView: UIImageView
     private let dummyTabBar: UIView
+    private var userProfilePresented: Bool = false
     private enum SelectedTab: Int {
         case Browse = 0
         case AddContent = 1
@@ -48,7 +49,8 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         super.init(nibName: nil, bundle: nil)
 
         dummyTabBar.frame = tabBar.frame
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss(_:)), name: AddContentViewDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss(_:)), name: PresentUserProfileEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()
@@ -83,7 +85,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
 
     func showAlert() {
-        if !SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
+        if !SessionManagerFlags.defaultManagerFlags.isKeyboardInstalled {
             PKHUD.sharedHUD.hide(animated: true)
 
             let AlertVC = KeyboardInstallAlertViewController(alertView: KeyboardInstallAlertView.self)
@@ -143,8 +145,12 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         return animator
     }
     
-    func addContentViewDidDismiss() {
-        selectedIndex = SelectedTab.UserProfile.rawValue
-        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
+    func addContentViewDidDismiss(notification: NSNotification) {
+        if userProfilePresented == false {
+            let mediaItem = notification.object as? MediaItem
+            selectedIndex = SelectedTab.UserProfile.rawValue
+            NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: mediaItem)
+            userProfilePresented = true
+        }
     }
 }
