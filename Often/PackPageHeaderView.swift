@@ -51,7 +51,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         
         super.init(frame: frame)
 
-//        subtitleLabel.numberOfLines = 2
+        subtitleLabel.numberOfLines = 2
 
         addSubview(primaryButton)
         addSubview(tabContainerView)
