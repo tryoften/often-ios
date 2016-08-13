@@ -143,6 +143,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                 ])
                 
                 navigationItem.titleView = userHandleAndImageView
+                navigationController?.navigationBar.tintColor = UIColor.whiteColor()
             }
             
             let topRightButton = PackHeaderProfileButton()
@@ -154,6 +155,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             let item = UIBarButtonItem(customView: topRightButton)
             navigationItem.rightBarButtonItem = item
         }
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     }
 
     func primaryButtonTapped(sender: UIButton) {
