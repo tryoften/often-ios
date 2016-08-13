@@ -17,6 +17,16 @@ class MediaItemPageHeaderView: UICollectionReusableView {
     var packBackgroundColor: UIView
     var coverPhotoContainer: UIView
 
+    var editingMode: Bool {
+        didSet {
+            if editingMode {
+                titleLabel.backgroundColor = VeryLightGray
+            } else {
+                titleLabel.backgroundColor = ClearColor
+            }
+        }
+    }
+
     var imageURL: NSURL? {
         willSet(newValue) {
             if let url = newValue where imageURL != newValue {
@@ -39,7 +49,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
                 NSKernAttributeName: NSNumber(float: 1.2),
                 NSFontAttributeName: UIFont(name: "Montserrat-Regular", size: 14.0)!,
                 NSForegroundColorAttributeName: UIColor.oftWhiteColor()
-                ])
+            ])
         }
     }
 
@@ -55,6 +65,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
 
     override init(frame: CGRect) {
         screenWidth = UIScreen.mainScreen().bounds.width
+        editingMode = false
 
         coverPhotoContainer = UIView()
         coverPhotoContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -105,10 +116,9 @@ class MediaItemPageHeaderView: UICollectionReusableView {
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.textAlignment = .Center
         subtitleLabel.alpha = 0.74
+        subtitleLabel.numberOfLines = 2
 
         super.init(frame: frame)
-        
-        subtitleLabel.numberOfLines = 2
 
         backgroundColor = UIColor.oftWhiteColor()
 
@@ -152,7 +162,7 @@ class MediaItemPageHeaderView: UICollectionReusableView {
             titleLabel.al_top >= coverPhoto.al_bottom + 24,
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_height == 22,
-            titleLabel.al_width <= al_width - 30,
+            titleLabel.al_width == al_width - 30,
 
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_top  == titleLabel.al_bottom + 5
