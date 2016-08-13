@@ -155,10 +155,6 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             let item = UIBarButtonItem(customView: topRightButton)
             navigationItem.rightBarButtonItem = item
         }
-        setupNavBar()
-    }
-    
-    func setupNavBar() {
         navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     }
 

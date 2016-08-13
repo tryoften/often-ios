@@ -305,10 +305,8 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentSettingsViewController() {
-        if viewModel.pack?.isFavorites == true {
-            let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
-            presentViewController(vc, animated: true, completion: nil)
-        }
+        let vc = ContainerNavigationController(rootViewController: AppSettingsViewController(viewModel: SettingsViewModel(sessionManager: SessionManager.defaultManager)))
+        presentViewController(vc, animated: true, completion: nil)
     }
     
     func setupNavBar() {
@@ -316,7 +314,6 @@ UICollectionViewDelegateFlowLayout {
         navigationController?.navigationBar.barTintColor = UIColor.clearColor()
         navigationController?.navigationBar.translucent = true
         navigationController?.navigationBar.barStyle = .Default
-        
         
         if let user = viewModel.currentUser {
             let handleLabel = UILabel()
