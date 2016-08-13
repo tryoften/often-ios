@@ -8,10 +8,11 @@
 
 import UIKit
 
-class PackEditFormView: UIScrollView {
+class PackEditFormView: UIView {
     let packBackgroundColor: UIView
     let coverPhotoContainer: UIView
     let coverPhoto: UIImageView
+    let uploadPhotoButton: UploadPhotoButton
 
     let titleLabel: UILabel
     let descriptionLabel: UILabel
@@ -21,6 +22,10 @@ class PackEditFormView: UIScrollView {
 
     let descriptionField: UITextField
     let descriptionFieldDivider: UIView
+
+    let colorWell: ColorWell
+    let colorPicker: ColorPicker
+    let huePicker: HuePicker
 
     init() {
         packBackgroundColor = UIView()
@@ -39,6 +44,7 @@ class PackEditFormView: UIScrollView {
         coverPhotoContainer.layer.shadowOpacity = 0.4
         coverPhotoContainer.layer.shadowColor = MediumLightGrey.CGColor
         coverPhotoContainer.layer.shadowOffset = CGSizeMake(0, 1)
+        coverPhotoContainer.clipsToBounds = true
 
         coverPhoto = UIImageView()
         coverPhoto.backgroundColor = VeryLightGray
@@ -50,6 +56,11 @@ class PackEditFormView: UIScrollView {
         coverPhoto.layer.shadowColor = MediumLightGrey.CGColor
         coverPhoto.layer.shadowOffset = CGSizeMake(0, 1)
         coverPhoto.clipsToBounds = true
+
+        uploadPhotoButton = UploadPhotoButton(iconColor: WhiteColor, showText: false)
+        uploadPhotoButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.34)
+        uploadPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        uploadPhotoButton.uploadButtonTitle.hidden = true
 
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +78,7 @@ class PackEditFormView: UIScrollView {
 
         titleField = UITextField()
         titleField.placeholder = "Enter pack title"
+        titleField.returnKeyType = .Done
         titleField.translatesAutoresizingMaskIntoConstraints = false
         titleField.font = UIFont(name: "Montserrat-Regular", size: 11)
 
@@ -76,6 +88,7 @@ class PackEditFormView: UIScrollView {
 
         descriptionField = UITextField()
         descriptionField.placeholder = "Enter description"
+        descriptionField.returnKeyType = .Done
         descriptionField.translatesAutoresizingMaskIntoConstraints = false
         descriptionField.font = UIFont(name: "Montserrat-Regular", size: 11)
 
@@ -83,9 +96,20 @@ class PackEditFormView: UIScrollView {
         descriptionFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         descriptionFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
 
+        colorWell = ColorWell()
+
+        colorPicker = ColorPicker()
+        colorPicker.translatesAutoresizingMaskIntoConstraints = false
+
+        huePicker = HuePicker()
+        huePicker.translatesAutoresizingMaskIntoConstraints = false
+        huePicker.layer.cornerRadius = 5.0
+        huePicker.clipsToBounds = true
+
         super.init(frame: CGRectZero)
 
         coverPhotoContainer.addSubview(coverPhoto)
+        coverPhotoContainer.addSubview(uploadPhotoButton)
 
         addSubview(packBackgroundColor)
         addSubview(coverPhotoContainer)
@@ -95,6 +119,9 @@ class PackEditFormView: UIScrollView {
         addSubview(titleFieldDivider)
         addSubview(descriptionField)
         addSubview(descriptionFieldDivider)
+        addSubview(colorWell)
+        addSubview(colorPicker)
+        addSubview(huePicker)
 
         setupLayout()
     }
@@ -111,7 +138,7 @@ class PackEditFormView: UIScrollView {
             packBackgroundColor.al_height == al_height,
 
             coverPhotoContainer.al_centerX == al_centerX,
-            coverPhotoContainer.al_top == al_top + 93,
+            coverPhotoContainer.al_top == al_top + 95.5,
             coverPhotoContainer.al_width == 175,
             coverPhotoContainer.al_height == 175,
 
@@ -119,6 +146,11 @@ class PackEditFormView: UIScrollView {
             coverPhoto.al_left == coverPhotoContainer.al_left,
             coverPhoto.al_right == coverPhotoContainer.al_right,
             coverPhoto.al_bottom == coverPhotoContainer.al_bottom,
+
+            uploadPhotoButton.al_top == coverPhotoContainer.al_top,
+            uploadPhotoButton.al_left == coverPhotoContainer.al_left,
+            uploadPhotoButton.al_right == coverPhotoContainer.al_right,
+            uploadPhotoButton.al_bottom == coverPhotoContainer.al_bottom,
 
             titleLabel.al_top == coverPhotoContainer.al_bottom + 40,
             titleLabel.al_width == al_width - 40,
@@ -148,7 +180,17 @@ class PackEditFormView: UIScrollView {
             descriptionFieldDivider.al_top == descriptionField.al_bottom,
             descriptionFieldDivider.al_left == descriptionField.al_left,
             descriptionFieldDivider.al_right == descriptionField.al_right,
-            descriptionFieldDivider.al_height == 1
+            descriptionFieldDivider.al_height == 1,
+
+            huePicker.al_left == al_left + 20,
+            huePicker.al_right == al_right - 20,
+            huePicker.al_top == descriptionFieldDivider.al_bottom + 20,
+            huePicker.al_height == 30,
+
+            colorPicker.al_top == huePicker.al_bottom + 20,
+            colorPicker.al_left == al_left,
+            colorPicker.al_right == al_right,
+            colorPicker.al_bottom == al_bottom
         ])
     }
 }

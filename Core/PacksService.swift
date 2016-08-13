@@ -11,7 +11,6 @@ import Firebase
 import FirebaseMessaging
 import FirebaseInstanceID
 
-
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let didUpdatePacks = Event<[PackMediaItem]>()
@@ -335,7 +334,7 @@ class PacksService: PackItemViewModel {
         let ref = baseRef.child("usernames/\(encodedString)")
         var exists: Bool = true
         
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             if let _ = snapshot.value as? NSDictionary {
                 exists = true
