@@ -870,6 +870,28 @@
 		8180E6391A142199007FA1CF /* Keyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8180E6311A142199007FA1CF /* Keyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		819099731D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
 		819099741D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099721D591E5500AC119D /* PackHeaderProfileButton.swift */; };
+		819099761D5E535D00AC119D /* PackEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099751D5E535D00AC119D /* PackEditFormViewController.swift */; };
+		819099771D5E535D00AC119D /* PackEditFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099751D5E535D00AC119D /* PackEditFormViewController.swift */; };
+		819099791D5E5F1300AC119D /* PackEditFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099781D5E5F1300AC119D /* PackEditFormView.swift */; };
+		8190997A1D5E5F1300AC119D /* PackEditFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099781D5E5F1300AC119D /* PackEditFormView.swift */; };
+		819099861D5E7F6700AC119D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8190997C1D5E7F6700AC119D /* .gitignore */; };
+		819099871D5E7F6700AC119D /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8190997C1D5E7F6700AC119D /* .gitignore */; };
+		819099881D5E7F6700AC119D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8190997D1D5E7F6700AC119D /* LICENSE */; };
+		819099891D5E7F6700AC119D /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 8190997D1D5E7F6700AC119D /* LICENSE */; };
+		8190998A1D5E7F6700AC119D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8190997E1D5E7F6700AC119D /* README.md */; };
+		8190998B1D5E7F6700AC119D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 8190997E1D5E7F6700AC119D /* README.md */; };
+		8190998C1D5E7F6700AC119D /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099801D5E7F6700AC119D /* ColorPicker.swift */; };
+		8190998D1D5E7F6700AC119D /* ColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099801D5E7F6700AC119D /* ColorPicker.swift */; };
+		8190998E1D5E7F6700AC119D /* ColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099811D5E7F6700AC119D /* ColorPickerController.swift */; };
+		8190998F1D5E7F6700AC119D /* ColorPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099811D5E7F6700AC119D /* ColorPickerController.swift */; };
+		819099901D5E7F6700AC119D /* ColorWell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099821D5E7F6700AC119D /* ColorWell.swift */; };
+		819099911D5E7F6700AC119D /* ColorWell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099821D5E7F6700AC119D /* ColorWell.swift */; };
+		819099921D5E7F6700AC119D /* HuePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099831D5E7F6700AC119D /* HuePicker.swift */; };
+		819099931D5E7F6700AC119D /* HuePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099831D5E7F6700AC119D /* HuePicker.swift */; };
+		819099941D5E7F6700AC119D /* PickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099841D5E7F6700AC119D /* PickerImage.swift */; };
+		819099951D5E7F6700AC119D /* PickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819099841D5E7F6700AC119D /* PickerImage.swift */; };
+		819099961D5E7F6700AC119D /* SwiftColorPicker.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 819099851D5E7F6700AC119D /* SwiftColorPicker.podspec */; };
+		819099971D5E7F6700AC119D /* SwiftColorPicker.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 819099851D5E7F6700AC119D /* SwiftColorPicker.podspec */; };
 		8192A7D11C62410300B25AC6 /* ChangeListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C61C62410300B25AC6 /* ChangeListener.swift */; };
 		8192A7D31C62410300B25AC6 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C71C62410300B25AC6 /* Emitter.swift */; };
 		8192A7D51C62410300B25AC6 /* EmitterListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7C91C62410300B25AC6 /* EmitterListener.swift */; };
@@ -1490,6 +1512,17 @@
 		8180E6341A142199007FA1CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8185A0D71BD9576B008C3AA7 /* UserProfileSettingsSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileSettingsSectionHeaderView.swift; sourceTree = "<group>"; };
 		819099721D591E5500AC119D /* PackHeaderProfileButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackHeaderProfileButton.swift; sourceTree = "<group>"; };
+		819099751D5E535D00AC119D /* PackEditFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackEditFormViewController.swift; sourceTree = "<group>"; };
+		819099781D5E5F1300AC119D /* PackEditFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackEditFormView.swift; sourceTree = "<group>"; };
+		8190997C1D5E7F6700AC119D /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		8190997D1D5E7F6700AC119D /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		8190997E1D5E7F6700AC119D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		819099801D5E7F6700AC119D /* ColorPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPicker.swift; sourceTree = "<group>"; };
+		819099811D5E7F6700AC119D /* ColorPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPickerController.swift; sourceTree = "<group>"; };
+		819099821D5E7F6700AC119D /* ColorWell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorWell.swift; sourceTree = "<group>"; };
+		819099831D5E7F6700AC119D /* HuePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HuePicker.swift; sourceTree = "<group>"; };
+		819099841D5E7F6700AC119D /* PickerImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerImage.swift; sourceTree = "<group>"; };
+		819099851D5E7F6700AC119D /* SwiftColorPicker.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftColorPicker.podspec; sourceTree = "<group>"; };
 		8192A7C61C62410300B25AC6 /* ChangeListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeListener.swift; sourceTree = "<group>"; };
 		8192A7C71C62410300B25AC6 /* Emitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
 		8192A7C81C62410300B25AC6 /* EmitterKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterKit.h; sourceTree = "<group>"; };
@@ -2090,6 +2123,7 @@
 		81331E161A1806BB003E4609 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				8190997B1D5E7F6700AC119D /* SwiftColorPicker */,
 				8192A7C51C6240F200B25AC6 /* EmitterKit */,
 				8176BE9F1B72743000E1BDCD /* FuzzySearch.swift */,
 				81C6EEE11C52A82D00BC061B /* UIKit+Guard.swift */,
@@ -2305,6 +2339,7 @@
 				BFAD7B2F1D4A53180002670F /* QuoteCategoryAssignmentViewController.swift */,
 				8160F83E1D4FB834004FFA6D /* ImageCategoryAssigmentViewController.swift */,
 				696DC8681D5BF125004D3C0B /* ReportAlertViewController.swift */,
+				819099751D5E535D00AC119D /* PackEditFormViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -2353,6 +2388,7 @@
 				696DC86B1D5BF401004D3C0B /* ReportAlertView.swift */,
 				BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */,
 				BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */,
+				819099781D5E5F1300AC119D /* PackEditFormView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -2482,6 +2518,30 @@
 				BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		8190997B1D5E7F6700AC119D /* SwiftColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				8190997C1D5E7F6700AC119D /* .gitignore */,
+				8190997D1D5E7F6700AC119D /* LICENSE */,
+				8190997E1D5E7F6700AC119D /* README.md */,
+				8190997F1D5E7F6700AC119D /* Source */,
+				819099851D5E7F6700AC119D /* SwiftColorPicker.podspec */,
+			);
+			path = SwiftColorPicker;
+			sourceTree = "<group>";
+		};
+		8190997F1D5E7F6700AC119D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				819099801D5E7F6700AC119D /* ColorPicker.swift */,
+				819099811D5E7F6700AC119D /* ColorPickerController.swift */,
+				819099821D5E7F6700AC119D /* ColorWell.swift */,
+				819099831D5E7F6700AC119D /* HuePicker.swift */,
+				819099841D5E7F6700AC119D /* PickerImage.swift */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		8192A7C51C6240F200B25AC6 /* EmitterKit */ = {
@@ -2849,6 +2909,7 @@
 				8138EEA71CF4B1820025BB24 /* GoogleService-Info.plist in Resources */,
 				810EA5711C8579D1005A6C6D /* OpenSans-Bold.ttf in Resources */,
 				810EA5721C8579D1005A6C6D /* Oswald-Bold.ttf in Resources */,
+				819099871D5E7F6700AC119D /* .gitignore in Resources */,
 				810EA5731C8579D1005A6C6D /* OpenSans-ExtraBold.ttf in Resources */,
 				810EA5741C8579D1005A6C6D /* OpenSans-BoldItalic.ttf in Resources */,
 				810EA5751C8579D1005A6C6D /* OpenSans-Italic.ttf in Resources */,
@@ -2861,9 +2922,11 @@
 				810EA5791C8579D1005A6C6D /* OpenSans-Light.ttf in Resources */,
 				810EA57A1C8579D1005A6C6D /* OpenSans-LightItalic.ttf in Resources */,
 				810EA57B1C8579D1005A6C6D /* Oswald-Regular.ttf in Resources */,
+				819099891D5E7F6700AC119D /* LICENSE in Resources */,
 				810EA57C1C8579D1005A6C6D /* OftenInstallGIF.gif in Resources */,
 				810EA57D1C8579D1005A6C6D /* Images.xcassets in Resources */,
 				810EA57E1C8579D1005A6C6D /* font_icons8.ttf in Resources */,
+				819099971D5E7F6700AC119D /* SwiftColorPicker.podspec in Resources */,
 				810EA57F1C8579D1005A6C6D /* OpenSans-Semibold.ttf in Resources */,
 				810EA5801C8579D1005A6C6D /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 			);
@@ -2916,6 +2979,7 @@
 				3BAAB1921B1A5D3700EA1925 /* OpenSans-Bold.ttf in Resources */,
 				3BAAB1A91B1A653100EA1925 /* Oswald-Bold.ttf in Resources */,
 				3BAAB1961B1A5D3700EA1925 /* OpenSans-ExtraBold.ttf in Resources */,
+				819099861D5E7F6700AC119D /* .gitignore in Resources */,
 				3BAAB1941B1A5D3700EA1925 /* OpenSans-BoldItalic.ttf in Resources */,
 				3BAAB19A1B1A5D3700EA1925 /* OpenSans-Italic.ttf in Resources */,
 				3BAAB1A01B1A5D3700EA1925 /* OpenSans-Regular.ttf in Resources */,
@@ -2928,9 +2992,11 @@
 				3BAAB19E1B1A5D3700EA1925 /* OpenSans-LightItalic.ttf in Resources */,
 				3BAAB1AD1B1A653100EA1925 /* Oswald-Regular.ttf in Resources */,
 				3BAC294A1C45A73600F44DF7 /* OftenInstallGIF.gif in Resources */,
+				819099881D5E7F6700AC119D /* LICENSE in Resources */,
 				8180E6151A142157007FA1CF /* Images.xcassets in Resources */,
 				81E26D911B65DC4800FC1F2F /* font_icons8.ttf in Resources */,
 				3BAAB1A21B1A5D3700EA1925 /* OpenSans-Semibold.ttf in Resources */,
+				819099961D5E7F6700AC119D /* SwiftColorPicker.podspec in Resources */,
 				3BAAB1981B1A5D3700EA1925 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				3B0D116E1D22DA2A00B58F13 /* GoogleService-Info.plist in Resources */,
 			);
@@ -3511,6 +3577,7 @@
 				3B5006321CADAAE2003D4144 /* PackProfileCollectionViewCell.swift in Sources */,
 				3BFCDFD81D5CC965005A4BF8 /* SetUserProfileDescriptionViewController.swift in Sources */,
 				BF31C5C11D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,
+				819099911D5E7F6700AC119D /* ColorWell.swift in Sources */,
 				810EA4D41C8579D1005A6C6D /* MediaItemsViewModel.swift in Sources */,
 				3B138FFD1D5001E4002605D3 /* AddContentPrompt.swift in Sources */,
 				3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */,
@@ -3522,6 +3589,7 @@
 				810EA4DF1C8579D1005A6C6D /* Analytics.swift in Sources */,
 				81ABD2581CA0793D0026B59E /* FadeInTransitionAnimator.swift in Sources */,
 				BF5DA1A91D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */,
+				819099771D5E535D00AC119D /* PackEditFormViewController.swift in Sources */,
 				BF9971621CC187A1008351C7 /* BaseMediaItemCollectionViewCell.swift in Sources */,
 				810EA4E31C8579D1005A6C6D /* Emitter.swift in Sources */,
 				3B309D6F1CE3E38B005B9942 /* BrowseMediaItemViewController.swift in Sources */,
@@ -3586,6 +3654,7 @@
 				810EA5201C8579D1005A6C6D /* FavoritesEmptyStateView.swift in Sources */,
 				3BFCDFB61D53BA6A005A4BF8 /* AddUsernameViewController.swift in Sources */,
 				813A1B6C1CAC45BA006BBB2E /* BrowsePackHeaderCollectionViewController.swift in Sources */,
+				819099951D5E7F6700AC119D /* PickerImage.swift in Sources */,
 				698D18A51D4935470025A2EF /* ImageUploaderViewController.swift in Sources */,
 				696DC86D1D5BF401004D3C0B /* ReportAlertView.swift in Sources */,
 				BF5DA1A61D5E65A500D2215E /* OnboardingHeader.swift in Sources */,
@@ -3620,6 +3689,7 @@
 				BFD8778D1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
 				3BC55AC51C8A264600363AB0 /* MediaItemDetailView.swift in Sources */,
 				810EA53B1C8579D1005A6C6D /* suffixNumber.swift in Sources */,
+				8190997A1D5E5F1300AC119D /* PackEditFormView.swift in Sources */,
 				810EA53C1C8579D1005A6C6D /* User.swift in Sources */,
 				810EA53E1C8579D1005A6C6D /* SettingsViewModel.swift in Sources */,
 				810EA53F1C8579D1005A6C6D /* SigninViewController.swift in Sources */,
@@ -3639,10 +3709,12 @@
 				813A1B691CAC4586006BBB2E /* BrowsePackHeaderView.swift in Sources */,
 				810EA5481C8579D1005A6C6D /* Window.swift in Sources */,
 				8157AD861CB58533001D0B80 /* BrowsePackDownloadButton.swift in Sources */,
+				8190998D1D5E7F6700AC119D /* ColorPicker.swift in Sources */,
 				810EA54A1C8579D1005A6C6D /* AppSettingsViewController.swift in Sources */,
 				810EA54C1C8579D1005A6C6D /* KeyboardWalkthroughSuccessMessageView.swift in Sources */,
 				810EA54D1C8579D1005A6C6D /* BaseViewModel.swift in Sources */,
 				810EA54E1C8579D1005A6C6D /* LogInViewController.swift in Sources */,
+				8190998F1D5E7F6700AC119D /* ColorPickerController.swift in Sources */,
 				69BBD7F71D1888D70018E7DA /* BrowseCategoryPanelAnimator.swift in Sources */,
 				810EA54F1C8579D1005A6C6D /* EmptyStateView.swift in Sources */,
 				810EA5511C8579D1005A6C6D /* UserProfileSettingsSectionHeaderView.swift in Sources */,
@@ -3651,7 +3723,9 @@
 				810EA5541C8579D1005A6C6D /* MediaItemGroupViewModel.swift in Sources */,
 				3BDF89181D3FD2720043173A /* SearchBarView.swift in Sources */,
 				810EA5551C8579D1005A6C6D /* EventEmittable.swift in Sources */,
+				819099931D5E7F6700AC119D /* HuePicker.swift in Sources */,
 				8160F8401D4FB835004FFA6D /* ImageCategoryAssigmentViewController.swift in Sources */,
+				8190998B1D5E7F6700AC119D /* README.md in Sources */,
 				BF6A03EA1D11C464007EFBDC /* PacksHorizontalViewController.swift in Sources */,
 				BFD877871CA9B41300DCDA08 /* PacksViewModel.swift in Sources */,
 			);
@@ -3841,6 +3915,7 @@
 				8157AD7F1CB56982001D0B80 /* PackSubscription.swift in Sources */,
 				BF1858E31D3FE3D800087872 /* UsernameAlertViewController.swift in Sources */,
 				3BDF89261D4169B10043173A /* PowerByGiphyView.swift in Sources */,
+				8190998C1D5E7F6700AC119D /* ColorPicker.swift in Sources */,
 				3BFCDFBB1D54CF66005A4BF8 /* KeyboardInstallAlertView.swift in Sources */,
 				81B920FA1D46895200F45BD9 /* UserPackService.swift in Sources */,
 				69088E421D1333B000870237 /* BrowseCategorySelectionTableViewCell.swift in Sources */,
@@ -3920,9 +3995,11 @@
 				816D509B1C8A058D007B3249 /* CreateAccountView.swift in Sources */,
 				69E633141D11C67D00C34BE5 /* BrowseCategorySelectionTableViewController.swift in Sources */,
 				BF0A4BF11CB6DF0700824A81 /* MediaItemDetailViewController.swift in Sources */,
+				819099921D5E7F6700AC119D /* HuePicker.swift in Sources */,
 				3BFCDFC81D5A6BBA005A4BF8 /* SetUserProfilePictureViewController.swift in Sources */,
 				816D50C11C8A060F007B3249 /* PKHUD.swift in Sources */,
 				69D1126B1CA73DBB0030EB79 /* BrowsePackCollectionViewController.swift in Sources */,
+				819099901D5E7F6700AC119D /* ColorWell.swift in Sources */,
 				69F9956B1D492F1E00625123 /* ImageUploaderViewController.swift in Sources */,
 				3BF041EC1D05D9CA00418484 /* PushNotificationAlertViewController.swift in Sources */,
 				816D50791C8A052D007B3249 /* MediaItemGroupsViewController.swift in Sources */,
@@ -3936,8 +4013,10 @@
 				816D503C1C8A04C4007B3249 /* CategoryService.swift in Sources */,
 				816D50A81C8A0596007B3249 /* CreateAccountViewController.swift in Sources */,
 				816D50C31C8A061B007B3249 /* PKHUDContentView.swift in Sources */,
+				819099791D5E5F1300AC119D /* PackEditFormView.swift in Sources */,
 				816D50BD1C8A05E6007B3249 /* ChangeListener.swift in Sources */,
 				816D50AB1C8A0596007B3249 /* TermsOfUseViewController.swift in Sources */,
+				819099761D5E535D00AC119D /* PackEditFormViewController.swift in Sources */,
 				816D506E1C8A0516007B3249 /* StyleKit.swift in Sources */,
 				816D50B61C8A05E3007B3249 /* EmitterListener.swift in Sources */,
 				816D50691C8A0506007B3249 /* suffixNumber.swift in Sources */,
@@ -3961,6 +4040,7 @@
 				696DC86C1D5BF401004D3C0B /* ReportAlertView.swift in Sources */,
 				816D50501C8A04D9007B3249 /* EmptyStateView.swift in Sources */,
 				816D50AA1C8A0596007B3249 /* UserProfileViewController.swift in Sources */,
+				8190998A1D5E7F6700AC119D /* README.md in Sources */,
 				816D50721C8A051B007B3249 /* ConnectivityObservable.swift in Sources */,
 				3B309D781CE4DF63005B9942 /* FullScreenCollectionViewController.swift in Sources */,
 				3B138FF91D4A8C12002605D3 /* PresentingRootViewController.swift in Sources */,
@@ -3971,8 +4051,10 @@
 				816D50B01C8A0596007B3249 /* RootViewController.swift in Sources */,
 				816D50B71C8A05E3007B3249 /* Event.swift in Sources */,
 				816D50A91C8A0596007B3249 /* SigninViewController.swift in Sources */,
+				8190998E1D5E7F6700AC119D /* ColorPickerController.swift in Sources */,
 				816D504A1C8A04CF007B3249 /* LyricMediaItem.swift in Sources */,
 				816D50491C8A04CF007B3249 /* VideoMediaItem.swift in Sources */,
+				819099941D5E7F6700AC119D /* PickerImage.swift in Sources */,
 				BF9971591CC00942008351C7 /* PackItemViewModel.swift in Sources */,
 				816D50441C8A04CA007B3249 /* Category.swift in Sources */,
 				BF31C5C01D47CF2000D33AE0 /* AddQuoteView.swift in Sources */,

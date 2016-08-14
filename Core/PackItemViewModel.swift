@@ -107,4 +107,29 @@ class PackItemViewModel: BrowseViewModel {
         return false
     }
 
+
+    func saveChanges() {
+        guard let pack = pack,
+            name = pack.name,
+            description = pack.description,
+            backgroundColor = pack.backgroundColor else {
+            return
+        }
+
+        ref.updateChildValues([
+            "name": name,
+            "description": description,
+            "backgroundColor": backgroundColor.hexString
+        ])
+
+        let task = baseRef.child("queues/user/tasks").childByAutoId()
+        task.setValue([
+            "userId": userId,
+            "type": "updatePack",
+            "data": [
+                "packId": pack.id
+            ]
+        ])
+    }
+
 }
