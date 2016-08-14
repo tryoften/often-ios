@@ -122,6 +122,29 @@ class PackItemViewModel: BrowseViewModel {
             "backgroundColor": backgroundColor.hexString
         ])
 
+        triggerPackUpdate()
+    }
+
+    func updatePackProfileImage(image: ImageMediaItem) {
+        guard let smallImage = image.smallImageURL?.absoluteString,
+            largeImage = image.largeImageURL?.absoluteString else {
+                return
+        }
+
+        let ref = baseRef.child("packs/\(packId)/image")
+        ref.updateChildValues([
+            "large_url": largeImage,
+            "small_url": smallImage
+        ])
+
+        triggerPackUpdate()
+    }
+
+    func triggerPackUpdate() {
+        guard let pack = pack else {
+                return
+        }
+
         let task = baseRef.child("queues/user/tasks").childByAutoId()
         task.setValue([
             "userId": userId,
