@@ -8,7 +8,8 @@
 
 import UIKit
 
-class PackEditFormViewController: UIViewController, UITextFieldDelegate {
+class PackEditFormViewController: UIViewController, UITextFieldDelegate,
+    PackProfileImageUploaderViewControllerDelegate {
     var viewModel: PackItemViewModel
     var editFormView: PackEditFormView
     var colorPickerController: ColorPickerController
@@ -119,7 +120,9 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate {
     }
 
     func didTapUploadButton() {
-
+        let vc = PackProfileImageUploaderViewController(viewModel: UserPackService.defaultInstance)
+        vc.delegate = self
+        presentViewController(vc, animated: true, completion: nil)
     }
 
     func didTapCancelButton() {
@@ -133,8 +136,21 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate {
 
         viewModel.saveChanges()
         dismissViewControllerAnimated(true, completion: nil)
+    }
 
+    func packProfileImageUploaderViewControllerDidSuccessfullyUpload(imageUploader: PackProfileImageUploaderViewController, image: ImageMediaItem) {
+        guard let imageURL = image.largeImageURL else {
+            return
+        }
 
+        print(imageURL.absoluteString)
+        editFormView.uploadPhotoButton.hidden = true
+        viewModel.updatePackProfileImage(image)
+
+        delay(0.5, closure: {
+            self.editFormView.coverPhoto.nk_setImageWith(imageURL)
+            PKHUD.sharedHUD.hide(animated: true)
+        })
     }
 
     func textFieldDidEndEditing(textField: UITextField) {

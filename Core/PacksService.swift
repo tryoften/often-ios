@@ -370,7 +370,7 @@ class PacksService: PackItemViewModel {
             ])
     }
 
-    func updatePackProfileImage(image: ImageMediaItem) {
+    override func updatePackProfileImage(image: ImageMediaItem) {
         guard let favPackID = currentUser?.favoritesPackId,
             smallImage = image.smallImageURL?.absoluteString,
             largeImage = image.largeImageURL?.absoluteString else {

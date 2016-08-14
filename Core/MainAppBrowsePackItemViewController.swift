@@ -90,7 +90,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.shareTapped(_:)), forControlEvents: .TouchUpInside)
             
             let topRightButton = HeaderButton()
             topRightButton.text = "Edit Pack"
@@ -208,9 +208,15 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    func shareTapped(sender: UIButton, link: String) {
-        let shareObjects = ["Yo check out my keyboard Often! \(link)"]
-        
+    func shareTapped(sender: UIButton) {
+        guard let pack = packViewModel.pack,
+            name = pack.name,
+            link = pack.shareLink else {
+                return
+        }
+
+        let shareObjects = ["Yo check out my pack \"\(name)\" on Often! \(link)"]
+         
         let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
         activityVC.popoverPresentationController?.sourceView = sender
