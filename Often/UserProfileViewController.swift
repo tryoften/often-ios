@@ -16,6 +16,7 @@ UICollectionViewDelegateFlowLayout {
     var viewModel: PacksService
     var headerView: UserProfileHeaderView?
     private var packServiceListener: Listener?
+    private var presentedFavoritesPack: Bool = false
     
     var editingActive: Bool = false {
         didSet {
@@ -94,6 +95,7 @@ UICollectionViewDelegateFlowLayout {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setupNavBar()
+        presentedFavoritesPack = false
         
         if let user = SessionManager.defaultManager.currentUser {
             if !user.pushNotificationStatus && !SessionManagerFlags.defaultManagerFlags.userHasSeenPushNotificationView {
@@ -253,11 +255,13 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func presentFavoritesPack(notification: NSNotification) {
-        guard let pack = viewModel.favoritesPack, let id = pack.pack_id, let mediaItem = notification.object as? MediaItem else {
+        guard let pack = viewModel.favoritesPack,
+            let id = pack.pack_id
+            where presentedFavoritesPack == false else {
             return
         }
         
-        let mediaType = mediaItem.type
+        presentedFavoritesPack = true
         let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)

@@ -14,8 +14,14 @@ import Firebase
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
+    private let dropDownMenu: DropDownMessageView
+    private var presentingDropDownMenu: Bool = false
+    
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-
+        dropDownMenu = DropDownMessageView()
+        dropDownMenu.frame = CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35)
+        dropDownMenu.hidden = true
+        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
@@ -29,6 +35,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainAppBrowsePackItemViewController.showDropDownMenu(_:)), name: ShowDropDownMenuEvent, object: nil)
+        view.addSubview(dropDownMenu)
     }
 
     deinit {
@@ -40,7 +48,20 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
+        if presentingDropDownMenu {
+            navigationItem.rightBarButtonItem?.customView?.alpha = 0
+            navigationItem.setHidesBackButton(true, animated: true)
+            return true
+        }
+        
+        self.dropDownMenu.hidden = true
+        navigationItem.rightBarButtonItem?.customView?.alpha = 1
+        navigationItem.setHidesBackButton(false, animated: true)
         return false
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -296,10 +317,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
             // Copy this data to pasteboard
-            let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         } else {
-            let actionSheet = UIAlertController().tapStateActionSheet(result, url: nil)
+            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: nil)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
         
@@ -329,7 +350,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+                let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
                 self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -376,5 +397,41 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
             packViewModel.typeFilter = .Image
         }
+    }
+    
+    func showDropDownMenu(notification: NSNotification) {
+        dropDownMenu.hidden = false
+        presentingDropDownMenu = true
+        setNeedsStatusBarAppearanceUpdate()
+        
+        guard let removeFromPack = notification.object as? Bool else {
+            return
+        }
+        
+        if removeFromPack {
+            dropDownMenu.backgroundColor = UIColor(fromHexString: "#E85769")
+            dropDownMenu.text = "item successfully removed"
+        } else {
+            dropDownMenu.backgroundColor = TealColor
+            dropDownMenu.text = "item successfully added"
+        }
+        
+        view.userInteractionEnabled = false
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.dropDownMenu.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 35)
+        })
+        
+        delay(2.0, closure: {
+            UIView.animateWithDuration(0.3, animations: {
+                self.dropDownMenu.frame = CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35)
+            })
+        })
+        
+        delay(2.5, closure: {
+            self.presentingDropDownMenu = false
+            self.setNeedsStatusBarAppearanceUpdate()
+            self.view.userInteractionEnabled = true
+        })
     }
 }

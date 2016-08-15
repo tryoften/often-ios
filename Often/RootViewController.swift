@@ -50,7 +50,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
 
         dummyTabBar.frame = tabBar.frame
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss(_:)), name: AddContentViewDismissedEvent, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss(_:)), name: PresentUserProfileEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()
@@ -141,16 +140,12 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: false)
-
         return animator
     }
     
     func addContentViewDidDismiss(notification: NSNotification) {
-        if userProfilePresented == false {
-            let mediaItem = notification.object as? MediaItem
-            selectedIndex = SelectedTab.UserProfile.rawValue
-            NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: mediaItem)
-            userProfilePresented = true
-        }
+        let mediaItem = notification.object as? MediaItem
+        selectedIndex = SelectedTab.UserProfile.rawValue
+        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: mediaItem)
     }
 }
