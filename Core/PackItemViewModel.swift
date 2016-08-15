@@ -107,22 +107,13 @@ class PackItemViewModel: BrowseViewModel {
         return false
     }
 
-
-    func saveChanges() {
-        guard let pack = pack,
-            name = pack.name,
-            description = pack.description,
-            backgroundColor = pack.backgroundColor else {
+    func saveChanges(data: [String: AnyObject]) {
+        guard let pack = pack else {
             return
         }
 
-        ref.updateChildValues([
-            "name": name,
-            "description": description,
-            "backgroundColor": backgroundColor.hexString
-        ])
-
-        triggerPackUpdate()
+        pack.setValuesForOwnerKeys(data)
+        triggerPackUpdate(data)
     }
 
     func updatePackProfileImage(image: ImageMediaItem) {
@@ -131,16 +122,18 @@ class PackItemViewModel: BrowseViewModel {
                 return
         }
 
-        let ref = baseRef.child("packs/\(packId)/image")
-        ref.updateChildValues([
+        let data = [
             "large_url": largeImage,
             "small_url": smallImage
-        ])
+        ]
 
-        triggerPackUpdate()
+        let ref = baseRef.child("packs/\(packId)/image")
+
+        ref.updateChildValues(data)
+        triggerPackUpdate(data)
     }
 
-    func triggerPackUpdate() {
+    func triggerPackUpdate(data: NSDictionary) {
         guard let pack = pack else {
                 return
         }
@@ -150,7 +143,8 @@ class PackItemViewModel: BrowseViewModel {
             "userId": userId,
             "type": "updatePack",
             "data": [
-                "packId": pack.id
+                "packId": pack.id,
+                "attributes": data
             ]
         ])
     }
