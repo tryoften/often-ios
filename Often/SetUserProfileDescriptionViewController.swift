@@ -11,9 +11,9 @@ import Foundation
 class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDelegate {
     var userProfileDescription: SetUserProfileDescriptionView
     var onboardingHeader: OnboardingHeader
-    var viewModel: PacksService
+    var viewModel: OnboardingPackViewModel
 
-    init(viewModel: PacksService) {
+    init(viewModel: OnboardingPackViewModel) {
         self.viewModel = viewModel
     
         userProfileDescription = SetUserProfileDescriptionView()
@@ -74,10 +74,13 @@ class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDele
             descriptionText = text
         }
         
-        viewModel.updatePackTitleAndDescription(titleText, description: descriptionText)
+        viewModel.saveChanges([
+            "name": titleText,
+            "description": descriptionText,
+            ])
+
         let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
         presentViewController(vc, animated: true, completion: nil)
-        
     }
     
     func didTapSkipButton(sender: UIButton) {
