@@ -15,6 +15,7 @@ class AddSelectedImageViewController: OnboardingMediaItemPickerViewController {
         viewModel.typeFilter = .Image
         onboardingHeader.titleText = "Maybe some memes..."
         onboardingHeader.subtitleText = "Pick at least 3 images to add! You can also add from your camera roll later"
+        progressBar = OnboardingProgressBar(progressIndex: 5.0, endIndex: 8.0, frame: CGRectZero)
     }
 
     override func viewDidLoad() {

@@ -29,6 +29,7 @@ class AddSelectedQuotesViewController: OnboardingMediaItemPickerViewController {
         viewModel.typeFilter = .Quote
         onboardingHeader.titleText = "Maybe some quotes..."
         onboardingHeader.subtitleText = "Need some quick one liners to get you out of convos? Here are some we like"
+        progressBar = OnboardingProgressBar(progressIndex: 6.0, endIndex: 8.0, frame: CGRectZero)
     }
 
     required init?(coder aDecoder: NSCoder) {

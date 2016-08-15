@@ -20,6 +20,7 @@ class OnboardingMediaItemPickerViewController: PresentingRootViewController,
 
     var viewModel: OnboardingPackViewModel
     var onboardingHeader: OnboardingHeader
+    var progressBar: OnboardingProgressBar
 
     init(viewModel: OnboardingPackViewModel) {
         self.viewModel = viewModel
@@ -29,6 +30,9 @@ class OnboardingMediaItemPickerViewController: PresentingRootViewController,
 
         mediaItemsCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: self.dynamicType.provideLayout())
         mediaItemsCollectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
 
@@ -46,6 +50,7 @@ class OnboardingMediaItemPickerViewController: PresentingRootViewController,
 
         view.addSubview(onboardingHeader)
         view.addSubview(mediaItemsCollectionView)
+        view.addSubview(progressBar)
 
         setupLayout()
     }
@@ -84,6 +89,11 @@ class OnboardingMediaItemPickerViewController: PresentingRootViewController,
             mediaItemsCollectionView.al_left == view.al_left,
             mediaItemsCollectionView.al_right == view.al_right,
             mediaItemsCollectionView.al_bottom == view.al_bottom - 20,
+
+            progressBar.al_left == view.al_left,
+            progressBar.al_right == view.al_right,
+            progressBar.al_bottom == view.al_bottom,
+            progressBar.al_height == 5
             ])
     }
 

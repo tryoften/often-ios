@@ -14,6 +14,7 @@ class AddSelectedGifsViewController: OnboardingMediaItemPickerViewController {
         super.init(viewModel: viewModel)
         onboardingHeader.titleText = "Let’s add stuff to your keyboard"
         onboardingHeader.subtitleText = "Pick at least 3 GIFs to add! You can add any you missed from GIPHY later too"
+        progressBar = OnboardingProgressBar(progressIndex: 4.0, endIndex: 8.0, frame: CGRectZero)
     }
     
     required init?(coder aDecoder: NSCoder) {
