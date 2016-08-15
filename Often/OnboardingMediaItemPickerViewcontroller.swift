@@ -8,19 +8,20 @@
 
 import Foundation
 
-class OnboardingMediaItemPickerViewController: UIViewController,
+class OnboardingMediaItemPickerViewController: PresentingRootViewController,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
     UITextFieldDelegate,
     MediaItemGroupViewModelDelegate {
-    private var viewModel: PackItemViewModel
-    private var onboardingHeader: OnboardingHeader
     private var mediaItemsCollectionView: UICollectionView
     private var HUDMaskView: UIView?
     private var hudTimer: NSTimer?
 
-    init(viewModel: PackItemViewModel) {
+    var viewModel: OnboardingPackViewModel
+    var onboardingHeader: OnboardingHeader
+
+    init(viewModel: OnboardingPackViewModel) {
         self.viewModel = viewModel
 
         onboardingHeader = OnboardingHeader()
@@ -41,11 +42,10 @@ class OnboardingMediaItemPickerViewController: UIViewController,
         mediaItemsCollectionView.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: imageCellReuseIdentifier)
         mediaItemsCollectionView.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
 
-
         view.backgroundColor = UIColor.oftWhiteColor()
 
-        view.addSubview(mediaItemsCollectionView)
         view.addSubview(onboardingHeader)
+        view.addSubview(mediaItemsCollectionView)
 
         setupLayout()
     }
@@ -54,21 +54,10 @@ class OnboardingMediaItemPickerViewController: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        onboardingHeader.nextButton.addTarget(self, action: #selector(OnboardingMediaItemPickerViewController.nextButtonDidTap(_:)), forControlEvents: .TouchDragInside)
-        onboardingHeader.skipButton.addTarget(self, action: #selector(OnboardingMediaItemPickerViewController.skipButtonDidTap(_:)), forControlEvents: .TouchDragInside)
+    func nextButtonDidTap(sender: UIButton) {}
 
-    }
-
-    func nextButtonDidTap(sender: UIButton) {
-
-    }
-
-    func skipButtonDidTap(sender: UIButton) {
-
-    }
+    func skipButtonDidTap(sender: UIButton) {}
 
 
     class func provideLayout() -> UICollectionViewFlowLayout {
@@ -151,6 +140,13 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             }
 
             cell.mediaLink = gif
+
+            for items in viewModel.selectedMediaItems {
+                if items.id == cell.mediaLink?.id {
+                    cell.searchOverlayView.hidden = false
+                }
+            }
+
             return cell
         case .Image:
             guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(imageCellReuseIdentifier, forIndexPath: indexPath) as? GifCollectionViewCell else {
@@ -166,6 +162,13 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             }
 
             cell.mediaLink = image
+
+            for items in viewModel.selectedMediaItems {
+                if items.id == cell.mediaLink?.id {
+                    cell.searchOverlayView.hidden = false
+                }
+            }
+
             return cell
         case .Quote:
             guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(MediaItemCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? MediaItemCollectionViewCell else {
@@ -182,7 +185,13 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             cell.mainTextLabel.textAlignment = .Right
             cell.showImageView = false
             cell.avatarImageURL =  quote.smallImageURL
+            cell.mediaLink = quote
 
+            for items in viewModel.selectedMediaItems {
+                if items.id == cell.mediaLink?.id {
+                    cell.searchOverlayView.hidden = false
+                }
+            }
 
             return cell
 
@@ -247,6 +256,38 @@ class OnboardingMediaItemPickerViewController: UIViewController,
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? GifCollectionViewCell {
+            cell.searchOverlayView.hidden = !cell.searchOverlayView.hidden
+            if !cell.searchOverlayView.hidden {
+                if let item = cell.mediaLink {
+                    UserPackService.defaultInstance.addItem(item)
+                    viewModel.addMediaItem(item)
+                }
+            } else {
+                if let item = cell.mediaLink {
+                    UserPackService.defaultInstance.removeItem(item)
+                    viewModel.removeMediaItem(item)
+                }
+            }
+
+        }
+
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? MediaItemCollectionViewCell {
+            cell.searchOverlayView.hidden = !cell.searchOverlayView.hidden
+
+            if !cell.searchOverlayView.hidden {
+                if let item = cell.mediaLink {
+                    UserPackService.defaultInstance.addItem(item)
+                    viewModel.addMediaItem(item)
+                }
+            } else {
+                if let item = cell.mediaLink {
+                    UserPackService.defaultInstance.removeItem(item)
+                    viewModel.removeMediaItem(item)
+                }
+            }
+
+        }
         
     }
     

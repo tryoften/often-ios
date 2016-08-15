@@ -93,15 +93,12 @@ class LoginViewController: UserCreationViewController {
 
         launchScreenLoaderTimer?.invalidate()
 
-//        if viewModel.isNewUser {
-//           let vc = AddSelectedGifsViewController(viewModel: PackItemViewModel(packId: "rJejs85F"))
-//            presentViewController(vc, animated: true, completion: nil)
-//
-//        } else {
-//            presentRootViewController(RootViewController())
-//        }
+        if viewModel.isNewUser {
+           let vc = AddUsernameViewController(viewModel: UsernameViewModel())
+            presentViewController(vc, animated: true, completion: nil)
 
-        let vc = AddSelectedImageViewController(viewModel: PackItemViewModel(packId: "rJejs85F"))
-        presentViewController(vc, animated: true, completion: nil)
+        } else {
+            presentRootViewController(RootViewController())
+        }
     }
 }
