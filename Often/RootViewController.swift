@@ -84,7 +84,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     }
 
     func showAlert() {
-        if !SessionManagerFlags.defaultManagerFlags.userSeenKeyboardInstallWalkthrough {
+        if !SessionManagerFlags.defaultManagerFlags.isKeyboardInstalled {
             PKHUD.sharedHUD.hide(animated: true)
 
             let AlertVC = KeyboardInstallAlertViewController(alertView: KeyboardInstallAlertView.self)

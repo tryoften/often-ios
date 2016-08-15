@@ -11,7 +11,6 @@ import Firebase
 import FirebaseMessaging
 import FirebaseInstanceID
 
-
 class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let didUpdatePacks = Event<[PackMediaItem]>()
@@ -335,7 +334,7 @@ class PacksService: PackItemViewModel {
         let ref = baseRef.child("usernames/\(encodedString)")
         var exists: Bool = true
         
-        ref.observeEventType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
             
             if let _ = snapshot.value as? NSDictionary {
                 exists = true
@@ -369,7 +368,32 @@ class PacksService: PackItemViewModel {
         ref.updateChildValues([
             "username": username
             ])
+    }
+
+    override func updatePackProfileImage(image: ImageMediaItem) {
+        guard let favPackID = currentUser?.favoritesPackId,
+            smallImage = image.smallImageURL?.absoluteString,
+            largeImage = image.largeImageURL?.absoluteString else {
+            return
+        }
+
+        let ref = userRef.child("packs/\(favPackID)/image")
+        ref.updateChildValues([
+            "large_url": largeImage,
+            "small_url": smallImage
+            ])
+    }
+    
+    func updatePackTitleAndDescription(title: String, description: String) {
+        guard let favPackID = currentUser?.favoritesPackId else {
+            return
+        }
         
+        let ref = userRef.child("packs/\(favPackID)")
+        ref.updateChildValues([
+            "name": title,
+            "description": description
+            ])
     }
     
     func encodeString(username: String) -> String {

@@ -111,7 +111,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.shareTapped(_:)), forControlEvents: .TouchUpInside)
             
             let topRightButton = HeaderButton()
             topRightButton.text = "Edit Pack"
@@ -119,6 +119,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
             topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
             topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
             
             let item = UIBarButtonItem(customView: topRightButton)
             navigationItem.rightBarButtonItem = item
@@ -209,22 +210,34 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func topRightButtonTapped(sender: UIButton) {
-        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink, id = pack.pack_id else {
-            return
-        }
-        
         if packViewModel.isCurrentUser {
-            shareTapped(sender, link: link)
+            let vc = PackEditFormViewController(viewModel: packViewModel)
+            vc.modalPresentationStyle = .Custom
+            vc.modalTransitionStyle = .CrossDissolve
+            presentViewController(vc, animated: true, completion: nil)
             return
         }
-        
+
+        guard let pack = packViewModel.pack,
+            name = pack.name,
+            link = pack.shareLink,
+            id = pack.pack_id else {
+            return
+        }
+
         let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
-    func shareTapped(sender: UIButton, link: String) {
-        let shareObjects = ["Yo check out my keyboard Often! \(link)"]
-        
+    func shareTapped(sender: UIButton) {
+        guard let pack = packViewModel.pack,
+            name = pack.name,
+            link = pack.shareLink else {
+                return
+        }
+
+        let shareObjects = ["Yo check out my pack \"\(name)\" on Often! \(link)"]
+         
         let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
         activityVC.popoverPresentationController?.sourceView = sender
@@ -341,8 +354,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
-                    }.resume()
-                
+                }.resume()
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }

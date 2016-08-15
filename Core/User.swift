@@ -24,6 +24,8 @@ class User: NSObject {
     var favoritesPackId: String = ""
     var recentsPackId: String = ""
     var shareCount: Int = 0
+    var followersCount: Int = 0
+    var followingCount: Int = 0
     var pushNotificationStatus: Bool = false
     var firebasePushNotificationToken: String = ""
 
@@ -83,6 +85,14 @@ class User: NSObject {
 
         if let shareCount = data["shareCount"] as? Int {
             self.shareCount = shareCount
+        }
+
+        if let followersCount = data["followersCount"] as? Int {
+            self.followersCount = followersCount
+        }
+
+        if let followingCount = data["followingCount"] as? Int {
+            self.followingCount = followingCount
         }
 
         if let pushNotificationStatus = data["pushNotificationStatus"] as? Bool {

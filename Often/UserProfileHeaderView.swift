@@ -72,8 +72,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         }
         return 0
     }
-    
-
 
     private var profileImageViewWidth: CGFloat {
         if Diagnostics.platformString().number == 6 {
@@ -82,7 +80,6 @@ class UserProfileHeaderView: UICollectionReusableView {
         
         return 68
     }
-
 
     private var collapseProfileImageViewWidth: CGFloat {
         return 30
@@ -139,14 +136,14 @@ class UserProfileHeaderView: UICollectionReusableView {
         leftBoldLabel.font = UIFont(name: "Montserrat", size: 18.0)
         leftBoldLabel.textColor = UIColor.oftBlack74Color()
         leftBoldLabel.textAlignment = .Center
-        leftBoldLabel.text = "1.4K"
+        leftBoldLabel.text = "0"
         
         rightBoldLabel = UILabel()
         rightBoldLabel.translatesAutoresizingMaskIntoConstraints = false
         rightBoldLabel.font = UIFont(name: "Montserrat", size: 18.0)
         rightBoldLabel.textColor = UIColor.oftBlack74Color()
         rightBoldLabel.textAlignment = .Center
-        rightBoldLabel.text = "1.4K"
+        rightBoldLabel.text = "0"
         
         leftDescriptorLabel = UILabel()
         leftDescriptorLabel.translatesAutoresizingMaskIntoConstraints = false

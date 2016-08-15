@@ -205,6 +205,19 @@ UICollectionViewDelegateFlowLayout {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.isCurrentUser = viewModel.isCurrentUser
             headerView.nameLabel.text = user.name
+
+            if user.followersCount > 999 {
+                headerView.leftBoldLabel.text = Double(user.followersCount).suffixNumber
+            } else {
+                headerView.leftBoldLabel.text = String(user.followersCount)
+            }
+
+            if user.followingCount > 999 {
+                headerView.rightBoldLabel.text = Double(user.followingCount).suffixNumber
+            } else {
+                headerView.rightBoldLabel.text = String(user.followingCount)
+            }
+
             if let imageURL = NSURL(string: user.profileImageLarge) {
                 headerView.profileImageView.nk_setImageWith(imageURL)
             }
