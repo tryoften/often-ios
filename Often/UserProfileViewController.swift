@@ -63,13 +63,13 @@ UICollectionViewDelegateFlowLayout {
         extendedLayoutIncludesOpaqueBars = false
         automaticallyAdjustsScrollViewInsets = false
     }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     class func provideCollectionViewLayout() -> UICollectionViewLayout {

@@ -41,6 +41,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
     deinit {
         packCollectionListener = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -54,7 +55,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return true
         }
         
-        self.dropDownMenu.hidden = true
+        dropDownMenu.hidden = true
         navigationItem.rightBarButtonItem?.customView?.alpha = 1
         navigationItem.setHidesBackButton(false, animated: true)
         return false
