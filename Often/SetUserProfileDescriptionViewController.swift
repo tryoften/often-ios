@@ -75,13 +75,13 @@ class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDele
         }
         
         viewModel.updatePackTitleAndDescription(titleText, description: descriptionText)
-        let vc = SetUserProfileBackgroundColorViewController(viewModel: UsernameViewModel())
+        let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
         presentViewController(vc, animated: true, completion: nil)
         
     }
     
     func didTapSkipButton(sender: UIButton) {
-        let vc = SetUserProfileBackgroundColorViewController(viewModel: UsernameViewModel())
+        let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
         presentViewController(vc, animated: true, completion: nil)
     }
 
