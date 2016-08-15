@@ -107,4 +107,52 @@ class PackItemViewModel: BrowseViewModel {
         return false
     }
 
+
+    func saveChanges() {
+        guard let pack = pack,
+            name = pack.name,
+            description = pack.description,
+            backgroundColor = pack.backgroundColor else {
+            return
+        }
+
+        ref.updateChildValues([
+            "name": name,
+            "description": description,
+            "backgroundColor": backgroundColor.hexString
+        ])
+
+        triggerPackUpdate()
+    }
+
+    func updatePackProfileImage(image: ImageMediaItem) {
+        guard let smallImage = image.smallImageURL?.absoluteString,
+            largeImage = image.largeImageURL?.absoluteString else {
+                return
+        }
+
+        let ref = baseRef.child("packs/\(packId)/image")
+        ref.updateChildValues([
+            "large_url": largeImage,
+            "small_url": smallImage
+        ])
+
+        triggerPackUpdate()
+    }
+
+    func triggerPackUpdate() {
+        guard let pack = pack else {
+                return
+        }
+
+        let task = baseRef.child("queues/user/tasks").childByAutoId()
+        task.setValue([
+            "userId": userId,
+            "type": "updatePack",
+            "data": [
+                "packId": pack.id
+            ]
+        ])
+    }
+
 }

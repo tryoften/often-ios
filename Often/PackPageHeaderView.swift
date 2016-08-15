@@ -52,7 +52,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
         super.init(frame: frame)
 
         subtitleLabel.numberOfLines = 2
-        
+
         addSubview(primaryButton)
         addSubview(tabContainerView)
     }
@@ -114,7 +114,7 @@ class PackPageHeaderView: MediaItemPageHeaderView {
             titleLabel.al_top == coverPhotoContainer.al_bottom + titleLabelTopMargin,
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_height == 22,
-            titleLabel.al_width <= al_width - 30,
+            titleLabel.al_width == al_width - 30,
 
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_left == al_left + 50,

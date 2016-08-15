@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 
+
 class BrowseViewModel: MediaItemGroupViewModel {
     let didUpdateCurrentMediaItem = Event<[MediaItemGroup]>()
     var currentCategory: Category?

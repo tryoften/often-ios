@@ -95,9 +95,7 @@ class FilterTabView: UIView {
                 buttonLeftConstraint,
                 button.al_width == al_width / CGFloat(buttons.count),
                 highlightBarView.al_width == al_width / CGFloat(buttons.count)
-                
-                ])
-            
+            ])
             buttonIndex++
         }
     }

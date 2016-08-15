@@ -11,12 +11,12 @@ import Foundation
 class SetUserProfilePictureView: UIView {
     private var title: UILabel
     private var subtitle: UILabel
-    private var loadingBar: UIView
 
     var skipButton: UIButton
     var nextButton: UIButton
     var imageView: UIImageView
     var addPhotoButton: UploadPhotoButton
+    var progressBar: OnboardingProgressBar
 
     override init(frame: CGRect) {
         title = UILabel()
@@ -33,10 +33,6 @@ class SetUserProfilePictureView: UIView {
         imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .ScaleAspectFit
-
-        loadingBar = UIView()
-        loadingBar.translatesAutoresizingMaskIntoConstraints = false
-        loadingBar.backgroundColor = TealColor
 
         let buttonAttributes: [String: AnyObject] = [
             NSKernAttributeName: NSNumber(float: 1.0),
@@ -69,6 +65,9 @@ class SetUserProfilePictureView: UIView {
         addPhotoButton.layer.shadowOpacity = 0.2
         addPhotoButton.layer.shadowColor = MediumLightGrey.CGColor
         addPhotoButton.layer.shadowOffset = CGSizeMake(0, 1)
+        
+        progressBar = OnboardingProgressBar(progressIndex: 2.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)
 
@@ -78,7 +77,7 @@ class SetUserProfilePictureView: UIView {
         addSubview(nextButton)
         addSubview(addPhotoButton)
         addSubview(imageView)
-        addSubview(loadingBar)
+        addSubview(progressBar)
 
         setupLayout()
     }
@@ -120,11 +119,11 @@ class SetUserProfilePictureView: UIView {
             nextButton.al_left == al_centerX + 3.5,
             nextButton.al_height == 52,
             nextButton.al_bottom == al_bottom - 40.5,
-
-            loadingBar.al_left == al_left,
-            loadingBar.al_right == al_right,
-            loadingBar.al_bottom == al_bottom,
-            loadingBar.al_height == 5
+            
+            progressBar.al_left == al_left,
+            progressBar.al_right == al_right,
+            progressBar.al_bottom == al_bottom,
+            progressBar.al_height == 5
             ])
     }
 }

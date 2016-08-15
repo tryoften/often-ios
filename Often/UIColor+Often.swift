@@ -64,11 +64,26 @@ extension UIColor {
         return UIColor(white: 247.0 / 255.0, alpha: 1.0)
     }
     
+    class func oftWhiteFiveColor() -> UIColor {
+        return UIColor(white: 227.0 / 255.0, alpha: 1.0)
+    }
+    
     class func oftVeryLightPinkColor() -> UIColor {
         return UIColor(red: 255.0 / 255.0, green: 242.0 / 255.0, blue: 231.0 / 255.0, alpha: 1.0)
     }
     
     class func oftLightPinkColor() -> UIColor {
         return UIColor(red: 255.0 / 255.0, green: 232.0 / 255.0, blue: 233.0 / 255.0, alpha: 1.0)
+    }
+}
+
+extension UIColor {
+    var hexString: String {
+        let components = CGColorGetComponents(self.CGColor)
+
+        let red = Float(components[0])
+        let green = Float(components[1])
+        let blue = Float(components[2])
+        return String(format: "#%02lX%02lX%02lX", lroundf(red * 255), lroundf(green * 255), lroundf(blue * 255))
     }
 }

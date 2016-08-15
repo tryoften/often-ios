@@ -248,4 +248,14 @@ class PackMediaItem: MediaItem {
         
         return groups
     }
+
+    override func toDictionary() -> [String : AnyObject] {
+        var dictionary = super.toDictionary()
+
+        if let backgroundColor = backgroundColor?.hexString {
+            dictionary["backgroundColor"] = backgroundColor
+        }
+
+        return dictionary
+    }
 }

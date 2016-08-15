@@ -14,6 +14,7 @@ class UsernameView: UIView {
     let textField: UITextField
     let textFieldDivider: UIView
     let confirmButton: UIButton
+    var progressBar: OnboardingProgressBar
 
     private var titleLabelHeightTopMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
@@ -64,6 +65,9 @@ class UsernameView: UIView {
         confirmButton.backgroundColor = UIColor.whiteColor()
         confirmButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
         confirmButton.layer.borderWidth = 2
+        
+        progressBar = OnboardingProgressBar(progressIndex: 1.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)
 
@@ -74,6 +78,7 @@ class UsernameView: UIView {
         addSubview(textField)
         addSubview(textFieldDivider)
         addSubview(confirmButton)
+        addSubview(progressBar)
 
         setupLayout()
     }
@@ -108,6 +113,11 @@ class UsernameView: UIView {
             confirmButton.al_left == al_left + 40,
             confirmButton.al_right == al_right - 40,
             confirmButton.al_height == 50,
+            
+            progressBar.al_left == al_left,
+            progressBar.al_right == al_right,
+            progressBar.al_bottom == al_bottom,
+            progressBar.al_height == 5
             ])
     }
 
