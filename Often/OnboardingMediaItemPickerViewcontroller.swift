@@ -31,7 +31,7 @@ class OnboardingMediaItemPickerViewController: PresentingRootViewController,
         mediaItemsCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: self.dynamicType.provideLayout())
         mediaItemsCollectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar = OnboardingProgressBar(progressIndex: 4.0, endIndex: 8.0, frame: CGRectZero)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)

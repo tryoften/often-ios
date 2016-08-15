@@ -39,6 +39,12 @@ class SetUserProfileDescriptionViewController: UIViewController, UITextFieldDele
         setupLayout()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        userProfileDescription.descriptionTextField.placeholder = viewModel.pack?.description
+        userProfileDescription.titleTextField.placeholder = viewModel.pack?.name
+    }
+    
     func setupLayout()  {
         view.addConstraints([
             onboardingHeader.al_top == view.al_top,
