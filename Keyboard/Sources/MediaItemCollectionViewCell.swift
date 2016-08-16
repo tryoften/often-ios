@@ -217,6 +217,22 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         showImageView = true
     }
 
+    internal override func prepareForReuse() {
+        super.prepareForReuse()
+
+        searchOverlayView.hidden = true
+        sourceLogoView.image = nil
+        leftHeaderLabel.text = ""
+        rightHeaderLabel.text = ""
+        mainTextLabel.text = ""
+        mainTextLabel.textAlignment = .Right
+        leftMetadataLabel.text = ""
+        centerMetadataLabel.text = ""
+        rightMetadataLabel.text = ""
+        rightCornerImageView.image = nil
+        showImageView = true
+    }
+
     func setupCellType() {
         let hasNoMetadata = type == .NoMetadata
 

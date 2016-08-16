@@ -64,12 +64,15 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
             return
         }
 
+
         viewModel.usernameDoesExist(usernameView.textField.text!, completion: { exists in
             if !exists {
                 SessionManagerFlags.defaultManagerFlags.userHasUsername = true
-                self.viewModel.saveUsername(self.usernameView.textField.text!)
-                let vc = SetUserProfilePictureViewController(viewModel: PacksService.defaultInstance)
-                self.presentViewController(vc, animated: true, completion: nil)
+                if let favoritesPackId = self.viewModel.currentUser?.favoritesPackId where favoritesPackId != "" {
+                    self.viewModel.saveUsername(self.usernameView.textField.text!)
+                    let vc = SetUserProfilePictureViewController(viewModel: OnboardingPackViewModel(packId: favoritesPackId))
+                    self.presentViewController(vc, animated: true, completion: nil)
+                }
             } else {
                     DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
             }
