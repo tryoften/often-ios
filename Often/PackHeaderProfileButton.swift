@@ -9,33 +9,32 @@
 import UIKit
 
 class PackHeaderProfileButton: UIButton {
-    var profileImageView: UIImageView
-
-    var text: String? {
-        didSet {
-            titleLabel?.setTextWith(UIFont(name: "Montserrat", size: 10.5)!, letterSpacing: 1.0, color: WhiteColor, text: text!.uppercaseString)
-
-            setTitle(text!.uppercaseString, forState: .Normal)
-        }
-    }
+    var handleLabel: UILabel
+    var collapseProfileImageView: UIImageView
 
     private var profileImageViewWidth: CGFloat {
         return 30
     }
 
     override init(frame: CGRect) {
-        profileImageView = UIImageView()
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.contentMode = .ScaleAspectFit
-        profileImageView.image = UIImage(named: "userprofileplaceholder")
-        profileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
-        profileImageView.layer.borderWidth = 2
-        profileImageView.alpha = 0
-        profileImageView.clipsToBounds = true
-
+        handleLabel = UILabel()
+        handleLabel.translatesAutoresizingMaskIntoConstraints = false
+        handleLabel.font = UIFont(name: "OpenSans", size: 10.5)
+        handleLabel.textColor = UIColor.whiteColor()
+        
+        collapseProfileImageView = UIImageView()
+        collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+        collapseProfileImageView.contentMode = .ScaleAspectFit
+        collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+        collapseProfileImageView.layer.borderWidth = 2
+        collapseProfileImageView.layer.cornerRadius = 15
+        collapseProfileImageView.clipsToBounds = true
+    
         super.init(frame: frame)
 
-        addSubview(profileImageView)
+        addSubview(handleLabel)
+        addSubview(collapseProfileImageView)
+
         setupLayout()
     }
     
@@ -45,16 +44,14 @@ class PackHeaderProfileButton: UIButton {
 
     func setupLayout() {
         addConstraints([
-            profileImageView.al_top >= al_top + 5,
-            profileImageView.al_left == al_left + 5,
-            profileImageView.al_height == profileImageViewWidth,
-            profileImageView.al_width == profileImageViewWidth
+            handleLabel.al_centerX == al_centerX,
+            handleLabel.al_centerY == al_centerY,
+            handleLabel.al_height == 30,
+            
+            collapseProfileImageView.al_left == handleLabel.al_right + 5,
+            collapseProfileImageView.al_centerY == handleLabel.al_centerY,
+            collapseProfileImageView.al_width == 30,
+            collapseProfileImageView.al_height == 30
         ])
-
-        guard let titleLabel = titleLabel else {
-            return
-        }
-
-        addConstraint(titleLabel.al_left == profileImageView.al_right + 5)
     }
 }

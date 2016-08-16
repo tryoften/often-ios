@@ -146,44 +146,17 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             header.isFavorites = pack.isFavorites
             
             if let owner = pack.owner where packViewModel.pack?.isFavorites == true {
-                let userHandleAndImageView = UIView()
+                let userHandleAndImageView = PackHeaderProfileButton()
                 userHandleAndImageView.frame = CGRectMake(0, 0, 200, 30)
-                userHandleAndImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MainAppBrowsePackItemViewController.userHandleDidTap)))
-                
-                let handleLabel = UILabel()
-                handleLabel.translatesAutoresizingMaskIntoConstraints = false
-                handleLabel.font = UIFont(name: "OpenSans", size: 10.5)
-                handleLabel.text = "@\(owner.username.uppercaseString)"
-                handleLabel.textColor = UIColor.whiteColor()
-                
-                let collapseProfileImageView = UIImageView()
-                collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
-                collapseProfileImageView.contentMode = .ScaleAspectFit
-                collapseProfileImageView.image = header.coverPhoto.image
-                collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
-                collapseProfileImageView.layer.borderWidth = 2
-                collapseProfileImageView.layer.cornerRadius = 15
-                collapseProfileImageView.clipsToBounds = true
-                
-                userHandleAndImageView.addSubview(handleLabel)
-                userHandleAndImageView.addSubview(collapseProfileImageView)
-                
-                userHandleAndImageView.addConstraints([
-                    handleLabel.al_centerX == userHandleAndImageView.al_centerX,
-                    handleLabel.al_centerY == userHandleAndImageView.al_centerY,
-                    handleLabel.al_height == 30,
-                    
-                    collapseProfileImageView.al_left == handleLabel.al_right + 5,
-                    collapseProfileImageView.al_centerY == handleLabel.al_centerY,
-                    collapseProfileImageView.al_width == 30,
-                    collapseProfileImageView.al_height == 30
-                ])
+                userHandleAndImageView.handleLabel.text = "@\(owner.username.uppercaseString)"
+                userHandleAndImageView.collapseProfileImageView.image = header.coverPhoto.image
+                userHandleAndImageView.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.userHandleDidTap), forControlEvents: .TouchUpInside)
                 
                 navigationItem.titleView = userHandleAndImageView
                 navigationController?.navigationBar.tintColor = UIColor.whiteColor()
             }
             
-            let topRightButton = PackHeaderProfileButton()
+            let topRightButton = UIButton()
             topRightButton.frame = CGRect(origin: CGPointZero, size: topRightButton.intrinsicContentSize())
             topRightButton.imageEdgeInsets = UIEdgeInsetsMake(-2, 10, 0, -4)
             topRightButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.whiteColor()), forState: .Normal)
