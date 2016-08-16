@@ -45,7 +45,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: AddContentTabDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: PresentFavoritesPackEvent, object: nil)
         
         packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
