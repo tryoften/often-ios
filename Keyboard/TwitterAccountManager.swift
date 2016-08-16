@@ -81,6 +81,7 @@ class TwitterAccountManager: AccountManager {
                         if let user = self.currentUser {
                             self.userRef?.updateChildValues(user.dataChangedToDictionary())
                             completion?(results: ResultType.Success(r: true))
+                            SessionManagerFlags.defaultManagerFlags.userLoginWithSocial = true
                             self.delegate?.accountManagerUserDidLogin(self, user: user)
                         }
                         self.initiateUserWithPacks()

@@ -24,7 +24,7 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
         usernameView.textField.delegate = self
         view.backgroundColor = UIColor.whiteColor()
         view.addSubview(usernameView)
-        
+
         do {
             try viewModel.setupUser { inner in
                 self.usernameView.textField.text = viewModel.generateSuggestedUsername()
@@ -68,13 +68,23 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
         viewModel.usernameDoesExist(usernameView.textField.text!, completion: { exists in
             if !exists {
                 SessionManagerFlags.defaultManagerFlags.userHasUsername = true
-                if let favoritesPackId = self.viewModel.currentUser?.favoritesPackId where favoritesPackId != "" {
-                    self.viewModel.saveUsername(self.usernameView.textField.text!)
-                    let vc = SetUserProfilePictureViewController(viewModel: OnboardingPackViewModel(packId: favoritesPackId))
-                    self.presentViewController(vc, animated: true, completion: nil)
+                self.viewModel.saveUsername(self.usernameView.textField.text!)
+
+
+                if SessionManagerFlags.defaultManagerFlags.userLoginWithSocial {
+                    let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
+                     self.presentViewController(vc, animated: true, completion: nil)
+                } else  {
+                    if let userId = SessionManagerFlags.defaultManagerFlags.userId {
+                       let  vc = SetUserProfilePictureViewController(viewModel: OnboardingPackViewModel(userId: userId, packId: ""))
+                         self.presentViewController(vc, animated: true, completion: nil)
+
+                    }
                 }
+
+
             } else {
-                    DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
+                DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
             }
         })
     }

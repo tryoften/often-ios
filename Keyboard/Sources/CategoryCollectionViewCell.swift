@@ -14,6 +14,8 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var subtitleLabel: UILabel
     var highlightColorBorder: UIView
     var backgroundImageView: UIImageView
+    var searchOverlayView: SearchOverlayView
+    
     private var tintView: UIView
 
     var title: String? {
@@ -47,6 +49,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         tintView.translatesAutoresizingMaskIntoConstraints = false
         tintView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.6)
 
+        searchOverlayView = SearchOverlayView()
+        searchOverlayView.hidden = true
+        searchOverlayView.translatesAutoresizingMaskIntoConstraints = false
+
         titleLabel = UILabel()
         titleLabel.textColor = CategoryCollectionViewCellTitleLabelTextColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +78,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         addSubview(titleLabel)
         addSubview(subtitleLabel)
         addSubview(highlightColorBorder)
+        addSubview(searchOverlayView)
 
         setupLayout()
         layer.cornerRadius = 2.0
@@ -102,6 +109,11 @@ class CategoryCollectionViewCell: UICollectionViewCell {
             titleLabel.al_centerX == al_centerX,
             titleLabel.al_centerY == al_centerY,
             titleLabel.al_width == al_width,
+
+            searchOverlayView.al_top == contentView.al_top,
+            searchOverlayView.al_bottom == contentView.al_bottom,
+            searchOverlayView.al_left == contentView.al_left,
+            searchOverlayView.al_right == contentView.al_right,
 
             subtitleLabel.al_centerX == al_centerX,
             subtitleLabel.al_top == titleLabel.al_bottom + 2.0,

@@ -134,7 +134,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             addContentVC,
             userProfileVC
         ]
-        
+    
         selectedIndex = SelectedTab.Browse.rawValue
     }
 

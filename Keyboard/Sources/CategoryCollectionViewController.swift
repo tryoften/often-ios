@@ -127,7 +127,6 @@ class CategoryCollectionViewController: UIViewController, UICollectionViewDelega
             }
         }
 
-
         if viewModel.currentCategory == categories[indexPath.row] {
             cell.selected = true
         } else {
