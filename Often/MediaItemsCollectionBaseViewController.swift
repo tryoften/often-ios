@@ -357,8 +357,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                     if let image = $0.image as? AnimatedImage, let data = image.data {
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
+                    } else {
+                        UIPasteboard.generalPasteboard().image = $0.image
+                        gifCell.showDoneMessage()
                     }
-                    }.resume()
+                }.resume()
                 
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -378,6 +381,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                             
                             activityVC.popoverPresentationController?.sourceView = self.view
                             self.presentViewController(activityVC, animated: true, completion: nil)
+                        } else {
+                            UIPasteboard.generalPasteboard().image = $0.image
                         }
                         }.resume()
                     
