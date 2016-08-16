@@ -47,7 +47,7 @@ class SetUserProfileDescriptionView: UIView {
         descriptionTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
         
-        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar = OnboardingProgressBar(progressIndex: 5.0, endIndex: 6.0)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)

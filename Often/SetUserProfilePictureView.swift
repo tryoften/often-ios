@@ -66,7 +66,7 @@ class SetUserProfilePictureView: UIView {
         addPhotoButton.layer.shadowColor = MediumLightGrey.CGColor
         addPhotoButton.layer.shadowOffset = CGSizeMake(0, 1)
         
-        progressBar = OnboardingProgressBar(progressIndex: 2.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar = OnboardingProgressBar(progressIndex: 1.0, endIndex: 6.0)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)

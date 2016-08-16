@@ -41,7 +41,6 @@ class SetUserProfileDescriptionViewController: PresentingRootViewController,
 
         super.init(nibName: nil, bundle: nil)
         self.viewModel.delegate = self
-
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(SetUserProfileDescriptionViewController.hideHUD), userInfo: nil, repeats: false)
 
         do {
@@ -56,6 +55,7 @@ class SetUserProfileDescriptionViewController: PresentingRootViewController,
         }
 
         userProfileDescription.titleTextField.delegate = self
+        userProfileDescription.descriptionTextField.delegate = self
 
         completionView.finishedButton.addTarget(self, action: #selector(SetUserProfileDescriptionViewController.completeOnboarding), forControlEvents: .TouchUpInside)
 
@@ -112,6 +112,8 @@ class SetUserProfileDescriptionViewController: PresentingRootViewController,
     }
     
     func didTapNextButton(sender: UIButton) {
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
+
         guard let titleText = userProfileDescription.titleTextField.text else {
             return
         }
@@ -130,6 +132,8 @@ class SetUserProfileDescriptionViewController: PresentingRootViewController,
     }
     
     func didTapSkipButton(sender: UIButton) {
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
+        
         showLoader()
     }
 
@@ -193,5 +197,14 @@ class SetUserProfileDescriptionViewController: PresentingRootViewController,
 
         userProfileDescription.descriptionTextField.text = self.viewModel.pack?.description
         userProfileDescription.titleTextField.text = self.viewModel.pack?.name
+    }
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        UIApplication.sharedApplication().sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, forEvent: nil)
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

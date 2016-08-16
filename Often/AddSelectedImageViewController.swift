@@ -13,9 +13,32 @@ class AddSelectedImageViewController: OnboardingMediaItemPickerViewController {
     override init(viewModel: OnboardingPackViewModel) {
         super.init(viewModel: viewModel)
         viewModel.typeFilter = .Image
+        
         onboardingHeader.titleText = "Maybe some memes..."
         onboardingHeader.subtitleText = "Pick at least 3 images to add! You can also add from your camera roll later"
-        progressBar = OnboardingProgressBar(progressIndex: 5.0, endIndex: 8.0, frame: CGRectZero)
+
+        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 6.0)
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
+
+        if let progressBar = progressBar {
+            view.addSubview(progressBar)
+            setupLayout()
+        }
+    }
+
+    override func setupLayout() {
+        super.setupLayout()
+
+        guard let progressBar = progressBar else {
+            return
+        }
+
+        view.addConstraints([
+            progressBar.al_left == view.al_left,
+            progressBar.al_right == view.al_right,
+            progressBar.al_bottom == view.al_bottom,
+            progressBar.al_height == 5
+            ])
     }
 
     override func viewDidLoad() {

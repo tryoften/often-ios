@@ -66,7 +66,7 @@ class UsernameView: UIView {
         confirmButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
         confirmButton.layer.borderWidth = 2
         
-        progressBar = OnboardingProgressBar(progressIndex: 1.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar = OnboardingProgressBar(progressIndex: 1.0, endIndex: 5.0)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)
