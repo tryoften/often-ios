@@ -70,7 +70,6 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
         guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.smallImageURL  else {
             return
         }
-        
 
         userProfilePictureView.addPhotoButton.hidden = true
         viewModel.saveChanges([
@@ -85,8 +84,15 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
             PKHUD.sharedHUD.hide(animated: true)
         }
 
+        let buttonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+
         userProfilePictureView.nextButton.selected = true
         userProfilePictureView.nextButton.layer.borderWidth = 0
         userProfilePictureView.nextButton.backgroundColor = TealColor
+        userProfilePictureView.nextButton.setAttributedTitle( NSAttributedString(string: "next".uppercaseString, attributes: buttonAttributes), forState: .Normal)
     }
 }
