@@ -91,10 +91,15 @@ UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         viewModel.fetchData()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavBar()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setupNavBar()
+
         presentedFavoritesPack = false
         
         if let user = SessionManager.defaultManager.currentUser {
@@ -104,6 +109,7 @@ UICollectionViewDelegateFlowLayout {
                 promptUserToChooseUsername()
             }
         }
+
         reloadUserData()
     }
 
