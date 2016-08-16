@@ -269,13 +269,15 @@ UICollectionViewDelegateFlowLayout {
     
     func presentFavoritesPack(notification: NSNotification) {
         guard let pack = viewModel.favoritesPack,
-            let id = pack.pack_id
+            let id = pack.pack_id,
+            let mediaItem = notification.object as? MediaItem
             where presentedFavoritesPack == false else {
             return
         }
         
         presentedFavoritesPack = true
-        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        let mediaType = mediaItem.type
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil, presentingMediaType: mediaType)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }

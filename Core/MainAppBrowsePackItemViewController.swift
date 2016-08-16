@@ -16,6 +16,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
     private let dropDownMenu: DropDownMessageView
     private var presentingDropDownMenu: Bool = false
+    private var presentingMediaType: MediaType?
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         dropDownMenu = DropDownMessageView()
@@ -39,6 +40,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         view.addSubview(dropDownMenu)
     }
 
+    convenience init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?, presentingMediaType: MediaType) {
+        self.init(viewModel: viewModel, textProcessor: textProcessor)
+        self.presentingMediaType = presentingMediaType
+    }
+    
     deinit {
         packCollectionListener = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -68,6 +74,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            presentFilterTab(mediaType, header: header)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -409,6 +423,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
             packViewModel.typeFilter = .Image
+        }
+    }
+    
+    func presentFilterTab(mediaType: MediaType, header: PackPageHeaderView) {
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            let buttons = header.tabContainerView.buttons
+            for (index, button) in buttons.enumerate() {
+                if button.titleLabel?.text?.lowercaseString == "\(mediaType.rawValue)s".lowercaseString {
+                    header.tabContainerView.buttonDidTap(header.tabContainerView.buttons[index])
+                }
+            }
         }
     }
     
