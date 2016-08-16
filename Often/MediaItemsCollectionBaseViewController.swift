@@ -370,7 +370,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
             #if !(KEYBOARD)
-                if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+                if let url = result.mediumImageURL {
                     Nuke.taskWith(url) {
                         if let image = $0.image as? AnimatedImage, let data = image.data {
                             UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")

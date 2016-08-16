@@ -16,6 +16,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
     private let dropDownMenu: DropDownMessageView
     private var presentingDropDownMenu: Bool = false
+    private var presentingMediaType: MediaType?
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         dropDownMenu = DropDownMessageView()
@@ -39,6 +40,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         view.addSubview(dropDownMenu)
     }
 
+    convenience init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?, presentingMediaType: MediaType) {
+        self.init(viewModel: viewModel, textProcessor: textProcessor)
+        self.presentingMediaType = presentingMediaType
+    }
+    
     deinit {
         packCollectionListener = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -68,6 +74,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            presentFilterTab(mediaType, header: header)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -226,7 +240,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
 
-        let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
+        let actionSheet = UIAlertController.barButtonActionSheet(self, name: name, link: link, sender: sender, id: id)
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
@@ -328,16 +342,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                 return
         }
         
-        let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
-        if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-            // Copy this data to pasteboard
-            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        } else {
-            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: nil)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
+        let url = result.mediumImageURL
+        let actionSheet = UIAlertController.tapStateActionSheet(self, result: result, url: url)
+        self.presentViewController(actionSheet, animated: true, completion: nil)
         
+        let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         vc.insertText()
     }
     
@@ -362,8 +371,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
-            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
+            if let url = result.mediumImageURL {
+                let actionSheet = UIAlertController.tapStateActionSheet(self, result: result, url: url)
                 self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -409,6 +418,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
             packViewModel.typeFilter = .Image
+        }
+    }
+    
+    func presentFilterTab(mediaType: MediaType, header: PackPageHeaderView) {
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            let buttons = header.tabContainerView.buttons
+            for (index, button) in buttons.enumerate() {
+                if button.titleLabel?.text?.lowercaseString == "\(mediaType.rawValue)s".lowercaseString {
+                    header.tabContainerView.buttonDidTap(header.tabContainerView.buttons[index])
+                }
+            }
         }
     }
     

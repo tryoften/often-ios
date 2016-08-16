@@ -12,7 +12,7 @@ import Nuke
 import NukeAnimatedImagePlugin
 
 extension UIAlertController: UIViewControllerTransitioningDelegate {
-    func tapStateActionSheet(presentingViewController: MainAppBrowsePackItemViewController, result: MediaItem, url: NSURL?) -> UIAlertController {
+    class func tapStateActionSheet(presentingViewController: UIViewController, result: MediaItem, url: NSURL?) -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         var data: NSData = NSData()
         var image: UIImage = UIImage()
@@ -43,7 +43,7 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
             }
             
             activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
-            activityVC.popoverPresentationController?.sourceView = self.view
+            activityVC.popoverPresentationController?.sourceView = presentingViewController.view
             presentingViewController.presentViewController(activityVC, animated: true, completion: nil)
         })
         
@@ -71,7 +71,7 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
         return actionSheet
     }
     
-    func barButtonActionSheet(name: String, link: String, sender: UIButton, id: String) -> UIAlertController {
+    class func barButtonActionSheet<T: UIViewController where T: UIViewControllerTransitioningDelegate>(presentingViewController: T, name: String, link: String, sender: UIButton, id: String) -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         
         let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { alert in
@@ -80,7 +80,7 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
             let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
             activityVC.popoverPresentationController?.sourceView = sender
-            self.presentViewController(activityVC, animated: true, completion: nil)
+            presentingViewController.presentViewController(activityVC, animated: true, completion: nil)
         })
         
         let reportAction = UIAlertAction(title: "Report", style: .Default, handler: { alert in
@@ -91,9 +91,9 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
             actionSheet.dismissViewControllerAnimated(true, completion: nil)
             
             let AlertVC = ReportAlertViewController()
-            AlertVC.transitioningDelegate = self
+            AlertVC.transitioningDelegate = presentingViewController
             AlertVC.modalPresentationStyle = .Custom
-            self.presentViewController(AlertVC, animated: true, completion: nil)
+            presentingViewController.presentViewController(AlertVC, animated: true, completion: nil)
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: { alert in
