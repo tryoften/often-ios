@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OnboardingMediaItemPickerViewController: PresentingRootViewController,
+class OnboardingMediaItemPickerViewController: UIViewController,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
