@@ -36,17 +36,19 @@ class OnboardingMediaItemPickerViewController: UIViewController,
 
         super.init(nibName: nil, bundle: nil)
 
+        onboardingHeader.backgroundColor = UIColor(fromHexString: "#F9F9F9")
+
         viewModel.delegate = self
         viewModel.fetchData()
 
         mediaItemsCollectionView.dataSource = self
         mediaItemsCollectionView.delegate = self
-        mediaItemsCollectionView.backgroundColor = UIColor.oftWhiteColor()
+        mediaItemsCollectionView.backgroundColor = UIColor(fromHexString: "#F9F9F9")
         mediaItemsCollectionView.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: gifCellReuseIdentifier)
         mediaItemsCollectionView.registerClass(GifCollectionViewCell.self, forCellWithReuseIdentifier: imageCellReuseIdentifier)
         mediaItemsCollectionView.registerClass(MediaItemCollectionViewCell.self, forCellWithReuseIdentifier: MediaItemCollectionViewCellReuseIdentifier)
 
-        view.backgroundColor = UIColor.oftWhiteColor()
+        view.backgroundColor = UIColor(fromHexString: "#F9F9F9")
 
         view.addSubview(onboardingHeader)
         view.addSubview(mediaItemsCollectionView)
