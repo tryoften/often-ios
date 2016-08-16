@@ -8,7 +8,11 @@
 
 import Foundation
 
-class SetUserProfilePictureViewController: UIViewController, PackProfileImageUploaderViewControllerDelegate {
+class SetUserProfilePictureViewController: UIViewController,
+    PackProfileImageUploaderViewControllerDelegate,
+    MediaItemGroupViewModelDelegate {
+    private var hudTimer: NSTimer?
+
     var userProfilePictureView: SetUserProfilePictureView
     var viewModel: OnboardingPackViewModel
 
@@ -19,7 +23,23 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
         userProfilePictureView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
-        viewModel.fetchData()
+        self.viewModel.delegate = self
+
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(SetUserProfileDescriptionViewController.hideHUD), userInfo: nil, repeats: false)
+
+        do {
+            try self.viewModel.setupUser { inner in
+                PKHUD.sharedHUD.contentView = HUDProgressView()
+                PKHUD.sharedHUD.show()
+
+                if let favoriteID = viewModel.currentUser?.favoritesPackId {
+                    viewModel.packId = favoriteID
+                    viewModel.fetchData()
+                }
+
+            }
+        } catch _ {
+        }
 
         view.backgroundColor = UIColor.oftWhiteColor()
         view.addSubview(userProfilePictureView)
@@ -39,10 +59,23 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        showHUD()
+
         userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
         userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         userProfilePictureView.skipButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.skipButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
+
+    func showHUD() {
+        PKHUD.sharedHUD.contentView = HUDProgressView()
+        PKHUD.sharedHUD.show()
+    }
+
+    func hideHUD() {
+        hudTimer?.invalidate()
+        PKHUD.sharedHUD.hide(animated: true)
+    }
+
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -50,13 +83,13 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
 
     func nextButtonDidTap(sender: UIButton) {
         if userProfilePictureView.imageView.image != nil {
-            let vc = SetUserProfileDescriptionViewController(viewModel: viewModel)
+            let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
             presentViewController(vc, animated: true, completion: nil)
         }
     }
 
     func skipButtonDidTap(sender: UIButton) {
-        let vc = SetUserProfileDescriptionViewController(viewModel: viewModel)
+        let vc = AddSelectedGifsViewController(viewModel: OnboardingPackViewModel())
         presentViewController(vc, animated: true, completion: nil)
     }
 
@@ -94,5 +127,9 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
         userProfilePictureView.nextButton.layer.borderWidth = 0
         userProfilePictureView.nextButton.backgroundColor = TealColor
         userProfilePictureView.nextButton.setAttributedTitle( NSAttributedString(string: "next".uppercaseString, attributes: buttonAttributes), forState: .Normal)
+    }
+
+    func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
+        hideHUD()
     }
 }

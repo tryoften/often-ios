@@ -134,7 +134,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
             addContentVC,
             userProfileVC
         ]
-        
+    
         selectedIndex = SelectedTab.Browse.rawValue
     }
 
@@ -150,6 +150,6 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     func addContentViewDidDismiss(notification: NSNotification) {
         let mediaItem = notification.object as? MediaItem
         selectedIndex = SelectedTab.UserProfile.rawValue
-        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: mediaItem)
+        NSNotificationCenter.defaultCenter().postNotificationName(PresentFavoritesPackEvent, object: mediaItem)
     }
 }

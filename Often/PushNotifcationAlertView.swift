@@ -32,7 +32,7 @@ class PushNotifcationAlertView: AlertView {
 
         titleLabel.text = "Stay Updated!"
 
-        subtitleLabel.text = "Turn on push notifications to see when we add new gifs & quotes!"
+        subtitleLabel.text = "Turn on push notifications to see when we add new gif, photos & quotes!"
         subtitleLabel.font = UIFont(name: "OpenSans", size: 13)
 
         addSubview(declineButton)

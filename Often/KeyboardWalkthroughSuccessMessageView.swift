@@ -16,9 +16,9 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
 
     private var subtitleLabelLeftAndRightMargin: CGFloat {
         if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            return 40
+            return 30
         }
-        return 80
+        return 70
     }
 
     override init(frame: CGRect) {
@@ -42,7 +42,7 @@ class KeyboardWalkthroughSuccessMessageView: UIView {
         subtitleLabel.textColor = WalkthroughSubTitleFontColor
         subtitleLabel.numberOfLines = 0
         subtitleLabel.alpha = 0.74
-        subtitleLabel.text = "You’ve successfully installed Often. Tap “Finish” to start adding packs."
+        subtitleLabel.text = "You’ve successfully installed Often. Tap “Finish” to start using your keyboard."
 
         finishedButton = UIButton()
         finishedButton.translatesAutoresizingMaskIntoConstraints = false
