@@ -10,7 +10,7 @@ import Foundation
 
 enum BrowsePackTabType: Int {
     case Keyboard = 0
-    case Reactions
+//    case Reactions
     case Gifs
     case Quotes
     case Images
@@ -23,7 +23,7 @@ class BrowsePackTabBar: SlideTabBar {
     var gifsTabBarItem: UITabBarItem
     var quotesTabBarItem: UITabBarItem
     var imagesTabBarItem: UITabBarItem
-    var reactionsTabBarItem: UITabBarItem
+//    var reactionsTabBarItem: UITabBarItem
     var packsTabBarItem: UITabBarItem
     var deleteTabBarItem: UITabBarItem
     var lastSelectedTab: UITabBarItem?
@@ -50,10 +50,10 @@ class BrowsePackTabBar: SlideTabBar {
         imagesTabBarItem.image = StyleKit.imageOfCameraIcon(scale: 0.3, color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
         imagesTabBarItem.imageInsets = UIEdgeInsetsMake(13, 7, -13, -7)
         
-        reactionsTabBarItem = UITabBarItem()
-        reactionsTabBarItem.tag = BrowsePackTabType.Reactions.rawValue
-        reactionsTabBarItem.image = StyleKit.imageOfHashtagicon(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
-        reactionsTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
+//        reactionsTabBarItem = UITabBarItem()
+//        reactionsTabBarItem.tag = BrowsePackTabType.Reactions.rawValue
+//        reactionsTabBarItem.image = StyleKit.imageOfHashtagicon(color: UIColor.oftBlack74Color()).imageWithRenderingMode(.AlwaysOriginal)
+//        reactionsTabBarItem.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0)
         
         packsTabBarItem = UITabBarItem()
         packsTabBarItem.tag = BrowsePackTabType.Packs.rawValue
@@ -67,7 +67,7 @@ class BrowsePackTabBar: SlideTabBar {
         
         super.init(highlightBarEnabled: enabled)
         
-        items = [globeTabBarItem, reactionsTabBarItem, gifsTabBarItem, quotesTabBarItem, imagesTabBarItem, packsTabBarItem, deleteTabBarItem]
+        items = [globeTabBarItem, gifsTabBarItem, quotesTabBarItem, imagesTabBarItem, packsTabBarItem, deleteTabBarItem]
         
         backgroundColor = WhiteColor
         translucent = false
@@ -81,7 +81,7 @@ class BrowsePackTabBar: SlideTabBar {
 
     func updateTabBarSelectedItem() {
         
-        if selectedItem?.tag != 1 {
+//        if selectedItem?.tag != 1 {
             switch PacksService.defaultInstance.typeFilter {
             case .Gif:
                 selectedItem = PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) ? items![BrowsePackTabType.Gifs.rawValue]: items![BrowsePackTabType.Quotes.rawValue]
@@ -92,7 +92,7 @@ class BrowsePackTabBar: SlideTabBar {
             default:
                 break
             }
-        }
+//        }
 
 
         if !PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {

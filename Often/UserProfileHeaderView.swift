@@ -264,7 +264,7 @@ class UserProfileHeaderView: UICollectionReusableView {
             
             nameLabel.al_bottom == leftBoldLabel.al_top - 10,
             nameLabel.al_left == al_left + (screenWidth * 0.06),
-            nameLabel.al_right == al_centerX,
+            nameLabel.al_right == profileImageView.al_left - 10,
             nameLabel.al_height == screenWidth * 0.19,
             
             leftHeaderLabel.al_left == nameLabel.al_left + 5,

@@ -78,7 +78,11 @@ class MediaItem: Equatable {
         if let categoryData = data["category"] as? NSDictionary,
             let categoryId = categoryData["id"] as? String,
             let categoryName =  categoryData["name"] as? String {
-            category = Category(id: categoryId, name: categoryName, smallImageURL: nil, largeImageURL: nil)
+            var smallImage: NSURL? = nil
+            if let images = categoryData["image"] as? NSDictionary, let urlString = images["small_url"] as? String, let url = NSURL(string: urlString) {
+                smallImage = url
+            }
+            category = Category(id: categoryId, name: categoryName, smallImageURL: smallImage, largeImageURL: nil)
         }
 
         if let image = data[imageProperty] as? String, let imageURL = NSURL(string: image) {

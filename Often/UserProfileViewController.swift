@@ -45,7 +45,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: AddContentTabDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: PresentFavoritesPackEvent, object: nil)
         
         packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
@@ -91,10 +91,15 @@ UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         viewModel.fetchData()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavBar()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setupNavBar()
+
         presentedFavoritesPack = false
         
         if let user = SessionManager.defaultManager.currentUser {
@@ -104,6 +109,7 @@ UICollectionViewDelegateFlowLayout {
                 promptUserToChooseUsername()
             }
         }
+
         reloadUserData()
     }
 
@@ -204,7 +210,7 @@ UICollectionViewDelegateFlowLayout {
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.isCurrentUser = viewModel.isCurrentUser
-            headerView.nameLabel.text = user.name
+            headerView.nameLabel.text = user.name.stringByReplacingOccurrencesOfString(" ", withString: "\n")
 
             if user.followersCount > 999 {
                 headerView.leftBoldLabel.text = Double(user.followersCount).suffixNumber
@@ -269,13 +275,15 @@ UICollectionViewDelegateFlowLayout {
     
     func presentFavoritesPack(notification: NSNotification) {
         guard let pack = viewModel.favoritesPack,
-            let id = pack.pack_id
+            let id = pack.pack_id,
+            let mediaItem = notification.object as? MediaItem
             where presentedFavoritesPack == false else {
             return
         }
         
         presentedFavoritesPack = true
-        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        let mediaType = mediaItem.type
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil, presentingMediaType: mediaType)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }

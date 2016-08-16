@@ -40,7 +40,6 @@ public class ColorPicker: UIView {
     }
     private var currentPoint:CGPoint = CGPointZero
 
-
     public func saturationFromCurrentPoint() -> CGFloat {
         return (1 / bounds.width) * currentPoint.x
     }

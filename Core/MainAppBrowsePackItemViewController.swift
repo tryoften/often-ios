@@ -16,6 +16,7 @@ private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
     private let dropDownMenu: DropDownMessageView
     private var presentingDropDownMenu: Bool = false
+    private var presentingMediaType: MediaType?
     
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
         dropDownMenu = DropDownMessageView()
@@ -39,6 +40,11 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         view.addSubview(dropDownMenu)
     }
 
+    convenience init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?, presentingMediaType: MediaType) {
+        self.init(viewModel: viewModel, textProcessor: textProcessor)
+        self.presentingMediaType = presentingMediaType
+    }
+    
     deinit {
         packCollectionListener = nil
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -68,6 +74,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            presentFilterTab(mediaType, header: header)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -132,44 +146,17 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             header.isFavorites = pack.isFavorites
             
             if let owner = pack.owner where packViewModel.pack?.isFavorites == true {
-                let userHandleAndImageView = UIView()
+                let userHandleAndImageView = PackHeaderProfileButton()
                 userHandleAndImageView.frame = CGRectMake(0, 0, 200, 30)
-                userHandleAndImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MainAppBrowsePackItemViewController.userHandleDidTap)))
-                
-                let handleLabel = UILabel()
-                handleLabel.translatesAutoresizingMaskIntoConstraints = false
-                handleLabel.font = UIFont(name: "OpenSans", size: 10.5)
-                handleLabel.text = "@\(owner.username.uppercaseString)"
-                handleLabel.textColor = UIColor.whiteColor()
-                
-                let collapseProfileImageView = UIImageView()
-                collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
-                collapseProfileImageView.contentMode = .ScaleAspectFit
-                collapseProfileImageView.image = header.coverPhoto.image
-                collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
-                collapseProfileImageView.layer.borderWidth = 2
-                collapseProfileImageView.layer.cornerRadius = 15
-                collapseProfileImageView.clipsToBounds = true
-                
-                userHandleAndImageView.addSubview(handleLabel)
-                userHandleAndImageView.addSubview(collapseProfileImageView)
-                
-                userHandleAndImageView.addConstraints([
-                    handleLabel.al_centerX == userHandleAndImageView.al_centerX,
-                    handleLabel.al_centerY == userHandleAndImageView.al_centerY,
-                    handleLabel.al_height == 30,
-                    
-                    collapseProfileImageView.al_left == handleLabel.al_right + 5,
-                    collapseProfileImageView.al_centerY == handleLabel.al_centerY,
-                    collapseProfileImageView.al_width == 30,
-                    collapseProfileImageView.al_height == 30
-                ])
+                userHandleAndImageView.handleLabel.text = "@\(owner.username.uppercaseString)"
+                userHandleAndImageView.collapseProfileImageView.image = header.coverPhoto.image
+                userHandleAndImageView.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.userHandleDidTap), forControlEvents: .TouchUpInside)
                 
                 navigationItem.titleView = userHandleAndImageView
                 navigationController?.navigationBar.tintColor = UIColor.whiteColor()
             }
             
-            let topRightButton = PackHeaderProfileButton()
+            let topRightButton = UIButton()
             topRightButton.frame = CGRect(origin: CGPointZero, size: topRightButton.intrinsicContentSize())
             topRightButton.imageEdgeInsets = UIEdgeInsetsMake(-2, 10, 0, -4)
             topRightButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.whiteColor()), forState: .Normal)
@@ -226,7 +213,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             return
         }
 
-        let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
+        let actionSheet = UIAlertController.barButtonActionSheet(self, name: name, link: link, sender: sender, id: id)
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
@@ -327,17 +314,13 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             let result = cell.mediaLink  else {
                 return
         }
+
         
+        let url = result.mediumImageURL
+        let actionSheet = UIAlertController.tapStateActionSheet(self, result: result, url: url)
+        self.presentViewController(actionSheet, animated: true, completion: nil)
+
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
-        if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-            // Copy this data to pasteboard
-            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        } else {
-            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: nil)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
-        }
-        
         vc.insertText()
     }
     
@@ -362,8 +345,8 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
-            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
+            if let url = result.mediumImageURL {
+                let actionSheet = UIAlertController.tapStateActionSheet(self, result: result, url: url)
                 self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -409,6 +392,18 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
             packViewModel.typeFilter = .Image
+        }
+    }
+    
+    func presentFilterTab(mediaType: MediaType, header: PackPageHeaderView) {
+        if let mediaType = presentingMediaType,
+            let header = headerView as? PackPageHeaderView {
+            let buttons = header.tabContainerView.buttons
+            for (index, button) in buttons.enumerate() {
+                if button.titleLabel?.text?.lowercaseString == "\(mediaType.rawValue)s".lowercaseString {
+                    header.tabContainerView.buttonDidTap(header.tabContainerView.buttons[index])
+                }
+            }
         }
     }
     

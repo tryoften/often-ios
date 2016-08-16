@@ -357,8 +357,11 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                     if let image = $0.image as? AnimatedImage, let data = image.data {
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
+                    } else {
+                        UIPasteboard.generalPasteboard().image = $0.image
+                        gifCell.showDoneMessage()
                     }
-                    }.resume()
+                }.resume()
                 
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -367,7 +370,7 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
             #if !(KEYBOARD)
-                if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+                if let url = result.mediumImageURL {
                     Nuke.taskWith(url) {
                         if let image = $0.image as? AnimatedImage, let data = image.data {
                             UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
@@ -378,6 +381,8 @@ class MediaItemsCollectionBaseViewController: FullScreenCollectionViewController
                             
                             activityVC.popoverPresentationController?.sourceView = self.view
                             self.presentViewController(activityVC, animated: true, completion: nil)
+                        } else {
+                            UIPasteboard.generalPasteboard().image = $0.image
                         }
                         }.resume()
                     

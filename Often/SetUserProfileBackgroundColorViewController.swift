@@ -29,7 +29,7 @@ class SetUserProfileBackgroundColorViewController: UIViewController {
             userProfileBackgroundColorView.al_bottom == view.al_bottom,
             userProfileBackgroundColorView.al_left == view.al_left,
             userProfileBackgroundColorView.al_right == view.al_right
-            ])
+        ])
     }
 
     required init?(coder aDecoder: NSCoder) {
