@@ -13,13 +13,13 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
     private var packServiceListener: Listener? = nil
     var tabBar: BrowsePackTabBar
     var fullAccessButton: UIButton?
-    var reactionsViewController: ReactionsCollectionViewController
+//    var reactionsViewController: ReactionsCollectionViewController
 
     private let isFullAccessEnabled = UIPasteboard.generalPasteboard().isKindOfClass(UIPasteboard)
     
     init(viewModel: PacksService, textProcessor: TextProcessingManager?) {
         tabBar = BrowsePackTabBar(highlightBarEnabled: true)
-        reactionsViewController = ReactionsCollectionViewController(viewModel: ReactionsViewModel(), textProcessor: textProcessor)
+//        reactionsViewController = ReactionsCollectionViewController(viewModel: ReactionsViewModel(), textProcessor: textProcessor)
         
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
@@ -37,9 +37,9 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             navigationBar.removeFromSuperview()
         }
 
-        reactionsViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - 44.5)
-        view.addSubview(reactionsViewController.view)
-        reactionsViewController.view.hidden = true
+//        reactionsViewController.view.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height - 44.5)
+//        view.addSubview(reactionsViewController.view)
+//        reactionsViewController.view.hidden = true
         
         view.addSubview(tabBar)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(KeyboardBrowsePackItemViewController.didReceiveMemoryWarning), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
@@ -311,7 +311,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
             NSNotificationCenter.defaultCenter().postNotificationName(SwitchKeyboardEvent, object: nil)
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
         case .Gifs:
-            reactionsViewController.view.hidden = true
+//            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Gif) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Gif
@@ -321,7 +321,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
             }
         case .Quotes:
-            reactionsViewController.view.hidden = true
+//            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Quote) {
                  collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Quote
@@ -331,7 +331,7 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 packViewModel.typeFilter = .Gif
             }
         case .Images:
-            reactionsViewController.view.hidden = true
+//            reactionsViewController.view.hidden = true
             if PacksService.defaultInstance.doesCurrentPackContainTypeForCategory(.Image) {
                 collectionView?.setContentOffset(CGPointZero, animated: true)
                 packViewModel.typeFilter = .Image
@@ -340,10 +340,10 @@ class KeyboardBrowsePackItemViewController: BaseBrowsePackItemViewController, Ke
                 self.tabBar.selectedItem = self.tabBar.lastSelectedTab
                 packViewModel.typeFilter = .Quote
             }
-        case .Reactions:
-            self.tabBar.selectedItem = item
-            self.tabBar.lastSelectedTab = item
-            reactionsViewController.view.hidden = false
+//        case .Reactions:
+//            self.tabBar.selectedItem = item
+//            self.tabBar.lastSelectedTab = item
+//            reactionsViewController.view.hidden = false
         case .Packs:
             togglePack()
             self.tabBar.selectedItem = self.tabBar.lastSelectedTab
