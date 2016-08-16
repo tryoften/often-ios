@@ -341,11 +341,12 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             let result = cell.mediaLink  else {
                 return
         }
+
         
         let url = result.mediumImageURL
         let actionSheet = UIAlertController.tapStateActionSheet(self, result: result, url: url)
         self.presentViewController(actionSheet, animated: true, completion: nil)
-        
+
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         vc.insertText()
     }
