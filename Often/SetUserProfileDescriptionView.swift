@@ -9,73 +9,56 @@
 import Foundation
 
 class SetUserProfileDescriptionView: UIView {
-    private var title: UILabel
-    private var subtitle: UILabel
-    private var titleLabelHeightTopMargin: CGFloat {
-        if Diagnostics.platformString().number == 5 || Diagnostics.platformString().desciption == "iPhone SE" {
-            return 90
-        }
-        return 120
-    }
-
+    var titleLabel: UILabel
+    var titleTextField: UITextField
+    var titleTextFieldDivider: UIView
+    var descriptionLabel: UILabel
     var descriptionTextField: UITextField
     var descriptionTextFieldDivider: UIView
-    var skipButton: UIButton
-    var nextButton: UIButton
+    var progressBar: OnboardingProgressBar
     
     override init(frame: CGRect) {
-        title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.textAlignment = .Center
-        title.setTextWith(UIFont(name: "Montserrat-Regular", size: 18)!, letterSpacing: 1.0, color: UIColor.oftBlackColor(), text: "Let’s set up your profile")
 
-        subtitle = UILabel()
-        subtitle.translatesAutoresizingMaskIntoConstraints = false
-        subtitle.numberOfLines = 0
-        subtitle.textAlignment = .Center
-        subtitle.setTextWith(UIFont(name: "OpenSans", size: 13)!, letterSpacing: 0.5, color: UIColor.oftBlack74Color(), text: "Choose a cover pic for your keyboard! Your friends will see this btw")
-
+        titleLabel = UILabel()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.textAlignment = .Left
+        titleLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9)!, letterSpacing: 1.0, color: BlackColor, text: "title".uppercaseString)
+        
+        titleTextField = UITextField()
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        titleTextField.placeholder = "Ex Komoji, Katemoji, Bootychamp, etc."
+        titleTextField.font = UIFont(name: "OpenSans-Semibold", size: 12)!
+        
+        titleTextFieldDivider = UIView()
+        titleTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
+        titleTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
+        
+        descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.textAlignment = .Left
+        descriptionLabel.setTextWith(UIFont(name: "OpenSans-Semibold", size: 9)!, letterSpacing: 1.0, color: BlackColor, text: "description".uppercaseString)
+        
         descriptionTextField = UITextField()
         descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextField.placeholder = "Description"
-        descriptionTextField.font = UIFont(name: "Montserrat-Regular", size: 11)
+        descriptionTextField.placeholder = "Make your friends want thisssss"
+        descriptionTextField.font = UIFont(name: "OpenSans", size: 12)
 
         descriptionTextFieldDivider = UIView()
         descriptionTextFieldDivider.translatesAutoresizingMaskIntoConstraints = false
         descriptionTextFieldDivider.backgroundColor = UIColor(fromHexString: "#D8D8D8")
-
-        let buttonAttributes: [String: AnyObject] = [
-            NSKernAttributeName: NSNumber(float: 1.0),
-            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
-            NSForegroundColorAttributeName: UIColor(hex: "#E3E3E3")
-        ]
-
-        skipButton = UIButton()
-        skipButton.translatesAutoresizingMaskIntoConstraints = false
-        skipButton.backgroundColor = UIColor.whiteColor()
-        skipButton.setAttributedTitle( NSAttributedString(string: "skip".uppercaseString, attributes: buttonAttributes), forState: .Normal)
-        skipButton.layer.cornerRadius = 25
-        skipButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
-        skipButton.layer.borderWidth = 2
-        skipButton.clipsToBounds = true
-
-        nextButton = UIButton()
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
-        nextButton.backgroundColor = UIColor.whiteColor()
-        nextButton.setAttributedTitle( NSAttributedString(string: "next".uppercaseString, attributes: buttonAttributes), forState: .Normal)
-        nextButton.layer.cornerRadius = 25
-        nextButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
-        nextButton.layer.borderWidth = 2
-        nextButton.clipsToBounds = true
+        
+        progressBar = OnboardingProgressBar(progressIndex: 3.0, endIndex: 8.0, frame: CGRectZero)
+        progressBar.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(frame: frame)
 
-        addSubview(title)
-        addSubview(subtitle)
+        addSubview(titleLabel)
+        addSubview(titleTextField)
+        addSubview(titleTextFieldDivider)
+        addSubview(descriptionLabel)
         addSubview(descriptionTextField)
         addSubview(descriptionTextFieldDivider)
-        addSubview(skipButton)
-        addSubview(nextButton)
+        addSubview(progressBar)
 
         setupLayout()
     }
@@ -86,35 +69,39 @@ class SetUserProfileDescriptionView: UIView {
 
     func setupLayout() {
         addConstraints([
-            title.al_top == al_top + titleLabelHeightTopMargin,
-            title.al_left == al_left,
-            title.al_right == al_right,
-            title.al_height == 30,
+            titleLabel.al_top == al_top,
+            titleLabel.al_left == al_left + 18,
+            titleLabel.al_height == 10,
+            
+            titleTextField.al_top == titleLabel.al_bottom + 2,
+            titleTextField.al_left == al_left + 30,
+            titleTextField.al_right == al_right - 30,
+            titleTextField.al_height == 40,
+            
+            titleTextFieldDivider.al_top == titleTextField.al_bottom,
+            titleTextFieldDivider.al_left == al_left + 18,
+            titleTextFieldDivider.al_right == al_right - 18,
+            titleTextFieldDivider.al_height == 1,
+            
+            descriptionLabel.al_top == titleTextFieldDivider.al_bottom + 25,
+            descriptionLabel.al_left == al_left + 18,
+            descriptionLabel.al_height == 10,
 
-            subtitle.al_top == title.al_bottom,
-            subtitle.al_left == al_left + 40,
-            subtitle.al_right == al_right - 40,
-            subtitle.al_height == 60,
-
-            descriptionTextField.al_top == subtitle.al_bottom + 40,
-            descriptionTextField.al_left == al_left + 40,
-            descriptionTextField.al_right == al_right - 40,
+            descriptionTextField.al_top == descriptionLabel.al_bottom + 2,
+            descriptionTextField.al_left == al_left + 30,
+            descriptionTextField.al_right == al_right - 30,
             descriptionTextField.al_height == 40,
 
             descriptionTextFieldDivider.al_top == descriptionTextField.al_bottom,
-            descriptionTextFieldDivider.al_left == al_left + 40,
-            descriptionTextFieldDivider.al_right == al_right - 40,
+            descriptionTextFieldDivider.al_left == al_left + 18,
+            descriptionTextFieldDivider.al_right == al_right - 18,
             descriptionTextFieldDivider.al_height == 1,
+            
+            progressBar.al_left == al_left,
+            progressBar.al_right == al_right,
+            progressBar.al_bottom == al_bottom,
+            progressBar.al_height == 5
 
-            skipButton.al_left == al_left + 40.5,
-            skipButton.al_right == al_centerX - 3.5,
-            skipButton.al_height == 52,
-            skipButton.al_top == descriptionTextFieldDivider.al_bottom + 36,
-
-            nextButton.al_right == al_right - 40.5,
-            nextButton.al_left == al_centerX + 3.5,
-            nextButton.al_height == 52,
-            nextButton.al_top == descriptionTextFieldDivider.al_bottom + 36,
             ])
     }
 }

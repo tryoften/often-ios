@@ -27,15 +27,28 @@ class PackMediaItem: MediaItem {
     var isUpdated: Bool = false
     var isNew: Bool = false
     var backgroundColor: UIColor?
-    var owner: NSDictionary?
+    var owner: Owner?
+    
+    struct Owner {
+        var id: String = ""
+        var image: UIImage = UIImage()
+        var name: String = ""
+        var username: String = ""
+        var isAdmin: Bool = false
+        var firstName: String = ""
+    }
 
     required init(data: NSDictionary) {
         super.init(data: data)
         
+        setValuesForKeysWithDictionary(data)
+    }
+
+    func setValuesForKeysWithDictionary(data: NSDictionary) {
         if let description = data["description"] as? String {
             self.description = description
         }
-        
+
         if let id = data["id"] as? String {
             self.pack_id = id
             self.shareLink = "oftn.at/k/\(id)"
@@ -54,7 +67,7 @@ class PackMediaItem: MediaItem {
             let large = images["large_url"] as? String {
             self.largeImageURL = NSURL(string: large)
         }
-        
+
         if let items = data["items"] as? NSArray,
             let itemsModel = MediaItem.modelsFromDictionaryArray(items) as? [MediaItem] {
             self.items = itemsModel
@@ -75,7 +88,7 @@ class PackMediaItem: MediaItem {
         }
 
         self.categories = [Category.all]
-        
+
         if let items = data["categories"] as? NSDictionary {
             for category in Category.modelsFromDictionary(items) {
                 self.categories.append(category)
@@ -85,7 +98,7 @@ class PackMediaItem: MediaItem {
         if let premium = data["premium"] as? Bool {
             self.premium = premium
         }
-        
+
         if let price = data["price"] as? Double {
             self.price = price
         }
@@ -125,14 +138,15 @@ class PackMediaItem: MediaItem {
         if let backgroundColor = data["backgroundColor"] as? String {
             self.backgroundColor = UIColor(fromHexString: backgroundColor)
         }
-
+        
         if let owner = data["owner"] as? [String: AnyObject] {
-            self.owner = owner
+            self.owner = setValuesForOwnerKeys(owner)
         }
+
     }
 
     func isUserPackOwner(user: User?) -> Bool {
-        guard let ownerId = owner?["id"] as? String,
+        guard let ownerId = owner?.id,
             let currentUserId = user?.id else {
                 return false
         }
@@ -152,6 +166,36 @@ class PackMediaItem: MediaItem {
         }
         
         return "Download"
+    }
+    
+    func setValuesForOwnerKeys(data: [String : AnyObject]) -> Owner {
+        var owner = Owner()
+        
+        if let id = data["id"] as? String {
+            owner.id = id
+        }
+        
+        if let image = data["image"] as? UIImage {
+            owner.image = image
+        }
+        
+        if let name = data["name"] as? String {
+            owner.name = name
+        }
+        
+        if let username = data["username"] as? String {
+            owner.username = username
+        }
+        
+        if let isAdmin = data["isAdmin"] as? Bool {
+            owner.isAdmin = isAdmin
+        }
+        
+        if let firstName = data["firstName"] as? String {
+            owner.firstName = firstName
+        }
+        
+        return owner
     }
     
     func getMediaItemGroups() -> [MediaItemGroup] {
@@ -208,5 +252,15 @@ class PackMediaItem: MediaItem {
         }
         
         return groups
+    }
+
+    override func toDictionary() -> [String : AnyObject] {
+        var dictionary = super.toDictionary()
+
+        if let backgroundColor = backgroundColor?.hexString {
+            dictionary["backgroundColor"] = backgroundColor
+        }
+
+        return dictionary
     }
 }

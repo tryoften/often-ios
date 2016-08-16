@@ -10,18 +10,18 @@ import Foundation
 
 class SetUserProfilePictureViewController: UIViewController, PackProfileImageUploaderViewControllerDelegate {
     var userProfilePictureView: SetUserProfilePictureView
-    var viewModel: PacksService
+    var viewModel: OnboardingPackViewModel
 
-    init(viewModel: PacksService) {
+    init(viewModel: OnboardingPackViewModel) {
         self.viewModel = viewModel
 
         userProfilePictureView = SetUserProfilePictureView()
         userProfilePictureView.translatesAutoresizingMaskIntoConstraints = false
 
         super.init(nibName: nil, bundle: nil)
+        viewModel.fetchData()
 
         view.backgroundColor = UIColor.oftWhiteColor()
-
         view.addSubview(userProfilePictureView)
 
         setupLayout()
@@ -39,8 +39,8 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
-        userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.addPhotoButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.addImageLoaderDidTap(_:)), forControlEvents: .TouchUpInside)
+        userProfilePictureView.nextButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.nextButtonDidTap(_:)), forControlEvents: .TouchUpInside)
         userProfilePictureView.skipButton.addTarget(self, action: #selector(SetUserProfilePictureViewController.skipButtonDidTap(_:)), forControlEvents: .TouchUpInside)
     }
 
@@ -50,13 +50,13 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
 
     func nextButtonDidTap(sender: UIButton) {
         if userProfilePictureView.imageView.image != nil {
-            let vc = SetUserProfileDescriptionViewController(viewModel: UsernameViewModel())
+            let vc = SetUserProfileDescriptionViewController(viewModel: viewModel)
             presentViewController(vc, animated: true, completion: nil)
         }
     }
 
     func skipButtonDidTap(sender: UIButton) {
-        let vc = SetUserProfileDescriptionViewController(viewModel: UsernameViewModel())
+        let vc = SetUserProfileDescriptionViewController(viewModel: viewModel)
         presentViewController(vc, animated: true, completion: nil)
     }
 
@@ -67,16 +67,32 @@ class SetUserProfilePictureViewController: UIViewController, PackProfileImageUpl
     }
 
     func packProfileImageUploaderViewControllerDidSuccessfullyUpload(imageUploader: PackProfileImageUploaderViewController, image: ImageMediaItem) {
-        PKHUD.sharedHUD.hide(animated: true)
-        userProfilePictureView.addPhotoButton.hidden = true
-        viewModel.updatePackProfileImage(image)
-
-        if let imageURL = image.largeImageURL {
-            userProfilePictureView.imageView.nk_setImageWith(imageURL)
+        guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.smallImageURL  else {
+            return
         }
+
+        userProfilePictureView.addPhotoButton.hidden = true
+        viewModel.saveChanges([
+            "image":[
+                "large_url": imageLargeURL.absoluteString,
+                "small_url": imageSmallURL.absoluteString
+            ]
+        ])
+        
+        delay(0.5) {
+            self.userProfilePictureView.imageView.nk_setImageWith(imageLargeURL)
+            PKHUD.sharedHUD.hide(animated: true)
+        }
+
+        let buttonAttributes: [String: AnyObject] = [
+            NSKernAttributeName: NSNumber(float: 1.0),
+            NSFontAttributeName: UIFont(name: "Montserrat", size: 10.5)!,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
 
         userProfilePictureView.nextButton.selected = true
         userProfilePictureView.nextButton.layer.borderWidth = 0
         userProfilePictureView.nextButton.backgroundColor = TealColor
+        userProfilePictureView.nextButton.setAttributedTitle( NSAttributedString(string: "next".uppercaseString, attributes: buttonAttributes), forState: .Normal)
     }
 }

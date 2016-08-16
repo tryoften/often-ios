@@ -26,6 +26,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
     var contentPlaceholderImageView: UIImageView
     var contentImageView: UIImageView
     var bottomSeperator: UIView
+    var searchOverlayView: SearchOverlayView
 
     private var contentImageViewWidthConstraint: NSLayoutConstraint
     private var mainTextLabelCenterConstraint: NSLayoutConstraint?
@@ -92,6 +93,10 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         sourceLogoView.layer.cornerRadius = 2.0
         sourceLogoView.clipsToBounds = true
         sourceLogoView.backgroundColor = LightGrey
+
+        searchOverlayView = SearchOverlayView()
+        searchOverlayView.hidden = true
+        searchOverlayView.translatesAutoresizingMaskIntoConstraints = false
 
         hotnessLogoView = UIImageView()
         hotnessLogoView.translatesAutoresizingMaskIntoConstraints = false
@@ -182,6 +187,8 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         metadataContentView.addSubview(rightMetadataLabel)
         metadataContentView.addSubview(rightCornerImageView)
         metadataContentView.addSubview(hotnessLogoView)
+
+        addSubview(searchOverlayView)
         
         setupLayout()
         setupCellStyle()
@@ -198,6 +205,22 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
     }
     
     func reset() {
+        sourceLogoView.image = nil
+        leftHeaderLabel.text = ""
+        rightHeaderLabel.text = ""
+        mainTextLabel.text = ""
+        mainTextLabel.textAlignment = .Right
+        leftMetadataLabel.text = ""
+        centerMetadataLabel.text = ""
+        rightMetadataLabel.text = ""
+        rightCornerImageView.image = nil
+        showImageView = true
+    }
+
+    internal override func prepareForReuse() {
+        super.prepareForReuse()
+
+        searchOverlayView.hidden = true
         sourceLogoView.image = nil
         leftHeaderLabel.text = ""
         rightHeaderLabel.text = ""
@@ -272,6 +295,11 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
             leftHeaderLabel.al_bottom == leftMetadataLabel.al_top,
             leftHeaderLabel.al_height == 16,
             leftHeaderLabel.al_right <= al_right,
+
+            searchOverlayView.al_top == contentView.al_top,
+            searchOverlayView.al_bottom == contentView.al_bottom,
+            searchOverlayView.al_left == contentView.al_left,
+            searchOverlayView.al_right == contentView.al_right,
 
             rightHeaderLabel.al_right == metadataContentView.al_right - contentEdgeInsets.right,
             rightHeaderLabel.al_centerY == sourceLogoView.al_centerY,

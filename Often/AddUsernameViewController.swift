@@ -19,9 +19,21 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
+        
+        
+        usernameView.textField.delegate = self
         view.backgroundColor = UIColor.whiteColor()
-
         view.addSubview(usernameView)
+        
+        do {
+            try viewModel.setupUser { inner in
+                self.usernameView.textField.text = viewModel.generateSuggestedUsername()
+                if let text = self.usernameView.textField.text {
+                    self.setButtonState(text)
+                }
+            }
+        } catch _ {
+        }
 
         setupLayOut()
     }
@@ -41,8 +53,7 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        usernameView.textField.delegate = self
-
+        
         usernameView.confirmButton.addTarget(self,  action: #selector(AddUsernameViewController.didTapConfirmButton(_:)), forControlEvents: .TouchUpInside)
     }
 
@@ -53,12 +64,15 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
             return
         }
 
+
         viewModel.usernameDoesExist(usernameView.textField.text!, completion: { exists in
             if !exists {
                 SessionManagerFlags.defaultManagerFlags.userHasUsername = true
-                self.viewModel.saveUsername(self.usernameView.textField.text!)
-                let vc = SetUserProfilePictureViewController(viewModel: PacksService.defaultInstance)
-                self.presentViewController(vc, animated: true, completion: nil)
+                if let favoritesPackId = self.viewModel.currentUser?.favoritesPackId where favoritesPackId != "" {
+                    self.viewModel.saveUsername(self.usernameView.textField.text!)
+                    let vc = SetUserProfilePictureViewController(viewModel: OnboardingPackViewModel(packId: favoritesPackId))
+                    self.presentViewController(vc, animated: true, completion: nil)
+                }
             } else {
                     DropDownErrorMessage().setMessage("Username taken! Try a new one", errorBackgroundColor: UIColor(fromHexString: "#E85769"))
             }
@@ -66,19 +80,23 @@ class AddUsernameViewController: UIViewController, UITextFieldDelegate {
     }
 
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool{
-        let characterCount = usernameView.textField.text!.characters.count
+        
+        setButtonState(usernameView.textField.text!)
+        return true
+    }
+    
+    func setButtonState(text: String) {
+        let characterCount = text.characters.count
         if characterCount >= 2 {
             usernameView.confirmButton.selected = true
             usernameView.confirmButton.layer.borderWidth = 0
-            usernameView.confirmButton.backgroundColor = UIColor(fromHexString: "#152036")
+            usernameView.confirmButton.backgroundColor = TealColor
         } else {
             usernameView.confirmButton.backgroundColor = UIColor.whiteColor()
             usernameView.confirmButton.selected = false
             usernameView.confirmButton.layer.borderColor = UIColor(hex: "#E3E3E3").CGColor
             usernameView.confirmButton.layer.borderWidth = 2
         }
-
-        return true
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

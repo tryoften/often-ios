@@ -14,8 +14,14 @@ import Firebase
 private let PackPageHeaderViewIdentifier = "packPageHeaderViewIdentifier"
 
 class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, FilterTabDelegate, UIActionSheetDelegate {
+    private let dropDownMenu: DropDownMessageView
+    private var presentingDropDownMenu: Bool = false
+    
     override init(viewModel: PackItemViewModel, textProcessor: TextProcessingManager?) {
-
+        dropDownMenu = DropDownMessageView()
+        dropDownMenu.frame = CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35)
+        dropDownMenu.hidden = true
+        
         super.init(viewModel: viewModel, textProcessor: textProcessor)
         
         packCollectionListener = viewModel.didUpdateCurrentMediaItem.on { [weak self] items in
@@ -29,10 +35,13 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         collectionView?.registerClass(MediaItemPageHeaderView.self, forSupplementaryViewOfKind: CSStickyHeaderParallaxHeader, withReuseIdentifier: MediaItemPageHeaderViewIdentifier)
         
         hudTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: Selector("showHud"), userInfo: nil, repeats: false)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MainAppBrowsePackItemViewController.showDropDownMenu(_:)), name: ShowDropDownMenuEvent, object: nil)
+        view.addSubview(dropDownMenu)
     }
 
     deinit {
         packCollectionListener = nil
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,13 +49,25 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
     
     override func prefersStatusBarHidden() -> Bool {
+        if presentingDropDownMenu {
+            navigationItem.rightBarButtonItem?.customView?.alpha = 0
+            navigationItem.setHidesBackButton(true, animated: true)
+            return true
+        }
+        
+        dropDownMenu.hidden = true
+        navigationItem.rightBarButtonItem?.customView?.alpha = 1
+        navigationItem.setHidesBackButton(false, animated: true)
         return false
+    }
+    
+    override func preferredStatusBarUpdateAnimation() -> UIStatusBarAnimation {
+        return .Fade
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         headerViewDidLoad()
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
@@ -91,33 +112,73 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
 
         if packViewModel.isCurrentUser {
             header.primaryButton.packState = .User
-            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-
+            header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.shareTapped(_:)), forControlEvents: .TouchUpInside)
+            
             let topRightButton = HeaderButton()
             topRightButton.text = "Edit Pack"
             topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
             topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
             topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
             topRightButton.setImage(StyleKit.imageOfEditIcon(color: WhiteColor, scale: 1), forState: .Normal)
-
+            topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
+            
             let item = UIBarButtonItem(customView: topRightButton)
             navigationItem.rightBarButtonItem = item
+            
         } else {
             header.primaryButton.title = pack.callToActionText()
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.primaryButtonTapped(_:)), forControlEvents: .TouchUpInside)
             header.primaryButton.packState = PacksService.defaultInstance.checkPack(pack) ? .Added : .NotAdded
-
-            let topRightButton = PackHeaderProfileButton()
-            if let owner = pack.owner, let username = owner["username"] as? String {
-                topRightButton.text = "@\(username)"
+            header.isFavorites = pack.isFavorites
+            
+            if let owner = pack.owner where packViewModel.pack?.isFavorites == true {
+                let userHandleAndImageView = UIView()
+                userHandleAndImageView.frame = CGRectMake(0, 0, 200, 30)
+                userHandleAndImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MainAppBrowsePackItemViewController.userHandleDidTap)))
+                
+                let handleLabel = UILabel()
+                handleLabel.translatesAutoresizingMaskIntoConstraints = false
+                handleLabel.font = UIFont(name: "OpenSans", size: 10.5)
+                handleLabel.text = "@\(owner.username.uppercaseString)"
+                handleLabel.textColor = UIColor.whiteColor()
+                
+                let collapseProfileImageView = UIImageView()
+                collapseProfileImageView.translatesAutoresizingMaskIntoConstraints = false
+                collapseProfileImageView.contentMode = .ScaleAspectFit
+                collapseProfileImageView.image = header.coverPhoto.image
+                collapseProfileImageView.layer.borderColor = UserProfileHeaderViewProfileImageViewBackgroundColor
+                collapseProfileImageView.layer.borderWidth = 2
+                collapseProfileImageView.layer.cornerRadius = 15
+                collapseProfileImageView.clipsToBounds = true
+                
+                userHandleAndImageView.addSubview(handleLabel)
+                userHandleAndImageView.addSubview(collapseProfileImageView)
+                
+                userHandleAndImageView.addConstraints([
+                    handleLabel.al_centerX == userHandleAndImageView.al_centerX,
+                    handleLabel.al_centerY == userHandleAndImageView.al_centerY,
+                    handleLabel.al_height == 30,
+                    
+                    collapseProfileImageView.al_left == handleLabel.al_right + 5,
+                    collapseProfileImageView.al_centerY == handleLabel.al_centerY,
+                    collapseProfileImageView.al_width == 30,
+                    collapseProfileImageView.al_height == 30
+                ])
+                
+                navigationItem.titleView = userHandleAndImageView
+                navigationController?.navigationBar.tintColor = UIColor.whiteColor()
             }
-
+            
+            let topRightButton = PackHeaderProfileButton()
             topRightButton.frame = CGRect(origin: CGPointZero, size: topRightButton.intrinsicContentSize())
+            topRightButton.imageEdgeInsets = UIEdgeInsetsMake(-2, 10, 0, -4)
+            topRightButton.setImage(StyleKit.imageOfSettingsDiamond(color: UIColor.whiteColor()), forState: .Normal)
             topRightButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.topRightButtonTapped(_:)), forControlEvents: .TouchUpInside)
-
+            
             let item = UIBarButtonItem(customView: topRightButton)
             navigationItem.rightBarButtonItem = item
         }
+        navigationController?.navigationBar.tintColor = UIColor.whiteColor()
     }
 
     func primaryButtonTapped(sender: UIButton) {
@@ -150,12 +211,38 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     }
 
     func topRightButtonTapped(sender: UIButton) {
-        guard let pack = packViewModel.pack, name = pack.name, link = pack.shareLink, id = pack.pack_id else {
+        if packViewModel.isCurrentUser {
+            let vc = PackEditFormViewController(viewModel: packViewModel)
+            vc.modalPresentationStyle = .Custom
+            vc.modalTransitionStyle = .CrossDissolve
+            presentViewController(vc, animated: true, completion: nil)
             return
         }
-        
+
+        guard let pack = packViewModel.pack,
+            name = pack.name,
+            link = pack.shareLink,
+            id = pack.pack_id else {
+            return
+        }
+
         let actionSheet = UIAlertController().barButtonActionSheet(name, link: link, sender: sender, id: id)
         presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func shareTapped(sender: UIButton) {
+        guard let pack = packViewModel.pack,
+            name = pack.name,
+            link = pack.shareLink else {
+                return
+        }
+
+        let shareObjects = ["Yo check out my pack \"\(name)\" on Often! \(link)"]
+         
+        let activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
+        activityVC.popoverPresentationController?.sourceView = sender
+        self.presentViewController(activityVC, animated: true, completion: nil)
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -244,10 +331,10 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
             // Copy this data to pasteboard
-            let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         } else {
-            let actionSheet = UIAlertController().tapStateActionSheet(result, url: nil)
+            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: nil)
             self.presentViewController(actionSheet, animated: true, completion: nil)
         }
         
@@ -268,8 +355,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
                         UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                         gifCell.showDoneMessage()
                     }
-                    }.resume()
-                
+                }.resume()
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
             }
@@ -277,7 +363,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
             if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
-                let actionSheet = UIAlertController().tapStateActionSheet(result, url: url)
+                let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
                 self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {
                 UIPasteboard.generalPasteboard().string = result.getInsertableText()
@@ -291,6 +377,15 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 7.0
+    }
+    
+    func userHandleDidTap() {
+        guard let pack = packViewModel.pack, let owner = pack.owner else {
+            return
+        }
+        
+        let packVC = UserProfileViewController(viewModel: PacksService(userId: owner.id))
+        navigationController?.pushViewController(packVC, animated: true)
     }
 
     func gifTabSelected() {
@@ -315,5 +410,41 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
         if packViewModel.doesCurrentPackContainTypeForCategory(.Image) {
             packViewModel.typeFilter = .Image
         }
+    }
+    
+    func showDropDownMenu(notification: NSNotification) {
+        dropDownMenu.hidden = false
+        presentingDropDownMenu = true
+        setNeedsStatusBarAppearanceUpdate()
+        
+        guard let removeFromPack = notification.object as? Bool else {
+            return
+        }
+        
+        if removeFromPack {
+            dropDownMenu.backgroundColor = UIColor(fromHexString: "#E85769")
+            dropDownMenu.text = "item successfully removed"
+        } else {
+            dropDownMenu.backgroundColor = TealColor
+            dropDownMenu.text = "item successfully added"
+        }
+        
+        view.userInteractionEnabled = false
+        
+        UIView.animateWithDuration(0.3, animations: {
+            self.dropDownMenu.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, 35)
+        })
+        
+        delay(2.0, closure: {
+            UIView.animateWithDuration(0.3, animations: {
+                self.dropDownMenu.frame = CGRectMake(0, -35, UIScreen.mainScreen().bounds.width, 35)
+            })
+        })
+        
+        delay(2.5, closure: {
+            self.presentingDropDownMenu = false
+            self.setNeedsStatusBarAppearanceUpdate()
+            self.view.userInteractionEnabled = true
+        })
     }
 }

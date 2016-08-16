@@ -32,8 +32,7 @@ class PackItemViewModel: BrowseViewModel {
     }
 
     var isCurrentUser: Bool {
-        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId,
-            let ownerId = pack?.owner?["id"] as? String else {
+        guard let currentUserId = SessionManagerFlags.defaultManagerFlags.userId, let ownerId = pack?.owner?.id else {
             return false
         }
 
@@ -106,6 +105,48 @@ class PackItemViewModel: BrowseViewModel {
             }
         }
         return false
+    }
+
+    func saveChanges(data: [String: AnyObject]) {
+        guard let pack = pack else {
+            return
+        }
+
+        pack.setValuesForOwnerKeys(data)
+        triggerPackUpdate(data)
+    }
+
+    func updatePackProfileImage(image: ImageMediaItem) {
+        guard let smallImage = image.smallImageURL?.absoluteString,
+            largeImage = image.largeImageURL?.absoluteString else {
+                return
+        }
+
+        let data = [
+            "large_url": largeImage,
+            "small_url": smallImage
+        ]
+
+        let ref = baseRef.child("packs/\(packId)/image")
+
+        ref.updateChildValues(data)
+        triggerPackUpdate(data)
+    }
+
+    func triggerPackUpdate(data: NSDictionary) {
+        guard let pack = pack else {
+                return
+        }
+
+        let task = baseRef.child("queues/user/tasks").childByAutoId()
+        task.setValue([
+            "userId": userId,
+            "type": "updatePack",
+            "data": [
+                "packId": pack.id,
+                "attributes": data
+            ]
+        ])
     }
 
 }

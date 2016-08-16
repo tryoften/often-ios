@@ -12,6 +12,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     let sessionManager = SessionManager.defaultManager
     private let imageView: UIImageView
     private let dummyTabBar: UIView
+    private var userProfilePresented: Bool = false
     private enum SelectedTab: Int {
         case Browse = 0
         case AddContent = 1
@@ -48,7 +49,7 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
         super.init(nibName: nil, bundle: nil)
 
         dummyTabBar.frame = tabBar.frame
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss), name: AddContentViewDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RootViewController.addContentViewDidDismiss(_:)), name: AddContentViewDismissedEvent, object: nil)
 
         styleTabBar()
         setupTabBarItems()
@@ -60,6 +61,10 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -139,12 +144,12 @@ class RootViewController: UITabBarController, UIViewControllerTransitioningDeleg
 
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         let animator = FadeInTransitionAnimator(presenting: false)
-
         return animator
     }
     
-    func addContentViewDidDismiss() {
+    func addContentViewDidDismiss(notification: NSNotification) {
+        let mediaItem = notification.object as? MediaItem
         selectedIndex = SelectedTab.UserProfile.rawValue
-        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(AddContentTabDismissedEvent, object: mediaItem)
     }
 }

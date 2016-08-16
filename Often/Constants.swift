@@ -39,11 +39,13 @@ let RestoreKeyboardEvent = "restoreKeyboard"
 let ToggleButtonKeyboardEvent = "toggleButtonKeyboard"
 let KeyboardOrientationChangeEvent = "orientationChange"
 let BackToKeyboardButtonPressedEvent = "BackToKeyboardButtonPressed"
-let AddContentViewDismissedEvent = "addContentDismissed"
+let AddContentViewDismissedEvent = "AddContentDismissed"
+let ShowDropDownMenuEvent = "ShowDropDownEvent"
 let AddContentTabDismissedEvent = "AddContentTabDismissed"
 let GiphyAPIKey = "xTiTnuNf1mc0HfaFS8"
 let GiphyTrendingEndpoint = "http://api.giphy.com/v1/gifs/trending"
 let GiphySearchEndpoint = "http://api.giphy.com/v1/gifs/search"
+let OftenPackID = "rJejs85F"
 // Colors
 let BlueColor = UIColor(fromHexString: "#3B5998")
 let DarkGrey = UIColor(fromHexString: "#d8d8d8")

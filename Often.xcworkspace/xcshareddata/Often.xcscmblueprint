@@ -5,6 +5,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
     "85B3766ED4048A6BEE8AC9CA920C2E82FABC578C" : 0,
+    "DBDAEAB1498CDE6851DEAE9DE2FA379818E35280" : 0,
     "4EA48C4418C0D37C936EB709C50F03661DB187D9" : 0,
     "3E52007F09750D16ACFE218222CA41A182FE1CE3" : 0,
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0
@@ -12,6 +13,7 @@
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D148C313-C09C-44A2-B761-D3F3D8075289",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
     "85B3766ED4048A6BEE8AC9CA920C2E82FABC578C" : "often-ios\/Vendors\/SwiftAutoLayout\/",
+    "DBDAEAB1498CDE6851DEAE9DE2FA379818E35280" : "often-ios\/Vendors\/SwiftColorPicker\/",
     "4EA48C4418C0D37C936EB709C50F03661DB187D9" : "often-ios\/Vendors\/PKHUD\/",
     "3E52007F09750D16ACFE218222CA41A182FE1CE3" : "often-ios\/",
     "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "often-ios\/Vendors\/SwiftyJSON\/"
@@ -39,6 +41,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SwiftyJSON\/SwiftyJSON.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/MrMatthias\/SwiftColorPicker.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DBDAEAB1498CDE6851DEAE9DE2FA379818E35280"
     }
   ]
 }

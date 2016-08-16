@@ -12,41 +12,51 @@ import Nuke
 import NukeAnimatedImagePlugin
 
 extension UIAlertController: UIViewControllerTransitioningDelegate {
-    func tapStateActionSheet(result: MediaItem, url: NSURL?) -> UIAlertController {
+    func tapStateActionSheet(presentingViewController: MainAppBrowsePackItemViewController, result: MediaItem, url: NSURL?) -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         var data: NSData = NSData()
+        var image: UIImage = UIImage()
         
         if let url = url {
             Nuke.taskWith(url) {
                 if let image = $0.image as? AnimatedImage, let imageData = image.data {
                     data = imageData
+                } else if let imageData = $0.image {
+                    image = imageData
                 }
-                }.resume()
+            }.resume()
         }
         
         let shareAction = UIAlertAction(title: "Share", style: .Default, handler: { (alert: UIAlertAction) in
             let activityVC: UIActivityViewController
-            if url != nil {
+            if url != nil && data != NSData() {
                 UIPasteboard.generalPasteboard().setData(data, forPasteboardType: "com.compuserve.gif")
                 let shareObjects = [data]
                 activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
+            } else if url != nil {
+                UIPasteboard.generalPasteboard().image = image
+                let shareObjects = [image]
+                activityVC = UIActivityViewController(activityItems: shareObjects, applicationActivities: nil)
             } else {
+                UIPasteboard.generalPasteboard().string = result.getInsertableText()
                 activityVC = UIActivityViewController(activityItems: [result.getInsertableText()], applicationActivities: nil)
             }
             
             activityVC.excludedActivityTypes = [UIActivityTypeAddToReadingList]
             activityVC.popoverPresentationController?.sourceView = self.view
-            self.presentViewController(activityVC, animated: true, completion: nil)
+            presentingViewController.presentViewController(activityVC, animated: true, completion: nil)
         })
         
         let packEditAction: UIAlertAction
         if PacksService.defaultInstance.checkFavoritesMediaItem(result) {
             packEditAction = UIAlertAction(title: "Remove", style: .Default, handler: { (alert: UIAlertAction) in
                 UserPackService.defaultInstance.removeItem(result)
+                NSNotificationCenter.defaultCenter().postNotificationName(ShowDropDownMenuEvent, object: true)
             })
         } else {
             packEditAction = UIAlertAction(title: "Add to Pack", style: .Default, handler: { (alert: UIAlertAction) in
                 UserPackService.defaultInstance.addItem(result)
+                NSNotificationCenter.defaultCenter().postNotificationName(ShowDropDownMenuEvent, object: false)
             })
         }
         
@@ -96,5 +106,4 @@ extension UIAlertController: UIViewControllerTransitioningDelegate {
         
         return actionSheet
     }
-
 }
