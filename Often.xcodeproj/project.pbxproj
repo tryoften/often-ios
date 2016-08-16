@@ -12,6 +12,11 @@
 		30E00C7B1BC86CEA00DDF24C /* delay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E00C791BC86CEA00DDF24C /* delay.swift */; };
 		3B029ABC1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
 		3B029ABD1CCFD0FD00ACDD94 /* KeyboardCancelBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B7107A61CC9455300707602 /* KeyboardCancelBar.swift */; };
+		3B087FEE1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */; };
+		3B087FEF1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */; };
+		3B087FF01D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */; };
+		3B087FF11D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */; };
+		3B087FF21D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */; };
 		3B0D11591D21C66400B58F13 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
 		3B0D115A1D21C66400B58F13 /* DFCache.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B0D115B1D21C67F00B58F13 /* DFCache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B0D11581D21C66400B58F13 /* DFCache.framework */; };
@@ -1090,8 +1095,6 @@
 		BF5DA1A11D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
 		BF5DA1A21D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
 		BF5DA1A31D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */; };
-		BF5DA1A51D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
-		BF5DA1A61D5E65A500D2215E /* OnboardingHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */; };
 		BF5DA1A81D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */; };
 		BF5DA1A91D5E8AD500D2215E /* OnboardingProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */; };
 		BF5EA1F11D5A89F500670CBC /* HeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */; };
@@ -1287,6 +1290,7 @@
 		343728F0227F0A597C07085A /* Pods-Often.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often.production.xcconfig"; path = "Pods/Target Support Files/Pods-Often/Pods-Often.production.xcconfig"; sourceTree = "<group>"; };
 		36ED81DA386B4CBF3417D92A /* libPods-Often.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Often.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A318FD24B2266D12FF76831 /* Pods-Often (Dev).release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Often (Dev).release.xcconfig"; path = "Pods/Target Support Files/Pods-Often (Dev)/Pods-Often (Dev).release.xcconfig"; sourceTree = "<group>"; };
+		3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryAssignmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		3B0D11581D21C66400B58F13 /* DFCache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DFCache.framework; path = Carthage/Build/iOS/DFCache.framework; sourceTree = "<group>"; };
 		3B0D11661D21C94000B58F13 /* Preheat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Preheat.framework; path = Carthage/Build/iOS/Preheat.framework; sourceTree = "<group>"; };
 		3B0D116D1D22DA2A00B58F13 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -1603,7 +1607,6 @@
 		BF496FC71D58F3C00016EA2F /* ReactionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactionsViewModel.swift; path = ../ReactionsViewModel.swift; sourceTree = "<group>"; };
 		BF496FCD1D59806B0016EA2F /* FilteredCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilteredCollectionViewController.swift; sourceTree = "<group>"; };
 		BF5DA1A01D5D1C9200D2215E /* FilterCollectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterCollectionHeaderView.swift; sourceTree = "<group>"; };
-		BF5DA1A41D5E65A500D2215E /* OnboardingHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingHeader.swift; sourceTree = "<group>"; };
 		BF5DA1A71D5E8AD500D2215E /* OnboardingProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingProgressBar.swift; sourceTree = "<group>"; };
 		BF5EA1F01D5A89F500670CBC /* HeaderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderButton.swift; sourceTree = "<group>"; };
 		BF6A03E81D11C464007EFBDC /* PacksHorizontalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PacksHorizontalViewController.swift; path = ../PacksHorizontalViewController.swift; sourceTree = "<group>"; };
@@ -2376,6 +2379,7 @@
 				690553371CA78E2E004680CA /* Browse Pack */,
 				69FE381D1BD82FE2007A63FB /* User Profile */,
 				3BEB408D1BC8561500D36C4D /* HUDProgressView.swift */,
+				3B087FED1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift */,
 				3BFCDFDC1D5CF288005A4BF8 /* ColorPickerView.swift */,
 				3BFCDFB11D538BD6005A4BF8 /* UsernameView.swift */,
 				3B138FFB1D5001E4002605D3 /* AddContentPrompt.swift */,
@@ -3627,6 +3631,7 @@
 				810EA4E51C8579D1005A6C6D /* UIColor+HEXString.m in Sources */,
 				810EA4E61C8579D1005A6C6D /* FilterTabView.swift in Sources */,
 				810EA4E71C8579D1005A6C6D /* TextProcessingManager.swift in Sources */,
+				3B087FF11D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */,
 				3BF041ED1D05DA5E00418484 /* PushNotificationAlertViewController.swift in Sources */,
 				69E6331A1D11D2A100C34BE5 /* BrowseCategorySelectionTableViewController.swift in Sources */,
 				810EA4E81C8579D1005A6C6D /* UIDevice+DeviceList.swift in Sources */,
@@ -3770,6 +3775,7 @@
 				810EA59A1C8579F1005A6C6D /* Notification.swift in Sources */,
 				BF18A40E1CD7BA15009732AE /* BrowsePackTabBar.swift in Sources */,
 				BFD8778E1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
+				3B087FF21D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */,
 				810EA59B1C8579F1005A6C6D /* suffixNumber.swift in Sources */,
 				810EA59E1C8579F1005A6C6D /* SlideTabBar.swift in Sources */,
 				816D50281C862E86007B3249 /* UIColor+Often.swift in Sources */,
@@ -3976,6 +3982,7 @@
 				696DC8691D5BF125004D3C0B /* ReportAlertViewController.swift in Sources */,
 				816D50681C8A0506007B3249 /* delay.swift in Sources */,
 				816D504D1C8A04D9007B3249 /* DropDownMessageView.swift in Sources */,
+				3B087FEE1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */,
 				816D508B1C8A0583007B3249 /* AnonymousAccountManager.swift in Sources */,
 				816D50D01C8A07B9007B3249 /* BaseViewModel.swift in Sources */,
 				816D505F1C8A04F4007B3249 /* FavoritesEmptyStateView.swift in Sources */,
@@ -4152,6 +4159,7 @@
 				BF5DA1A21D5D1C9200D2215E /* FilterCollectionHeaderView.swift in Sources */,
 				81D09D8F1BE1C4F400AFBEC0 /* String+Utils.swift in Sources */,
 				81331E2E1A1806BB003E4609 /* SwiftAutoLayout.swift in Sources */,
+				3B087FF01D637A06009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */,
 				3BC55AC41C8A264600363AB0 /* MediaItemDetailView.swift in Sources */,
 				81A1A4F71A19817F00D566B8 /* UIColor+HEXString.m in Sources */,
 				69428ADB1BEEA98C00282B8D /* KeyboardViewModel.swift in Sources */,
@@ -4245,6 +4253,7 @@
 				3B47F6AF1C66FAAB00B000A5 /* Listener.swift in Sources */,
 				816D50161C86278C007B3249 /* CategoryCollectionViewController.swift in Sources */,
 				BF99715A1CC00942008351C7 /* PackItemViewModel.swift in Sources */,
+				3B087FEF1D637A05009CAD52 /* CategoryAssignmentCollectionViewCell.swift in Sources */,
 				69BBD7F91D1888D80018E7DA /* BrowseCategoryPanelAnimator.swift in Sources */,
 				81DA3EBC1C24BE85006822D3 /* PKHUDContentView.swift in Sources */,
 				3B7107A71CC9455300707602 /* KeyboardCancelBar.swift in Sources */,

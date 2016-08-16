@@ -45,7 +45,7 @@ UICollectionViewDelegateFlowLayout {
         viewModel.delegate = self
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.promptUserToChooseUsername), name: "DismissPushNotificationAlertView", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: AddContentTabDismissedEvent, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserProfileViewController.presentFavoritesPack(_:)), name: PresentFavoritesPackEvent, object: nil)
         
         packServiceListener = viewModel.didUpdatePacks.on { items in
             self.collectionView?.reloadData()
@@ -275,13 +275,15 @@ UICollectionViewDelegateFlowLayout {
     
     func presentFavoritesPack(notification: NSNotification) {
         guard let pack = viewModel.favoritesPack,
-            let id = pack.pack_id
+            let id = pack.pack_id,
+            let mediaItem = notification.object as? MediaItem
             where presentedFavoritesPack == false else {
             return
         }
         
         presentedFavoritesPack = true
-        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil)
+        let mediaType = mediaItem.type
+        let packVC = MainAppBrowsePackItemViewController(viewModel: PackItemViewModel(packId: id), textProcessor: nil, presentingMediaType: mediaType)
         navigationController?.navigationBar.hidden = false
         navigationController?.pushViewController(packVC, animated: true)
     }

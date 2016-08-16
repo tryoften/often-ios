@@ -107,6 +107,7 @@ class FacebookAccountManager: AccountManager {
                             self.delegate?.accountManagerUserDidLogin(self, user: user)
                         }
                         self.initiateUserWithPacks()
+                        SessionManagerFlags.defaultManagerFlags.userLoginWithSocial = true
                     } else {
                         completion(results: ResultType.SystemError(e: error!))
                     }

@@ -44,7 +44,7 @@ class BaseCategoryAssignmentViewController: UIViewController,
         navigationView.leftButton.addTarget(self, action: #selector(BaseCategoryAssignmentViewController.backButtonDidTap), forControlEvents: .TouchUpInside)
         navigationView.rightButton.addTarget(self, action: #selector(BaseCategoryAssignmentViewController.addButtonDidTap), forControlEvents: .TouchUpInside)
         
-        categoryCollectionView.registerClass(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
+        categoryCollectionView.registerClass(CategoryAssignmentCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCellReuseIdentifier)
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         
@@ -122,7 +122,7 @@ class BaseCategoryAssignmentViewController: UIViewController,
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CategoryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? CategoryCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCellWithReuseIdentifier(CategoryCollectionViewCellReuseIdentifier, forIndexPath: indexPath) as? CategoryAssignmentCollectionViewCell else {
             return UICollectionViewCell()
         }
         
@@ -138,7 +138,7 @@ class BaseCategoryAssignmentViewController: UIViewController,
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CategoryCollectionViewCell  else {
+        guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CategoryAssignmentCollectionViewCell  else {
             return
         }
         
