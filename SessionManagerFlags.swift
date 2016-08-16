@@ -31,6 +31,17 @@ class SessionManagerFlags {
         static var lastFilterType = "filter"
         static var userHasUsername = "userHasUsername"
         static var addContentPrompt = "prompt"
+        static var socialLogin = "social"
+    }
+
+    var userLoginWithSocial: Bool {
+        get {
+            return userDefaults.boolForKey(SessionManagerPropertyKey.socialLogin)
+        }
+
+        set(value) {
+            setValueToUserDefaults(value, forKey: SessionManagerPropertyKey.socialLogin)
+        }
     }
 
     var userNotificationSettings: Bool {
@@ -133,7 +144,6 @@ class SessionManagerFlags {
         }
     }
 
-    
     var isKeyboardInstalled: Bool {
         get {
             guard let keyboards = NSUserDefaults.standardUserDefaults().dictionaryRepresentation()["AppleKeyboards"] as? [String] else {
@@ -197,7 +207,7 @@ class SessionManagerFlags {
             NSUserDefaults.standardUserDefaults().setInteger(value, forKey: SessionManagerPropertyKey.lastCategory)
         }
     }
-    
+
     var userIsAnonymous: Bool {
         get {
             return userDefaults.boolForKey(SessionManagerPropertyKey.anonymousUser)
@@ -221,6 +231,7 @@ class SessionManagerFlags {
     }
     
     func clearSessionFlags() {
+        userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.socialLogin)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userID)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userEmail)
         userDefaults.setValue(nil, forKey: SessionManagerPropertyKey.userHasUsername)
