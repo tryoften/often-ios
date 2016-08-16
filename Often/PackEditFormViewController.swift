@@ -64,6 +64,7 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        reloadData()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -73,6 +74,12 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
             navigationBar.barStyle = .Black
             navigationBar.translucent = true
         }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateColorPicker()
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -107,15 +114,19 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
         editFormView.descriptionField.text = pack.description
         editFormView.packBackgroundColor.backgroundColor = pack.backgroundColor
 
-        if let color = pack.backgroundColor {
+        if let largeImageURL = pack.largeImageURL {
+            editFormView.coverPhoto.nk_setImageWith(largeImageURL)
+        }
+
+        updateColorPicker()
+    }
+
+    func updateColorPicker() {
+        if let color = viewModel.pack?.backgroundColor {
             colorPickerController.color = color
             editFormView.colorPicker.color = color
             editFormView.colorWell.color = color
             editFormView.huePicker.setHueFromColor(color)
-        }
-
-        if let largeImageURL = pack.largeImageURL {
-            editFormView.coverPhoto.nk_setImageWith(largeImageURL)
         }
     }
 
