@@ -327,17 +327,14 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             let result = cell.mediaLink  else {
                 return
         }
-        
-        let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
-        if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+
+        if let url = result.mediumImageURL {
             // Copy this data to pasteboard
             let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
             self.presentViewController(actionSheet, animated: true, completion: nil)
-        } else {
-            let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: nil)
-            self.presentViewController(actionSheet, animated: true, completion: nil)
         }
-        
+
+        let vc = MediaItemDetailViewController(mediaItem: result, textProcessor: textProcessor)
         vc.insertText()
     }
     
@@ -362,7 +359,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             
             Analytics.sharedAnalytics().track(AnalyticsProperties(eventName: AnalyticsEvent.insertedLyric), additionalProperties: AnalyticsAdditonalProperties.mediaItem(result.toDictionary()))
             
-            if let gifCell = cell as? GifCollectionViewCell, let url = result.mediumImageURL {
+            if let url = result.mediumImageURL {
                 let actionSheet = UIAlertController().tapStateActionSheet(self, result: result, url: url)
                 self.presentViewController(actionSheet, animated: true, completion: nil)
             } else {

@@ -141,14 +141,21 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
     }
 
     func didTapSaveButton() {
-        guard let name = editFormView.titleField.text, description = editFormView.descriptionField.text else {
+        guard let name = editFormView.titleField.text,
+            description = editFormView.descriptionField.text,
+            backgroundColor = editFormView.packBackgroundColor.backgroundColor else {
             return
         }
 
         let data: [String: AnyObject] = [
             "name": name,
-            "description":description
+            "description": description,
+            "backgroundColor": backgroundColor.hexString
         ]
+
+        viewModel.pack?.name = name
+        viewModel.pack?.description = description
+        viewModel.pack?.backgroundColor = backgroundColor
 
         viewModel.saveChanges(data)
         dismissViewControllerAnimated(true, completion: nil)

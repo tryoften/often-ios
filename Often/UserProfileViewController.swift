@@ -204,7 +204,7 @@ UICollectionViewDelegateFlowLayout {
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.isCurrentUser = viewModel.isCurrentUser
-            headerView.nameLabel.text = user.name
+            headerView.nameLabel.text = user.name.stringByReplacingOccurrencesOfString(" ", withString: "\n")
 
             if user.followersCount > 999 {
                 headerView.leftBoldLabel.text = Double(user.followersCount).suffixNumber

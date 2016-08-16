@@ -254,7 +254,7 @@ class PacksService: PackItemViewModel {
                 "operation": task
             ],
             "result": result.toDictionary()
-            ])
+        ])
         
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
