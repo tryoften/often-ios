@@ -25,7 +25,7 @@ class GiphySearchViewModel: NSObject {
     }
 
     func fetchTrendingData() {
-        let params: [String : AnyObject] = [
+        let params: [String: AnyObject] = [
             "api_key": GiphyAPIKey
         ]
 
@@ -37,7 +37,7 @@ class GiphySearchViewModel: NSObject {
     }
 
     func searchRequestFor(term: String) {
-        let params: [String : AnyObject] = [
+        let params: [String: AnyObject] = [
             "q": term,
             "api_key": GiphyAPIKey
         ]

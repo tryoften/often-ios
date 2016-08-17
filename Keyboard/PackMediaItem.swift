@@ -191,21 +191,21 @@ class PackMediaItem: MediaItem {
             "title": "Gifs",
             "type": MediaType.Gif.rawValue
         ])
-        gifGroup.items = gifs
+        gifGroup.items = gifs.reverse()
         
         let quoteGroup = MediaItemGroup(dictionary: [
             "id": "quotes",
             "title": "Quotes",
             "type": MediaType.Quote.rawValue
         ])
-        quoteGroup.items = quotes
+        quoteGroup.items = quotes.reverse()
 
         let imageGroup = MediaItemGroup(dictionary: [
             "id": "images",
             "title": "Images",
             "type": MediaType.Image.rawValue
         ])
-        imageGroup.items = images
+        imageGroup.items = images.reverse()
 
         var groups = [MediaItemGroup]()
         
