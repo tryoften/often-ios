@@ -23,7 +23,7 @@ class KeyboardMediaItemPackHeaderView: UICollectionViewCell {
         super.init(frame: frame)
         backgroundColor = ClearColor
 
-        for button in [recentButton, addPacks] {
+        for button in [addPacks] {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.titleLabel!.font = UIFont(name: "Montserrat", size: 12)
             button.setTitleColor(BlackColor , forState: .Normal)
@@ -47,16 +47,11 @@ class KeyboardMediaItemPackHeaderView: UICollectionViewCell {
 
     func setupLayout() {
         addConstraints([
-            recentButton.al_top == al_top,
-            recentButton.al_left == al_left,
-            recentButton.al_right == al_right,
-            recentButton.al_height == 96.5,
-
-            addPacks.al_top == recentButton.al_bottom + 6,
+            addPacks.al_top == al_top,
             addPacks.al_left == al_left,
             addPacks.al_right == al_right,
-            addPacks.al_height == 96.5
-            ])
+            addPacks.al_bottom == al_bottom
+        ])
     }
 
 }
