@@ -97,7 +97,7 @@ class SetUserProfilePictureViewController: UIViewController,
     }
 
     func packProfileImageUploaderViewControllerDidSuccessfullyUpload(imageUploader: PackProfileImageUploaderViewController, image: ImageMediaItem) {
-        guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.smallImageURL  else {
+        guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.mediumImageURL  else {
             return
         }
 

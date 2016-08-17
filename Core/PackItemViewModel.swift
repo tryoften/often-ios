@@ -118,7 +118,7 @@ class PackItemViewModel: BrowseViewModel {
 
     func updatePackProfileImage(image: ImageMediaItem) {
         guard let pack = pack,
-            smallImage = image.smallImageURL?.absoluteString,
+            smallImage = image.mediumImageURL?.absoluteString,
             largeImage = image.largeImageURL?.absoluteString else {
                 return
         }
