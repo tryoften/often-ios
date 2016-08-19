@@ -93,8 +93,8 @@ class PacksViewModel: MediaItemsViewModel {
                 packs = item["items"] as? [[String: AnyObject]] {
                 items = []
                 for pack in packs {
-                    if let dict = pack as? NSDictionary, let link = MediaItem.mediaItemFromType(dict) {
-                        items.append(link)
+                    if let dict = pack as? NSDictionary, let packItem = MediaItem.mediaItemFromType(dict) {
+                        items.append(packItem)
                     }
                 }
                 filteredPacks[name] = items

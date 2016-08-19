@@ -78,7 +78,7 @@ class PacksService: PackItemViewModel {
     }
     
     func fetchCollection(completion: ((Bool) -> Void)? = nil) {
-        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
+        collectionEndpoint.observeSingleEventOfType(.Value, withBlock: { snapshot in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
@@ -234,6 +234,7 @@ class PacksService: PackItemViewModel {
                 } else {
                     items.append(item)
                 }
+                self.updatePack(id)
             }
         }
         
@@ -402,6 +403,17 @@ class PacksService: PackItemViewModel {
             return base64String
         }
         return ""
+    }
+
+    private func updatePack(packId: String) {
+        let globalRef = baseRef.child("packs").child(packId)
+        let userCopyRef = userRef.child("packs").child(packId)
+
+        globalRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            if let data = snapshot.value as? [String: AnyObject] {
+                userCopyRef.updateChildValues(data)
+            }
+        })
     }
     
 }
