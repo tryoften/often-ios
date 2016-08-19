@@ -22,6 +22,7 @@ class UsernameAlertView: AlertView {
         textField.borderStyle = .RoundedRect
         textField.textAlignment = .Center
         textField.becomeFirstResponder()
+        textField.autocapitalizationType = .None
         
         super.init(frame: frame)
         

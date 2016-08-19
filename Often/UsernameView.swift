@@ -42,6 +42,7 @@ class UsernameView: UIView {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Username"
         textField.font = UIFont(name: "Montserrat-Regular", size: 11)
+        textField.autocapitalizationType = .None
 
         textFieldDivider = UIView()
         textFieldDivider.translatesAutoresizingMaskIntoConstraints = false
