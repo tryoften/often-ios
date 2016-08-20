@@ -4446,7 +4446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30435A9E52F81C0FF7C1CE08 /* Pods-Often (Dev).debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4486,7 +4486,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F00534A7759ED3A753F408B0 /* Pods-Often (Dev).crashlytics.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4526,7 +4526,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A318FD24B2266D12FF76831 /* Pods-Often (Dev).release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4869,7 +4869,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CF30E2AA23D93240BD7F4BE1 /* Pods-Often (Dev).production.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;

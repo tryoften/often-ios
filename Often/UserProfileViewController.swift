@@ -110,6 +110,7 @@ UICollectionViewDelegateFlowLayout {
             }
         }
 
+        viewModel.fetchData()
         reloadUserData()
     }
 
@@ -260,11 +261,11 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func promptUserToChooseUsername() {
-        guard let _ = SessionManager.defaultManager.currentUser else {
+        guard let currentUser = SessionManager.defaultManager.currentUser else {
             return
         }
 
-        if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+        if currentUser.username.isEmpty {
             let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
             alertVC.transitioningDelegate = self
             alertVC.modalPresentationStyle = .Custom

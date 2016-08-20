@@ -15,6 +15,7 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
+    var hasBeenUpdated: Bool
     
     internal var collectionEndpoint: FIRDatabaseReference!
     private var subscriptionsRef: FIRDatabaseReference!
@@ -40,7 +41,8 @@ class PacksService: PackItemViewModel {
 
     init(userId: String) {
         mediaItems = []
-
+        hasBeenUpdated = false
+        
         super.init(userId: userId, packId: "")
         collectionEndpoint = userRef.child("packs")
 
@@ -78,7 +80,7 @@ class PacksService: PackItemViewModel {
     }
     
     func fetchCollection(completion: ((Bool) -> Void)? = nil) {
-        collectionEndpoint.observeSingleEventOfType(.Value, withBlock: { snapshot in
+        collectionEndpoint.observeEventType(.Value, withBlock: { snapshot in
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0)) {
                 self.isDataLoaded = true
                 if let data = snapshot.value as? [String: AnyObject] {
@@ -103,6 +105,7 @@ class PacksService: PackItemViewModel {
     }
     
     override func fetchData(completion: ((Bool) -> Void)? = nil) {
+        hasBeenUpdated = false
         fetchCollection { [weak self] done in
             if let packs = self?.mediaItems as? [PackMediaItem] {
                 self?.populateCurrentPack()
@@ -234,9 +237,12 @@ class PacksService: PackItemViewModel {
                 } else {
                     items.append(item)
                 }
-                self.updatePack(id)
+                if !self.hasBeenUpdated {
+                    self.updatePack(id)
+                }
             }
         }
+        self.hasBeenUpdated = true
         
         return items
     }
