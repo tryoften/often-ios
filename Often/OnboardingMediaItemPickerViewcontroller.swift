@@ -187,7 +187,8 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             guard let quote = item as? QuoteMediaItem else {
                 return cell
             }
-    
+
+            cell.searchOverlayView.hidden = true
             cell.leftHeaderLabel.text = quote.origin_name
             cell.mainTextLabel.text = quote.text
             cell.leftMetadataLabel.text = quote.owner_name
@@ -196,8 +197,8 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             cell.avatarImageURL =  quote.smallImageURL
             cell.mediaLink = quote
 
-            for items in viewModel.selectedMediaItems {
-                if items.id == cell.mediaLink?.id {
+            for item in viewModel.selectedMediaItems {
+                if item.id == quote.id {
                     cell.searchOverlayView.hidden = false
                 }
             }

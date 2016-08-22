@@ -159,7 +159,7 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
 
         if let data = UIImagePNGRepresentation(fixedImage) {
             return FIRStorage.storage()
-                            .referenceForURL("gs://firebase-often-dev.appspot.com/")
+                            .referenceForURL(GStorageURL)
                             .child("images/users/\(userId)/packPhoto-\(date).png")
                             .putData(data)
         }

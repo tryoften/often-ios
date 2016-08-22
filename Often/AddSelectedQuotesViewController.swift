@@ -38,7 +38,7 @@ class AddSelectedQuotesViewController: OnboardingMediaItemPickerViewController {
             progressBar.al_right == view.al_right,
             progressBar.al_bottom == view.al_bottom,
             progressBar.al_height == 5
-            ])
+        ])
     }
 
     required init?(coder aDecoder: NSCoder) {

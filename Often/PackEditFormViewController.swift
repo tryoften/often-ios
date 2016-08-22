@@ -112,7 +112,12 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
 
         editFormView.titleField.text = pack.name
         editFormView.descriptionField.text = pack.description
-        editFormView.packBackgroundColor.backgroundColor = pack.backgroundColor
+
+        if let backgroundColor = pack.backgroundColor {
+            editFormView.packBackgroundColor.backgroundColor = backgroundColor
+        } else {
+            editFormView.packBackgroundColor.backgroundColor = UIColor.blackColor()
+        }
 
         if let largeImageURL = pack.largeImageURL {
             editFormView.coverPhoto.nk_setImageWith(largeImageURL)
