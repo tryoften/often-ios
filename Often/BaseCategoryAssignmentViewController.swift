@@ -24,8 +24,9 @@ class BaseCategoryAssignmentViewController: UIViewController,
         
         navigationView = AddContentNavigationView()
         navigationView.translatesAutoresizingMaskIntoConstraints = false
-        navigationView.setRightButtonText("Next")
+        navigationView.setRightButtonText("Skip")
         navigationView.setLeftButtonText("Back")
+        navigationView.rightButton.enabled = true
         
         headerView = UILabel()
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -142,7 +143,8 @@ class BaseCategoryAssignmentViewController: UIViewController,
             return
         }
         
-        navigationView.rightButton.enabled = cell.selected
+        navigationView.setRightButtonText("Done")
+        
         viewModel.updateMediaItemCategory(indexPath.row)
     }
     

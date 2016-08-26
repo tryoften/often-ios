@@ -20,6 +20,7 @@ class GifCategoryAssignmentViewController: BaseCategoryAssignmentViewController 
         
         view.addSubview(gifView)
         navigationView.setTitleText("Add GIF")
+        navigationView.rightButton.enabled = true
         setupLayout()
     }
     

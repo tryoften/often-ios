@@ -20,6 +20,8 @@ class QuoteCategoryAssignmentViewController: BaseCategoryAssignmentViewControlle
         
         super.init(viewModel: viewModel)
         
+        navigationView.rightButton.enabled = true
+        
         view.backgroundColor = UIColor.oftLightPinkColor()
         
         view.addSubview(quoteView)

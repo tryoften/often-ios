@@ -15,7 +15,7 @@ class ImageCategoryAssigmentViewController: BaseCategoryAssignmentViewController
     var messageLabel: UILabel
     var imageUploaded: Bool {
         didSet {
-            navigationView.rightButton.enabled = imageUploaded && viewModel.selectedCategory != nil
+            navigationView.rightButton.enabled = imageUploaded
         }
     }
 
@@ -42,6 +42,8 @@ class ImageCategoryAssigmentViewController: BaseCategoryAssignmentViewController
         imageUploaded = false
 
         super.init(viewModel: viewModel)
+        
+        navigationView.rightButton.enabled = false
 
         maskView.addSubview(messageLabel)
         view.addSubview(imageView)
@@ -49,6 +51,7 @@ class ImageCategoryAssigmentViewController: BaseCategoryAssignmentViewController
         view.addSubview(progressView)
 
         navigationView.setTitleText("Add Image")
+        
         setupLayout()
     }
     
@@ -86,13 +89,8 @@ class ImageCategoryAssigmentViewController: BaseCategoryAssignmentViewController
         guard let cell = collectionView.cellForItemAtIndexPath(indexPath) as? CategoryCollectionViewCell  else {
             return
         }
-
-        if imageUploaded {
-            navigationView.rightButton.enabled = cell.selected
-        }
-
+        
         viewModel.updateMediaItemCategory(indexPath.row)
     }
-
 
 }

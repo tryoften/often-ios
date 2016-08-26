@@ -128,6 +128,7 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
                 }
 
                 vc.imageUploaded = true
+
                 self.imageDidSuccessfullyUpload(downloadURL, viewModel: viewModel, completion: { success in
                     vc.imageUploaded = vc.imageUploaded
                 })
@@ -275,7 +276,6 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
                 // make the image into an imagemediaitem and then take that to the category assign view controller
                 let image = ImageMediaItem(data: value)
                 viewModel.updateMediaItem(image)
-
                 self.imageProcessed = true
                 completion?(true)
             } else {
