@@ -61,6 +61,8 @@ class PackEditFormView: UIView {
         uploadPhotoButton.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.34)
         uploadPhotoButton.translatesAutoresizingMaskIntoConstraints = false
         uploadPhotoButton.uploadButtonTitle.hidden = true
+        uploadPhotoButton.layer.cornerRadius = 4.0
+        uploadPhotoButton.clipsToBounds = true
 
         titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false

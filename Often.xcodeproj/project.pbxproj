@@ -465,7 +465,6 @@
 		810EA4BC1C8579D1005A6C6D /* PKHUDContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1C1B38F6DA006430AB /* PKHUDContentView.swift */; };
 		810EA4C01C8579D1005A6C6D /* KeyboardInstallWalkthroughView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC29431C45768500F44DF7 /* KeyboardInstallWalkthroughView.swift */; };
 		810EA4C11C8579D1005A6C6D /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695FEE9F1B73DE1B0048E5B7 /* UserProfileViewController.swift */; };
-		810EA4C41C8579D1005A6C6D /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69428ADA1BEEA98C00282B8D /* KeyboardViewModel.swift */; };
 		810EA4C51C8579D1005A6C6D /* UserProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698B87221B75401E001B5B86 /* UserProfileHeaderView.swift */; };
 		810EA4C61C8579D1005A6C6D /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF161B38F6DA006430AB /* FrameView.swift */; };
 		810EA4CA1C8579D1005A6C6D /* SwiftAutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81331E1E1A1806BB003E4609 /* SwiftAutoLayout.swift */; };
@@ -2774,7 +2773,6 @@
 				8192A7C01C62390D00B25AC6 /* Run carthage strip */,
 				1C8BF2B823CEFE6CD44AC258 /* [CP] Embed Pods Frameworks */,
 				4FDC7DF8D9F3ABB108FC9A76 /* [CP] Copy Pods Resources */,
-				8597AC256F6D7DD363789234 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2796,9 +2794,6 @@
 				8180E62F1A142199007FA1CF /* Resources */,
 				813B27DF1C69A9F3003B6110 /* Upload symbols to crashlytics */,
 				8192A7C41C62404D00B25AC6 /* Run Script */,
-				01CA565F14C276A4330CD828 /* [CP] Embed Pods Frameworks */,
-				5796F76F2ECAA0ADCD720EAB /* [CP] Copy Pods Resources */,
-				3B30D225EB9C816BC20AF48B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3112,21 +3107,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01CA565F14C276A4330CD828 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0F64B58224CFD236AECFAB73 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3187,21 +3167,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		3B30D225EB9C816BC20AF48B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		460EFCF1C6DDDD09429BCAAC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3245,21 +3210,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5796F76F2ECAA0ADCD720EAB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard/Pods-Keyboard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		810EA5841C8579D1005A6C6D /* Upload symbols to crashlytics */ = {
@@ -3468,21 +3418,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Keyboard (Dev)/Pods-Keyboard (Dev)-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8597AC256F6D7DD363789234 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Often/Pods-Often-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		882E0B655434869AE3815974 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3596,7 +3531,6 @@
 				810EA4C01C8579D1005A6C6D /* KeyboardInstallWalkthroughView.swift in Sources */,
 				696DC8731D5D00B5004D3C0B /* UIAlertController+ActionSheet.swift in Sources */,
 				810EA4C11C8579D1005A6C6D /* UserProfileViewController.swift in Sources */,
-				810EA4C41C8579D1005A6C6D /* KeyboardViewModel.swift in Sources */,
 				810EA4C51C8579D1005A6C6D /* UserProfileHeaderView.swift in Sources */,
 				813A1B681CAC4561006BBB2E /* BrowsePackCollectionViewController.swift in Sources */,
 				810EA4C61C8579D1005A6C6D /* FrameView.swift in Sources */,
@@ -4429,8 +4363,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
@@ -4457,7 +4391,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "ad0b1f2f-6d75-458b-8511-61be69e00bef";
+				PROVISIONING_PROFILE = "80807022-2a47-4af1-9cfa-3ada11e5defd";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -4470,8 +4404,8 @@
 			buildSettings = {
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Keyboard/Keyboard.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Project Surf, Inc (VPYJKM228K)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4500,7 +4434,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -DKEYBOARD";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often.Keyboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "83ddb8af-6633-4bac-9e9e-f0a577456301";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Keyboard/Sources/Keyboard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -4512,7 +4446,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30435A9E52F81C0FF7C1CE08 /* Pods-Often (Dev).debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4552,7 +4486,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F00534A7759ED3A753F408B0 /* Pods-Often (Dev).crashlytics.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4592,7 +4526,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3A318FD24B2266D12FF76831 /* Pods-Often (Dev).release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -4843,7 +4777,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "ad0b1f2f-6d75-458b-8511-61be69e00bef";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4935,7 +4869,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CF30E2AA23D93240BD7F4BE1 /* Pods-Often (Dev).production.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Grayscale";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CODE_SIGN_ENTITLEMENTS = Often.entitlements;
@@ -5094,7 +5028,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "ad0b1f2f-6d75-458b-8511-61be69e00bef";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -5224,7 +5158,7 @@
 				OTHER_SWIFT_FLAGS = "\"-D\" \"COCOAPODS\" \"-D\" \"TARGET_IS_APP\"";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tryoften.often;
 				PRODUCT_NAME = Often;
-				PROVISIONING_PROFILE = "ad0b1f2f-6d75-458b-8511-61be69e00bef";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Often/Often-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

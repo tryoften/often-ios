@@ -112,25 +112,25 @@ class PackItemViewModel: BrowseViewModel {
             return
         }
 
-        pack.setValuesForOwnerKeys(data)
+        pack.setValuesForKeysWithDictionary(data)
         triggerPackUpdate(data)
     }
 
     func updatePackProfileImage(image: ImageMediaItem) {
-        guard let smallImage = image.smallImageURL?.absoluteString,
+        guard let pack = pack,
+            smallImage = image.mediumImageURL?.absoluteString,
             largeImage = image.largeImageURL?.absoluteString else {
                 return
         }
 
         let data = [
-            "large_url": largeImage,
-            "small_url": smallImage
+            "image": [
+                "large_url": largeImage,
+                "small_url": smallImage
+            ]
         ]
 
-        let ref = baseRef.child("packs/\(packId)/image")
-
-        ref.updateChildValues(data)
-        triggerPackUpdate(data)
+        saveChanges(data)
     }
 
     func triggerPackUpdate(data: NSDictionary) {

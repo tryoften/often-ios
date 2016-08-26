@@ -91,10 +91,15 @@ UICollectionViewDelegateFlowLayout {
         super.viewDidLoad()
         viewModel.fetchData()
     }
+
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavBar()
+    }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        setupNavBar()
+
         presentedFavoritesPack = false
         
         if let user = SessionManager.defaultManager.currentUser {
@@ -104,6 +109,8 @@ UICollectionViewDelegateFlowLayout {
                 promptUserToChooseUsername()
             }
         }
+
+        viewModel.fetchData()
         reloadUserData()
     }
 
@@ -204,7 +211,7 @@ UICollectionViewDelegateFlowLayout {
     func reloadUserData() {
         if let headerView = headerView, let user = viewModel.currentUser {
             headerView.isCurrentUser = viewModel.isCurrentUser
-            headerView.nameLabel.text = user.name
+            headerView.nameLabel.text = user.name.stringByReplacingOccurrencesOfString(" ", withString: "\n")
 
             if user.followersCount > 999 {
                 headerView.leftBoldLabel.text = Double(user.followersCount).suffixNumber
@@ -254,11 +261,11 @@ UICollectionViewDelegateFlowLayout {
     }
     
     func promptUserToChooseUsername() {
-        guard let _ = SessionManager.defaultManager.currentUser else {
+        guard let currentUser = SessionManager.defaultManager.currentUser else {
             return
         }
 
-        if !SessionManagerFlags.defaultManagerFlags.userHasUsername {
+        if currentUser.username.isEmpty {
             let alertVC = UsernameAlertViewController(viewModel: UsernameViewModel())
             alertVC.transitioningDelegate = self
             alertVC.modalPresentationStyle = .Custom

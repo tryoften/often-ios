@@ -13,11 +13,13 @@ import Foundation
     let KeyboardIdentifier = "com.tryoften.often.master.Keyboard"
     let ParseAppID = "TEnbb61NmEGK3kYz0IqP8CUSZhKSF6HU31QQBXe0"
     let ParseClientKey = "FLUXnTCOs6NfHDHgqZaUUUPnbzmmOYxMh8tf2nAh"
+    let GStorageURL = "gs://firebase-often-dev.appspot.com/"
 #else
     var BaseURL = "https://often-prod.firebaseio.com/"
     let KeyboardIdentifier = "com.tryoften.often.Keyboard"
     let ParseAppID = "zOkdtEf6pbq3wHN7aTWVGe6tH236I6n934Wsr59g"
     let ParseClientKey = "sojWTShuzJqnaXzusIihvyIiaCnksrlvuj9z7OKV"
+    let GStorageURL = "gs://often-prod-85027.appspot.com/"
 #endif
 var AppStoreLink = "itms-apps://itunes.apple.com/app/id955090584"
 let FabricAPIKey = "e869c8341ef7380d0df5ebd7131f8b82beb9ee82"

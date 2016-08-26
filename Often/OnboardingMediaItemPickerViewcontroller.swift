@@ -15,12 +15,11 @@ class OnboardingMediaItemPickerViewController: UIViewController,
     UITextFieldDelegate,
     MediaItemGroupViewModelDelegate {
     private var mediaItemsCollectionView: UICollectionView
-    private var HUDMaskView: UIView?
     private var hudTimer: NSTimer?
 
     var viewModel: OnboardingPackViewModel
     var onboardingHeader: OnboardingHeader
-    var progressBar: OnboardingProgressBar
+    var progressBar: OnboardingProgressBar?
 
     init(viewModel: OnboardingPackViewModel) {
         self.viewModel = viewModel
@@ -31,15 +30,14 @@ class OnboardingMediaItemPickerViewController: UIViewController,
         mediaItemsCollectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: self.dynamicType.provideLayout())
         mediaItemsCollectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        progressBar = OnboardingProgressBar(progressIndex: 4.0, endIndex: 8.0, frame: CGRectZero)
-        progressBar.translatesAutoresizingMaskIntoConstraints = false
-
         super.init(nibName: nil, bundle: nil)
 
         onboardingHeader.backgroundColor = UIColor(fromHexString: "#F9F9F9")
 
         viewModel.delegate = self
         viewModel.fetchData()
+
+        hudTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(OnboardingMediaItemPickerViewController.hideHUD), userInfo: nil, repeats: false)
 
         mediaItemsCollectionView.dataSource = self
         mediaItemsCollectionView.delegate = self
@@ -52,8 +50,7 @@ class OnboardingMediaItemPickerViewController: UIViewController,
 
         view.addSubview(onboardingHeader)
         view.addSubview(mediaItemsCollectionView)
-        view.addSubview(progressBar)
-
+        
         setupLayout()
     }
 
@@ -61,6 +58,11 @@ class OnboardingMediaItemPickerViewController: UIViewController,
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        showHUD()
+    }
 
     func nextButtonDidTap(sender: UIButton) {}
 
@@ -91,11 +93,6 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             mediaItemsCollectionView.al_left == view.al_left,
             mediaItemsCollectionView.al_right == view.al_right,
             mediaItemsCollectionView.al_bottom == view.al_bottom - 20,
-
-            progressBar.al_left == view.al_left,
-            progressBar.al_right == view.al_right,
-            progressBar.al_bottom == view.al_bottom,
-            progressBar.al_height == 5
             ])
     }
 
@@ -190,7 +187,8 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             guard let quote = item as? QuoteMediaItem else {
                 return cell
             }
-    
+
+            cell.searchOverlayView.hidden = true
             cell.leftHeaderLabel.text = quote.origin_name
             cell.mainTextLabel.text = quote.text
             cell.leftMetadataLabel.text = quote.owner_name
@@ -199,8 +197,8 @@ class OnboardingMediaItemPickerViewController: UIViewController,
             cell.avatarImageURL =  quote.smallImageURL
             cell.mediaLink = quote
 
-            for items in viewModel.selectedMediaItems {
-                if items.id == cell.mediaLink?.id {
+            for item in viewModel.selectedMediaItems {
+                if item.id == quote.id {
                     cell.searchOverlayView.hidden = false
                 }
             }
@@ -305,5 +303,6 @@ class OnboardingMediaItemPickerViewController: UIViewController,
     
     func mediaItemGroupViewModelDataDidLoad(viewModel: MediaItemGroupViewModel, groups: [MediaItemGroup]) {
         mediaItemsCollectionView.reloadData()
+        hideHUD()
     }
 }

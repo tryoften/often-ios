@@ -29,9 +29,6 @@ class SetUserProfilePictureViewController: UIViewController,
 
         do {
             try self.viewModel.setupUser { inner in
-                PKHUD.sharedHUD.contentView = HUDProgressView()
-                PKHUD.sharedHUD.show()
-
                 if let favoriteID = viewModel.currentUser?.favoritesPackId {
                     viewModel.packId = favoriteID
                     viewModel.fetchData()
@@ -100,7 +97,7 @@ class SetUserProfilePictureViewController: UIViewController,
     }
 
     func packProfileImageUploaderViewControllerDidSuccessfullyUpload(imageUploader: PackProfileImageUploaderViewController, image: ImageMediaItem) {
-        guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.smallImageURL  else {
+        guard let imageLargeURL = image.largeImageURL, imageSmallURL = image.mediumImageURL  else {
             return
         }
 

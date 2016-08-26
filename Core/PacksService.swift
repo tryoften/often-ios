@@ -15,6 +15,7 @@ class PacksService: PackItemViewModel {
     static let defaultInstance = PacksService()
     let didUpdatePacks = Event<[PackMediaItem]>()
     var mediaItems: [MediaItem]
+    var hasBeenUpdated: Bool
     
     internal var collectionEndpoint: FIRDatabaseReference!
     private var subscriptionsRef: FIRDatabaseReference!
@@ -40,7 +41,8 @@ class PacksService: PackItemViewModel {
 
     init(userId: String) {
         mediaItems = []
-
+        hasBeenUpdated = false
+        
         super.init(userId: userId, packId: "")
         collectionEndpoint = userRef.child("packs")
 
@@ -103,6 +105,7 @@ class PacksService: PackItemViewModel {
     }
     
     override func fetchData(completion: ((Bool) -> Void)? = nil) {
+        hasBeenUpdated = false
         fetchCollection { [weak self] done in
             if let packs = self?.mediaItems as? [PackMediaItem] {
                 self?.populateCurrentPack()
@@ -234,8 +237,12 @@ class PacksService: PackItemViewModel {
                 } else {
                     items.append(item)
                 }
+                if !self.hasBeenUpdated {
+                    self.updatePack(id)
+                }
             }
         }
+        self.hasBeenUpdated = true
         
         return items
     }
@@ -254,7 +261,7 @@ class PacksService: PackItemViewModel {
                 "operation": task
             ],
             "result": result.toDictionary()
-            ])
+        ])
         
         // Preemptively add item to collection before backend queue modifies
         // in case user worker is down
@@ -372,7 +379,7 @@ class PacksService: PackItemViewModel {
 
     override func updatePackProfileImage(image: ImageMediaItem) {
         guard let favPackID = currentUser?.favoritesPackId,
-            smallImage = image.smallImageURL?.absoluteString,
+            smallImage = image.mediumImageURL?.absoluteString,
             largeImage = image.largeImageURL?.absoluteString else {
             return
         }
@@ -402,6 +409,17 @@ class PacksService: PackItemViewModel {
             return base64String
         }
         return ""
+    }
+
+    private func updatePack(packId: String) {
+        let globalRef = baseRef.child("packs").child(packId)
+        let userCopyRef = userRef.child("packs").child(packId)
+
+        globalRef.observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            if let data = snapshot.value as? [String: AnyObject] {
+                userCopyRef.updateChildValues(data)
+            }
+        })
     }
     
 }

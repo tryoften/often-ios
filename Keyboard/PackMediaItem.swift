@@ -168,36 +168,6 @@ class PackMediaItem: MediaItem {
         return "Download"
     }
     
-    func setValuesForOwnerKeys(data: [String : AnyObject]) -> Owner {
-        var owner = Owner()
-        
-        if let id = data["id"] as? String {
-            owner.id = id
-        }
-        
-        if let image = data["image"] as? UIImage {
-            owner.image = image
-        }
-        
-        if let name = data["name"] as? String {
-            owner.name = name
-        }
-        
-        if let username = data["username"] as? String {
-            owner.username = username
-        }
-        
-        if let isAdmin = data["isAdmin"] as? Bool {
-            owner.isAdmin = isAdmin
-        }
-        
-        if let firstName = data["firstName"] as? String {
-            owner.firstName = firstName
-        }
-        
-        return owner
-    }
-    
     func getMediaItemGroups() -> [MediaItemGroup] {
         var gifs = [MediaItem]()
         var quotes = [MediaItem]()
@@ -221,21 +191,21 @@ class PackMediaItem: MediaItem {
             "title": "Gifs",
             "type": MediaType.Gif.rawValue
         ])
-        gifGroup.items = gifs
+        gifGroup.items = gifs.reverse()
         
         let quoteGroup = MediaItemGroup(dictionary: [
             "id": "quotes",
             "title": "Quotes",
             "type": MediaType.Quote.rawValue
         ])
-        quoteGroup.items = quotes
+        quoteGroup.items = quotes.reverse()
 
         let imageGroup = MediaItemGroup(dictionary: [
             "id": "images",
             "title": "Images",
             "type": MediaType.Image.rawValue
         ])
-        imageGroup.items = images
+        imageGroup.items = images.reverse()
 
         var groups = [MediaItemGroup]()
         
@@ -262,5 +232,35 @@ class PackMediaItem: MediaItem {
         }
 
         return dictionary
+    }
+
+    private func setValuesForOwnerKeys(data: [String : AnyObject]) -> Owner {
+        var owner = Owner()
+
+        if let id = data["id"] as? String {
+            owner.id = id
+        }
+
+        if let image = data["image"] as? UIImage {
+            owner.image = image
+        }
+
+        if let name = data["name"] as? String {
+            owner.name = name
+        }
+
+        if let username = data["username"] as? String {
+            owner.username = username
+        }
+
+        if let isAdmin = data["isAdmin"] as? Bool {
+            owner.isAdmin = isAdmin
+        }
+
+        if let firstName = data["firstName"] as? String {
+            owner.firstName = firstName
+        }
+
+        return owner
     }
 }

@@ -24,7 +24,7 @@ class GifMediaItem: MediaItem {
         owner_name = data["owner_name"] as? String
         description = data["description"] as? String
         tags = data["tags"] as? String
-        giphy_id = data["tags"] as? String
+        giphy_id = data["giphy_id"] as? String
         
         if let imageData = data["image"] as? NSDictionary, smallImage = imageData["small_url"] as? String {
             smallImageURL = NSURL(string: smallImage)
@@ -44,7 +44,7 @@ class GifMediaItem: MediaItem {
         super.init(data: giphyData)
 
         owner_name = data["username"] as? String
-        giphy_id = data["id"] as? String
+        giphy_id = data["giphy_id"] as? String
 
         if let images = giphyData["images"] as? NSDictionary, imageData = images["downsized"] as? NSDictionary, smallImage = imageData["url"] as? String {
             smallImageURL = NSURL(string: smallImage)

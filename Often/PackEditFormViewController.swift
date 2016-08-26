@@ -64,6 +64,7 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        reloadData()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -73,6 +74,12 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
             navigationBar.barStyle = .Black
             navigationBar.translucent = true
         }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+
+        updateColorPicker()
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -105,17 +112,26 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
 
         editFormView.titleField.text = pack.name
         editFormView.descriptionField.text = pack.description
-        editFormView.packBackgroundColor.backgroundColor = pack.backgroundColor
 
-        if let color = pack.backgroundColor {
-            colorPickerController.color = color
-            editFormView.colorPicker.color = color
-            editFormView.colorWell.color = color
-            editFormView.huePicker.setHueFromColor(color)
+        if let backgroundColor = pack.backgroundColor {
+            editFormView.packBackgroundColor.backgroundColor = backgroundColor
+        } else {
+            editFormView.packBackgroundColor.backgroundColor = UIColor.blackColor()
         }
 
         if let largeImageURL = pack.largeImageURL {
             editFormView.coverPhoto.nk_setImageWith(largeImageURL)
+        }
+
+        updateColorPicker()
+    }
+
+    func updateColorPicker() {
+        if let color = viewModel.pack?.backgroundColor {
+            colorPickerController.color = color
+            editFormView.colorPicker.color = color
+            editFormView.colorWell.color = color
+            editFormView.huePicker.setHueFromColor(color)
         }
     }
 
@@ -130,14 +146,21 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
     }
 
     func didTapSaveButton() {
-        guard let name = editFormView.titleField.text, description = editFormView.descriptionField.text else {
+        guard let name = editFormView.titleField.text,
+            description = editFormView.descriptionField.text,
+            backgroundColor = editFormView.packBackgroundColor.backgroundColor else {
             return
         }
 
         let data: [String: AnyObject] = [
             "name": name,
-            "description":description
+            "description": description,
+            "backgroundColor": backgroundColor.hexString
         ]
+
+        viewModel.pack?.name = name
+        viewModel.pack?.description = description
+        viewModel.pack?.backgroundColor = backgroundColor
 
         viewModel.saveChanges(data)
         dismissViewControllerAnimated(true, completion: nil)

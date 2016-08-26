@@ -50,7 +50,7 @@ class LoginViewController: UserCreationViewController {
     }
 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
+        return .Default
     }
 
     func didTapCreateAccountButton(sender: UIButton) {

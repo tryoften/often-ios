@@ -215,6 +215,7 @@ class MediaItemCollectionViewCell: BaseMediaItemCollectionViewCell {
         rightMetadataLabel.text = ""
         rightCornerImageView.image = nil
         showImageView = true
+        searchOverlayView.hidden = true
     }
 
     internal override func prepareForReuse() {

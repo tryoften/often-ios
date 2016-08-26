@@ -15,7 +15,7 @@ class OnboardingProgressBar: UIView {
     var progressIndex: CGFloat
     var totalIndex: CGFloat
     
-    init(progressIndex: CGFloat, endIndex: CGFloat, frame: CGRect) {
+    init(progressIndex: CGFloat, endIndex: CGFloat) {
         totalBar = UIView()
         totalBar.translatesAutoresizingMaskIntoConstraints = false
         totalBar.backgroundColor = UIColor.oftWhiteFiveColor()
@@ -27,7 +27,7 @@ class OnboardingProgressBar: UIView {
         self.progressIndex = progressIndex
         self.totalIndex = endIndex
         
-        super.init(frame: frame)
+        super.init(frame: CGRectZero)
         
         addSubview(totalBar)
         addSubview(progressBar)

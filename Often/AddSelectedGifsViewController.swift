@@ -14,9 +14,31 @@ class AddSelectedGifsViewController: OnboardingMediaItemPickerViewController {
         super.init(viewModel: viewModel)
         onboardingHeader.titleText = "Let’s add stuff to your keyboard"
         onboardingHeader.subtitleText = "Pick at least 3 GIFs to add! You can add any you missed from GIPHY later too"
-        progressBar = OnboardingProgressBar(progressIndex: 4.0, endIndex: 8.0, frame: CGRectZero)
+
+        progressBar = OnboardingProgressBar(progressIndex: 2.0, endIndex: 6.0)
+        progressBar?.translatesAutoresizingMaskIntoConstraints = false
+
+        if let progressBar = progressBar {
+            view.addSubview(progressBar)
+            setupLayout()
+        }
     }
-    
+
+    override func setupLayout() {
+        super.setupLayout()
+
+        guard let progressBar = progressBar else {
+            return
+        }
+
+        view.addConstraints([
+            progressBar.al_left == view.al_left,
+            progressBar.al_right == view.al_right,
+            progressBar.al_bottom == view.al_bottom,
+            progressBar.al_height == 5
+            ])
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
