@@ -129,7 +129,7 @@ class MainAppBrowsePackItemViewController: BaseBrowsePackItemViewController, Fil
             header.primaryButton.addTarget(self, action: #selector(MainAppBrowsePackItemViewController.shareTapped(_:)), forControlEvents: .TouchUpInside)
             
             let topRightButton = HeaderButton()
-            topRightButton.text = "Edit Pack"
+            topRightButton.text = "Edit"
             topRightButton.textLabel.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
             topRightButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 65, bottom: 2, right: -10)
             topRightButton.frame = CGRect(x: 0, y: 0, width: 90, height: 30)
