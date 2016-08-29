@@ -147,6 +147,8 @@ class PackItemViewModel: BrowseViewModel {
                 "attributes": data
             ]
         ])
+
+        delegate?.mediaItemGroupViewModelDataDidLoad(self, groups: mediaItemGroups)
     }
 
 }

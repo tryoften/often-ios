@@ -163,7 +163,10 @@ class PackEditFormViewController: UIViewController, UITextFieldDelegate,
         viewModel.pack?.backgroundColor = backgroundColor
 
         viewModel.saveChanges(data)
-        dismissViewControllerAnimated(true, completion: nil)
+        
+        dismissViewControllerAnimated(true, completion: {
+            self.viewModel.delegate?.mediaItemGroupViewModelDataDidLoad(self.viewModel, groups: self.viewModel.mediaItemGroups)
+        })
     }
 
     func packProfileImageUploaderViewControllerDidSuccessfullyUpload(imageUploader: PackProfileImageUploaderViewController, image: ImageMediaItem) {

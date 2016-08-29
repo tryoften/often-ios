@@ -122,15 +122,17 @@ class ImageUploaderViewController: UIViewController, UIImagePickerControllerDele
                     return
                 }
 
-                UIView.animateWithDuration(0.2) {
-                    vc.progressView.alpha = 0
-                    vc.maskView.alpha = 0
-                }
+                delay(2.0) {
+                    UIView.animateWithDuration(0.2) {
+                        vc.progressView.alpha = 0
+                        vc.maskView.alpha = 0
+                    }
 
-                vc.imageUploaded = true
-                self.imageDidSuccessfullyUpload(downloadURL, viewModel: viewModel, completion: { success in
-                    vc.imageUploaded = vc.imageUploaded
-                })
+                    vc.imageUploaded = true
+                    self.imageDidSuccessfullyUpload(downloadURL, viewModel: viewModel, completion: { success in
+                        vc.imageUploaded = vc.imageUploaded
+                    })
+                }
             }
 
             uploadTask.observeStatus(.Failure) { snapshot in

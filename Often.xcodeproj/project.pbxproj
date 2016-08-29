@@ -525,7 +525,6 @@
 		810EA5321C8579D1005A6C6D /* SessionManagerFlags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFAB2A21C0CC8CA003DE25A /* SessionManagerFlags.swift */; };
 		810EA5331C8579D1005A6C6D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810C40641A21125B00170DB4 /* Constants.swift */; };
 		810EA5361C8579D1005A6C6D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8192A7CD1C62410300B25AC6 /* Notification.swift */; };
-		810EA5381C8579D1005A6C6D /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		810EA5391C8579D1005A6C6D /* WindowRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D4BF1E1B38F6DA006430AB /* WindowRootViewController.swift */; };
 		810EA53A1C8579D1005A6C6D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BD904E1BD58834002F7D32 /* RootViewController.swift */; };
 		810EA53B1C8579D1005A6C6D /* suffixNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817F784B1BC085440087EBE8 /* suffixNumber.swift */; };
@@ -790,7 +789,6 @@
 		816D507B1C8A052D007B3249 /* MediaItemsCollectionBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6EA42F1BDAC98E0011E172 /* MediaItemsCollectionBaseViewController.swift */; };
 		816D50831C8A0557007B3249 /* UIColor+Often.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816D50251C862E86007B3249 /* UIColor+Often.swift */; };
 		816D50841C8A055C007B3249 /* AccountManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5F256A1BF4342E00AA7A98 /* AccountManagerProtocol.swift */; };
-		816D50871C8A057C007B3249 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9AD78A1B27DFF600727E79 /* Validation.swift */; };
 		816D50881C8A0583007B3249 /* EmailAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C31B98C882007EAB5A /* EmailAccountManager.swift */; };
 		816D50891C8A0583007B3249 /* TwitterAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971BD1B98ABF4007EAB5A /* TwitterAccountManager.swift */; };
 		816D508A1C8A0583007B3249 /* FacebookAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD971C01B98B5FB007EAB5A /* FacebookAccountManager.swift */; };
@@ -1356,7 +1354,6 @@
 		3B97896C1D4668BC001DD156 /* AddContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContentView.swift; sourceTree = "<group>"; };
 		3B97896F1D4694A8001DD156 /* AddContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContentViewController.swift; sourceTree = "<group>"; };
 		3B9991D41C7E4E9B00C60A99 /* AnimatedLoaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimatedLoaderView.swift; sourceTree = "<group>"; };
-		3B9AD78A1B27DFF600727E79 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		3BA0214F1C6A999600FE9009 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Analytics.swift; sourceTree = "<group>"; };
 		3BA7D8311CB6F4A200C7E5C7 /* UILabel+AttributeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+AttributeText.swift"; sourceTree = "<group>"; };
 		3BAAB1881B1A5D3700EA1925 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -2311,14 +2308,6 @@
 			path = ../Keyboard;
 			sourceTree = "<group>";
 		};
-		816EB96C1AE5EB7F000620E2 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				3B9AD78A1B27DFF600727E79 /* Validation.swift */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
 		816FE5A11A86E66900E42C17 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -2481,7 +2470,6 @@
 			children = (
 				813138881B13ADA3001AF9AC /* Often.entitlements */,
 				3B75E50C1C6E630B008D4CE3 /* Protocol */,
-				816EB96C1AE5EB7F000620E2 /* Utilities */,
 				3B75E50B1C6D4D45008D4CE3 /* Managers */,
 				81413DB31A91C0A400926E7C /* View Models */,
 				816FE5A21A86E67100E42C17 /* Views */,
@@ -3652,7 +3640,6 @@
 				BFAD7B2B1D493F830002670F /* BaseCategoryAssignmentViewController.swift in Sources */,
 				819099741D591E5500AC119D /* PackHeaderProfileButton.swift in Sources */,
 				BF18A4101CD7C9A2009732AE /* SlideTabBar.swift in Sources */,
-				810EA5381C8579D1005A6C6D /* Validation.swift in Sources */,
 				810EA5391C8579D1005A6C6D /* WindowRootViewController.swift in Sources */,
 				810EA53A1C8579D1005A6C6D /* RootViewController.swift in Sources */,
 				BFD8778D1CAAE9F200DCDA08 /* PackMediaItem.swift in Sources */,
@@ -3925,7 +3912,6 @@
 				3B62E0421D5E83AC0083D9E9 /* AddSelectedQuotesViewController.swift in Sources */,
 				816D505E1C8A04F4007B3249 /* NoKeyboardEmptyStateView.swift in Sources */,
 				69D7BC761D17A79700F06797 /* BrowseCategoryPanelViewController.swift in Sources */,
-				816D50871C8A057C007B3249 /* Validation.swift in Sources */,
 				816D50B11C8A0596007B3249 /* ContainerNavigationController.swift in Sources */,
 				81ABD2571CA0793C0026B59E /* FadeInTransitionAnimator.swift in Sources */,
 				3B50063A1CADABDB003D4144 /* MainAppBrowsePackItemViewController.swift in Sources */,
