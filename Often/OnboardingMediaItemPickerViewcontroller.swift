@@ -188,7 +188,7 @@ class OnboardingMediaItemPickerViewController: UIViewController,
                 return cell
             }
 
-            cell.searchOverlayView.hidden = true
+            cell.reset()
             cell.leftHeaderLabel.text = quote.origin_name
             cell.mainTextLabel.text = quote.text
             cell.leftMetadataLabel.text = quote.owner_name

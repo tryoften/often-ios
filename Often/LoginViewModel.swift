@@ -62,6 +62,7 @@ class LoginViewModel: NSObject, SessionManagerDelegate, ConnectivityObservable {
 
     func sessionManagerNoUserFound(sessionManager: SessionManager) {
         delegate?.loginViewModelNoUserFound(self)
+        isNewUser = false
     }
 }
 

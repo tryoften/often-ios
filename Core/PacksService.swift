@@ -219,6 +219,7 @@ class PacksService: PackItemViewModel {
         self.packId = packId
         SessionManagerFlags.defaultManagerFlags.lastPack = packId
         currentCategory = Category.all
+        updatePack(packId)
         fetchData()
     }
     
@@ -237,9 +238,11 @@ class PacksService: PackItemViewModel {
                 } else {
                     items.append(item)
                 }
+                #if !KEYBOARD
                 if !self.hasBeenUpdated {
                     self.updatePack(id)
                 }
+                #endif
             }
         }
         self.hasBeenUpdated = true
@@ -339,6 +342,7 @@ class PacksService: PackItemViewModel {
         let baseRef = FIRDatabase.database().reference()
         let encodedString = encodeString(username)
         let ref = baseRef.child("usernames/\(encodedString)")
+
         var exists: Bool = true
         
         ref.observeSingleEventOfType(.Value, withBlock: { snapshot in
